@@ -243,6 +243,14 @@ Speaks by itself, fails if the element has no value. this validator can apply to
        <option value="option3">Golf</option>
     </select>
 
+
+### groupRequired
+
+At least on of the field of the group must be filled. It needs to be given a group name that is unique across the form.
+
+    <input value="" class="validate[groupRequired[payments]]" type="text" name="creditcard" id="creditcard" />
+    <input class="validate[groupRequired[payments]]" type="text" id="paypal" name="paypal"/>
+
 ### custom[regex_name]
 
 Validates the element's value to a predefined list of regular expressions.

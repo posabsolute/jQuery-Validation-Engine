@@ -455,8 +455,14 @@
                         errorMsg = methods._customRegex(field, rules, i, options);
                         break;
 					case "groupRequired":
-						var classGroup = "." +rules[i + 1];	
-						field = field.closest("form").find(classGroup).eq(0);
+						// Check is its the first of group, of not, reload validationwith new field
+						var classGroup = "[class*=" +rules[i + 1] +"]";	
+						var firstOfGroup = field.closest("form").find(classGroup).eq(0);
+						if(firstOfGroup[0] != field[0]){
+							methods._validateField(firstOfGroup, options, skipAjaxValidation)
+							options.showArrow = true;
+							continue;
+						};
                         errorMsg = methods._groupRequired(field, rules, i, options);
 						if(errorMsg) required = true;
 						options.showArrow = false;
@@ -608,7 +614,7 @@
          * @return an error string if validation failed
          */
         _groupRequired: function(field, rules, i, options) {
-            var classGroup = "." +rules[i + 1];
+            var classGroup = "[class*=" +rules[i + 1] +"]";
 			var isValid = false;
 			field.closest("form").find(classGroup).each(function(){
 				if(!methods._required($(this), rules, i, options)){

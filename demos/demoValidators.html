@@ -199,12 +199,15 @@ note that the field is optional - it won't fail if it has no value
                 </legend>
                 <label>
                     Checks if at least one of the input is not empty.
-                    <br/>
+                    <br/>  <br/>
                     <span>Please enter a credit card</label>
-                    <input value="" class="validate[groupRequired[payments]] text-input payments" type="text" name="creditcard1" id="creditcard1" />
-					
+                    <input value="" class="validate[groupRequired[payments]] text-input" type="text" name="creditcard1" id="creditcard1" />
+					<label><strong>OR</strong></label><br/>
 					<label>Please enter a paypal acccount</label>
-					<input value="" class="validate[groupRequired[payments]] text-input payments" type="text" name="paypal" id="paypal" />
+					<input value="" class="validate[groupRequired[payments],custom[email]] text-input" type="text" name="paypal" id="paypal" />
+						<label><strong>OR</strong></label><br/>
+						<label>Please enter a bank account</label>
+						<input value="" class="validate[groupRequired[payments],custom[integer]] text-input" type="text" name="bank" id="bank" />
    
                 
             </fieldset>			
