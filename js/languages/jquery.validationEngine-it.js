@@ -19,6 +19,10 @@
                     "regex": "none",
                     "alertText": "* Numero di caselle da selezionare in eccesso"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "minCheckbox": {
                     "regex": "none",
                     "alertText": "* Per favore selezionare ",

@@ -20,6 +20,10 @@
                     "alertText": "* Bu alana en fazla ",
                     "alertText2": " karakter girebilirsiniz"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "min": {
                     "regex": "none",
                     "alertText": "* Geçerli en küçük değer: "

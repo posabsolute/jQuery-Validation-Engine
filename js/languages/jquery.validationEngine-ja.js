@@ -22,6 +22,10 @@
                     "alertText": "* ",
                     "alertText2": "文字以上にしてください"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "maxSize": {
                     "regex": "none",
                     "alertText": "* ",

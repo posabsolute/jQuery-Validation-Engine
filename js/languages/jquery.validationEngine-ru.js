@@ -20,6 +20,10 @@
                     "alertText": "* Максимум ",
                     "alertText2": " символа(ов)"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "min": {
                     "regex": "none",
                     "alertText": "* Минимальное значение "

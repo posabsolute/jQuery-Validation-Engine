@@ -20,6 +20,10 @@
                     "alertText": "* Maximalt ",
                     "alertText2": " antal tecken"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "min": {
                     "regex": "none",
                     "alertText": "* Minsta möjliga värde är "

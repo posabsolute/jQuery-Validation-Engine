@@ -20,6 +20,10 @@
                     "alertText": "* Maximum ",
                     "alertText2": " characters allowed"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "min": {
                     "regex": "none",
                     "alertText": "* Minimum value is "

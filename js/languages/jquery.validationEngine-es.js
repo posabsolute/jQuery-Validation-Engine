@@ -16,6 +16,10 @@
                     "alertText": "* Mínimo de ",
                     "alertText2": " caracteres autorizados"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "maxSize": {
                     "regex": "none",
                     "alertText": "* Máximo de ",

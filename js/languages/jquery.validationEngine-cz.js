@@ -20,6 +20,10 @@
                     "alertText": "* Maximálně ",
                     "alertText2": " znaky"
                 },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
+                },
                 "min": {
                     "regex": "none",
                     "alertText": "* Minimální hodnota je "

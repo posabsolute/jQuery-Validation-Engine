@@ -454,6 +454,13 @@
                     case "custom":
                         errorMsg = methods._customRegex(field, rules, i, options);
                         break;
+					case "groupRequired":
+						var classGroup = "." +rules[i + 1];	
+						field = field.closest("form").find(classGroup).eq(0);
+                        errorMsg = methods._groupRequired(field, rules, i, options);
+						if(errorMsg) required = true;
+						options.showArrow = false;
+                        break;
                     case "ajax":
                         // ajax has its own prompts handling technique
 						if(!skipAjaxValidation){
@@ -515,7 +522,8 @@
             // If the rules required is not added, an empty field is not validated
             if(!required){
             	if(field.val() == "") options.isError = false;
-            }
+            }			
+
             // Hack for radio/checkbox group button, the validation go into the
             // first radio/checkbox of the group
             var fieldType = field.attr("type");
@@ -588,6 +596,28 @@
                         return options.allrules[rules[i]].alertText;
                     break;
             }
+        },
+		/**
+         * Validate that 1 from the group field is required
+         *
+         * @param {jqObject} field
+         * @param {Array[String]} rules
+         * @param {int} i rules index
+         * @param {Map}
+         *            user options
+         * @return an error string if validation failed
+         */
+        _groupRequired: function(field, rules, i, options) {
+            var classGroup = "." +rules[i + 1];
+			var isValid = false;
+			field.closest("form").find(classGroup).each(function(){
+				if(!methods._required($(this), rules, i, options)){
+					isValid = true;
+					return false;
+				}
+			})
+			
+			if(!isValid) return options.allrules[rules[i]].alertText;
         },
         /**
          * Validate Regex rules
@@ -1222,7 +1252,7 @@
                         promptleftPosition += fieldWidth - 30;
                     else {
                         promptleftPosition += fieldWidth - 30;
-                        promptTopPosition += -promptHeight;
+                        promptTopPosition += -promptHeight -2;
                     }
                     break;
                 case "topLeft":

@@ -193,7 +193,21 @@ note that the field is optional - it won't fail if it has no value
                     validate[custom[date],future[NOW]]
                 </label>
             </fieldset>
-			
+            <fieldset>
+                <legend>
+                    Group required
+                </legend>
+                <label>
+                    Checks if at least one of the input is not empty.
+                    <br/>
+                    <span>Please enter a credit card</label>
+                    <input value="" class="validate[groupRequired[payments]] text-input payments" type="text" name="creditcard1" id="creditcard1" />
+					
+					<label>Please enter a paypal acccount</label>
+					<input value="" class="validate[groupRequired[payments]] text-input payments" type="text" name="paypal" id="paypal" />
+   
+                
+            </fieldset>			
 			<fieldset>
                 <legend>
                     Date Range<br />
