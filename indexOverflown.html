@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Jquery Inline Form Validation Engine</title>
+		<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+		<link rel="stylesheet" href="css/template.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+		<script src="js/jquery.validationEngine-en.js" type="text/javascript"></script>
+		<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+		
+		<!-- AJAX SUCCESS TEST FONCTION	
+			<script>function callSuccessFunction(){alert("success executed")}
+					function callFailFunction(){alert("fail executed")}
+			</script>
+		-->
+		
+		<script>	
+		$(document).ready(function() {
+			// SUCCESS AJAX CALL, replace "success: false," by:     success : function() { callSuccessFunction() }, 
+			
+			$("#formID").validationEngine({
+				containerOverflow:true,
+				containerOverflowDOM:"#divOverflown"
+			})
+			
+			
+			//$.validationEngine.loadValidation("#date")
+			//alert($("#formID").validationEngine({returnIsValid:true}))
+			//$.validationEngine.buildPrompt("#date","This is an example","error")	 		 // Exterior prompt build example								 // input prompt close example
+			//$.validationEngine.closePrompt(".formError",true) 							// CLOSE ALL OPEN PROMPTS
+		});
+		
+		// JUST AN EXAMPLE OF VALIDATIN CUSTOM FUNCTIONS : funcCall[validate2fields]
+		function validate2fields(){
+			if($("#firstname").val() =="" || $("#lastname").val() == ""){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	</script>	
+	</head>
+	<body>
+		<div id="divOverflown" style="overflow:scroll; padding-top:50px; margin-top:300px; position:relative; float:left; height: 300px; width:900px;">
+		<form id="formID" class="formular" method="post" action="">
+			<fieldset>
+				<legend>User informations</legend>
+				<label>
+					<span>Last name : </span>
+					<div class="inputContainer"><input value=""  class="validate[required,custom[onlyLetter],length[0,100]] text-input" type="text" id="lastname" name="lastname"  /></div>
+				</label>
+				<div>
+					<span>Radio Groupe : <br /></span>
+					<span>radio 1: </span><br clear="all" />
+					<div class="inputContainer"><input class="validate[required] radio" type="radio" name="data[User][preferedColor]"  id="radio1"  value="5"></div>
+					<br clear="all" /><span>radio 2: </span><br clear="all" />
+					<div class="inputContainer"><input class="validate[required] radio" type="radio" name="data[User][preferedColor]"  id="radio2"  value="3"/></div>
+					<br clear="all" /><span>radio 3: </span><br clear="all" />
+					<div class="inputContainer"><input class="validate[required] radio" type="radio" name="data[User][preferedColor]"  id="radio3"  value="9"/></div>
+				</div>
+				<div><br clear="all" />
+					<span>Minimum 2 checkbox : <br /></span>
+				<br clear="all" />
+					<div class="inputContainer"><input class="validate[minCheckbox[2]] checkbox" type="checkbox"  name="data[User3][preferedColor]" id="maxcheck1" value="5"></div>
+					
+					<div class="inputContainer"><input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="data[User3][preferedColor]" id="maxcheck2"  value="3"/></div>
+				
+					<div class="inputContainer"><input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="data[User3][preferedColor]" id="maxcheck3"  value="9"/></div>
+				</div><br clear="all" />
+				<label>
+					<span>Date : (format YYYY-MM-DD)</span>
+					<div class="inputContainer"><input value="1111-11-11"  class="validate[required,custom[date]] text-input" type="text" name="date"  id="date" /></div>
+				</label><br clear="all" />
+				<label>
+					<span>Favorite sport 1:</span><br clear="all" />
+				<div class="inputContainer"><select name="sport" id="sport"  class="validate[required]"  id="sport"  >
+					<option value="">Choose a sport</option>
+					<option value="option1">Tennis</option>
+					<option value="option2">Football</option>
+					<option value="option3">Golf</option>
+				</select></div>
+				</label>
+
+			</fieldset>
+			<fieldset>
+				<legend>Comments</legend>
+				<label>
+					<span>Comments : </span>
+					<div class="inputContainer"><textarea value="ced@hotmail.com" class="validate[required,length[6,300]] text-input" name="comments" id="comments" /> </textarea></div>
+				</label>
+
+			</fieldset>
+		
+<input class="submit" type="submit" value="Validate & Send the form!"/>
+<hr/>
+</form>
+		
+	</body>
+</html>

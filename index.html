@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Jquery Inline Form Validation Engine</title>
+		<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+		<link rel="stylesheet" href="css/template.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js" type="text/javascript"></script>
+		<script src="js/jquery.validationEngine-en.js" type="text/javascript"></script>
+		<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+		
+		<!-- AJAX SUCCESS TEST FONCTION	
+			<script>function callSuccessFunction(){alert("success executed")}
+					function callFailFunction(){alert("fail executed")}
+			</script>
+		-->
+		
+		<script>	
+		$(document).ready(function() {
+
+			
+			$("#formID").validationEngine()
+		
+			
+			//$.validationEngine.loadValidation("#date")
+			//alert($("#formID").validationEngine({returnIsValid:true}))
+			//$.validationEngine.buildPrompt("#date","This is an example","error")	 		 // Exterior prompt build example
+			//$.validationEngine.closePrompt(".formError",true) 							// CLOSE ALL OPEN PROMPTS
+		});
+		
+		// JUST AN EXAMPLE OF CUSTOM VALIDATI0N FUNCTIONS : funcCall[validate2fields]
+		function validate2fields(){
+			if($("#firstname").val() =="" ||  $("#lastname").val() == ""){
+				return false;
+			}else{
+				return true;
+			}
+		}
+	</script>	
+	</head>
+	<body>
+		<p><a href="#" onclick="alert($('#formID').validationEngine({returnIsValid:true}))">Return true or false without binding anything</a> | 
+		<a href="#" onclick="$.validationEngine.buildPrompt('#formID','This is an example','error')">Build a prompt on a div</a> | 
+		<a href="#" onclick="$.validationEngine.loadValidation('#date')">Load validation date</a> | 
+		<a href="#" onclick="$.validationEngine.closePrompt('.formError',true)">Close all prompt</a></p>
+		<form id="formID" class="formular" method="post" action="">
+			<fieldset>
+				<legend>User informations</legend>
+				<label>
+					<span>Desired username (ajax validation, only karnius is available) : </span>
+					<input value="" class="validate[required,custom[noSpecialCaracters],length[0,20],ajax[ajaxUser]]" type="text" name="user" id="user" />
+				</label>
+				<label>
+					<span>First name (optional)</span>
+					<input value="cedric"  class="validate[optional,funcCall[validate2fields],custom[onlyLetter],length[0,100]] text-input" type="text" name="firstname" id="firstname" />
+				</label>
+				<label>
+					<span>Last name : </span>
+					<input value=""  class="validate[required,custom[onlyLetter],funcCall[validate2fields],length[0,100]] text-input" type="text" id="lastname" name="lastname"  />
+				</label>
+				<div>
+					<span>Radio Groupe : <br /></span>
+					<span>radio 1: </span>
+					<input class="validate[required] radio" type="radio" name="data[User][preferedColor]"  id="radio1"  value="5">
+					<span>radio 2: </span>
+					<input class="validate[required] radio" type="radio" name="data[User][preferedColor]"  id="radio2"  value="3"/>
+					<span>radio 3: </span>
+					<input class="validate[required] radio" type="radio" name="data[User][preferedColor]"  id="radio3"  value="9"/>
+				</div>
+				<div>
+					<span>Minimum 2 checkbox : <br /></span>
+				
+					<input class="validate[minCheckbox[2]] checkbox" type="checkbox"  name="data[User3][preferedColor]" id="data[User3][preferedColor]" value="5">
+					
+					<input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="data[User3][preferedColor]" id="maxcheck2"  value="3"/>
+				
+					<input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="data[User3][preferedColor]" id="maxcheck3"  value="9"/>
+				</div>
+				<label>
+					<span>Date : (format YYYY-MM-DD)</span>
+					<input value="1111-11-11"  class="validate[required,custom[date]] text-input" type="text" name="date"  id="date" />
+				</label>
+				<label>
+					<span>Favorite sport 1:</span>
+				<select name="sport" id="sport"  class="validate[required]"  id="sport"  >
+					<option value="">Choose a sport</option>
+					<option value="option1">Tennis</option>
+					<option value="option2">Football</option>
+					<option value="option3">Golf</option>
+				</select>
+				</label>
+				<label>
+					<span>Favorite sport 2:</span>
+				<select name="sport2" id="sport2" multiple class="validate[required]"  id="sport2"  >
+					<option value="">Choose a sport</option>
+					<option value="option1">Tennis</option>
+					<option value="option2">Football</option>
+					<option value="option3">Golf</option>
+				</select>
+				</label>
+				<label>
+					<span>Age : </span>
+					<input value="22"  class="validate[required,custom[onlyNumber],length[0,3]] text-input" type="text" name="age"  id="age" />
+				</label>
+					
+				<label>
+					<span>Telephone : </span>
+					<input value="1111111111"  class="validate[required,custom[telephone]] text-input" type="text" name="telephone"  id="telephone" />
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Password</legend>
+				<label>
+					<span>Password : </span>
+					<input value="karnius"  class="validate[required,length[6,11]] text-input" type="password" name="password"  id="password" />
+				</label>
+				<label>
+					<span>Confirm password : </span>
+					<input value="karnius"  class="validate[required,confirm[password]] text-input" type="password" name="password2"  id="password2" />
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Email</legend>
+				<label>
+					<span>Email address : </span>
+					<input value="ced@hotmail.com"  class="validate[required,custom[email]] text-input" type="text" name="email" id="email"  />
+				</label>
+				<label>
+					<span>Confirm email address : </span>
+					<input value="ced@hotmail.com" class="validate[required,confirm[email]] text-input" type="text" name="email2"  id="email2" />
+				</label>
+			</fieldset>
+			<fieldset>
+				<legend>Comments</legend>
+				<label>
+					<span>Comments : </span>
+					<textarea value="ced@hotmail.com" class="validate[required,length[6,300]] text-input" name="comments" id="comments" /> </textarea>
+				</label>
+
+			</fieldset>
+			<fieldset>
+				<legend>Conditions</legend>
+				<div class="infos">Checking this box indicates that you accept terms of use. If you do not accept these terms, do not use this website : </div>
+				<label>
+					<span class="checkbox">I accept terms of use : </span>
+					<input class="validate[required] checkbox" type="checkbox"  id="agree"  name="agree"/>
+				</label>
+			</fieldset>
+<input class="submit" type="submit" value="Validate & Send the form!"/>
+<hr/>
+</form>
+		
+	</body>
+</html>
