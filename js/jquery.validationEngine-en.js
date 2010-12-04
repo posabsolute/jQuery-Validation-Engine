@@ -25,8 +25,8 @@
 						"regex":"none",
 						"alertText":"* Fields do not match"},		
 					"telephone":{
-						// credit: jquery.h5validate.js
-						"regex": /([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)?[0-9]{1,4}?)/,
+						// credit: jquery.h5validate.js / orefalo
+						"regex": /([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)[ ]?[0-9]{1,4})?/,
 						"alertText":"* Invalid phone number"},	
 					"email":{
 						// Shamelessly lifted from Scott Gonzalez via the Bassistance Validation plugin http://projects.scottsplayground.com/email_address_validation/
