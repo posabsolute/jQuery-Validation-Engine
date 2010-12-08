@@ -1,8 +1,8 @@
 /*
- * Inline Form Validation Engine 1.7, jQuery plugin
+ * Inline Form Validation Engine 1.7.2, jQuery plugin
  * 
  * Copyright(c) 2010, Cedric Dugas
- * http://www.position-relative.net
+ * http://www.position-absolute.com
  *	
  * Form validation engine allowing custom regex rules to be added.
  * Thanks to Francois Duquette and Teddy Limousin 
