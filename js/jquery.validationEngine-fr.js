@@ -26,7 +26,7 @@
 						"alertText":"* Votre champs n'est pas identique"},		
 					"telephone":{
 						// credit: jquery.h5validate.js / orefalo
-						"regex": /([\+][0-9]{1,3}([ \.\-])?)?([\(]{1}[0-9]{3}[\)])?([0-9A-Z \.\-]{1,32})((x|ext|extension)[ ]?[0-9]{1,4})?/,
+						"regex": /^([\+][0-9]{1,3}([ \.\-]))?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
 						"alertText":"* Numéro de téléphone invalide"},	
 					"email":{
 						// Shamelessly lifted from Scott Gonzalez via the Bassistance Validation plugin http://projects.scottsplayground.com/email_address_validation/
