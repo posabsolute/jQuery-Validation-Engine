@@ -20,10 +20,10 @@
 						"regex":"none",
 						"alertText":"* Por favor seleccione ",
 						"alertText2":" opciones"},	
-					"confirm":{
+					"equals":{
 						"regex":"none",
 						"alertText":"* Los campos con coinciden"},		
-					"telephone":{
+					"phone":{
 						// credit: jquery.h5validate.js / orefalo
 						"regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
 						"alertText":"* Número de teléfono invalido"},	
@@ -43,7 +43,7 @@
                          "regex":/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/,
                          "alertText":"* Fecha invalida, por favor utilize el formato AAAA-MM-DD"},
                          
-                    "ip":{
+                    "ipv4":{
                     	"regex": /^([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+$/,
                     	"alertText":"* Direccion IP invalida"},      
                     "url":{

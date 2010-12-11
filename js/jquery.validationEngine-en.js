@@ -1,5 +1,4 @@
 
-
 (function($) {
 	$.fn.validationEngineLanguage = function() {};
 	$.validationEngineLanguage = {
@@ -21,10 +20,10 @@
 						"regex":"none",
 						"alertText":"* Please select ",
 						"alertText2":" options"},	
-					"confirm":{
+					"equals":{
 						"regex":"none",
 						"alertText":"* Fields do not match"},		
-					"telephone":{
+					"phone":{
 						// credit: jquery.h5validate.js / orefalo
 						"regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
 						"alertText":"* Invalid phone number"},	
@@ -44,7 +43,7 @@
                          "regex":/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/,
                          "alertText":"* Invalid date, must be in YYYY-MM-DD format"},
                          
-                    "ip":{
+                    "ipv4":{
                     	"regex": /^([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+$/,
                     	"alertText":"* Invalid IP address"},      
                     "url":{

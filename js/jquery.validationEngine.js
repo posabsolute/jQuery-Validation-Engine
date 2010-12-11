@@ -45,11 +45,11 @@
 			if(settings.liveEvent){						// LIVE event, vast performance improvement over BIND
 				$(this).find("[class*=validate]").live(settings.validationEventTriggers, function(caller){ 
 					if($(caller).attr("type") != "checkbox") _inlinEvent(this);
-				})
-				$(this).find("[class*=validate][type=checkbox]").live("click", function(caller){ _inlinEvent(this); })
+				});
+				$(this).find("[class*=validate][type=checkbox]").live("click", function(caller){ _inlinEvent(this); });
 			}else{
-				$(this).find("[class*=validate]").not("[type=checkbox]").bind(settings.validationEventTriggers, function(caller){ _inlinEvent(this); })
-				$(this).find("[class*=validate][type=checkbox]").bind("click", function(caller){ _inlinEvent(this); })
+				$(this).find("[class*=validate]").not("[type=checkbox]").bind(settings.validationEventTriggers, function(caller){ _inlinEvent(this); });
+				$(this).find("[class*=validate][type=checkbox]").bind("click", function(caller){ _inlinEvent(this); });
 			}
 			firstvalid = false;
 		}
@@ -79,10 +79,10 @@
 			settings.failure && settings.failure(); 
 			return false;
 		}		
-	})
+	});
 	$(".formError").live("click",function(){	 // REMOVE BOX ON CLICK
-		$(this).fadeOut(150,function(){		$(this).remove()	}) 
-	})
+		$(this).fadeOut(150,function(){ $(this).remove(); });
+	});
 };	
 $.validationEngine = {
 	defaultSetting : function(caller) {		// NOT GENERALLY USED, NEEDED FOR THE API, DO NOT TOUCH
@@ -104,11 +104,11 @@ $.validationEngine = {
 			promptPosition: "topRight",	// OPENNING BOX POSITION, IMPLEMENTED: topLeft, topRight, bottomLeft, centerRight, bottomRight
 			success : false,
 			failure : function() {}
-		}	
+		};	
 		$.validationEngine.settings = settings;
 	},
 	loadValidation : function(caller) {		// GET VALIDATIONS TO BE EXECUTED
-		if(!$.validationEngine.settings) $.validationEngine.defaultSetting()
+		if(!$.validationEngine.settings) $.validationEngine.defaultSetting();
 		rulesParsing = $(caller).attr('class');
 		rulesRegExp = /\[(.*)\]/;
 		getRules = rulesRegExp.exec(rulesParsing);
@@ -116,15 +116,16 @@ $.validationEngine = {
 		str = getRules[1];
 		pattern = /\[|,|\]/;
 		result= str.split(pattern);	
-		var validateCalll = $.validationEngine.validateCall(caller,result)
+		var validateCalll = $.validationEngine.validateCall(caller,result);
 		return validateCalll;
 	},
 	validateCall : function(caller,rules) {	// EXECUTE VALIDATION REQUIRED BY THE USER FOR THIS FIELD
-		var promptText =""	
+		var promptText ="";	
 		
-		if(!$(caller).attr("id")) $.validationEngine.debug("This field have no ID attribut( name & class displayed): "+$(caller).attr("name")+" "+$(caller).attr("class"))
+		if(!$(caller).attr("id")) $.validationEngine.debug("This field have no ID attribut( name & class displayed): "+$(caller).attr("name")+" "+$(caller).attr("class"));
 
-		caller = caller;
+		// what the hell!
+		//caller = caller;
 		ajaxValidate = false;
 		var callerName = $(caller).attr("name");
 		$.validationEngine.isError = false;
@@ -164,8 +165,8 @@ $.validationEngine = {
 				groupname = $(caller).attr("name");
 			 	caller = $("input[name='"+groupname+"']");
 			break;
-			case "confirm": 
-				 _confirm(caller,rules,i);
+			case "equals": 
+				 _equals(caller,rules,i);
 			break;
 			case "funcCall": 
 		     	_funcCall(caller,rules,i);
@@ -178,7 +179,7 @@ $.validationEngine = {
 			var linkTofieldText = "." +$.validationEngine.linkTofield(caller);
 			if(linkTofieldText != "."){
 				if(!$(linkTofieldText)[0]){
-					$.validationEngine.buildPrompt(caller,promptText,"error")
+					$.validationEngine.buildPrompt(caller,promptText,"error");
 				}else{	
 					$.validationEngine.updatePromptText(caller,promptText);
 				}	
@@ -294,7 +295,7 @@ $.validationEngine = {
 	 			 			}
 			   			}
 			  	 	},
-			  	 	error: function(data,transport){ $.validationEngine.debug("error in the ajax: "+data.status+" "+transport) },
+			  	 	error: function(data,transport){ $.validationEngine.debug("error in the ajax: "+data.status+" "+transport); },
 					success: function(data){					// GET SUCCESS DATA RETURN JSON
 						data = eval( "("+data+")");				// GET JSON DATA FROM PHP AND PARSE IT
 						ajaxisError = data.jsonValidateReturn[2];
@@ -306,7 +307,7 @@ $.validationEngine = {
 						
 			 			 if(ajaxisError == "false"){			// DATA FALSE UPDATE PROMPT WITH ERROR;
 			 			 	
-			 			 	_checkInArray(false)				// Check if ajax validation alreay used on this field
+			 			 	_checkInArray(false);				// Check if ajax validation alreay used on this field
 			 			 	
 			 			 	if(!existInarray){		 			// Add ajax error to stop submit		 		
 				 			 	$.validationEngine.ajaxValidArray[ajaxErrorLength] =  new Array(2);
@@ -321,7 +322,7 @@ $.validationEngine = {
 						 }else{	 
 						 	_checkInArray(true);
 						 	$.validationEngine.ajaxValid = true; 			
-						 	if(!customAjaxRule)	{$.validationEngine.debug("wrong ajax response, are you on a server or in xampp? if not delete de ajax[ajaxUser] validating rule from your form ")}		   
+						 	if(!customAjaxRule)	{$.validationEngine.debug("wrong ajax response, are you on a server or in xampp? if not delete de ajax[ajaxUser] validating rule from your form ");}		   
 						 	if($.validationEngine.settings.allrules[customAjaxRule].alertTextOk){	// NO OK TEXT MEAN CLOSE PROMPT	 			
 	 			 				 				$.validationEngine.updatePromptText(ajaxCaller,$.validationEngine.settings.allrules[customAjaxRule].alertTextOk,"pass",true);
  			 				}else{
@@ -342,23 +343,23 @@ $.validationEngine = {
 				});
 			}
 		}
-		function _confirm(caller,rules,position){		 // VALIDATE FIELD MATCH
-			confirmField = rules[position+1];
+		function _equals(caller,rules,position){		 // VALIDATE FIELD MATCH
+			var equalsField = rules[position+1];
 			
-			if($(caller).attr('value') != $("#"+confirmField).attr('value')){
+			if($(caller).attr('value') != $("#"+equalsField).attr('value')){
 				$.validationEngine.isError = true;
-				promptText += $.validationEngine.settings.allrules["confirm"].alertText+"<br />";
+				promptText += $.validationEngine.settings.allrules["equals"].alertText+"<br />";
 			}
 		}
 		function _length(caller,rules,position){    	  // VALIDATE LENGTH
 		
-			startLength = eval(rules[position+1]);
-			endLength = eval(rules[position+2]);
-			feildLength = $(caller).attr('value').length;
+			var startLength = eval(rules[position+1]);
+			var endLength = eval(rules[position+2]);
+			var feildLength = $(caller).attr('value').length;
 
 			if(feildLength<startLength || feildLength>endLength){
 				$.validationEngine.isError = true;
-				promptText += $.validationEngine.settings.allrules["length"].alertText+startLength+$.validationEngine.settings.allrules["length"].alertText2+endLength+$.validationEngine.settings.allrules["length"].alertText3+"<br />"
+				promptText += $.validationEngine.settings.allrules["length"].alertText+startLength+$.validationEngine.settings.allrules["length"].alertText2+endLength+$.validationEngine.settings.allrules["length"].alertText3+"<br />";
 			}
 		}
 		function _maxCheckbox(caller,rules,position){  	  // VALIDATE CHECKBOX NUMBER
@@ -398,10 +399,10 @@ $.validationEngine = {
 			   	url: $.validationEngine.settings.ajaxSubmitFile,
 			   	async: true,
 			   	data: $(caller).serialize()+"&"+extraData,
-			   	error: function(data,transport){ $.validationEngine.debug("error in the ajax: "+data.status+" "+transport) },
+			   	error: function(data,transport){ $.validationEngine.debug("error in the ajax: "+data.status+" "+transport); },
 			   	success: function(data){
 			   		if(data == "true"){			// EVERYTING IS FINE, SHOW SUCCESS MESSAGE
-			   			$(caller).css("opacity",1)
+			   			$(caller).css("opacity",1);
 			   			$(caller).animate({opacity: 0, height: 0}, function(){
 			   				$(caller).css("display","none");
 			   				$(caller).before("<div class='ajaxSubmit'>"+$.validationEngine.settings.ajaxSubmitMessage+"</div>");
@@ -411,13 +412,13 @@ $.validationEngine = {
 								$.validationEngine.settings.success && $.validationEngine.settings.success(); 
 								return false;
 							}
-			   			})
+			   			});
 		   			}else{						// HOUSTON WE GOT A PROBLEM (SOMETING IS NOT VALIDATING)
 			   			data = eval( "("+data+")");	
 			   			if(!data.jsonValidateReturn){
 			   				 $.validationEngine.debug("you are not going into the success fonction and jsonValidateReturn return nothing");
 			   			}
-			   			errorNumber = data.jsonValidateReturn.length	
+			   			errorNumber = data.jsonValidateReturn.length;	
 			   			for(index=0; index<errorNumber; index++){	
 			   				fieldId = data.jsonValidateReturn[index][0];
 			   				promptError = data.jsonValidateReturn[index][1];
@@ -426,13 +427,13 @@ $.validationEngine = {
 		   				}
 	   				}
    				}
-			})	
+			});	
 			return true;
 		}
 		// LOOK FOR BEFORE SUCCESS METHOD		
 			if(!$.validationEngine.settings.beforeSuccess()){
 				if ($.validationEngine.settings.success){	// AJAX SUCCESS, STOP THE LOCATION UPDATE
-					if($.validationEngine.settings.unbindEngine){ $(caller).unbind("submit") }
+					if($.validationEngine.settings.unbindEngine){ $(caller).unbind("submit"); }
 					$.validationEngine.settings.success && $.validationEngine.settings.success(); 
 					return true;
 				}
@@ -443,9 +444,9 @@ $.validationEngine = {
 	},
 	buildPrompt : function(caller,promptText,type,ajaxed) {			// ERROR PROMPT CREATION AND DISPLAY WHEN AN ERROR OCCUR
 		if(!$.validationEngine.settings){
-			$.validationEngine.defaultSetting()
+			$.validationEngine.defaultSetting();
 		}
-		deleteItself = "." + $(caller).attr("id") + "formError"
+		deleteItself = "." + $(caller).attr("id") + "formError";
 	
 		if($(deleteItself)[0]){
 			$(deleteItself).stop();
@@ -453,12 +454,12 @@ $.validationEngine = {
 		}
 		var divFormError = document.createElement('div');
 		var formErrorContent = document.createElement('div');
-		linkTofield = $.validationEngine.linkTofield(caller)
-		$(divFormError).addClass("formError")
+		linkTofield = $.validationEngine.linkTofield(caller);
+		$(divFormError).addClass("formError");
 		
-		if(type == "pass") $(divFormError).addClass("greenPopup")
-		if(type == "load") $(divFormError).addClass("blackPopup")
-		if(ajaxed) $(divFormError).addClass("ajaxed")
+		if(type == "pass") $(divFormError).addClass("greenPopup");
+		if(type == "load") $(divFormError).addClass("blackPopup");
+		if(ajaxed) $(divFormError).addClass("ajaxed");
 		
 		$(divFormError).addClass(linkTofield);
 		$(formErrorContent).addClass("formErrorContent");
@@ -476,7 +477,7 @@ $.validationEngine = {
 			$(arrow).addClass("formErrorArrow");
 			$(divFormError).append(arrow);
 			if($.validationEngine.settings.promptPosition == "bottomLeft" || $.validationEngine.settings.promptPosition == "bottomRight"){
-			$(arrow).addClass("formErrorArrowBottom")
+			$(arrow).addClass("formErrorArrowBottom");
 			$(arrow).html('<div class="line1"><!-- --></div><div class="line2"><!-- --></div><div class="line3"><!-- --></div><div class="line4"><!-- --></div><div class="line5"><!-- --></div><div class="line6"><!-- --></div><div class="line7"><!-- --></div><div class="line8"><!-- --></div><div class="line9"><!-- --></div><div class="line10"><!-- --></div>');
 		}
 			if($.validationEngine.settings.promptPosition == "topLeft" || $.validationEngine.settings.promptPosition == "topRight"){
@@ -484,19 +485,19 @@ $.validationEngine = {
 				$(arrow).html('<div class="line10"><!-- --></div><div class="line9"><!-- --></div><div class="line8"><!-- --></div><div class="line7"><!-- --></div><div class="line6"><!-- --></div><div class="line5"><!-- --></div><div class="line4"><!-- --></div><div class="line3"><!-- --></div><div class="line2"><!-- --></div><div class="line1"><!-- --></div>');
 			}
 		}
-		$(formErrorContent).html(promptText)
+		$(formErrorContent).html(promptText);
 		
-		var calculatedPosition = $.validationEngine.calculatePosition(caller,promptText,type,ajaxed,divFormError)
+		var calculatedPosition = $.validationEngine.calculatePosition(caller,promptText,type,ajaxed,divFormError);
 		
 		calculatedPosition.callerTopPosition +="px";
 		calculatedPosition.callerleftPosition +="px";
-		calculatedPosition.marginTopSize +="px"
+		calculatedPosition.marginTopSize +="px";
 		$(divFormError).css({
 			"top":calculatedPosition.callerTopPosition,
 			"left":calculatedPosition.callerleftPosition,
 			"marginTop":calculatedPosition.marginTopSize,
 			"opacity":0
-		})
+		});
 		return $(divFormError).animate({"opacity":0.87},function(){return true;});	
 	},
 	updatePromptText : function(caller,promptText,type,ajaxed) {	// UPDATE TEXT ERROR IF AN ERROR IS ALREADY DISPLAYED
@@ -504,17 +505,17 @@ $.validationEngine = {
 		linkTofield = $.validationEngine.linkTofield(caller);
 		var updateThisPrompt =  "."+linkTofield;
 		
-		if(type == "pass") { $(updateThisPrompt).addClass("greenPopup") }else{ $(updateThisPrompt).removeClass("greenPopup")};
-		if(type == "load") { $(updateThisPrompt).addClass("blackPopup") }else{ $(updateThisPrompt).removeClass("blackPopup")};
-		if(ajaxed) { $(updateThisPrompt).addClass("ajaxed") }else{ $(updateThisPrompt).removeClass("ajaxed")};
+		if(type == "pass") { $(updateThisPrompt).addClass("greenPopup"); }else{ $(updateThisPrompt).removeClass("greenPopup");};
+		if(type == "load") { $(updateThisPrompt).addClass("blackPopup"); }else{ $(updateThisPrompt).removeClass("blackPopup");};
+		if(ajaxed) { $(updateThisPrompt).addClass("ajaxed"); }else{ $(updateThisPrompt).removeClass("ajaxed");};
 	
 		$(updateThisPrompt).find(".formErrorContent").html(promptText);
 		
-		var calculatedPosition = $.validationEngine.calculatePosition(caller,promptText,type,ajaxed,updateThisPrompt)
+		var calculatedPosition = $.validationEngine.calculatePosition(caller,promptText,type,ajaxed,updateThisPrompt);
 		
 		calculatedPosition.callerTopPosition +="px";
 		calculatedPosition.callerleftPosition +="px";
-		calculatedPosition.marginTopSize +="px"
+		calculatedPosition.marginTopSize +="px";
 		$(updateThisPrompt).animate({ "top":calculatedPosition.callerTopPosition,"marginTop":calculatedPosition.marginTopSize });
 	},
 	calculatePosition : function(caller,promptText,type,ajaxed,divFormError){
@@ -559,7 +560,7 @@ $.validationEngine = {
 			"callerTopPosition":callerTopPosition,
 			"callerleftPosition":callerleftPosition,
 			"marginTopSize":marginTopSize
-		}
+		};
 	},
 	linkTofield : function(caller){
 		var linkTofield = $(caller).attr("id") + "formError";
@@ -569,7 +570,7 @@ $.validationEngine = {
 	},
 	closePrompt : function(caller,outside) {						// CLOSE PROMPT WHEN ERROR CORRECTED
 		if(!$.validationEngine.settings){
-			$.validationEngine.defaultSetting()
+			$.validationEngine.defaultSetting();
 		}
 		if(outside){
 			$(caller).fadeTo("fast",0,function(){
@@ -577,7 +578,7 @@ $.validationEngine = {
 			});
 			return false;
 		}
-		if(typeof(ajaxValidate)=='undefined'){ajaxValidate = false}
+		if(typeof(ajaxValidate)=='undefined'){ajaxValidate = false;}
 		if(!ajaxValidate){
 			linkTofield = $.validationEngine.linkTofield(caller);
 			closingPrompt = "."+linkTofield;
@@ -617,14 +618,14 @@ $.validationEngine = {
 					$(".formError:not('.greenPopup')").each(function(){
 						testDestination = $(this).offset().top;
 						if(destination>testDestination) destination = $(this).offset().top;
-					})
+					});
 					$("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, 1100);
 				}else{
 					var destination = $(".formError:not('.greenPopup'):first").offset().top;
 					var scrollContainerScroll = $($.validationEngine.settings.containerOverflowDOM).scrollTop();
 					var scrollContainerPos = - parseInt($($.validationEngine.settings.containerOverflowDOM).offset().top);
-					var destination = scrollContainerScroll + destination + scrollContainerPos -5
-					var scrollContainer = $.validationEngine.settings.containerOverflowDOM+":not(:animated)"
+					var destination = scrollContainerScroll + destination + scrollContainerPos -5;
+					var scrollContainer = $.validationEngine.settings.containerOverflowDOM+":not(:animated)";
 					
 					$(scrollContainer).animate({ scrollTop: destination}, 1100);
 				}
@@ -634,5 +635,5 @@ $.validationEngine = {
 			return false;
 		}
 	}
-}
+};
 })(jQuery);

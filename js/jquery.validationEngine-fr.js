@@ -21,10 +21,10 @@
 						"regex":"none",
 						"alertText":"* Veuillez choisir ",
 						"alertText2":" options"},		
-					"confirm":{
+					"equals":{
 						"regex":"none",
 						"alertText":"* Votre champs n'est pas identique"},		
-					"telephone":{
+					"phone":{
 						// credit: jquery.h5validate.js / orefalo
 						"regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
 						"alertText":"* Numéro de téléphone invalide"},	
@@ -43,7 +43,7 @@
 						// Date in ISO format. Credit: bassistance
                          "regex":/^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/,
                          "alertText":"* Date invalide, format YYYY-MM-DD requis"},
-                    "ip":{
+                    "ipv4":{
                     	"regex": /([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+/,
                     	"alertText":"* Adresse IP invalide IP"},  
                     "url":{
