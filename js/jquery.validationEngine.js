@@ -138,7 +138,7 @@ $.validationEngine = {
 		$.validationEngine.showTriangle = true;
 		callerType = $(caller).attr("type");
 
-		for (i=0; i<rules.length;i++){
+		for (var i=0; i<rules.length;i++){
 			switch (rules[i]){
 			case "optional": 
 				if(!$(caller).val()){
@@ -337,11 +337,10 @@ $.validationEngine = {
  			 				}		
 			 			 }
 			 			function  _checkInArray(validate){
-			 				for(x=0;x<ajaxErrorLength;x++){
+			 				for(var x=0;x<ajaxErrorLength;x++){
 			 			 		if($.validationEngine.ajaxValidArray[x][0] == fieldId){
 			 			 			$.validationEngine.ajaxValidArray[x][1] = validate;
 			 			 			existInarray = true;
-			 			 		
 			 			 		}
 			 			 	}
 			 			}
@@ -424,7 +423,7 @@ $.validationEngine = {
 			   				 $.validationEngine.debug("you are not going into the success fonction and jsonValidateReturn return nothing");
 			   			}
 			   			errorNumber = data.jsonValidateReturn.length;	
-			   			for(index=0; index<errorNumber; index++){	
+			   			for(var index=0; index<errorNumber; index++){	
 			   				var fieldId = data.jsonValidateReturn[index][0];
 			   				var promptError = data.jsonValidateReturn[index][1];
 			   				var type = data.jsonValidateReturn[index][2];
@@ -452,7 +451,7 @@ $.validationEngine = {
 		if(!$.validationEngine.settings) {
 			$.validationEngine.defaultSetting();
 		}
-		deleteItself = "." + $(caller).attr("id") + "formError";
+		var deleteItself = "." + $(caller).attr("id") + "formError";
 	
 		if($(deleteItself)[0]) {
 			$(deleteItself).stop();
@@ -460,12 +459,15 @@ $.validationEngine = {
 		}
 		var divFormError = document.createElement('div');
 		var formErrorContent = document.createElement('div');
-		linkTofield = $.validationEngine.linkTofield(caller);
+		var linkTofield = $.validationEngine.linkTofield(caller);
 		$(divFormError).addClass("formError");
 		
-		if(type == "pass") $(divFormError).addClass("greenPopup");
-		if(type == "load") $(divFormError).addClass("blackPopup");
-		if(ajaxed) $(divFormError).addClass("ajaxed");
+		if(type == "pass")
+			$(divFormError).addClass("greenPopup");
+		if(type == "load")
+			$(divFormError).addClass("blackPopup");
+		if(ajaxed)
+			$(divFormError).addClass("ajaxed");
 		
 		$(divFormError).addClass(linkTofield);
 		$(formErrorContent).addClass("formErrorContent");
@@ -493,7 +495,6 @@ $.validationEngine = {
 		$(formErrorContent).html(promptText);
 		
 		var calculatedPosition = $.validationEngine.calculatePosition(caller,promptText,type,ajaxed,divFormError);
-		
 		calculatedPosition.callerTopPosition +="px";
 		calculatedPosition.callerleftPosition +="px";
 		calculatedPosition.marginTopSize +="px";
@@ -503,11 +504,13 @@ $.validationEngine = {
 			"marginTop":calculatedPosition.marginTopSize,
 			"opacity":0
 		});
-		return $(divFormError).animate({"opacity":0.87},function(){return true;});	
+		//orefalo - what the hell
+		//return $(divFormError).animate({"opacity":0.87},function(){return true;});
+		return $(divFormError).animate({"opacity":0.87});	
 	},
 	updatePromptText : function(caller,promptText,type,ajaxed) {	// UPDATE TEXT ERROR IF AN ERROR IS ALREADY DISPLAYED
 		
-		linkTofield = $.validationEngine.linkTofield(caller);
+		var linkTofield = $.validationEngine.linkTofield(caller);
 		var updateThisPrompt =  "."+linkTofield;
 		
 		if(type == "pass")
@@ -528,7 +531,6 @@ $.validationEngine = {
 		$(updateThisPrompt).find(".formErrorContent").html(promptText);
 		
 		var calculatedPosition = $.validationEngine.calculatePosition(caller,promptText,type,ajaxed,updateThisPrompt);
-		
 		calculatedPosition.callerTopPosition +="px";
 		calculatedPosition.callerleftPosition +="px";
 		calculatedPosition.marginTopSize +="px";
@@ -536,18 +538,19 @@ $.validationEngine = {
 	},
 	calculatePosition : function(caller,promptText,type,ajaxed,divFormError){
 		
+		var callerTopPosition,callerleftPosition,inputHeight,marginTopSize;
+		var callerWidth =  $(caller).width();
+		
 		if($.validationEngine.settings.containerOverflow){		// Is the form contained in an overflown container?
 			callerTopPosition = 0;
 			callerleftPosition = 0;
-			callerWidth =  $(caller).width();
 			inputHeight = $(divFormError).height();					// compasation for the triangle
-			var marginTopSize = "-"+inputHeight;
+			marginTopSize = "-"+inputHeight;
 		}else{
 			callerTopPosition = $(caller).offset().top;
 			callerleftPosition = $(caller).offset().left;
-			callerWidth =  $(caller).width();
 			inputHeight = $(divFormError).height();
-			var marginTopSize = 0;
+			marginTopSize = 0;
 		}
 		
 		/* POSITIONNING */
@@ -564,13 +567,11 @@ $.validationEngine = {
 		if($.validationEngine.settings.promptPosition == "centerRight"){ callerleftPosition +=  callerWidth +13; }
 		
 		if($.validationEngine.settings.promptPosition == "bottomLeft"){
-			var callerHeight =  $(caller).height();
-			callerTopPosition = callerTopPosition + callerHeight + 15;
+			callerTopPosition = callerTopPosition + $(caller).height() + 15;
 		}
 		if($.validationEngine.settings.promptPosition == "bottomRight"){
-			var callerHeight =  $(caller).height();
 			callerleftPosition +=  callerWidth -30;
-			callerTopPosition +=  callerHeight +5;
+			callerTopPosition +=  $(caller).height() +5;
 		}
 		return {
 			"callerTopPosition":callerTopPosition,
@@ -626,16 +627,17 @@ $.validationEngine = {
 				return(validationPass) ? stopForm = true : "";					
 			};
 		});
-		ajaxErrorLength = $.validationEngine.ajaxValidArray.length;		// LOOK IF SOME AJAX IS NOT VALIDATE
-		for(x=0;x<ajaxErrorLength;x++){
-	 		if($.validationEngine.ajaxValidArray[x][1] == false) $.validationEngine.ajaxValid = false;
+		var ajaxErrorLength = $.validationEngine.ajaxValidArray.length;		// LOOK IF SOME AJAX IS NOT VALIDATE
+		for(var x=0;x<ajaxErrorLength;x++){
+	 		if($.validationEngine.ajaxValidArray[x][1] == false)
+	 			$.validationEngine.ajaxValid = false;
  		}
 		if(stopForm || !$.validationEngine.ajaxValid){		// GET IF THERE IS AN ERROR OR NOT FROM THIS VALIDATION FUNCTIONS
 			if($.validationEngine.settings.scroll){
 				if(!$.validationEngine.settings.containerOverflow){
 					var destination = $(".formError:not('.greenPopup'):first").offset().top;
 					$(".formError:not('.greenPopup')").each(function(){
-						testDestination = $(this).offset().top;
+						var testDestination = $(this).offset().top;
 						if(destination>testDestination)
 							destination = $(this).offset().top;
 					});
@@ -644,7 +646,7 @@ $.validationEngine = {
 					var destination = $(".formError:not('.greenPopup'):first").offset().top;
 					var scrollContainerScroll = $($.validationEngine.settings.containerOverflowDOM).scrollTop();
 					var scrollContainerPos = - parseInt($($.validationEngine.settings.containerOverflowDOM).offset().top);
-					var destination = scrollContainerScroll + destination + scrollContainerPos -5;
+					destination = scrollContainerScroll + destination + scrollContainerPos -5;
 					var scrollContainer = $.validationEngine.settings.containerOverflowDOM+":not(:animated)";
 					
 					$(scrollContainer).animate({ scrollTop: destination}, 1100);
