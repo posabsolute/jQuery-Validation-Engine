@@ -38,14 +38,15 @@
 	$.validationEngine.settings = settings;
 	$.validationEngine.ajaxValidArray = new Array();	// ARRAY FOR AJAX: VALIDATION MEMORY 
 	
-	if(settings.inlineValidation == true){ 		// Validating Inline ?
+	if(settings.inlineValidation === true){ 		// Validating Inline ?
 		if(!settings.returnIsValid){					// NEEDED FOR THE SETTING returnIsValid
 			// what the hell! orefalo
 			//allowReturnIsvalid = false;
 			if(settings.liveEvent){						// LIVE event, vast performance improvement over BIND
-				$(this).find("[class*=validate]").live(settings.validationEventTriggers, function(caller){ 
-					if($(caller).attr("type") != "checkbox") _inlinEvent(this);
-				});
+				$(this).find("[class*=validate]").live(settings.validationEventTriggers,
+					function(caller){ 
+						if($(caller).attr("type") != "checkbox") _inlinEvent(this);
+					});
 				$(this).find("[class*=validate][type=checkbox]").live("click", function(caller){ _inlinEvent(this); });
 			}else{
 				$(this).find("[class*=validate]").not("[type=checkbox]").bind(settings.validationEventTriggers, function(caller){ _inlinEvent(this); });
@@ -76,8 +77,8 @@
 	$(this).bind("submit", function(caller){   // ON FORM SUBMIT, CONTROL AJAX FUNCTION IF SPECIFIED ON DOCUMENT READY
 		$.validationEngine.onSubmitValid = true;
 		$.validationEngine.settings = settings;
-		if($.validationEngine.submitValidation(this,settings) == false){
-			if($.validationEngine.submitForm(this,settings) == true) return false;
+		if($.validationEngine.submitValidation(this,settings) === false){
+			if($.validationEngine.submitForm(this,settings) === true) return false;
 		}else{
 			settings.failure && settings.failure(); 
 			return false;
@@ -136,7 +137,7 @@ $.validationEngine = {
 		var callerName = $(caller).attr("name");
 		$.validationEngine.isError = false;
 		$.validationEngine.showTriangle = true;
-		callerType = $(caller).attr("type");
+		var callerType = $(caller).attr("type");
 
 		for (var i=0; i<rules.length;i++){
 			switch (rules[i]){
@@ -177,11 +178,11 @@ $.validationEngine = {
 			case "funcCall": 
 		     	_funcCall(caller,rules,i);
 			break;
-			default :;
-			};
-		};
+			default :
+			}
+		}
 		radioHack();
-		if ($.validationEngine.isError == true){
+		if ($.validationEngine.isError === true){
 			var linkTofieldText = "." +$.validationEngine.linkTofield(caller);
 			if(linkTofieldText != "."){
 				if(!$(linkTofieldText)[0]){
@@ -205,7 +206,7 @@ $.validationEngine = {
 	    }
 		/* VALIDATION FUNCTIONS */
 		function _required(caller,rules){   // VALIDATE BLANK FIELD
-			callerType = $(caller).attr("type");
+			var callerType = $(caller).attr("type");
 			if (callerType == "text" || callerType == "password" || callerType == "textarea"){
 								
 				if(!$(caller).val()){
@@ -216,9 +217,9 @@ $.validationEngine = {
 			if (callerType == "radio" || callerType == "checkbox" ){
 				callerName = $(caller).attr("name");
 		
-				if($("input[name='"+callerName+"']:checked").size() == 0) {
+				if($("input[name='"+callerName+"']:checked").size() === 0) {
 					$.validationEngine.isError = true;
-					if($("input[name='"+callerName+"']").size() ==1) {
+					if($("input[name='"+callerName+"']").size() == 1) {
 						promptText += $.validationEngine.settings.allrules[rules[i]].alertTextCheckboxe+"<br />"; 
 					}else{
 						 promptText += $.validationEngine.settings.allrules[rules[i]].alertTextCheckboxMultiple+"<br />";
@@ -328,16 +329,17 @@ $.validationEngine = {
 						 }else{	 
 						 	_checkInArray(true);
 						 	$.validationEngine.ajaxValid = true; 			
-						 	if(!customAjaxRule)	{$.validationEngine.debug("wrong ajax response, are you on a server or in xampp? if not delete de ajax[ajaxUser] validating rule from your form ");}		   
+						 	if(!customAjaxRule)	{
+						 		$.validationEngine.debug("wrong ajax response, are you on a server or in xampp? if not delete de ajax[ajaxUser] validating rule from your form ");}		   
 						 	if($.validationEngine.settings.allrules[customAjaxRule].alertTextOk){	// NO OK TEXT MEAN CLOSE PROMPT	 			
-	 			 				 				$.validationEngine.updatePromptText(ajaxCaller,$.validationEngine.settings.allrules[customAjaxRule].alertTextOk,"pass",true);
+	 			 				$.validationEngine.updatePromptText(ajaxCaller,$.validationEngine.settings.allrules[customAjaxRule].alertTextOk,"pass",true);
  			 				}else{
 				 			 	ajaxValidate = false;		 	
 				 			 	$.validationEngine.closePrompt(ajaxCaller);
  			 				}		
 			 			 }
 			 			function  _checkInArray(validate){
-			 				for(var x=0;x<ajaxErrorLength;x++){
+			 				for(var x=0 ;x<ajaxErrorLength;x++){
 			 			 		if($.validationEngine.ajaxValidArray[x][0] == fieldId){
 			 			 			$.validationEngine.ajaxValidArray[x][1] = validate;
 			 			 			existInarray = true;
