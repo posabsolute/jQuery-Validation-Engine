@@ -36,7 +36,7 @@
 		failure : function() {}
 	}, settings);	
 	$.validationEngine.settings = settings;
-	$.validationEngine.ajaxValidArray = new Array();	// ARRAY FOR AJAX: VALIDATION MEMORY 
+	$.validationEngine.ajaxValidArray = [];	// ARRAY FOR AJAX: VALIDATION MEMORY 
 	
 	if(settings.inlineValidation === true){ 		// Validating Inline ?
 		if(!settings.returnIsValid){					// NEEDED FOR THE SETTING returnIsValid
@@ -45,7 +45,8 @@
 			if(settings.liveEvent){						// LIVE event, vast performance improvement over BIND
 				$(this).find("[class*=validate]").live(settings.validationEventTriggers,
 					function(caller){ 
-						if($(caller).attr("type") != "checkbox") _inlinEvent(this);
+						if($(caller).attr("type") != "checkbox")
+							_inlinEvent(this);
 					});
 				$(this).find("[class*=validate][type=checkbox]").live("click", function(caller){ _inlinEvent(this); });
 			}else{
@@ -59,7 +60,7 @@
 		
 		function _inlinEvent(caller){
 			$.validationEngine.settings = settings;
-			if($.validationEngine.intercept == false || !$.validationEngine.intercept){		// STOP INLINE VALIDATION THIS TIME ONLY
+			if($.validationEngine.intercept === false || !$.validationEngine.intercept){		// STOP INLINE VALIDATION THIS TIME ONLY
 				$.validationEngine.onSubmitValid=false;
 				$.validationEngine.loadValidation(caller); 
 			}else{
@@ -78,8 +79,10 @@
 		$.validationEngine.onSubmitValid = true;
 		$.validationEngine.settings = settings;
 		if($.validationEngine.submitValidation(this,settings) === false){
-			if($.validationEngine.submitForm(this,settings) === true) return false;
+			if($.validationEngine.submitForm(this,settings) === true)
+				return false;
 		}else{
+			// orefalo: what the hell is that ?
 			settings.failure && settings.failure(); 
 			return false;
 		}		
@@ -117,7 +120,7 @@ $.validationEngine = {
 		var rulesParsing = $(caller).attr('class');
 		var rulesRegExp = /\[(.*)\]/;
 		var getRules = rulesRegExp.exec(rulesParsing);
-		if(getRules == null)
+		if(getRules === null)
 			return false;
 		var str = getRules[1];
 		var pattern = /\[|,|\]/;
@@ -157,7 +160,8 @@ $.validationEngine = {
 				 _exemptString(caller,rules,i);
 			break;
 			case "ajax": 
-				if(!$.validationEngine.onSubmitValid) _ajax(caller,rules,i);	
+				if(!$.validationEngine.onSubmitValid)
+					_ajax(caller,rules,i);	
 			break;
 			case "length": 
 				 _length(caller,rules,i);
@@ -415,6 +419,7 @@ $.validationEngine = {
 			   				$.validationEngine.closePrompt(".formError",true); 	
 			   				$(".ajaxSubmit").show("slow");
 			   				if ($.validationEngine.settings.success){	// AJAX SUCCESS, STOP THE LOCATION UPDATE
+								// orefalo what the hell is that ? we already checked it!
 								$.validationEngine.settings.success && $.validationEngine.settings.success(); 
 								return false;
 							}
@@ -441,6 +446,7 @@ $.validationEngine = {
 				if ($.validationEngine.settings.success) {	// AJAX SUCCESS, STOP THE LOCATION UPDATE
 					if($.validationEngine.settings.unbindEngine)
 						$(caller).unbind("submit");
+					// orefalo: review this is wrong
 					$.validationEngine.settings.success && $.validationEngine.settings.success(); 
 					return true;
 				}
