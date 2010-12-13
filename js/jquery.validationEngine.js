@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 1.7.2, jQuery plugin
+ * Inline Form Validation Engine 1.7.3, jQuery plugin
  * 
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -398,61 +398,13 @@ $.validationEngine = {
 		return ($.validationEngine.isError) ? $.validationEngine.isError : false;
 	},
 	submitForm : function(caller){
-		if($.validationEngine.settings.ajaxSubmit){		
-			if($.validationEngine.settings.ajaxSubmitExtraData){
-				extraData = $.validationEngine.settings.ajaxSubmitExtraData;
-			}else{
-				extraData = "";
-			}
-			$.ajax({
-			   	type: "POST",
-			   	url: $.validationEngine.settings.ajaxSubmitFile,
-			   	async: true,
-			   	data: $(caller).serialize()+"&"+extraData,
-			   	error: function(data,transport){ $.validationEngine.debug("error in the ajax: "+data.status+" "+transport); },
-			   	success: function(data){
-			   		if(data == "true"){			// EVERYTING IS FINE, SHOW SUCCESS MESSAGE
-			   			$(caller).css("opacity",1);
-			   			$(caller).animate({opacity: 0, height: 0}, function(){
-			   				$(caller).css("display","none");
-			   				$(caller).before("<div class='ajaxSubmit'>"+$.validationEngine.settings.ajaxSubmitMessage+"</div>");
-			   				$.validationEngine.closePrompt(".formError",true); 	
-			   				$(".ajaxSubmit").show("slow");
-			   				if ($.validationEngine.settings.success){	// AJAX SUCCESS, STOP THE LOCATION UPDATE
-								// orefalo what the hell is that ? we already checked it!
-								$.validationEngine.settings.success && $.validationEngine.settings.success(); 
-								return false;
-							}
-			   			});
-		   			}else{						// HOUSTON WE GOT A PROBLEM (SOMETING IS NOT VALIDATING)
-			   			data = eval( "("+data+")");	
-			   			if(!data.jsonValidateReturn){
-			   				 $.validationEngine.debug("you are not going into the success fonction and jsonValidateReturn return nothing");
-			   			}
-			   			errorNumber = data.jsonValidateReturn.length;	
-			   			for(var index=0; index<errorNumber; index++){	
-			   				var fieldId = data.jsonValidateReturn[index][0];
-			   				var promptError = data.jsonValidateReturn[index][1];
-			   				var type = data.jsonValidateReturn[index][2];
-			   				$.validationEngine.buildPrompt(fieldId,promptError,type);
-		   				}
-	   				}
-   				}
-			});	
+
+		if ($.validationEngine.settings.success) {	// AJAX SUCCESS, STOP THE LOCATION UPDATE
+			if($.validationEngine.settings.unbindEngine) $(caller).unbind("submit");
+			var serializedForm = $(caller).serialize();
+			$.validationEngine.settings.success && $.validationEngine.settings.success(serializedForm);
 			return true;
 		}
-		// LOOK FOR BEFORE SUCCESS METHOD		
-			if(!$.validationEngine.settings.beforeSuccess()){
-				if ($.validationEngine.settings.success) {	// AJAX SUCCESS, STOP THE LOCATION UPDATE
-					if($.validationEngine.settings.unbindEngine)
-						$(caller).unbind("submit");
-					// orefalo: review this is wrong
-					$.validationEngine.settings.success && $.validationEngine.settings.success(); 
-					return true;
-				}
-			}else{
-				return true;
-			} 
 		return false;
 	},
 	buildPrompt : function(caller,promptText,type,ajaxed) {			// ERROR PROMPT CREATION AND DISPLAY WHEN AN ERROR OCCUR
