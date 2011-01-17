@@ -10,9 +10,14 @@ The plugin provides visual appealing prompts that grab user attention on the sub
 Validations range from email, phone, url to more complex calls such as ajax processing.
 Bundled in several locales, the error prompts can be translated in the locale of your choice. 
 
+Forum Support: http://validationengine.vanillaforums.com/ 
+
 ![Screenshot](https://github.com/orefalo/jQuery-Validation-Engine/raw/master/css/screenshot.png)
 
 **Important**: v2 is a significant rewrite of the original 1.7 branch. Please read the documentation as the API has changed!
+
+
+
 
 Installation
 ---
