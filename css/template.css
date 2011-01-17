@@ -1,20 +1,20 @@
-body{	background:#ececec;}
+body {
+	background: #ececec;
+}
 
 form.formular {
 	font-family: tahoma, verdana, "sans-serif";
 	font-size: 12px;
 	padding: 20px;
 	border: 1px solid #A5A8B8;
-
-	width:300px;
-	margin-left:300px;
+	width: 300px;
+	margin: 0 auto;
 }
 
 .formular fieldset {
 	margin-top: 20px;
-	padding : 15px;
+	padding: 15px;
 	border: 1px solid #B5B8C8;
-	
 }
 
 .formular legend {
@@ -33,8 +33,8 @@ form.formular {
 	color: #000;
 }
 
-.formular input, .formular select, .formular textarea {
-	display : block;
+.formular input,.formular select,.formular textarea {
+	display: block;
 	margin-bottom: 5px;
 }
 
@@ -45,20 +45,20 @@ form.formular {
 	border: 1px solid #B5B8C8;
 	font-size: 14px;
 	margin-top: 4px;
-	background: #FFF url('/img/form/text-bg.gif') repeat-x;
-	
+	background: #FFF repeat-x;
 }
+
 .formular textarea {
 	width: 250px;
-	height:70px;
+	height: 70px;
 	color: #555;
 	padding: 4px;
 	border: 1px solid #B5B8C8;
 	font-size: 14px;
 	margin-top: 4px;
-	background: #FFF url('/img/form/text-bg.gif') repeat-x;
-	
+	background: #FFF repeat-x;
 }
+
 .formular .infos {
 	background: #FFF;
 	color: #333;
@@ -67,18 +67,18 @@ form.formular {
 	margin-bottom: 10px;
 }
 
-.formular span.checkbox, .formular .checkbox {
+.formular span.checkbox,.formular .checkbox {
 	display: inline;
 }
 
 .formular .submit {
-	background: url('/img/form/button-bg.png') repeat-x;
+	
 	border: 1px solid #AAA;
 	padding: 4px;
 	margin-top: 20px;
 	float: right;
 	text-decoration: none;
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .formular hr {

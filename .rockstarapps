@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rockstarapps>
+    
+
+
+
+<file name="js/jquery.validationEngine.js">
+        <min>false</min>
+        <comp>false</comp>
+        <closureCompiler>true</closureCompiler>
+        <gZip>false</gZip>
+        <resolveImports>false</resolveImports>
+        <urlRewriting>false</urlRewriting>
+        <autoBuild>true</autoBuild>
+        <lineLength>-1</lineLength>
+        <autoTimestamps>false</autoTimestamps>
+        <removeLogs>false</removeLogs>
+        <oldFileNames>false</oldFileNames>
+        <dependencies>
+            <file>js/jquery.validationEngine.js</file>
+        </dependencies>
+        <properties/>
+    </file>
+</rockstarapps>

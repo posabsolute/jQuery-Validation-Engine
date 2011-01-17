@@ -1,0 +1,24 @@
+TODO: Find someone to work on the Italian translation
+IDEA: hook browser resize -> reposition prompts
+IMPROVE: think about aborting ajax field requests when form.submit happens  $.ajax().abort();
+
+FIXED: Arrow positioning not working for other positioning cases
+FIXED: multiple forms demo: positionning issue, weird pixel gaps
+DONE: Work on demo field types -> add more fields types like textarea..etc
+DONE: work on translations, other languages should b out of sync at this point
+DONE: Test on IE, Opera, FF, Chrome and Safari
+DONE: write documentation
+MAYBE NOT: split the translation files - they hold data for the demos
+DONE: form ajax : use the url from form.action -> it makes more sense
+DONE: implement Play validators
+DONE: remove length[] validator
+FIXED: Implement ajax submit
+DONE: pass showArrow boolean as parameter of showPrompt
+ABANDONED: rename customer rule to regex
+FIXED: Overflown positioning is screwed up
+DONE: Provide a minimized version
+FIXED: field ajax validation works
+FIXED: checkbox groups were not working
+FIXED: field hook doesn't work
+NOT A GOOD IDEA: use a stack for validation parsing
+DONE: build demo pages -> IN PROGRESS
