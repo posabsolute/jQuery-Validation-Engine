@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>documentation</title>
+	<meta name="generator" content="Studio 3 http://aptana.com/">
+	<meta name="author" content="Cedric Dugas">
+	<!-- Date: 2011-01-04 -->
+</head>
+<body>
+When it comes to form validation, it's hard to have a versatile solution that works with every form. Figuring out how to display errors is not a simple task. This is something I tried to remedy with this script. When an error needs to be displayed, the script creates a div and positions it in the top right corner of the input. This way you don't have to worry about your HTML form structure. The rounded corner and shadow are done with CSS3 and degrade well in non compliant browsers. There is no images needed.
+
+<p class="clearfix"><a class="download" target="_blank" href="http://github.com/posabsolute/jQuery-Validation-Engine">Download the source code</a> <a class="demo" href="http://www.position-relative.net/creation/formValidator/" target="_blank">View demo</a></p>
+<p class="clearfix"><strong>(With ajax submit)</strong><br clear="all"><a class="demo" href="http://www.position-relative.net/creation/formValidator/demoSubmit.html" target="_blank">View demo</a> </p>
+
+
+
+<p class="clearfix"><strong>(With overflown hidden parent)</strong><br clear="all"><a class="demo" href="http://www.position-relative.net/creation/formValidator/indexOverflown.html" target="_blank">View demo</a> </p>
+
+<strong>Please report issues in the google code project</strong><br /><a href="http://www.pieterg.com/post/2010/03/18/Good-looking-validation-with-ASPNET-MVC-20-Custom-Validation.aspx">More informations</a> about how to integrate it with the asp.net MVC framework
+
+
+<strong>Coming in v1.8</strong>
+Window Resize
+
+
+<p><img src="/wp-content/themes/default/images/post/img_form.jpg"></p>
+Localisation language is also available, I already did a (poor) french localisation. Do not include more than one localization at a time in a page. Custom regEx rules with error messages can also be added very easily for you crazy guys that understand how regEx rules actually work.
+<h3>Get this to work</h3>
+First add the jquery library and the jquery.validationEngine.js, js language and css to your head.
+<pre lang="html">
+<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen" charset="utf-8" />
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine-en.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+</pre>
+
+When this is done, you need to call the form you want to validate. I use an ID but you could use a class too.
+<pre lang="html">
+$(document).ready(function() {
+ $("#formID").validationEngine()
+})
+</pre>
+
+After you need to add a class on the input you want to validate, you can stack as much rules as you want. <strong>If you use multiple class on the input please put validate[] rules first.</strong>
+<pre lang="html">
+<input class="validate[required,custom[onlyLetter],length[0,100]]" name="firstname" type="text" />
+</pre>
+
+Here are the rules already implemented in the validator:
+
+<strong>optional</strong>: <strong>Special:</strong> Only validate when the field is not empty <strong>*Please call optional first</strong>
+<strong>required</strong>: Field is required
+<strong>length[0,100]</strong> : Between x and x characters allowed
+<strong>maxCheckbox[7]</strong> : Set the maximum checkbox autorized for a group
+<strong>minCheckbox[7]</strong> : Set the minimum checkbox autorized for a group
+<strong>confirm[fieldID]</strong> : Match the other field (ie:confirm password)
+<strong>telephone </strong>: Match telephone regEx rule.
+<strong>email</strong> : Match email regEx rule.
+<strong>onlyNumber</strong> : Numbers only
+<strong>noSpecialCaracters</strong> : No special characters allowed
+<strong>onlyLetter</strong> : Letters only
+<strong>exemptString</strong> : Will not validate if the string match
+<strong>date</strong> : Invalid date, must be in YYYY-MM-DD format
+<strong>funcCall</strong> : Validate custom functions outside of the engine scope
+
+<h3>Customizations</h3>
+<strong>Custom RegEx Rules:</strong>
+You can create custom rules easily, only add your custom rule in the json object, you can take telephone as an example, just copy and paste under it.
+<pre lang="html">
+"telephone":{
+"regex":"/^[0-9-()]+$/",
+"alertText":"* Invalid phone number"},
+</pre>
+<strong>Language localization:</strong>
+In the js folder you will find jquery.validationEngine-fr.js , in this file you have the json object used to create the validation rules, you can localize this file in any language you like. Add this file just before jquery.validationEngine.js. Your head document should look like this:
+
+<pre lang="html">
+<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" media="screen" charset="utf-8" />
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine-fr.js" type="text/javascript"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript"></script>
+</pre>
+
+<strong>Optional inline validation</strong>
+You can now validate only on form submit by using this customization: inlineValidation: false, in your DOM ready,
+<pre lang="html">
+$("#formID").validationEngine({
+inlineValidation: false,
+success :  false,
+failure : function() { callFailFunction()  }
+})
+</pre>
+
+<strong>Change validation event trigger</strong>
+You can change the event that trigger the validation in the settings, default is blur
+<pre lang="html">
+$("#formID").validationEngine({
+validationEventTriggers:"keyup blur",  //will validate on keyup and blur    
+success :  false,
+failure : function() { callFailFunction()  }
+})
+</pre>
+
+<strong>No scrolling</strong>
+<pre lang="html">
+ $("#formID").validationEngine({scroll:false}) 
+</pre>
+
+
+
+<strong>Validate and return true or false</strong>
+Can be use anywhere in your script
+<pre lang="html">
+alert($("#formID").validationEngine({returnIsValid:true}));  // alert will return true or false
+</pre>
+
+<strong>Do not unbind the engine submit event upon success function</strong>
+You may not need this setting, sometimes you want the engine to stay binded on submit even if the success function is fired.
+<pre lang="html">
+$("#formID").validationEngine({unbindEngine:false})); 
+</pre>
+
+
+<strong>Prompt positioning</strong>
+Positioning is not perfect, this is a good start but much work is needed to have this working in every situation, when you call on dom ready change this setting.
+
+<pre lang="html">
+$("#formID").validationEngine({
+promptPosition: "topRight", // OPENNING BOX POSITION, IMPLEMENTED: topLeft, topRight, bottomLeft,  centerRight, bottomRight
+success :  false,
+failure : function() {
+})
+</pre>
+
+<h3>Custom functions call (Validate from any function you created)</h3>
+Sometimes you need to validate complex rules that are not included in this engine. With this feature you can validate from any function in javascript and return true if there is and error and false if the function validate correctly.
+
+In your field add:
+<pre lang="html">
+<input value=""  class="validate[required,funcCall[validate2fields]] text-input" type="text" id="lastname" name="lastname"  />
+</pre>
+
+In your language js file have something like (nname is the function name to call):
+<pre lang="html">
+"validate2fields":{
+              "nname":"validate2fields",
+              "alertText":"* You must have a firstname and a lastname"} 
+          } 
+</pre>
+
+Now the custom function that could be anywhere in your JS
+<pre lang="html">
+  function validate2fields(){
+      if($("#firstname").val() =="" || $("#lastname").val() == ""){
+        return true;
+      }else{
+        return false;
+      }
+    }
+</pre>
+
+
+<h3>Validation in overflown div and lightbox with scrollable content</h3>
+
+To get the supported mode you need to add these options when instancing your plugin:
+<pre lang="html">
+$("#formID").validationEngine({
+ containerOverflow:true,  // Enable Overflown mode
+ containerOverflowDOM:"#divOverflown"  // The actual DOM element container with overflow scroll on it
+})
+</pre>
+
+The big change in this method is that normally the engine will append every error boxes to the body. In this case it will append every error boxes before the input validated. This add a bit of complexity, if you want the error box to behave correctly you need to<strong> wrap the input in a div being position relative</strong>, and <strong>exactly wrapping the input width and height</strong>. The easiest way to do that is by <strong>adding float:left</strong>, like in the example provided.
+
+The default top right position  is currently the only supported position. Please use this mode only in  overflown div and in scollable boxes, it is slower and a bit less stable (I have been using the engine for 2 years, but only one 1 month with this method). Also, the scrolling will be applied to the overflown parent, not the document body.
+
+
+<h3>I want to validate directly from javascript</h3>
+You can call a validation like this: <strong>$.validationEngine.loadValidation("#date")</strong>
+
+<strong>Open and close prompts on everything</strong>
+Use my prompt on everything you want like a div element. You can call a prompt this way: $.validationEngine.buildPrompt(#ID,promptMessage,type)
+ex: <strong>$.validationEngine.buildPrompt("#date","This field is required","error")</strong>
+
+Close prompt for field ID: <strong>$.validationEngine.closePrompt("#date")</strong>
+Close prompt anything else: <strong>$.validationEngine.closePrompt(".allmydiv",true)</strong> true means look outside the form
+There are 3 type : error (red), pass (green), loading (black)
+
+<strong>Stop inline validation for 1 field</strong>
+Sometimes you have a field with a calender, but you want to keep the inline validation for all the other fields, or even this field if the user manually change the input. Well you can now intercept the inline validation by setting this variable on onlick or onchange state : <strong> $.validationEngine.intercept = true;</strong>
+
+<h3>Inline AJAX validation</h3>
+This functionality is quite simple to integrate, in your class attribute add: ajax[ajaxUser]
+It should be the last item to validate in your validate[], while this is not necessary, I found it worked best there. 
+Ajax validation works only inline, when your field is validated for normal rules, it will create a post to a php file. There is no way for the user to bypass this, if the field do not validate on form submit, the user will need to change the information and the AJAX validation will occur.
+
+In your json you follow pretty much the same syntax  that you would use with a custom regex:
+<pre>
+"ajaxUser":{
+"file":"validateUser.php",
+"alertText":"* This user is already taken",
+"alertTextOk":"* This user is available",
+"alertTextLoad":"* Loading please wait"},
+</pre>
+
+The <strong>"file":</strong> is obviously where you want your field value to be posted. In the validateUser.php you will have to keep the defined variable at the top, do your validation and at the end of the file you will see that I echo a json variable back. Please keep the same syntax. For now this file fake a php validation.
+
+The alertTextOk and alertTextLoad are optional, this is, for example, to tell your user the nickname he has chosen is available, the box will also become green. 
+
+In your php, if the form validate, the variable <strong>$isValidate</strong> need to be set to true the form will disappear and the success message will appear instead. If it does not validate set $isValidate to false follow this syntax to call an array of errors :
+
+<pre lang="html">
+$arrayError[0][0] = "#email";     // FIELDID 
+$arrayError[0][1] = "Your email do not match.. whatever it need to match";  // TEXT ERROR 
+$arrayError[0][2] = "error";      // BOX COLOR
+</pre>
+
+<strong>AJAX Success and failure call to actions</strong>
+If you want to  post your form in AJAX you can define a success and failure function to be executed on form submit and there will be no page reload. In the jquery.validationEngine.js. Look in the document ready for this:
+<pre lang="html">
+// replace "success: false," by: success : function() { callSuccessFunction() },
+
+$("#formID").validationEngine({
+success :  function(formData) { callSuccessFunction() },
+failure : function() { callFailFunction()  }
+})
+</pre>
+
+<strong>The success function first parameter is your serialized form data that you can send directly to your server.</strong>
+
+<h3>Debug Mode</h3>
+The debug mode appears when there is something wrong with the validation engine. It has a set of trigger to look upon validation and try to help you accordingly, it should help you get everything in line to get the script working in your environment.
+
+Debug is off by default
+<pre lang="html">
+$("#formID").validationEngine({
+openDebug: true
+})
+</pre>
+
+<br clear="all" />
+
+<strong>STABLE with jQuery 1.4.3</strong>
+
+<p class="clearfix"><a class="download" target="_blank" href="http://github.com/posabsolute/jQuery-Validation-Engine">Download the source code</a> <a class="demo" href="http://www.position-relative.net/creation/formValidator/" target="_blank">View demo</a></p>
+
+<strong>Tested on:</strong>
+Internet Exploder 6 & 7
+Firefox 3+
+Safari 4
+Chrome 1+
+
+Download the older version, <strong>STABLE with jQuery 1.3.2</strong> <a href="http://www.position-relative.net/creation/formValidator/formValidator1.6.2.zip">1.6.2</a>
+
+
+
+<br clear="all" />
+If you like and use this script, please consider buying me a beer, it's cheap and a simple way to give back!
+
+<form style="text-align:left;" action="https://www.paypal.com/cgi-bin/webscr" method="post"> <input name="cmd" type="hidden" value="_s-xclick" />
+<input name="encrypted" type="hidden" value="-----BEGIN PKCS7-----MIIHPwYJKoZIhvcNAQcEoIIHMDCCBywCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAOdu4WNrk77t0IKWlUdwltqhzoq0YOqjQIilD9vSF03UxGXVGN70nFUFLvZaF43e3SA8wKKwUNCViLFhpDP85phRJ9zt1UBLkd7ifNEAvm+uxO61CGq4Bp0EAJyglOa9zjrfAdj/mstlEjjVF5PMO2tUveAvivtyFGluUzo+kxPTELMAkGBSsOAwIaBQAwgbwGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIgeYRU6MTTgSAgZjTqePHNY/lHq2BouJbOXPcBG/RgIkpqK+KmSWc2rZE5mNhsmQuUaZC8VTSNpGBr2q1Wukg2QmtdwAUBYAQO3p88az0d7rTYNtNL+UxizqlYywGobUsLsfdUqYBiwFi30n25LHMAKPBhal0xA3ADzffnh/lPXu07LIWb2EF2l4NgyBNkC8cCFMUc523LZiMyRzXX7Pe9gC5iqCCA4cwggODMIIC7KADAgECAgEAMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTAeFw0wNDAyMTMxMDEzMTVaFw0zNTAyMTMxMDEzMTVaMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAwUdO3fxEzEtcnI7ZKZL412XvZPugoni7i7D7prCe0AtaHTc97CYgm7NsAtJyxNLixmhLV8pyIEaiHXWAh8fPKW+R017+EmXrr9EaquPmsVvTywAAE1PMNOKqo2kl4Gxiz9zZqIajOm1fZGWcGS0f5JQ2kBqNbvbg2/Za+GJ/qwUCAwEAAaOB7jCB6zAdBgNVHQ4EFgQUlp98u8ZvF71ZP1LXChvsENZklGswgbsGA1UdIwSBszCBsIAUlp98u8ZvF71ZP1LXChvsENZklGuhgZSkgZEwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADgYEAgV86VpqAWuXvX6Oro4qJ1tYVIT5DgWpE692Ag422H7yRIr/9j/iKG4Thia/Oflx4TdL+IFJBAyPK9v6zZNZtBgPBynXb048hsP16l2vi0k5Q2JKiPDsEfBhGI+HnxLXEaUWAcVfCsQFvd2A1sxRr67ip5y2wwBelUecP3AjJ+YcxggGaMIIBlgIBATCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwCQYFKw4DAhoFAKBdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTA5MDUxNjIwMTk0MVowIwYJKoZIhvcNAQkEMRYEFE1aC6wFd3AixYBkvU1X4DEF1thhMA0GCSqGSIb3DQEBAQUABIGAvcW+5i8RrZ6jePXK2hHKk975YGkTqQBMvlvpum8u5PCXmclJMpggMCYu232EerU/8kE7RT+G0GR4VMu7wyej32yThLNyo+eZ9WVWq51biDuDTZlfzQkDT5kg0/8JeClhVS1E+jdRPeCTXXZLbn9w3U8NPZKaYHXbCZslD9v3d6k=-----END PKCS7-----" />
+<input style="align:left" alt="PayPal - The safer, easier way to pay online!" name="submit" src="http://www.position-absolute.com/wp-content/themes/default/images/bg_buy.jpg" type="image" />
+<img src="https://www.paypal.com/en_US/i/scr/pixel.gif" border="0" alt="" width="1" height="1" />
+</form>
+
+
+
+
+
+
+<div class="ads">
+<strong>Ads</strong><p>Become expert in web development with <a href="http://www.test-king.com">testking</a> using self paced <a href="http://www.test-king.com/exams/HP0-D07.htm">testking HP0-D07</a> study guides and <a href="http://www.test-king.com/exams/646-671.htm">testking 646-671</a> jQuery tutorials.</p>
+</div>
+
+</body>
+</html>
