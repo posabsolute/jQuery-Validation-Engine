@@ -95,12 +95,11 @@ The code below will instance the validation engine and attach it to the form:
        });
     </script>
 
-But the following will only initialize, attachment needs to be done manually.
+But using options it will only initialize by default, attachment needs to be done manually.
 
     <script>
     $(document).ready(function(){
-        $("#formID").validationEngine({promptPosition : "centerRight", scroll: false});
-        $("#formID").validationEngine('attach');
+        $("#formID").validationEngine('attach', {promptPosition : "centerRight", scroll: false});
        });
     </script>
 
