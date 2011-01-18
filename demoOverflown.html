@@ -17,11 +17,11 @@
         <script>
             jQuery(document).ready(function(){
             
-                jQuery("#formID").validationEngine({
+                jQuery("#formID").validationEngine('attach', {
                     isOverflown: true,
                     overflownDIV: "#divOverflown"
                 });
-                jQuery("#formID").validationEngine('attach');
+             
                 
             });
          </script>

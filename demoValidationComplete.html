@@ -13,12 +13,11 @@
         </script>
         <script>
             jQuery(document).ready(function(){
-                jQuery("#formID2").validationEngine({
+                jQuery("#formID2").validationEngine('attach', {
                   onValidationComplete: function(form, status){
                     alert("The form status is: " +status+", it will never submit");
                   }  
                 })
-                jQuery("#formID2").validationEngine('attach');
             });
         </script>
     </head>
