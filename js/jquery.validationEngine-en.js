@@ -119,8 +119,8 @@
             
         }
     };
+    $.validationEngineLanguage.newLang();
 })(jQuery);
 
-$(document).ready(function(){
-    $.validationEngineLanguage.newLang();
-});
+
+    

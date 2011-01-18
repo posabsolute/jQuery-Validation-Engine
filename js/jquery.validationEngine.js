@@ -1108,7 +1108,8 @@
     $.fn.validationEngine = function(method) {
 
         var form = $(this);
-
+		  if(!form[0]) return false;  // stop here if the form do not exist
+		  
         if (typeof(method) === 'string' && method.charAt(0) != '_' && methods[method]) {
             // make sure init is being called at least once
             methods.init.apply(form);
