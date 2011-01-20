@@ -21,7 +21,6 @@
         init: function(options) {
 
             var form = this;
-            console.log(typeof form.data('jqv'))
             if (form.data('jqv') === undefined || form.data('jqv') == null ) {
                 methods._saveOptions(form, options);
 
@@ -156,6 +155,15 @@
          */
         hideAll: function() {
             $('.formError').fadeTo("fast", 0.3, function() {
+                $(this).remove();
+            });
+        },
+        /**
+         * Closes all error prompts on the page
+         */
+        hideFieldPrompt: function() {
+        		var promptClass =  ".formError"+ $(this).attr("id")
+            $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
         },
