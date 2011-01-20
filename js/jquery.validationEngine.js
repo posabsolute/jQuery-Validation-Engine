@@ -21,7 +21,8 @@
         init: function(options) {
 
             var form = this;
-            if (form.data('jqv') === undefined) {
+            console.log(typeof form.data('jqv'))
+            if (form.data('jqv') === undefined || form.data('jqv') == null ) {
                 methods._saveOptions(form, options);
 
                 // bind all formError elements to close on click
