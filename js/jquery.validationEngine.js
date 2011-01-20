@@ -162,7 +162,7 @@
          * Closes all error prompts on the page
          */
         hideFieldPrompt: function() {
-        		var promptClass =  ".formError"+ $(this).attr("id")
+        		var promptClass =  "."+ $(this).attr("id") + "formError"
             $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });

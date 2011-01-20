@@ -172,6 +172,12 @@ Closes **all** error prompts on the page.
 
     $('#formID1').validationEngine('hideAll');
 
+### hideFieldPrompt
+
+Closes the prompt linked to the input.
+
+    $('#inputID').validationEngine('hideFieldPrompt');\
+    
 Options
 ---
 
