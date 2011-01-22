@@ -142,6 +142,15 @@
             methods._showPrompt(this, promptText, type, false, options);
         },
         /**
+         * Closes all error prompts on the page
+         */
+        hidePrompt: function() {
+        		var promptClass =  "."+ $(this).attr("id") + "formError"
+            $(promptClass).fadeTo("fast", 0.3, function() {
+                $(this).remove();
+            });
+        },
+        /**
          * Closes form error prompts
          */
         hide: function() {
@@ -159,16 +168,7 @@
             });
         },
         /**
-         * Closes all error prompts on the page
-         */
-        hideFieldPrompt: function() {
-        		var promptClass =  "."+ $(this).attr("id") + "formError"
-            $(promptClass).fadeTo("fast", 0.3, function() {
-                $(this).remove();
-            });
-        },
-        /**
-         * Called when user exists a field, typically triggers a field
+         * Typically called when user exists a field using tab or a mouse click, triggers a field
          * validation
          */
         _onFieldEvent: function() {

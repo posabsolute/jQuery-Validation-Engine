@@ -96,14 +96,23 @@
                     Checkbox
                 </legend>
                 <div>
-                    <span>Minimum 2 checkbox :
-                        <br/>
-                    </span>
+                    <span>Minimum 2 checkbox :</span>
                     <input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="group1" id="maxcheck1" value="5"/>
                     <input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="group1" id="maxcheck2" value="3"/>
                     <input class="validate[minCheckbox[2]] checkbox" type="checkbox" name="group1" id="maxcheck3" value="9"/>
                 </div>
             </fieldset>
+			<fieldset>
+				<legend>
+                    File
+                </legend>
+                <div>
+                    <span>Please select a file (BUG):</span>
+                    <input class="validate[required] text-input" type="file" name="file" id="file"/>
+                </div>
+			</fieldset>
+
+
             <input class="submit" type="submit" value="Validate & Send the form!"/>
             <hr/>
         </form>

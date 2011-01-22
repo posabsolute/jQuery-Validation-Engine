@@ -160,6 +160,13 @@ The method takes four parameters:
        <a href="#" onclick="$('#legendid').validationEngine('showPrompt', 'This a custom msg', 'load')">Show prompt</a>
     </fieldset>
 
+### hidePrompt
+
+Closes the prompt linked to the input.
+
+    $('#inputID').validationEngine('hidePrompt');\
+
+
 ### hide
 
 Closes error prompts in the current form (in case you have more than one form on the page)
@@ -172,11 +179,6 @@ Closes **all** error prompts on the page.
 
     $('#formID1').validationEngine('hideAll');
 
-### hideFieldPrompt
-
-Closes the prompt linked to the input.
-
-    $('#inputID').validationEngine('hideFieldPrompt');\
     
 Options
 ---
