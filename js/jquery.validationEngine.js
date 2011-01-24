@@ -390,7 +390,7 @@
             var isAjaxValidator = false;
             var fieldName = field.attr("name");
             var promptText = "";
-
+				var required = false;
             options.isError = false;
             options.showArrow = true;
 
@@ -401,12 +401,13 @@
 
                     // orefalo: review do we need this case ?
                     case "optional":
-                        if (!field.val()) {
+                        if (field.val() == "") {
                             methods._closePrompt(field);
                             return options.isError;
                         }
                         break;
                     case "required":
+                    		var required = true;
                         errorMsg = methods._required(field, rules, i, options);
                         break;
                     case "custom":
@@ -460,6 +461,10 @@
                     options.isError = true;
                 }
 
+            }
+            // If the rules required is not added, an empty field is not validated
+            if(!required){
+            	if(field.val() == "") options.isError = false;
             }
             // Hack for radio/checkbox group button, the validation go into the
             // first radio/checkbox of the group
