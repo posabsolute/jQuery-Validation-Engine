@@ -399,15 +399,8 @@
                 var errorMsg = undefined;
                 switch (rules[i]) {
 
-                    // orefalo: review do we need this case ?
-                    case "optional":
-                        if (field.val() == "") {
-                            methods._closePrompt(field);
-                            return options.isError;
-                        }
-                        break;
                     case "required":
-                    		var required = true;
+                    		required = true;
                         errorMsg = methods._required(field, rules, i, options);
                         break;
                     case "custom":
