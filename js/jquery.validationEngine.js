@@ -145,7 +145,7 @@
          * Closes all error prompts on the page
          */
         hidePrompt: function() {
-        		var promptClass =  "."+ $(this).attr("id") + "formError"
+        		var promptClass =  "."+ $(this).attr("id").replace(":","_") + "formError"
             $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
@@ -861,7 +861,7 @@
 
             // create the prompt
             var prompt = $('<div>');
-            prompt.addClass(field.attr("id") + "formError");
+            prompt.addClass(field.attr("id").replace(":","_") + "formError");
             prompt.addClass("formError");
 
             switch (type) {
@@ -974,7 +974,7 @@
          */
         _getPrompt: function(field) {
 
-            var className = "." + field.attr("id") + "formError";
+            var className = "." + field.attr("id").replace(":","_") + "formError";
             var match = $(className)[0];
             if (match)
                 return $(match);
