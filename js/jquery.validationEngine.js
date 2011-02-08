@@ -154,8 +154,8 @@
          * Closes form error prompts
          */
         hide: function() {
-            var form = this;
-            form.find('.formError').fadeTo("fast", 0.3, function() {
+            var formParentalClassName = "parentForm"+$(this).attr('id');
+            $('.'+formParentalClassName).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
         },
@@ -862,6 +862,8 @@
             // create the prompt
             var prompt = $('<div>');
             prompt.addClass(field.attr("id").replace(":","_") + "formError");
+            // add a class name to identify the parent form of the prompt
+            prompt.addClass("parentForm"+field.parents('form').attr("id").replace(":","_"));
             prompt.addClass("formError");
 
             switch (type) {
