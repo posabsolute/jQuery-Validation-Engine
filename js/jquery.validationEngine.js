@@ -446,11 +446,9 @@
                     case "equals":
                         errorMsg = methods._equals(field, rules, i, options);
                         break;
-                    case "or":
-                        errorMsg = methods._or(field, rules, i, options);
-                        break;
                     case "funcCall":
                         errorMsg = methods._funcCall(field, rules, i, options);
+                        break;
 
                     default:
                     //$.error("jQueryValidator rule not found"+rules[i]);
@@ -575,23 +573,6 @@
 
             if (field.attr('value') != $("#" + equalsField).attr('value'))
                 return options.allrules.equals.alertText;
-        },
-        /**
-         * Check at least one field is required
-         *
-         * @param {jqObject} field
-         * @param {Array[String]} rules
-         * @param {int} i rules index
-         * @param {Map}
-         *            user options
-         * @return an error string if validation failed
-         */
-        _or: function(field, rules, i, options) {
-            var orField = rules[i + 1];
-
-            /*
-            if (field.attr('value') != $("#" + equalsField).attr('value'))
-                return options.allrules.equals.alertText;*/
         },
         /**
          * Check the maximum size (in characters)
