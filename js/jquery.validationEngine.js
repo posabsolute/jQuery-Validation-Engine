@@ -380,7 +380,7 @@
                 field.attr("class"));
 
             var rulesParsing = field.attr('class');
-            var getRules = /\[(.*)\]/.exec(rulesParsing);
+            var getRules = /validate\[(.*)\]/.exec(rulesParsing);
             if (getRules === null)
                 return false;
             var str = getRules[1];
@@ -393,14 +393,18 @@
 				var required = false;
             options.isError = false;
             options.showArrow = true;
+            optional = false;
 
             for (var i = 0; i < rules.length; i++) {
 
                 var errorMsg = undefined;
                 switch (rules[i]) {
 
+                    case "optional":
+                        optional = true;
+                        break;
                     case "required":
-                    		required = true;
+                        required = true;
                         errorMsg = methods._required(field, rules, i, options);
                         break;
                     case "custom":
@@ -442,9 +446,12 @@
                     case "equals":
                         errorMsg = methods._equals(field, rules, i, options);
                         break;
+                    case "or":
+                        errorMsg = methods._or(field, rules, i, options);
+                        break;
                     case "funcCall":
                         errorMsg = methods._funcCall(field, rules, i, options);
-                        break;
+
                     default:
                     //$.error("jQueryValidator rule not found"+rules[i]);
                 }
@@ -456,7 +463,7 @@
 
             }
             // If the rules required is not added, an empty field is not validated
-            if(!required){
+            if(!required && !optional ){
             	if(field.val() == "") options.isError = false;
             }
             // Hack for radio/checkbox group button, the validation go into the
@@ -568,6 +575,23 @@
 
             if (field.attr('value') != $("#" + equalsField).attr('value'))
                 return options.allrules.equals.alertText;
+        },
+        /**
+         * Check at least one field is required
+         *
+         * @param {jqObject} field
+         * @param {Array[String]} rules
+         * @param {int} i rules index
+         * @param {Map}
+         *            user options
+         * @return an error string if validation failed
+         */
+        _or: function(field, rules, i, options) {
+            var orField = rules[i + 1];
+
+            /*
+            if (field.attr('value') != $("#" + equalsField).attr('value'))
+                return options.allrules.equals.alertText;*/
         },
         /**
          * Check the maximum size (in characters)
@@ -966,6 +990,9 @@
                 prompt.fadeTo("fast", 0, function() {
                     prompt.remove();
                 });
+        },
+        closePrompt: function(field) {
+            return methods._closePrompt(field);
         },
         /**
          * Returns the error prompt matching the field if any
