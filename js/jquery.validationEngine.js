@@ -628,6 +628,7 @@
 
             if (len < min) {
                 var rule = options.allrules.min;
+                if (rule.alertText2) return rule.alertText + min + rule.alertText2;
                 return rule.alertText + min;
             }
         },
@@ -647,6 +648,7 @@
 
             if (len >max ) {
                 var rule = options.allrules.max;
+                if (rule.alertText2) return rule.alertText + max + rule.alertText2;
                 //orefalo: to review, also do the translations
                 return rule.alertText + max;
             }
@@ -669,6 +671,7 @@
 
             if (vdate > pdate ) {
                 var rule = options.allrules.past;
+                if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
             }
         },
@@ -690,6 +693,7 @@
 
             if (vdate < pdate ) {
                 var rule = options.allrules.future;
+                if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
             }
         },
