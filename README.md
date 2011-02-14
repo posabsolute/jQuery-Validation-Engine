@@ -40,11 +40,6 @@ Most demos are functional by opening their respective HTML file. However, the Aj
 1. Run the script `runDemo.bat` (Windows) or `runDemo.sh` (Unix) from the folder
 2. Open a browser pointing at [http://localhost:9173](http://localhost:9173)
 
-Demos
----
-
-TODO
-
 
 Usage
 ---
