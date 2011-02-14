@@ -12,7 +12,7 @@ Bundled in several locales, the error prompts can be translated in the locale of
 
 Forum Support: http://validationengine.vanillaforums.com/ 
 
-![Screenshot](https://github.com/orefalo/jQuery-Validation-Engine/raw/master/css/screenshot.png)
+![Screenshot](https://github.com/posabsolute/jQuery-Validation-Engine/raw/master/css/screenshot.png)
 
 **Important**: v2 is a significant rewrite of the original 1.7 branch. Please read the documentation as the API has changed!
 
