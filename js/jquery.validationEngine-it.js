@@ -56,7 +56,7 @@
                 },
                 
                 "ipv4": {
-                    "regex": /^([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+\.([1-9][0-9]{0,2})+$/,
+                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* IP non corretto"
                 },
                 "url": {
@@ -83,12 +83,12 @@
                     "file": "ajaxValidateFieldName",
                     "extraData": "name=eric",
                     "alertTextLoad": "* Caricamento, attendere per favore",
-                    "alertText": "* Questo user è già stato utilizzato"
+                    "alertText": "* Questo user ÔøΩ giÔøΩ stato utilizzato"
                 },
                 "ajaxNameCall": {
                     "file": "ajaxValidateFieldName",
-                    "alertText": "* Questo nome è già stato utilizzato",
-                    "alertTextOk": "* Questo nome è disponibile",
+                    "alertText": "* Questo nome ÔøΩ giÔøΩ stato utilizzato",
+                    "alertTextOk": "* Questo nome ÔøΩ disponibile",
                     "alertTextLoad": "* Caricamento, attendere per favore"
                 }
 
