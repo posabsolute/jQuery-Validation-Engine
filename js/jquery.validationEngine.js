@@ -134,7 +134,7 @@
             var options = form.data('jqv');
             // No option, take default one
 			if(!options) options = methods._saveOptions(this, options);
-            if(!promptPosition)
+            if(promptPosition)
                 options.promptPosition=promptPosition;
             options.showArrow = showArrow===true;
 
