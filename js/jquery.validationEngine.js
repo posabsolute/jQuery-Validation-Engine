@@ -492,11 +492,12 @@
          * @return an error string if validation failed
          */
         _required: function(field, rules, i, options) {
-
             switch (field.attr("type")) {
                 case "text":
                 case "password":
                 case "textarea":
+                case "file":
+                default:
                     if (!field.val())
                         return options.allrules[rules[i]].alertText;
                     break;
