@@ -211,6 +211,13 @@ Selector used to pick the overflown container, defaults to *""*.
 ### onValidationComplete
 Stop the form from submitting, and let you handle it after it validated via a function
 
+	jQuery("#formID2").validationEngine('attach', {
+	  onValidationComplete: function(form, status){
+	    alert("The form status is: " +status+", it will never submit");
+	  }  
+	})
+
+
 ### bindMethod (defaut: bind)
 By default the engine bind the form and the field with bind. If you need a persistant you can also use 'live'
 
