@@ -19,7 +19,6 @@
          * @param {Map} user options
          */
         init: function(options) {
-
             var form = this;
             if (form.data('jqv') === undefined || form.data('jqv') == null ) {
                 methods._saveOptions(form, options);
@@ -41,7 +40,6 @@
          */
         attach: function(userOptions) {
             var form = this;
-
             var options;
 
             if(userOptions)
@@ -134,7 +132,8 @@
 
             var form = this.closest('form');
             var options = form.data('jqv');
-
+            // No option, take default one
+			if(!options) options = methods._saveOptions(this, options);
             if(!promptPosition)
                 options.promptPosition=promptPosition;
             options.showArrow = showArrow===true;
@@ -151,11 +150,16 @@
             });
         },
         /**
-         * Closes form error prompts
+         * Closes form error prompts, CAN be invidual
          */
         hide: function() {
-            var formParentalClassName = "parentForm"+$(this).attr('id');
-            $('.'+formParentalClassName).fadeTo("fast", 0.3, function() {
+        	if($(this).is("form")){
+        		 var closingtag = "parentForm"+$(this).attr('id');
+        	}else{
+        		
+        		var closingtag = $(this).attr('id') +"formError"
+        	}
+            $('.'+closingtag).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
         },
@@ -873,7 +877,7 @@
             var prompt = $('<div>');
             prompt.addClass(field.attr("id").replace(":","_") + "formError");
             // add a class name to identify the parent form of the prompt
-            prompt.addClass("parentForm"+field.parents('form').attr("id").replace(":","_"));
+            if(field.is(":input")) prompt.addClass("parentForm"+field.parents('form').attr("id").replace(":","_"));
             prompt.addClass("formError");
 
             switch (type) {
@@ -888,7 +892,6 @@
 
             // create the prompt content
             var promptContent = $('<div>').addClass("formErrorContent").html(promptText).appendTo(prompt);
-
             // create the css arrow pointing at the field
             // note that there is no triangle on max-checkbox and radio
             if (options.showArrow) {
@@ -1134,7 +1137,10 @@
 		  
         if (typeof(method) === 'string' && method.charAt(0) != '_' && methods[method]) {
             // make sure init is being called at least once
-            methods.init.apply(form);
+          
+            if(method != "showPrompt" && method != "hidePrompt" && method != "hide" && method != "hideAll") 
+            	methods.init.apply(form);
+             
             return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
             methods.init.apply(form, arguments);

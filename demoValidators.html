@@ -50,14 +50,17 @@
     <body>
         <p>
             <a href="#" onclick="alert('is the form valid? '+jQuery('#formID').validationEngine('validate'))">Evaluate form</a>
-            | <a href="#" onclick="jQuery('#formID').validationEngine('showPrompt', 'This is an example', 'pass')">Build a prompt on a div</a>
-            | <a href="#" onclick="jQuery('#formID').validationEngine('hide')">Close all prompts</a>
+            | <a href="#" onclick="jQuery('#sport').validationEngine('hide')">Close favorite sport 1 prompt</a>
+            | <a href="#" onclick="jQuery('#formID').validationEngine('hide')">Close all prompts on form</a>
+                        | <a href="#" onclick="jQuery('#test').validationEngine('showPrompt', 'This is an example', 'pass')">Build a prompt on a div</a>
+                        | <a href="#" onclick="jQuery('#test').validationEngine('hide')">Close div prompt</a>
 			| <a href="index.html" >Back to index</a>
         </p>
         <p>
             This demonstration shows the different validators available
             <br/>
         </p>
+        <div id="test" class="test" style="width:150px;">This is a div element</div>
         <form id="formID" class="formular" method="post" action="">
             <fieldset>
                 <legend>
