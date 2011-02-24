@@ -1,5 +1,3 @@
-
-
 (function($){
     $.fn.validationEngineLanguage = function(){
     };
@@ -116,4 +114,3 @@
     };
     $.validationEngineLanguage.newLang();
 })(jQuery);
-

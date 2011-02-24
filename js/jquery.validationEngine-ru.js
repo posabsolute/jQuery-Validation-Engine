@@ -1,7 +1,6 @@
-
 (function($){
     $.fn.validationEngineLanguage = function(){
-    };
+	};
     $.validationEngineLanguage = {
         newLang: function(){
             $.validationEngineLanguage.allRules = {

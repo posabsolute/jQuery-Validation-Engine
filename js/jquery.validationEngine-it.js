@@ -1,7 +1,5 @@
-
 (function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+    $.fn.validationEngineLanguage = function(){};
     $.validationEngineLanguage = {
         newLang: function(){
             $.validationEngineLanguage.allRules = {
@@ -96,8 +94,5 @@
             
         }
     };
-})(jQuery);
-
-$(document).ready(function(){
     $.validationEngineLanguage.newLang();
-});
+})(jQuery);
