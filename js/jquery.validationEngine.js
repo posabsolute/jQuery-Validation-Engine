@@ -199,7 +199,6 @@
             var options = form.data('jqv');
             // validate the form using AJAX
             if (r && options.ajaxFormValidation) {
-
                 methods._validateFormWithAjax(form, options);
                 return false;
             }
@@ -482,7 +481,7 @@
                 options.showArrow = false;
             }
 
-            if (isAjaxValidator) {
+            if (!isAjaxValidator) {
                 if (options.isError)
                     methods._showPrompt(field, promptText, "", false, options);
                 else
