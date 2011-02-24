@@ -192,6 +192,8 @@
         _onSubmitEvent: function() {
 
             var form = $(this);
+
+			// validate each field (- skip field ajax validation, no necessary since we will perform an ajax form validation)
             var r=methods._validateFields(form, true);
 
             var options = form.data('jqv');
@@ -229,6 +231,9 @@
          *
          * @param {jqObject}
          *            form
+         * @param {skipAjaxFieldValidation}
+         *            boolean - when set to true, ajax field validation is skipped, typically used when the submit button is clicked
+         *
          * @return true if form is valid, false if not, undefined if ajax form validation is done
          */
         _validateFields: function(form, skipAjaxFieldValidation) {
@@ -394,7 +399,7 @@
             var isAjaxValidator = false;
             var fieldName = field.attr("name");
             var promptText = "";
-				var required = false;
+			var required = false;
             options.isError = false;
             options.showArrow = true;
             optional = false;
@@ -415,7 +420,7 @@
                         errorMsg = methods._customRegex(field, rules, i, options);
                         break;
                     case "ajax":
-                        if(!skipAjaxFieldValidation) {
+                        if(skipAjaxFieldValidation===false) {
                             // ajax has its own prompts handling technique
                             methods._ajax(field, rules, i, options);
                             isAjaxValidator = true;
@@ -477,7 +482,7 @@
                 options.showArrow = false;
             }
 
-            if (!isAjaxValidator) {
+            if (isAjaxValidator) {
                 if (options.isError)
                     methods._showPrompt(field, promptText, "", false, options);
                 else
@@ -541,7 +546,18 @@
          */
         _customRegex: function(field, rules, i, options) {
             var customRule = rules[i + 1];
-            var pattern = new RegExp(options.allrules[customRule].regex);
+			var rule = options.allrules[customRule];
+			if(rule===undefined) {
+				alert("jqv:custom rule not found "+customRule);
+				return;
+			}
+			
+			var ex=rule.regex;
+			if(ex===undefined) {
+				alert("jqv:custom regex not found "+customRule);
+				return;
+			}
+            var pattern = new RegExp(ex);
 
             if (!pattern.test(field.attr('value')))
                 return options.allrules[customRule].alertText;
@@ -1143,7 +1159,7 @@
              
             return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
-            // default constructor with no argument
+            // default constructor with or without arguments
 			methods.init.apply(form, arguments);
             return methods.attach.apply(form);
         } else {

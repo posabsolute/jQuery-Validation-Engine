@@ -38,12 +38,10 @@
             
             jQuery(document).ready(function(){
                 jQuery("#formID").validationEngine({
-					          ajaxFormValidation: true,
+					ajaxFormValidation: true,
                     onAjaxFormComplete: ajaxValidationCallback,
                     onBeforeAjaxFormValidation: beforeCall
                 });
-                
-                jQuery("#formID").validationEngine();
             });
         </script>
     </head>
@@ -75,9 +73,9 @@
                 </label>
                 <label>
                     <span>First name (ajax validation, only <b>duncan</b> is available): </span>
-                    <input value="olivier" class="validate[custom[onlyLetter],maxSize[100],ajax[ajaxNameCall]] text-input" type="text" name="firstname" id="firstname" />
+                    <input value="olivier" class="validate[custom[onlyLetterSp],maxSize[100],ajax[ajaxNameCall]] text-input" type="text" name="firstname" id="firstname" />
                     <p>
-                        validate[custom[onlyLetter],length[0,100],ajax[ajaxNameCall]]
+                        validate[custom[onlyLetterSp],length[0,100],ajax[ajaxNameCall]]
                     </p>
                 </label>
                 <label>
