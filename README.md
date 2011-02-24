@@ -4,11 +4,11 @@ jQuery.validationEngine v2.0
 Summary
 ---
 
-jQuery validation engine is a Javascript plugin aiming the validation of form fields in the browser (IE 6-8, Chrome, Firefox, Safari, Opera 10).
+**jQuery validation** engine is a Javascript plugin aiming the validation of form fields in the browser (IE 6-8, Chrome, Firefox, Safari, Opera 10).
 The plugin provides visual appealing prompts that grab user attention on the subject matter.
 
-Validations range from email, phone, url to more complex calls such as ajax processing.
-Bundled in several locales, the error prompts can be translated in the locale of your choice. 
+Validations range from email, phone, url to more complex calls such as ajax processing or custom javascript functions.
+Bundled with many locales, the error prompts can be translated in the language of your choice. 
 
 Forum Support: http://validationengine.vanillaforums.com/ 
 
@@ -528,15 +528,15 @@ Rules of thumb
 * for simplicity and consistency field.id and field.name should match (except with minCheckbox and maxCheckbox validators)
 * spaces or special chars should be avoided in field.id or field.name
 * use lower cases for input.type  ie. *text, password, textarea, checkbox, radio*
-* use the Ajax validator last ie. validate[custom[onlyLetter],length[0,100],**ajax[ajaxNameCall]**]
-* use only one Ajax validator per field!
+* validators are evaluated from left to right, use the Ajax validator last ie. validate[custom[onlyLetter],length[0,100],**ajax[ajaxNameCall]**]
+* please use only one Ajax validator per field!
 * JSON services should live on the same server (or you will get into browser security issues)
 * in a perfect RESTful world, http **GET** is used to *READ* data, http **POST** is used to *WRITE* data: which translates into -> Ajax validations should use GET, the actual form post should use a POST request.
 
 Contribution
 ---
 Contributions are always welcome, you may refer to the latest stable project at [GitHub](https://github.com/posabsolute/jQuery-Validation-Engine)
-We use [Aptana](http://www.aptana.com/) as a Javascript editor and the Rockstart JSLint & Closure plugins http://update.rockstarapps.com/site.xml
+We use [Aptana](http://www.aptana.com/) as a Javascript editor.
 
 Support
 ---
