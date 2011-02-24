@@ -1133,17 +1133,18 @@
     $.fn.validationEngine = function(method) {
 
         var form = $(this);
-		  if(!form[0]) return false;  // stop here if the form do not exist
+		  if(!form[0]) return false;  // stop here if the form does not exist
 		  
         if (typeof(method) === 'string' && method.charAt(0) != '_' && methods[method]) {
-            // make sure init is being called at least once
-          
+
+            // make sure init is called once
             if(method != "showPrompt" && method != "hidePrompt" && method != "hide" && method != "hideAll") 
             	methods.init.apply(form);
              
             return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method === 'object' || !method) {
-            methods.init.apply(form, arguments);
+            // default constructor with no argument
+			methods.init.apply(form, arguments);
             return methods.attach.apply(form);
         } else {
             $.error('Method ' + method + ' does not exist in jQuery.validationEngine');

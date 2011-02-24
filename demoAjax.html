@@ -22,7 +22,7 @@
                 return true;
             }
             
-            // Called once the server replies to the aja form validation request
+            // Called once the server replies to the ajax form validation request
             function ajaxValidationCallback(status, form, json, options){
                 if (console) 
                     console.log(status);
@@ -43,7 +43,7 @@
                     onBeforeAjaxFormValidation: beforeCall
                 });
                 
-                jQuery("#formID").validationEngine('attach');
+                jQuery("#formID").validationEngine();
             });
         </script>
     </head>

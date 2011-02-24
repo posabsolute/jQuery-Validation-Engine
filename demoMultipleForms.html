@@ -16,9 +16,9 @@
         jQuery(document).ready(function(){
               // binds form submission and fields to the validation engine
               jQuery("#formID1").validationEngine('attach', {promptPosition : "centerRight"});
-		        jQuery("#formID2").validationEngine('attach', {promptPosition : "bottomLeft"});
-		        jQuery("#formID3").validationEngine('attach', {promptPosition : "bottomRight"});
-		        jQuery("#formID4").validationEngine('attach', {promptPosition : "topLeft"});
+		      jQuery("#formID2").validationEngine('attach', {promptPosition : "bottomLeft"});
+		      jQuery("#formID3").validationEngine('attach', {promptPosition : "bottomRight"});
+		      jQuery("#formID4").validationEngine('attach', {promptPosition : "topLeft"});
             });
         </script>
     </head>
@@ -30,7 +30,7 @@
         </p>
 		<p>
 			This demonstration shows the use of multiple forms on the same page.<br/>
-			Note: field ids MUST be unique accross the page
+			Note: field ids MUST be unique across the page
 			
 		</p>
         <table width="100%">
@@ -66,7 +66,7 @@
                                     URL
                                 </legend>
                                 <label>
-                                    URL begin with http:// https:// or fpl://
+                                    URL begin with http:// https:// or ftp://
                                     <br>
                                     <span>Enter a URL : </span>
                                     <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" />
@@ -165,7 +165,7 @@
                                     URL
                                 </legend>
                                 <label>
-                                    URL begin with http:// https:// or fpl://
+                                    URL begin with http:// https:// or ftp://
                                     <br>
                                     <span>Enter a URL : </span>
                                     <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url2" />
