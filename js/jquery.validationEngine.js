@@ -48,20 +48,20 @@
                 options = form.data('jqv');
 
             if (!options.binded) {
-					if(options.bindMethod == "bind"){
-						// bind fields
-                	form.find("[class*=validate]").not("[type=checkbox]").bind(options.validationEventTrigger, methods._onFieldEvent);
-                	form.find("[class*=validate][type=checkbox]").bind("click", methods._onFieldEvent);
+					if (options.bindMethod == "bind"){
+                        // bind fields
+                        form.find("[class*=validate]:not([type=checkbox])").bind(options.validationEventTrigger, methods._onFieldEvent);
+                        form.find("[class*=validate][type=checkbox]").bind("click", methods._onFieldEvent);
 
-                	// bind form.submit
-                	form.bind("submit", methods._onSubmitEvent);
-					}else if(options.bindMethod == "live"){
-						// bind fields with LIVE (for persistant state)
-                	form.find("[class*=validate]").not("[type=checkbox]").live(options.validationEventTrigger, methods._onFieldEvent);
-                	form.find("[class*=validate][type=checkbox]").live("click", methods._onFieldEvent);
+                        // bind form.submit
+                        form.bind("submit", methods._onSubmitEvent);
+					} else if (options.bindMethod == "live") {
+                        // bind fields with LIVE (for persistant state)
+                        form.find("[class*=validate]:not([type=checkbox])").live(options.validationEventTrigger, methods._onFieldEvent);
+                        form.find("[class*=validate][type=checkbox]").live("click", methods._onFieldEvent);
 
-                	// bind form.submit
-                	form.live("submit", methods._onSubmitEvent);
+                        // bind form.submit
+                        form.live("submit", methods._onSubmitEvent);
 					}
 
                 options.binded = true;
