@@ -144,7 +144,7 @@
          * Closes all error prompts on the page
          */
         hidePrompt: function() {
-        		var promptClass =  "."+ $(this).attr("id").replace(":","_") + "formError"
+        		var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError"
             $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
@@ -890,9 +890,9 @@
 
             // create the prompt
             var prompt = $('<div>');
-            prompt.addClass(field.attr("id").replace(":","_") + "formError");
+            prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
             // add a class name to identify the parent form of the prompt
-            if(field.is(":input")) prompt.addClass("parentForm"+field.parents('form').attr("id").replace(":","_"));
+            if(field.is(":input")) prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
             prompt.addClass("formError");
 
             switch (type) {
@@ -1007,7 +1007,7 @@
          */
         _getPrompt: function(field) {
 
-            var className = "." + field.attr("id").replace(":","_") + "formError";
+            var className = "." + methods._getClassName(field.attr("id")) + "formError";
             var match = $(className)[0];
             if (match)
                 return $(match);
@@ -1133,6 +1133,14 @@
 
             form.data('jqv', userOptions);
             return userOptions;
+        },
+        
+        /**
+         * Removes forbidden characters from class name
+         * @param {String} className
+         */
+        _getClassName: function(className) {
+        	return className.replace(":","_").replace(".","_");
         }
     };
 
