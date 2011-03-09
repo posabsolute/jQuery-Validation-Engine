@@ -351,6 +351,7 @@ Take the following example:
         "url": "ajaxValidateFieldUser",
         "extraData": "name=eric",
         "alertText": "* This user is already taken",
+        "alertTextOk": " * User is valid",
         "alertTextLoad": "* Validating, please wait"
     },
     "validate2fields": {
@@ -360,8 +361,10 @@ Take the following example:
 
 onlyNumber, onlyLetter and validate2fields are all selectors. jQuery.validationEngine comes with a standard set but you are welcome to add you own to define AJAX backend services, error messages and/or new regular expressions.
 
-Ajax
+Ajax Protocol
 ---
+
+The ajax validator takes a selector as an attribute. the selector points to a structure that defines the URL to call, the different messages to display and any extra parameters to add on the URL (when applicable). Please refer to the **ajax[selector]** description for more details.
 
 Ajax validation comes in two flavors:
 
@@ -369,6 +372,8 @@ Ajax validation comes in two flavors:
 2. Form Ajax validation, which takes place when the form is submitted or when the validate() action is called.
 
 Both options are optional.
+
+    <input value="" class="validate[required,ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
 
 ### Field ajax validation
 
