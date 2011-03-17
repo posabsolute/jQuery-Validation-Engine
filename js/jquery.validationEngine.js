@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.0 Beta, jQuery plugin
+ * Inline Form Validation Engine 2.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -20,7 +20,7 @@
          */
         init: function(options) {
             var form = this;
-            if (form.data('jqv') === undefined || form.data('jqv') == null ) {
+            if (!form.data('jqv') || form.data('jqv') == null ) {
                 methods._saveOptions(form, options);
 
                 // bind all formError elements to close on click
@@ -136,7 +136,7 @@
 			if(!options) options = methods._saveOptions(this, options);
             if(promptPosition)
                 options.promptPosition=promptPosition;
-            options.showArrow = showArrow===true;
+            options.showArrow = showArrow==true;
 
             methods._showPrompt(this, promptText, type, false, options);
         },
@@ -192,12 +192,12 @@
         _onSubmitEvent: function() {
 
             var form = $(this);
+ 			var options = form.data('jqv');
 
 			// validate each field (- skip field ajax validation, no necessary since we will perform an ajax form validation)
-            var r=methods._validateFields(form, true);
-
-            var options = form.data('jqv');
+            var r=methods._validateFields(form, true);           
             // validate the form using AJAX
+			
             if (r && options.ajaxFormValidation) {
                 methods._validateFormWithAjax(form, options);
                 return false;
@@ -207,6 +207,7 @@
                 options.onValidationComplete(form, r);
                 return false;
             }
+			
             return r;
         },
         /**
@@ -217,7 +218,7 @@
         _checkAjaxStatus: function(options) {
             var status = true;
             $.each(options.ajaxValidCache, function(key, value) {
-                if (value === false) {
+                if (!value) {
                     status = false;
                     // break the each
                     return false;
@@ -235,26 +236,27 @@
          *
          * @return true if form is valid, false if not, undefined if ajax form validation is done
          */
-        _validateFields: function(form, skipAjaxFieldValidation) {
+        _validateFields: function(form) {
 
             var options = form.data('jqv');
 
             // this variable is set to true if an error is found
             var errorFound = false;
-
+			
+			// Trigger hook, start validation
+			$(document).trigger("jqv.validating", [form])
             // first, evaluate status of non ajax fields
             form.find('[class*=validate]').not(':hidden').each( function() {
                 var field = $(this);
-                // fields being valiated though ajax are marked with 'ajaxed',
-                // skip them
-                if (!field.hasClass("ajaxed"))
-                    errorFound |= methods._validateField(field, options, skipAjaxFieldValidation);
+                errorFound |= methods._validateField(field, options);
             });
             // second, check to see if all ajax calls completed ok
             errorFound |= !methods._checkAjaxStatus(options);
-
+			
             // thrird, check status and scroll the container accordingly
+			$(document).trigger("jqv.error", [form, errorFound])
             if (errorFound) {
+				
                 if (options.scroll) {
 
                     // get the position of the first error, there should be at least one, no need to check this
@@ -337,7 +339,7 @@
                                 // promptText or selector
                                 var msg = value[2];
 
-                                if (value[1] === true) {
+                                if (value[1] == true) {
 
                                     if (msg == "")
                                         // if for some reason, status==true and error="", just close the prompt
@@ -381,7 +383,7 @@
          *            user options
          * @return true if field is valid
          */
-        _validateField: function(field, options, skipAjaxFieldValidation) {
+        _validateField: function(field, options) {
 
             if (!field.attr("id"))
                 $.error("jQueryValidate: an ID attribute is required for this field: " + field.attr("name") + " class:" +
@@ -389,7 +391,7 @@
 
             var rulesParsing = field.attr('class');
             var getRules = /validate\[(.*)\]/.exec(rulesParsing);
-            if (getRules === null)
+            if (!getRules)
                 return false;
             var str = getRules[1];
             var rules = str.split(/\[|,|\]/);
@@ -419,11 +421,9 @@
                         errorMsg = methods._customRegex(field, rules, i, options);
                         break;
                     case "ajax":
-                        if(skipAjaxFieldValidation===false) {
-                            // ajax has its own prompts handling technique
-                            methods._ajax(field, rules, i, options);
-                            isAjaxValidator = true;
-                        }
+                        // ajax has its own prompts handling technique
+                        methods._ajax(field, rules, i, options);
+                        isAjaxValidator = true;
                         break;
                     case "minSize":
                         errorMsg = methods._minSize(field, rules, i, options);
@@ -465,6 +465,7 @@
                 if (errorMsg !== undefined) {
                     promptText += errorMsg + "<br/>";
                     options.isError = true;
+					
                 }
 
             }
@@ -481,12 +482,13 @@
                 options.showArrow = false;
             }
 
-            if (!isAjaxValidator) {
-                if (options.isError)
-                    methods._showPrompt(field, promptText, "", false, options);
-                else
-                    methods._closePrompt(field);
-            }
+            
+            if (options.isError){
+				$(document).trigger("jqv.field.error", [field, promptText])
+                methods._showPrompt(field, promptText, "", false, options);
+            }else{
+				if (!isAjaxValidator) methods._closePrompt(field);
+			}
             return options.isError;
         },
         /**
@@ -512,9 +514,9 @@
                 case "radio":
                 case "checkbox":
                     var name = field.attr("name");
-                    if ($("input[name='" + name + "']:checked").size() === 0) {
+                    if ($("input[name='" + name + "']:checked").size() == 0) {
 
-                        if ($("input[name='" + name + "']").size() === 1)
+                        if ($("input[name='" + name + "']").size() == 1)
                             return options.allrules[rules[i]].alertTextCheckboxe;
                         else
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
@@ -546,13 +548,13 @@
         _customRegex: function(field, rules, i, options) {
             var customRule = rules[i + 1];
 			var rule = options.allrules[customRule];
-			if(rule===undefined) {
+			if(!rule) {
 				alert("jqv:custom rule not found "+customRule);
 				return;
 			}
 			
 			var ex=rule.regex;
-			if(ex===undefined) {
+			if(!ex) {
 				alert("jqv:custom regex not found "+customRule);
 				return;
 			}
@@ -574,7 +576,7 @@
         _funcCall: function(field, rules, i, options) {
             var functionName = rules[i + 1];
             var fn = window[functionName];
-            if (typeof(fn) === 'function')
+            if (typeof(fn) == 'function')
                 return fn(field, rules, i, options);
 
         },
@@ -769,7 +771,8 @@
          * @return nothing! the ajax validator handles the prompts itself
          */
         _ajax: function(field, rules, i, options) {
-
+			
+			
             var errorSelector = rules[i + 1];
             var rule = options.allrules[errorSelector];
             var extraData = rule.extraData;
@@ -798,16 +801,14 @@
                         methods._ajaxError(data, transport);
                     },
                     success: function(json) {
-
+						
                         // asynchronously called on success, data is the json answer from the server
                         var errorFieldId = json[0];
                         var errorField = $($("#" + errorFieldId)[0]);
                         // make sure we found the element
                         if (errorField.length == 1) {
-
                             var status = json[1];
-
-                            if (status === false) {
+                            if (!status) {
                                 // Houston we got a problem
                                 options.ajaxValidCache[errorFieldId] = false;
                                 options.isError = true;
@@ -836,7 +837,7 @@
          * @param {Object} transport
          */
         _ajaxError: function(data, transport) {
-            if(data.status === 0 && transport === null)
+            if(data.status == 0 && transport == null)
                 alert("The page is not served from a server! ajax call failed");
             else if(console)
                 console.log("Ajax error: " + data.status + " " + transport);
@@ -1158,14 +1159,14 @@
         var form = $(this);
 		  if(!form[0]) return false;  // stop here if the form does not exist
 		  
-        if (typeof(method) === 'string' && method.charAt(0) != '_' && methods[method]) {
+        if (typeof(method) == 'string' && method.charAt(0) != '_' && methods[method]) {
 
             // make sure init is called once
             if(method != "showPrompt" && method != "hidePrompt" && method != "hide" && method != "hideAll") 
             	methods.init.apply(form);
              
             return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));
-        } else if (typeof method === 'object' || !method) {
+        } else if (typeof method == 'object' || !method) {
             // default constructor with or without arguments
 			methods.init.apply(form, arguments);
             return methods.attach.apply(form);
