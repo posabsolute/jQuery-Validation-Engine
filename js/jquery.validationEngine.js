@@ -118,7 +118,7 @@
          * @return true if the form validates, false if it fails, undefined if ajax is used for form validation
          */
         validateform: function() {
-            return methods._onSubmitEvent(this);
+            return methods._onSubmitEvent.call(this);
         },
         /**
          * Displays a prompt on a element.
@@ -190,14 +190,12 @@
          * @return false if form submission needs to be cancelled
          */
         _onSubmitEvent: function() {
-
             var form = $(this);
  			var options = form.data('jqv');
-
+   
 			// validate each field (- skip field ajax validation, no necessary since we will perform an ajax form validation)
-            var r=methods._validateFields(form, true);           
-            // validate the form using AJAX
-			
+            var r=methods._validateFields(form, true);
+		
             if (r && options.ajaxFormValidation) {
                 methods._validateFormWithAjax(form, options);
                 return false;
@@ -207,9 +205,9 @@
                 options.onValidationComplete(form, r);
                 return false;
             }
-			
             return r;
         },
+
         /**
          * Return true if the ajax field validations passed so far
          * @param {Object} options
@@ -236,8 +234,7 @@
          *
          * @return true if form is valid, false if not, undefined if ajax form validation is done
          */
-        _validateFields: function(form) {
-
+        _validateFields: function(form, skipAjaxValidation) {
             var options = form.data('jqv');
 
             // this variable is set to true if an error is found
@@ -248,10 +245,10 @@
             // first, evaluate status of non ajax fields
             form.find('[class*=validate]').not(':hidden').each( function() {
                 var field = $(this);
-                errorFound |= methods._validateField(field, options);
+                errorFound |= methods._validateField(field, options, skipAjaxValidation);
             });
             // second, check to see if all ajax calls completed ok
-            errorFound |= !methods._checkAjaxStatus(options);
+            // errorFound |= !methods._checkAjaxStatus(options);
 			
             // thrird, check status and scroll the container accordingly
 			$(document).trigger("jqv.error", [form, errorFound])
@@ -329,30 +326,31 @@
                         var errorInForm=false;
                         for (var i = 0; i < json.length; i++) {
                             var value = json[i];
-
+						
                             var errorFieldId = value[0];
                             var errorField = $($("#" + errorFieldId)[0]);
-
+							
                             // make sure we found the element
                             if (errorField.length == 1) {
-
+								
                                 // promptText or selector
                                 var msg = value[2];
-
+								// if the field is valid
                                 if (value[1] == true) {
 
-                                    if (msg == "")
+                                    if (msg == ""  || !msg){
                                         // if for some reason, status==true and error="", just close the prompt
                                         methods._closePrompt(errorField);
-                                    else {
+                                    } else {
                                         // the field is valid, but we are displaying a green prompt
                                         if (options.allrules[msg]) {
                                             var txt = options.allrules[msg].alertTextOk;
                                             if (txt)
                                                 msg = txt;
                                         }
-                                        methods._showPrompt(errorField, msg, "pass", false, options);
+                                        methods._showPrompt(errorField, msg, "pass", false, options, true);
                                     }
+
                                 } else {
                                     // the field is invalid, show the red error prompt
                                     errorInForm|=true;
@@ -361,7 +359,7 @@
                                         if (txt)
                                             msg = txt;
                                     }
-                                    methods._showPrompt(errorField, msg, "", false, options);
+                                    methods._showPrompt(errorField, msg, "", false, options, true);
                                 }
                             }
                         }
@@ -383,8 +381,7 @@
          *            user options
          * @return true if field is valid
          */
-        _validateField: function(field, options) {
-
+        _validateField: function(field, options, skipAjaxValidation) {
             if (!field.attr("id"))
                 $.error("jQueryValidate: an ID attribute is required for this field: " + field.attr("name") + " class:" +
                 field.attr("class"));
@@ -422,8 +419,10 @@
                         break;
                     case "ajax":
                         // ajax has its own prompts handling technique
-                        methods._ajax(field, rules, i, options);
-                        isAjaxValidator = true;
+						if(!skipAjaxValidation){
+							methods._ajax(field, rules, i, options);
+	                        isAjaxValidator = true;
+						}
                         break;
                     case "minSize":
                         errorMsg = methods._minSize(field, rules, i, options);
@@ -461,7 +460,6 @@
                     default:
                     //$.error("jQueryValidator rule not found"+rules[i]);
                 }
-
                 if (errorMsg !== undefined) {
                     promptText += errorMsg + "<br/>";
                     options.isError = true;
@@ -470,7 +468,7 @@
 
             }
             // If the rules required is not added, an empty field is not validated
-            if(!required && !optional ){
+            if(!required){
             	if(field.val() == "") options.isError = false;
             }
             // Hack for radio/checkbox group button, the validation go into the
@@ -839,7 +837,7 @@
         _ajaxError: function(data, transport) {
             if(data.status == 0 && transport == null)
                 alert("The page is not served from a server! ajax call failed");
-            else if(console)
+            else if(typeof console != "undefined")
                 console.log("Ajax error: " + data.status + " " + transport);
         },
         /**
@@ -871,8 +869,12 @@
          * @param {boolean} ajaxed - use to mark fields than being validated with ajax
          * @param {Map} options user options
          */
-        _showPrompt: function(field, promptText, type, ajaxed, options) {
+        _showPrompt: function(field, promptText, type, ajaxed, options, ajaxform) {
             var prompt = methods._getPrompt(field);
+			// The ajax submit errors are not see has an error in the form,
+			// When the form errors are returned, the engine see 2 bubbles, but those are ebing closed by the engine at the same time
+			// Because no error was found befor submitting
+			if(ajaxform) prompt = false;
             if (prompt)
                 methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
             else
@@ -956,7 +958,7 @@
          * @param {Map} options user options
          */
         _updatePrompt: function(field, prompt, promptText, type, ajaxed, options) {
-
+			
             if (prompt) {
                 if (type == "pass")
                     prompt.addClass("greenPopup");
@@ -1102,7 +1104,8 @@
                 // topRight, bottomLeft, centerRight, bottomRight
                 promptPosition: "topRight",
                 bindMethod:"bind",
-
+				// internal, automatically set to true when it parse a _ajax rule
+				inlineAjax: false,
                 // if set to true, the form data is sent asynchronously via ajax to the form.action url (get)
                 ajaxFormValidation: false,
                 // Ajax form validation callback method: boolean onComplete(form, status, errors, options)
