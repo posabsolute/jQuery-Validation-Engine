@@ -17,14 +17,14 @@
             // it is typically used to setup some visuals ("Please wait...");
             // you may return a false to stop the request 
             function beforeCall(form, options){
-                if (console) 
+                if (window.console) 
                     console.log("Right before the AJAX form validation call");
                 return true;
             }
             
             // Called once the server replies to the ajax form validation request
             function ajaxValidationCallback(status, form, json, options){
-                if (console) 
+                if (window.console) 
                     console.log(status);
                 
                 if (status === true) {
@@ -61,14 +61,14 @@
             <br/>
             The form validation implements callback hooks, so please check the javascript console
         </p>
-        <form id="formID" class="formular" method="post" action="phpajax/ajaxSubmitForm.php" style="width:600px">
+        <form id="formID" class="formular" method="post" action="phpajax/ajaxValidateSubmit.php" style="width:600px">
             <fieldset>
                 <legend>
                     Ajax validation
                 </legend>
                 <label>
                     <span>Desired username (ajax validation, only <b>karnius</b> is available) : </span>
-                    <input value="" class="validate[required,custom[onlyLetterNumber],maxSize[20]] text-input" type="text" name="user" id="user" />
+                    <input value="" class="validate[required,custom[onlyLetterNumber],maxSize[20],ajax[ajaxUserCallPhp]] text-input" type="text" name="user" id="user" />
                     <p>
                         validate[required,custom[noSpecialCaracters],maxSize[20],ajax[ajaxUserCall]]
                     </p>

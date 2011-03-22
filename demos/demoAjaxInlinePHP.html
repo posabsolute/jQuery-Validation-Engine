@@ -12,30 +12,6 @@
         <script src="../js/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
         </script>
         <script>
-            
-            // This method is called right before the ajax form validation request
-            // it is typically used to setup some visuals ("Please wait...");
-            // you may return a false to stop the request 
-            function beforeCall(form, options){
-                if (console) 
-                    console.log("Right before the AJAX form validation call");
-                return true;
-            }
-            
-            // Called once the server replies to the ajax form validation request
-            function ajaxValidationCallback(status, form, json, options){
-                if (console) 
-                    console.log(status);
-                
-                if (status === true) {
-                    alert("the form is valid!");
-                    // uncomment these lines to submit the form to form.action
-                    // form.validationEngine('detach');
-                    // form.submit();
-                    // or you may use AJAX again to submit the data
-                }
-            }
-            
             jQuery(document).ready(function(){
                 jQuery("#formID").validationEngine();
             });
@@ -44,16 +20,14 @@
     <body>
         <p>
             <a href="#" onclick="alert(jQuery('#formID').validationEngine({evaluate:true}))">Return true or false without binding anything</a>
-            | <a href="#" onclick="jQuery.validationEngine.buildPrompt('#formID','This is an example','error')">Build a prompt on a div</a>
-            | <a href="#" onclick="jQuery.validationEngine.loadValidation('#date')">Load validation date</a>
-            | <a href="#" onclick="jQuery.validationEngine.closePrompt('.formError',true)">Close all prompt</a>
+             | <a href="#" onclick="jQuery.validationEngine.buildPrompt('#formID','This is an example','error')">Build a prompt on a div</a>
+             | <a href="#" onclick="jQuery.validationEngine.loadValidation('#date')">Load validation date</a>
+             | <a href="#" onclick="jQuery.validationEngine.closePrompt('.formError',true)">Close all prompt</a>
         </p>    
 		<p style="color:red; text-align:center">Please run this demo from a WebServer, it will fail otherwise.
 		</p>
         <p>
-            This demonstrations shows the use of Ajax <b>form</b>
-            and <b>field</b>
-            validations.
+            This demonstrations shows the use of inline Ajax validations. The inline ajax validation is never fired on submit.
             <br/>
             The form validation implements callback hooks, so please check the javascript console
         </p>
@@ -71,14 +45,14 @@
                 </label>
                 <label>
                     <span>First name (ajax validation, only <b>duncan</b> is available): </span>
-                    <input value="olivier" class="validate[custom[onlyLetterSp],maxSize[100],ajax[ajaxNameCallPhp]] text-input" type="text" name="firstname" id="firstname" />
+                    <input value="" class="validate[optional,custom[onlyLetterSp],maxSize[100],ajax[ajaxNameCallPhp]] text-input" type="text" name="firstname" id="firstname" />
                     <p>
                         validate[custom[onlyLetterSp],length[0,100],ajax[ajaxNameCall]]
                     </p>
                 </label>
                 <label>
                     <span>Email address : </span>
-                    <input value="someone1@here.com" class="validate[required,custom[email]] text-input" type="text" name="email" id="email" />
+                    <input value="" class="validate[required,custom[email]] text-input" type="text" name="email" id="email" />
                     <p>
                         validate[required,custom[email]]
                     </p>
