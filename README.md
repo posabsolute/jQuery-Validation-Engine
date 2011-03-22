@@ -375,6 +375,9 @@ Both options are optional.
 
     <input value="" class="validate[required,ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
 
+
+You can see a tutorial that makes the use of php here: [http://www.position-absolute.com/articles/using-form-ajax-validation-with-the-jquery-validation-engine-plugin/](http://www.position-absolute.com/articles/using-form-ajax-validation-with-the-jquery-validation-engine-plugin/)
+
 ### Field ajax validation
 
 
