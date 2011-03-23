@@ -506,6 +506,22 @@ The big change in this method is that normally the engine will append every erro
 
 The default top right position is currently the only supported position. Please use this mode only in overflown div and in scollable boxes, it is slower and a bit less stable (I have been using the engine for 2 years, but only one 1 month with this method). Also, the scrolling will be applied to the overflown parent, not the document body.
 
+Hooks
+---
+
+The plugin provides some hooks using jQuery bind functionality.
+
+* jqv.form.validating : Trigger when the form is submitted and before it start the validation process
+* jqv.field.result(event, field, errorFound, prompText) : Triggers when a field is validated with the result.
+* jqv.form.result(event, errorFound) : Trigger when a form is validated with the result
+
+An example to bind yourself to those hooks would be:
+
+    $("#formID").bind("jqv.form.result", function(event, errorFound) {
+	  if(errorFound) alert("There is a problem with your form");
+    })
+
+
 Customizations
 ---
 
@@ -529,20 +545,6 @@ You can now use the new regular expression as such
     <input type="text" id="myid" name="myid" class="validation[custom[onlyLetter]]"/>
 
 Don't forget to contribute!
-
-### Hooks
-
-The plugin provides some hooks using jQuery bind functionality.
-
-* jqv.form.validating : Trigger when the form is submitted and before it start the validation process
-* jqv.field.result(event, field, errorFound, prompText) : Triggers when a field do not validate correctly with the error.
-* jqv.form.result(event, errorFound) : Trigger when a form is validated with the result
-
-An example to bind yourself to those hooks would be:
-
-    $("#formID").bind("jqv.form.result", function(event, errorFound) {
-	  if(errorFound) alert("There is a problem with your form");
-    })
 
 ### Customizing the look and feel
 
