@@ -69,8 +69,7 @@
                     "alertText": "* Invalid floating decimal number"
                 },
                 "date": {
-                    // Date in ISO format. Credit: bassistance
-                    "regex": /^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/,
+                    "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
                     "alertText": "* Invalid date, must be in YYYY-MM-DD format"
                 },
                 "ipv4": {
