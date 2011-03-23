@@ -196,6 +196,9 @@ Where should the prompt show ? Possible values are "topLeft", "topRight", "botto
 If set to true, turns Ajax form validation logic on. defaults to *false*.
 form validation takes place when the validate() action is called or when the form is submitted.
 
+### ajaxFormValidationURL
+If set, the  ajax submit validation will use this url instead of the form action
+
 ### onBeforeAjaxFormValidation(form, options)
 When ajaxFormValidation is turned on, function called before the asynchronous AJAX form validation call. May return false to stop the Ajax form validation
             
@@ -411,6 +414,11 @@ Server responds with a list of arrays: [fieldid, status, errorMsg].
 
 Note that only errors (status=false) shall be returned from the server. However you may also decide to return an entry with a status=true in which case the errorMsg will show as a green prompt.
 
+####Validation URL
+By default the engine use the form action to validate the form, you can however set a default url using:
+
+**ajaxFormValidationURL
+
 
 ####Callbacks
 
@@ -519,6 +527,20 @@ You can now use the new regular expression as such
     <input type="text" id="myid" name="myid" class="validation[custom[onlyLetter]]"/>
 
 Don't forget to contribute!
+
+### Hooks
+
+The plugin provides some hooks using jQuery bind functionality.
+
+* jqv.form.validating(event, form) : Trigger when the form is submitted and before it start the validation process
+* jqv.field.error(event, field, prompText) : Triggers when a field do not validate correctly with the error.
+* jqv.form.result(event, form, errorFound) : Trigger when a form is validated with the result
+
+An example to bind yourself to those hooks would be:
+
+    $("document").bind("jqv.field.result", function(event, form, errorFound) {
+	  if(errorFound) alert("There is a problem with your form");
+    })
 
 ### Customizing the look and feel
 
