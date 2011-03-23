@@ -386,6 +386,8 @@ You can see a tutorial that makes the use of php here: [http://www.position-abso
 
 ####Protocol
 
+Field ajax validation IS NOT called on form submit, you will need to use both ajax validation if it is what you are trying to do.
+
 The client sends the fieldId and the fieldValue as a GET request to the server url.
 
     Client calls url?fieldId=id1&fieldValue=value1 ==> Server
