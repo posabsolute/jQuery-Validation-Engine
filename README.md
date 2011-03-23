@@ -251,7 +251,7 @@ Validates the element's value to a predefined list of regular expressions.
 
 Please refer to the section Custom Regex for a list of available regular expressions.
 
-### function[methodName]
+### funcCall[methodName]
 
 Validates a field using a third party function call. If a validation error occurs, the function must return an error message that will automatically show in the error prompt.
 
