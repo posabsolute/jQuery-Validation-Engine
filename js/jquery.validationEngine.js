@@ -241,7 +241,7 @@
             var errorFound = false;
 			
 			// Trigger hook, start validation
-			$(document).trigger("jqv.form.validating", [form])
+			form.trigger("jqv.form.validating")
             // first, evaluate status of non ajax fields
             form.find('[class*=validate]').not(':hidden').each( function() {
                 var field = $(this);
@@ -251,7 +251,7 @@
             // errorFound |= !methods._checkAjaxStatus(options);
 			
             // thrird, check status and scroll the container accordingly
-			$(document).trigger("jqv.form.result", [form, errorFound])
+			form.trigger("jqv.form.result", [errorFound])
 			
             if (errorFound) {
 				
@@ -481,13 +481,13 @@
                 options.showArrow = false;
             }
 
-            
             if (options.isError){
-				$(document).trigger("jqv.field.error", [field, promptText])
+				
                 methods._showPrompt(field, promptText, "", false, options);
             }else{
 				if (!isAjaxValidator) methods._closePrompt(field);
 			}
+			field.closest('form').trigger("jqv.field.error", [field, options.isError, promptText])
             return options.isError;
         },
         /**

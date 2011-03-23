@@ -16,11 +16,11 @@
                 // binds form submission and fields to the validation engine
                 jQuery("#formID").validationEngine();
 
-				$(document).bind("jqv.form.validating", function(event, form){
+				$("#formID").bind("jqv.form.validating", function(event){
 					$("#hookError").html("")
 				})
 
-				$(document).bind("jqv.form.result", function(event, form , errorFound){
+				$("#formID").bind("jqv.form.result", function(event , errorFound){
 					if(errorFound) $("#hookError").append("There is some problems with your form");
 				})
             });

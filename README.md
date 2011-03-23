@@ -534,13 +534,13 @@ Don't forget to contribute!
 
 The plugin provides some hooks using jQuery bind functionality.
 
-* jqv.form.validating(event, form) : Trigger when the form is submitted and before it start the validation process
-* jqv.field.error(event, field, prompText) : Triggers when a field do not validate correctly with the error.
-* jqv.form.result(event, form, errorFound) : Trigger when a form is validated with the result
+* jqv.form.validating : Trigger when the form is submitted and before it start the validation process
+* jqv.field.result(event, field, errorFound, prompText) : Triggers when a field do not validate correctly with the error.
+* jqv.form.result(event, errorFound) : Trigger when a form is validated with the result
 
 An example to bind yourself to those hooks would be:
 
-    $("document").bind("jqv.field.result", function(event, form, errorFound) {
+    $("#formID").bind("jqv.form.result", function(event, errorFound) {
 	  if(errorFound) alert("There is a problem with your form");
     })
 
