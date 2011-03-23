@@ -241,7 +241,7 @@
             var errorFound = false;
 			
 			// Trigger hook, start validation
-			$(document).trigger("jqv.validating", [form])
+			$(document).trigger("jqv.form.validating", [form])
             // first, evaluate status of non ajax fields
             form.find('[class*=validate]').not(':hidden').each( function() {
                 var field = $(this);
@@ -251,7 +251,8 @@
             // errorFound |= !methods._checkAjaxStatus(options);
 			
             // thrird, check status and scroll the container accordingly
-			$(document).trigger("jqv.error", [form, errorFound])
+			$(document).trigger("jqv.form.result", [form, errorFound])
+			
             if (errorFound) {
 				
                 if (options.scroll) {
@@ -300,10 +301,10 @@
         _validateFormWithAjax: function(form, options) {
 
             var data = form.serialize();
-
+			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
             $.ajax({
                 type: "GET",
-                url: form.attr("action"),
+                url: url,
                 cache: false,
                 dataType: "json",
                 data: data,
@@ -1110,6 +1111,8 @@
                 ajaxFormValidation: false,
                 // Ajax form validation callback method: boolean onComplete(form, status, errors, options)
                 // retuns false if the form.submit event needs to be canceled.
+				ajaxFormValidationURL: false,
+                // The url to send the submit ajax validation (default to action)
                 onAjaxFormComplete: $.noop,
                 // called right before the ajax call, may return false to cancel
                 onBeforeAjaxFormValidation: $.noop,
