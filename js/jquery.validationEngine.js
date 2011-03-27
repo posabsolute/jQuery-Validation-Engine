@@ -690,14 +690,14 @@
             var pdate = (p.toLowerCase() == "now")? new Date():methods._parseDate(p);
             var vdate = methods._parseDate(field.attr('value'));
 
-            if (vdate > pdate ) {
+            if (vdate < pdate ) {
                 var rule = options.allrules.past;
                 if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
             }
         },
         /**
-         * Checks date is in the past
+         * Checks date is in the future
          *
          * @param {jqObject} field
          * @param {Array[String]} rules
@@ -712,7 +712,7 @@
             var pdate = (p.toLowerCase() == "now")? new Date():methods._parseDate(p);
             var vdate = methods._parseDate(field.attr('value'));
 
-            if (vdate < pdate ) {
+            if (vdate > pdate ) {
                 var rule = options.allrules.future;
                 if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
@@ -857,7 +857,7 @@
         _parseDate: function(d) {
 
             var dateParts = d.split("-");
-            if(dateParts!==d)
+            if(dateParts==d)
                 dateParts = d.split("/");
             return new Date(dateParts[0], (dateParts[1] - 1) ,dateParts[2]);
         },
