@@ -30,12 +30,12 @@
                 },
                 "past": {
                     "regex": "none",
-                    "alertText": "* Lütfen "
+                    "alertText": "* Lütfen ",
                     "alertText2": " tarihinden daha ileri bir tarih giriniz "
                 },
                 "future": {
                     "regex": "none",
-                    "alertText": "* Lütfen "
+                    "alertText": "* Lütfen ",
                     "alertText2": " tarihinden daha geri bir tarih giriniz "
 
                 },	
