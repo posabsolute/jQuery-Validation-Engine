@@ -17,7 +17,7 @@
                 },
                 "maxSize": {
                     "regex": "none",
-                    "alertText": "* Bu alana en fazla",
+                    "alertText": "* Bu alana en fazla ",
                     "alertText2": " karakter girebilirsiniz"
                 },
                 "min": {
@@ -41,7 +41,7 @@
                 },	
                 "maxCheckbox": {
                     "regex": "none",
-                    "alertText": "* Checks allowed Exceeded"
+                    "alertText": "* Lütfen daha az onay kutusu iþareyleyiniz"
                 },
                 "minCheckbox": {
                     "regex": "none",
@@ -60,7 +60,7 @@
                 "email": {
                     // Simplified, was not working in the Iphone browser
                     "regex": /^([A-Za-z0-9_\-\.\'])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,6})$/,
-                    "alertText": "* geçersiz eposta adresi"
+                    "alertText": "* Geçersiz eposta adresi"
                 },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
@@ -73,7 +73,7 @@
                 },
                 "date": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
-                    "alertText": "* Geçersiz tarih.  Tarih YYYY-MM-DD formatýnda olmalý"
+                    "alertText": "* Geçersiz tarih. Tarih YYYY-MM-DD formatýnda olmalý"
                 },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
@@ -85,11 +85,11 @@
                 },
                 "onlyNumberSp": {
                     "regex": /^[0-9\ ]+$/,
-                    "alertText": "* Bu alanda sadece rakam(lar) olmalý"
+                    "alertText": "* Bu alanda sadece rakam olmalý"
                 },
                 "onlyLetterSp": {
                     "regex": /^[a-zA-Z\ \']+$/,
-                    "alertText": "* Bu alanda sadece harf(ler) olmalý"
+                    "alertText": "* Bu alanda sadece harf olmalý"
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
