@@ -775,17 +775,34 @@
             var errorSelector = rules[i + 1];
             var rule = options.allrules[errorSelector];
             var extraData = rule.extraData;
+            var extraDataDynamic = rule.extraDataDynamic;
 
             if (!extraData)
                 extraData = "";
 
+            if (extraDataDynamic) {
+              var tmpData = [];
+              var domIds = String(extraDataDynamic).split(",");
+              for (var i = 0; i < domIds.length; i++) {
+                var id = domIds[i];
+                if ($(id).length) {
+                  var inputValue = field.closest("form").find(id).attr("value");
+                  var keyValue = id.replace('#', '') + '=' + escape(inputValue);
+                  tmpData.push(keyValue);
+                }
+              }
+              extraDataDynamic = tmpData.join("&");
+            } else {
+              extraDataDynamic = "";              
+            }
+                                
             if (!options.isError) {
                 $.ajax({
                     type: "GET",
                     url: rule.url,
                     cache: false,
                     dataType: "json",
-                    data: "fieldId=" + field.attr("id") + "&fieldValue=" + field.attr("value") + "&extraData=" + extraData,
+                    data: "fieldId=" + field.attr("id") + "&fieldValue=" + field.attr("value") + "&extraData=" + extraData + "&" + extraDataDynamic,
                     field: field,
                     rule: rule,
                     methods: methods,

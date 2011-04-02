@@ -275,6 +275,7 @@ Delegates the validation to a server URL using an asynchronous Ajax request. The
     "ajaxUserCall": {
         "url": "ajaxValidateFieldUser",
         "extraData": "name=eric",
+        "extraDataDynamic": ['#user_id', '#user_email'],
         "alertText": "* This user is already taken",
         "alertTextOk": "All good!",
         "alertTextLoad": "* Validating, please wait"
@@ -282,6 +283,7 @@ Delegates the validation to a server URL using an asynchronous Ajax request. The
 
 * url - is the remote restful service to call
 * extraData - optional parameters to sent
+* extraDataDynamic - optional DOM id's that should have their values sent as parameters
 * alertText - error prompt message is validation fails
 * alertTextOk - optional prompt is validation succeeds (shows green)
 * alertTextLoad - message displayed while the validation is being performed
