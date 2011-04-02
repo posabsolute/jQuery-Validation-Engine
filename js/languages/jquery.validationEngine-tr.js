@@ -41,7 +41,8 @@
                 },	
                 "maxCheckbox": {
                     "regex": "none",
-                    "alertText": "* Lütfen daha az onay kutusu işareyleyiniz"
+                    "alertText": "* En fazla ",
+                    "alertText2": " onay kutusu işaretleyebilirsiniz"
                 },
                 "minCheckbox": {
                     "regex": "none",

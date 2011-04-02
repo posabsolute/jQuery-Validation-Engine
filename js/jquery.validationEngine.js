@@ -735,6 +735,7 @@
             var groupSize = $("input[name='" + groupname + "']:checked").size();
             if (groupSize > nbCheck) {
                 options.showArrow = false;
+                if (options.allrules.maxCheckbox.alertText2) return options.allrules.maxCheckbox.alertText + " " + nbCheck + " " + options.allrules.maxCheckbox.alertText2;
                 return options.allrules.maxCheckbox.alertText;
             }
         },

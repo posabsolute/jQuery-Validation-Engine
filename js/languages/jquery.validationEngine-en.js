@@ -38,7 +38,8 @@
                 },	
                 "maxCheckbox": {
                     "regex": "none",
-                    "alertText": "* Checks allowed Exceeded"
+                    "alertText": "* Maximum ",
+                    "alertText2": " options allowed"
                 },
                 "minCheckbox": {
                     "regex": "none",
