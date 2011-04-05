@@ -388,15 +388,17 @@ You can see a tutorial that makes the use of php here: [http://www.position-abso
 
 ####Protocol
 
-Field ajax validation IS NOT called on form submit, you will need to use both ajax validation if it is what you are trying to do.
-
 The client sends the fieldId and the fieldValue as a GET request to the server url.
 
     Client calls url?fieldId=id1&fieldValue=value1 ==> Server
 
-Server responds with **one** tuple: field1, status: either true (validation succeeded) or false.
+Server responds with an arrays: [fieldid, status, errorMsg].
 
-    Client receives <== ["id1", boolean] Server
+    Client receives <== ["id1", boolean, errorMsg] Server
+
+* fieldid is the name (id) of the field
+* status is the result of the validation, true if it passes, false if it fails
+* errorMsg is an optional error string (or a selector) to the prompt text. If no error msg is returned - the prompt message is expected to be part of the rule with key "alertText" or "alertTextOk" (see the structure of the translation file)
 
 
 ### Form ajax validation
@@ -408,7 +410,7 @@ The client sends the form fields and values as a GET request to the form.action 
 
     Client calls url?fieldId=id1&fieldValue=value1&...etc ==> Server (form.action)
 
-Server responds with a list of arrays: [fieldid, status, errorMsg].
+Server responds with a *list* of arrays: [fieldid, status, errorMsg].
 
 * fieldid is the name (id) of the field
 * status is the result of the validation, true if it passes, false if it fails

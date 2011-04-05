@@ -825,20 +825,43 @@
                         // make sure we found the element
                         if (errorField.length == 1) {
                             var status = json[1];
+							// read the optional msg from the server
+							var msg = json[2];
                             if (!status) {
-                                // Houston we got a problem
+                                // Houston we got a problem - display an red prompt
                                 options.ajaxValidCache[errorFieldId] = false;
                                 options.isError = true;
-                                var promptText = rule.alertText;
-                                methods._showPrompt(errorField, promptText, "", true, options);
+
+								// resolve the msg prompt
+								if(msg) {
+									if (options.allrules[msg]) {
+                                    	var txt = options.allrules[msg].alertText;
+                                    	if (txt)
+                                    		msg = txt;
+                                    }
+								}
+								else
+                                    msg = rule.alertText;
+                                
+								methods._showPrompt(errorField, msg, "", true, options);
                             } else {
                                 if (options.ajaxValidCache[errorFieldId] !== undefined)
                                     options.ajaxValidCache[errorFieldId] = true;
 
-                                // see if we should display a green prompt
-                                var alertTextOk = rule.alertTextOk;
-                                if (alertTextOk)
-                                    methods._showPrompt(errorField, alertTextOk, "pass", true, options);
+                                // resolves the msg prompt
+								if(msg) {
+									if (options.allrules[msg]) {
+							           	var txt = options.allrules[msg].alertTextOk;
+							           	if (txt)
+							           		msg = txt;
+							        }
+								}
+								else
+							       	msg = rule.alertTextOk;                                
+
+								// see if we should display a green prompt
+                                if (msg)
+                                    methods._showPrompt(errorField, msg, "pass", true, options);
                                 else
                                     methods._closePrompt(errorField);
                             }
