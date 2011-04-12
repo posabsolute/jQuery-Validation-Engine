@@ -573,8 +573,31 @@ Rules of thumb
 
 Contribution
 ---
-Contributions are always welcome, you may refer to the latest stable project at [GitHub](https://github.com/posabsolute/jQuery-Validation-Engine)
-We use [Aptana](http://www.aptana.com/) as a Javascript editor.
+Contributions are always welcome, please follow these steps to submit your changes:
+
+* Install git from http://git-scm.com/
+* Create a github account on https://github.com
+* Open the jQuery Validation Engine project home page on github on https://github.com/posabsolute/jQuery-Validation-Engine
+* Click "Fork"
+* Clone your forked repository on your local machine (don't clone the original repository)
+    git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
+
+* Create a branch and switch to it
+    cd my-jqv-repo
+    git branch mynewfeature-patch
+    git checkout mynewfeature-patch
+
+* Make your changes, then commit them. add a meaningful comment, that's the comment everybody will see!
+    git commit -m "Fixing issues around prompt positioning in an overflow DIV"
+
+* Push the changes from your local branch to your forked repository on github
+    git push origin mynewfeature-patch
+
+* Open your forked repository on github at https://github.com/your-username/jQuery-Validation-Engine
+* Click "Switch Branches" and select your branch (mynewfeature-patch)
+* Click "Pull Request"
+* Submit your pull request to jqv developers
+
 
 Support
 ---
