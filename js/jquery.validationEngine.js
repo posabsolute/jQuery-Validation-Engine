@@ -262,17 +262,21 @@
 
                     // look for the visually top prompt
                     var destination = Number.MAX_VALUE;
-
+                    var fixleft = 0;
                     var lst = $(".formError:not('.greenPopup')");
+
                     for (var i = 0; i < lst.length; i++) {
                         var d = $(lst[i]).offset().top;
-                        if (d < destination)
+                        if (d < destination){
                             destination = d;
+                            fixleft = $(lst[i]).offset().left;
+                        }
                     }
 
                     if (!options.isOverflown)
                         $("html:not(:animated),body:not(:animated)").animate({
-                            scrollTop: destination
+                            scrollTop: destination,
+                            scrollLeft: fixleft
                         }, 1100);
                     else {
                         var overflowDIV = $(options.overflownDIV);
@@ -284,6 +288,11 @@
 
                         scrollContainer.animate({
                             scrollTop: destination
+                        }, 1100);
+
+                        $("html:not(:animated),body:not(:animated)").animate({
+                            scrollTop: overflowDIV.offset().top,
+                            scrollLeft: fixleft
                         }, 1100);
                     }
                 }
