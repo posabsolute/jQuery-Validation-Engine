@@ -144,7 +144,7 @@
          * Closes all error prompts on the page
          */
         hidePrompt: function() {
-        		var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError"
+        	var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
             $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
@@ -153,11 +153,11 @@
          * Closes form error prompts, CAN be invidual
          */
         hide: function() {
+			var closingtag;
         	if($(this).is("form")){
-        		 var closingtag = "parentForm"+$(this).attr('id');
+        		closingtag = "parentForm"+$(this).attr('id');
         	}else{
-        		
-        		var closingtag = $(this).attr('id') +"formError"
+        		closingtag = $(this).attr('id') +"formError";
         	}
             $('.'+closingtag).fadeTo("fast", 0.3, function() {
                 $(this).remove();
@@ -241,7 +241,7 @@
             var errorFound = false;
 			
 			// Trigger hook, start validation
-			form.trigger("jqv.form.validating")
+			form.trigger("jqv.form.validating");
             // first, evaluate status of non ajax fields
             form.find('[class*=validate]').not(':hidden').each( function() {
                 var field = $(this);
@@ -251,7 +251,7 @@
             // errorFound |= !methods._checkAjaxStatus(options);
 			
             // thrird, check status and scroll the container accordingly
-			form.trigger("jqv.form.result", [errorFound])
+			form.trigger("jqv.form.result", [errorFound]);
 			
             if (errorFound) {
 				
