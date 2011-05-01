@@ -487,7 +487,7 @@
             }else{
 				if (!isAjaxValidator) methods._closePrompt(field);
 			}
-			field.closest('form').trigger("jqv.field.error", [field, options.isError, promptText])
+			field.trigger("jqv.field.result", [field, options.isError, promptText]);
             return options.isError;
         },
         /**
