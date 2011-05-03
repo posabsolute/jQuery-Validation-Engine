@@ -577,30 +577,31 @@ Contributions are always welcome, please follow these steps to submit your chang
 
 1. Install git from http://git-scm.com/
 2. Create a github account on ![https://github.com]
-3. Open the jQuery Validation Engine project home page on github on https://github.com/posabsolute/jQuery-Validation-Engine
-4. Click "Fork"
-5. Clone your forked repository on your local machine (don't clone the original repository)
+3. set up your git ssh key using these instructions ![http://help.github.com/set-up-git-redirect]
+4. Open the jQuery Validation Engine project home page on github on https://github.com/posabsolute/jQuery-Validation-Engine
+5. Click "Fork"
+6. Clone your forked repository on your local machine (don't clone the original repository)
 
     git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
 
-6. Create a branch and switch to it
+7. Create a branch and switch to it
 
     cd my-jqv-repo
     git branch mynewfeature-patch
     git checkout mynewfeature-patch
 
-7. Make your changes, then commit them. add a meaningful comment, that's the comment everybody will see!
+8. Make your changes, then commit them. add a meaningful comment, that's the comment everybody will see!
 
     git commit -m "Fixing issues around prompt positioning in an overflow DIV"
 
-8. Push the changes from your local branch to your forked repository on github
+9. Push the changes from your local branch to your forked repository on github
 
     git push origin mynewfeature-patch
 
-9. Open your forked repository on github at https://github.com/your-username/jQuery-Validation-Engine
-10. Click "Switch Branches" and select your branch (mynewfeature-patch)
-11. Click "Pull Request"
-12. Submit your pull request to jqv developers
+10. Open your forked repository on github at https://github.com/your-username/jQuery-Validation-Engine
+11. Click "Switch Branches" and select your branch (mynewfeature-patch)
+12. Click "Pull Request"
+13. Submit your pull request to jqv developers
 
 
 Support
