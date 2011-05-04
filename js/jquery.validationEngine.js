@@ -46,10 +46,13 @@
                 options = methods._saveOptions(form, userOptions);
             else
                 options = form.data('jqv');
-
+			
+			var validateAttribute = (form.find("[data-validation-engine*=validate]")) ? "data-validation-engine" : "class";
+			
             if (!options.binded) {
 					if (options.bindMethod == "bind"){
-                        // bind fields
+						
+						// bind fields
                         form.find("[class*=validate]:not([type=checkbox])").bind(options.validationEventTrigger, methods._onFieldEvent);
                         form.find("[class*=validate][type=checkbox]").bind("click", methods._onFieldEvent);
 
