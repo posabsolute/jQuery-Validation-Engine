@@ -410,16 +410,12 @@
 			var required = false;
             options.isError = false;
             options.showArrow = true;
-            optional = false;
 
             for (var i = 0; i < rules.length; i++) {
 
                 var errorMsg = undefined;
                 switch (rules[i]) {
 
-                    case "optional":
-                        optional = true;
-                        break;
                     case "required":
                         required = true;
                         errorMsg = methods._required(field, rules, i, options);
