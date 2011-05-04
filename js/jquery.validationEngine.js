@@ -147,7 +147,7 @@
          * Closes all error prompts on the page
          */
         hidePrompt: function() {
-        		var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError"
+        	var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
             $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
@@ -156,11 +156,11 @@
          * Closes form error prompts, CAN be invidual
          */
         hide: function() {
+			var closingtag;
         	if($(this).is("form")){
-        		 var closingtag = "parentForm"+$(this).attr('id');
+        		closingtag = "parentForm"+$(this).attr('id');
         	}else{
-        		
-        		var closingtag = $(this).attr('id') +"formError"
+        		closingtag = $(this).attr('id') +"formError";
         	}
             $('.'+closingtag).fadeTo("fast", 0.3, function() {
                 $(this).remove();
@@ -244,7 +244,7 @@
             var errorFound = false;
 			
 			// Trigger hook, start validation
-			form.trigger("jqv.form.validating")
+			form.trigger("jqv.form.validating");
             // first, evaluate status of non ajax fields
             form.find('[class*=validate]').not(':hidden').each( function() {
                 var field = $(this);
@@ -254,7 +254,7 @@
             // errorFound |= !methods._checkAjaxStatus(options);
 			
             // thrird, check status and scroll the container accordingly
-			form.trigger("jqv.form.result", [errorFound])
+			form.trigger("jqv.form.result", [errorFound]);
 			
             if (errorFound) {
 				
@@ -265,17 +265,21 @@
 
                     // look for the visually top prompt
                     var destination = Number.MAX_VALUE;
-
+                    var fixleft = 0;
                     var lst = $(".formError:not('.greenPopup')");
+
                     for (var i = 0; i < lst.length; i++) {
                         var d = $(lst[i]).offset().top;
-                        if (d < destination)
+                        if (d < destination){
                             destination = d;
+                            fixleft = $(lst[i]).offset().left;
+                        }
                     }
 
                     if (!options.isOverflown)
                         $("html:not(:animated),body:not(:animated)").animate({
-                            scrollTop: destination
+                            scrollTop: destination,
+                            scrollLeft: fixleft
                         }, 1100);
                     else {
                         var overflowDIV = $(options.overflownDIV);
@@ -287,6 +291,11 @@
 
                         scrollContainer.animate({
                             scrollTop: destination
+                        }, 1100);
+
+                        $("html:not(:animated),body:not(:animated)").animate({
+                            scrollTop: overflowDIV.offset().top,
+                            scrollLeft: fixleft
                         }, 1100);
                     }
                 }
@@ -490,7 +499,7 @@
             }else{
 				if (!isAjaxValidator) methods._closePrompt(field);
 			}
-			field.closest('form').trigger("jqv.field.error", [field, options.isError, promptText])
+			field.trigger("jqv.field.result", [field, options.isError, promptText]);
             return options.isError;
         },
         /**
