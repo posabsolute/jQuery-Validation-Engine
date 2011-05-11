@@ -17,6 +17,6 @@
 				"regex": /^[0-9a-zA-Z_-]+$/,
 				"alertText": "* Only Letters, Numbers, hyphen(-) and underscore(_) allowed"
 		};
-		# more validations may be added after this point
+	//	# more validations may be added after this point
 	}
 })(jQuery);
