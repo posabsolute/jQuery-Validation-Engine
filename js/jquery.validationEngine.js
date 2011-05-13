@@ -769,8 +769,8 @@
             if ($("input[name='" + name + "']").length == 2) {
                 var inDate1 = $("input[name='" + name + "']")[0].value;
                 var inDate2 = $("input[name='" + name + "']")[1].value;
-                if (isDate(inDate1) && isDate(inDate2)) {
-                    if (!dateCompare(inDate1, inDate2)) {
+                if (methods._isDate(inDate1) && methods._isDate(inDate2)) {
+                    if (!methods._dateCompare(inDate1, inDate2)) {
                         return "* Invalid Date Range";
                     }
                 }
