@@ -410,7 +410,8 @@
             var isAjaxValidator = false;
             var fieldName = field.attr("name");
             var promptText = "";
-			var required = false;
+            var required = false;
+            var funcCall = false;
             options.isError = false;
             options.showArrow = true;
 
@@ -463,6 +464,7 @@
                         errorMsg = methods._equals(field, rules, i, options);
                         break;
                     case "funcCall":
+                        funcCall = true;
                         errorMsg = methods._funcCall(field, rules, i, options);
                         break;
 
@@ -477,7 +479,7 @@
 
             }
             // If the rules required is not added, an empty field is not validated
-            if(!required){
+            if(!required && !funcCall){
             	if(field.val() == "") options.isError = false;
             }
             // Hack for radio/checkbox group button, the validation go into the
