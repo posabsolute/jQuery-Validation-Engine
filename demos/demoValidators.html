@@ -193,6 +193,26 @@ note that the field is optional - it won't fail if it has no value
                     validate[custom[date],future[NOW]]
                 </label>
             </fieldset>
+			
+			<fieldset>
+                <legend>
+                    Date Range<br />
+                </legend>
+                <label>
+					Checks that the start date is before the end date
+					Please enter an end date ealier than the start date<br /><br />
+                    <label for="date1">Start Date : </label>
+					<input value="9/1/2009"  class="validate[dateRange]" type="text" name="daterange" id="date1" />
+                </label>
+                <label>
+					<label for="date2">End Date : </label>
+					<input value="3/18/1985" class="validate[daterange]" type="text" name="daterange" id="date2" />
+                    <br/>
+                    validate[dateRange]<br />
+					Note* Both fields must have the same name
+                </label>
+            </fieldset>
+
             <fieldset>
                 <legend>
                     Checkbox

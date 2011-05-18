@@ -451,6 +451,10 @@
                     case "future":
                         errorMsg = methods._future(field, rules, i, options);
                         break;
+                    case "dateRange":
+                        errorMsg = methods._dateRange(field, rules, i, options);
+                        field = $($("input[name='" + fieldName + "']"));
+                        break
                     case "maxCheckbox":
                         errorMsg = methods._maxCheckbox(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
@@ -485,6 +489,11 @@
             var fieldType = field.attr("type");
 
             if ((fieldType == "radio" || fieldType == "checkbox") && $("input[name='" + fieldName + "']").size() > 1) {
+                field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
+                options.showArrow = false;
+            }
+            //field.attr('class').contains daterange
+            if (fieldType == "text" && $("input[name='" + fieldName + "']").size() > 1) {
                 field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
@@ -528,6 +537,12 @@
                         else
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
                     }
+                    break;
+                case "dateRange":
+                    var name = field.attr("name");
+                    var dateRangeFields = $("input[name='" + name + "']");
+                    if (!dateRangeFields[0].val() || !dateRangeFields[1].val())
+                        return options.allrules[rules[i]].alertTextDateRange;
                     break;
                 // required for <select>
                 case "select-one":
@@ -724,6 +739,41 @@
                 var rule = options.allrules.future;
                 if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
+            }
+        },
+        /**
+        * Checks date range
+        *
+        * @param {jqObject} field name
+        * @param {Array[String]} rules
+        * @param {int} i rules index
+        * @param {Map}
+        *            user options
+        * @return an error string if validation failed
+        */
+        _isDate: function (value) {
+            var dateRegEx = new RegExp(/^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/);
+            if (dateRegEx.test(value)) {
+                return true;
+            }
+            return false;
+        },
+        //Checks if the start date is before the end date
+        //returns true if end is later than start
+        _dateCompare: function (start, end) {
+            return (new Date(start.toString()) < new Date(end.toString()));
+        },
+        _dateRange: function (field, rules, i, options) {
+            var name = field.attr("name");
+            //if there are 2 fields to compare
+            if ($("input[name='" + name + "']").length == 2) {
+                var inDate1 = $("input[name='" + name + "']")[0].value;
+                var inDate2 = $("input[name='" + name + "']")[1].value;
+                if (methods._isDate(inDate1) && methods._isDate(inDate2)) {
+                    if (!methods._dateCompare(inDate1, inDate2)) {
+                        return "* Invalid Date Range";
+                    }
+                }
             }
         },
         /**
