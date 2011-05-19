@@ -454,7 +454,11 @@
                     case "dateRange":
                         errorMsg = methods._dateRange(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
-                        break
+                        break;
+                    case "dateTimeRange":
+                        errorMsg = methods._dateTimeRange(field, rules, i, options);
+                        field = $($("input[name='" + fieldName + "']"));
+                        break;
                     case "maxCheckbox":
                         errorMsg = methods._maxCheckbox(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
@@ -538,6 +542,7 @@
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
                     }
                     break;
+                case "dateTimeRange":
                 case "dateRange":
                     var name = field.attr("name");
                     var dateRangeFields = $("input[name='" + name + "']");
@@ -758,6 +763,13 @@
             }
             return false;
         },
+        _isDateTime: function (value){
+            var dateTimeRegEx = new RegExp(/^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/);
+            if (dateTimeRegEx.test(value)) {
+                return true;
+            }
+            return false;
+        },
         //Checks if the start date is before the end date
         //returns true if end is later than start
         _dateCompare: function (start, end) {
@@ -772,6 +784,19 @@
                 if (methods._isDate(inDate1) && methods._isDate(inDate2)) {
                     if (!methods._dateCompare(inDate1, inDate2)) {
                         return "* Invalid Date Range";
+                    }
+                }
+            }
+        },
+        _dateTimeRange: function (field, rules, i, options) {
+            var name = field.attr("name");
+            //if there are 2 fields to compare
+            if ($("input[name='" + name + "']").length == 2) {
+                var inDate1 = $("input[name='" + name + "']")[0].value;
+                var inDate2 = $("input[name='" + name + "']")[1].value;
+                if (methods._isDateTime(inDate1) && methods._isDateTime(inDate2)) {
+                    if (!methods._dateCompare(inDate1, inDate2)) {
+                        return "* Invalid Date Time Range";
                     }
                 }
             }
