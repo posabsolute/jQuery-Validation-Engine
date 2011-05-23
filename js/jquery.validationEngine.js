@@ -454,7 +454,11 @@
                     case "dateRange":
                         errorMsg = methods._dateRange(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
-                        break
+                        break;
+                    case "dateTimeRange":
+                        errorMsg = methods._dateTimeRange(field, rules, i, options);
+                        field = $($("input[name='" + fieldName + "']"));
+                        break;
                     case "maxCheckbox":
                         errorMsg = methods._maxCheckbox(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
@@ -492,7 +496,6 @@
                 field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
-            //field.attr('class').contains daterange
             if (fieldType == "text" && $("input[name='" + fieldName + "']").size() > 1) {
                 field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
@@ -538,6 +541,7 @@
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
                     }
                     break;
+                case "dateTimeRange":
                 case "dateRange":
                     var name = field.attr("name");
                     var dateRangeFields = $("input[name='" + name + "']");
@@ -752,8 +756,15 @@
         * @return an error string if validation failed
         */
         _isDate: function (value) {
-            var dateRegEx = new RegExp(/^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/);
+            var dateRegEx = new RegExp(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/);
             if (dateRegEx.test(value)) {
+                return true;
+            }
+            return false;
+        },
+        _isDateTime: function (value){
+            var dateTimeRegEx = new RegExp(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/);
+            if (dateTimeRegEx.test(value)) {
                 return true;
             }
             return false;
@@ -772,6 +783,19 @@
                 if (methods._isDate(inDate1) && methods._isDate(inDate2)) {
                     if (!methods._dateCompare(inDate1, inDate2)) {
                         return "* Invalid Date Range";
+                    }
+                }
+            }
+        },
+        _dateTimeRange: function (field, rules, i, options) {
+            var name = field.attr("name");
+            //if there are 2 fields to compare
+            if ($("input[name='" + name + "']").length == 2) {
+                var inDate1 = $("input[name='" + name + "']")[0].value;
+                var inDate2 = $("input[name='" + name + "']")[1].value;
+                if (methods._isDateTime(inDate1) && methods._isDateTime(inDate2)) {
+                    if (!methods._dateCompare(inDate1, inDate2)) {
+                        return "* Invalid Date Time Range";
                     }
                 }
             }
