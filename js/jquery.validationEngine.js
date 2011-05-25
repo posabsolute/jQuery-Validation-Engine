@@ -20,6 +20,7 @@
          */
         init: function(options) {
             var form = this;
+            $(form).addClass('jqv-FormWrapper');
             if (!form.data('jqv') || form.data('jqv') == null ) {
                 methods._saveOptions(form, options);
 
@@ -133,7 +134,7 @@
          */
         showPrompt: function(promptText, type, promptPosition, showArrow) {
 
-            var form = this.closest('form');
+            var form = this.closest('.jqv-FormWrapper');
             var options = form.data('jqv');
             // No option, take default one
 			if(!options) options = methods._saveOptions(this, options);
@@ -1019,7 +1020,7 @@
             var prompt = $('<div>');
             prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
             // add a class name to identify the parent form of the prompt
-            if(field.is(":input")) prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
+            if(field.is(":input")) prompt.addClass("parentForm"+methods._getClassName(field.closest('.jqv-FormWrapper').attr("id")));
             prompt.addClass("formError");
 
             switch (type) {
