@@ -784,7 +784,11 @@
                     if (!methods._dateCompare(inDate1, inDate2)) {
                         return "* Invalid Date Range";
                     }
+                } else {
+                    return "* Invalid Date Range";
                 }
+            } else {
+                return "* Invalid Date Range";
             }
         },
         _dateTimeRange: function (field, rules, i, options) {
@@ -797,7 +801,11 @@
                     if (!methods._dateCompare(inDate1, inDate2)) {
                         return "* Invalid Date Time Range";
                     }
+                } else {
+                    return "* Invalid Date Time Range";
                 }
+            } else {
+                return "* Invalid Date Time Range";
             }
         },
         /**
