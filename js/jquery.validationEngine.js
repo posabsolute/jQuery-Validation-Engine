@@ -123,6 +123,22 @@
         validateform: function() {
             return methods._onSubmitEvent.call(this);
         },
+		/**
+         *  Redraw prompts position, useful when you change the DOM state when validating
+         */
+        updatePromptsPosition: function() {
+			var form = this.closest('form');
+            var options = form.data('jqv');
+            // No option, take default one
+			form.find('[class*=validate]').not(':hidden').not(":disabled").each(function(){
+				var field = $(this);
+
+				var prompt = methods._getPrompt(field);
+				var promptText = $(prompt).find(".formErrorContent").html();
+
+				if(prompt) methods._updatePrompt(field, $(prompt), promptText, undefined, false, options);
+			})
+        },
         /**
          * Displays a prompt on a element.
          * Note that the element needs an id!
