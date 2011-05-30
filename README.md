@@ -366,6 +366,18 @@ Take the following example:
 
 onlyNumber, onlyLetter and validate2fields are all selectors. jQuery.validationEngine comes with a standard set but you are welcome to add you own to define AJAX backend services, error messages and/or new regular expressions.
 
+
+The ValidationEngine with a datepicker
+---
+Using a datepicker with the engine is problematic because the validation is binded to the blur event. since we lose the focus before any data is entered in the field it creates a weird bug.
+Fortunately we implemented a fix where we use a delay when a datepicker is binded.
+
+To use this mode you need to add the class *datepicker* to your input, like this:
+
+    <input type="text" id="req" name="req" class="validate[required] text-input datepicker" value="">
+
+
+
 Ajax Protocol
 ---
 

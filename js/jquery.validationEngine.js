@@ -53,15 +53,19 @@
 					if (options.bindMethod == "bind"){
 						
 						// bind fields
-                        form.find("[class*=validate]:not([type=checkbox])").bind(options.validationEventTrigger, methods._onFieldEvent);
+                        form.find("[class*=validate]:not([type=checkbox])").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
                         form.find("[class*=validate][type=checkbox]").bind("click", methods._onFieldEvent);
+						
+						form.find("[class*=validate][class*=datepicker]").bind(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
 
                         // bind form.submit
                         form.bind("submit", methods._onSubmitEvent);
 					} else if (options.bindMethod == "live") {
                         // bind fields with LIVE (for persistant state)
-                        form.find("[class*=validate]:not([type=checkbox])").live(options.validationEventTrigger, methods._onFieldEvent);
+                        form.find("[class*=validate]:not([type=checkbox])").not(".datepicker").live(options.validationEventTrigger, methods._onFieldEvent);
                         form.find("[class*=validate][type=checkbox]").live("click", methods._onFieldEvent);
+
+						form.find("[class*=validate][class*=datepicker]").live(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
 
                         // bind form.submit
                         form.live("submit", methods._onSubmitEvent);
@@ -82,6 +86,7 @@
                 // unbind fields
                 form.find("[class*=validate]").not("[type=checkbox]").unbind(options.validationEventTrigger, methods._onFieldEvent);
                 form.find("[class*=validate][type=checkbox]").unbind("click", methods._onFieldEvent);
+
                 // unbind form.submit
                 form.unbind("submit", methods.onAjaxFormComplete);
                 
@@ -90,6 +95,10 @@
                 form.find("[class*=validate]").not("[type=checkbox]").die(options.validationEventTrigger, methods._onFieldEvent);
                 form.find("[class*=validate][type=checkbox]").die("click", methods._onFieldEvent);
                 // unbind form.submit
+
+				
+
+
                 form.die("submit", methods.onAjaxFormComplete);
                 
                 form.removeData('jqv');
@@ -194,12 +203,15 @@
          * Typically called when user exists a field using tab or a mouse click, triggers a field
          * validation
          */
-        _onFieldEvent: function() {
+        _onFieldEvent: function(event) {
             var field = $(this);
             var form = field.closest('form');
             var options = form.data('jqv');
             // validate the current field
-            methods._validateField(field, options);
+			window.setTimeout(function() {
+			    methods._validateField(field, options);
+			}, (event.data) ? event.data.delay : 0);
+            
         },
         /**
          * Called when the form is submited, shows prompts accordingly
