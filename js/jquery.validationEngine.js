@@ -246,7 +246,7 @@
 			// Trigger hook, start validation
 			form.trigger("jqv.form.validating");
             // first, evaluate status of non ajax fields
-            form.find('[class*=validate]').not(':hidden').each( function() {
+            form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
             });
@@ -1140,13 +1140,21 @@
          *            field
          * @return undefined or the error prompt (jqObject)
          */
-        _getPrompt: function(field) {
-
-            var className = "." + methods._getClassName(field.attr("id")) + "formError";
-            var match = $(className)[0];
-            if (match)
-                return $(match);
-        },
+  		  _getPrompt: function(field) {
+		    var className = field.attr("id").replace(":","_") + "formError";
+		    var match = $("." + methods._escapeExpression(className))[0];
+		    if (match)
+		      return $(match);
+		  },
+         /**
+         * Returns the escapade classname
+         *
+         * @param {selector}
+         *            className
+         */		
+		  _escapeExpression: function (selector) {
+		    return selector.replace(/([#;&,\.\+\*\~':"\!\^$\[\]\(\)=>\|])/g, "\\$1");
+		  },
         /**
          * Calculates prompt position
          *
