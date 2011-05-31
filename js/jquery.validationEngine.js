@@ -455,7 +455,8 @@
                         errorMsg = methods._customRegex(field, rules, i, options);
                         break;
 					case "groupRequired":
-						// Check is its the first of group, of not, reload validationwith new field
+						// Check is its the first of group, if not, reload validation with first field
+						// AND continue normal validation on present field
 						var classGroup = "[class*=" +rules[i + 1] +"]";	
 						var firstOfGroup = field.closest("form").find(classGroup).eq(0);
 						if(firstOfGroup[0] != field[0]){
@@ -616,6 +617,7 @@
         _groupRequired: function(field, rules, i, options) {
             var classGroup = "[class*=" +rules[i + 1] +"]";
 			var isValid = false;
+			// Check all fields from the group
 			field.closest("form").find(classGroup).each(function(){
 				if(!methods._required($(this), rules, i, options)){
 					isValid = true;
