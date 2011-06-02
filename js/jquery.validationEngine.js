@@ -494,12 +494,16 @@
                         errorMsg = methods._future(field, rules, i, options);
                         break;
                     case "dateRange":
-                        errorMsg = methods._dateRange(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
-                        break;
+						errorMsg = methods._dateRange(field, rules, i, options);
+						if(errorMsg) required = true;
+                        options.showArrow = false;
+						break;
                     case "dateTimeRange":
-                        errorMsg = methods._dateTimeRange(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
+						errorMsg = methods._dateTimeRange(field, rules, i, options);
+						if(errorMsg) required = true;
+                        options.showArrow = false;
                         break;
                     case "maxCheckbox":
                         errorMsg = methods._maxCheckbox(field, rules, i, options);
