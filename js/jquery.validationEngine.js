@@ -1091,7 +1091,6 @@
 
             // create the prompt
             var prompt = $('<div>');
-			console.log(field)
             prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
             // add a class name to identify the parent form of the prompt
             if(field.is(":input")) prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
