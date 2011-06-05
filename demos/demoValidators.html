@@ -208,8 +208,13 @@ note that the field is optional - it won't fail if it has no value
 						<label><strong>OR</strong></label><br/>
 						<label>Please enter a bank account</label>
 						<input value="" class="validate[groupRequired[payments],custom[integer]] text-input" type="text" name="bank" id="bank" />
-   
-                
+   					<label><strong>OR</strong></label><br/>
+					<label>Please  choose from select</label>
+					<select class="validate[groupRequired[payments]] text-input" type="text" name="bank2" id="bank2" >
+						<option value="">Choose a payment option</option>
+						<option value="Paypal">Paypal</option>
+                		<option value="Bank">Bank account</option>
+					</select>
             </fieldset>			
 			<fieldset>
                 <legend>
