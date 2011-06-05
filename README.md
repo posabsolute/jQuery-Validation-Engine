@@ -176,7 +176,14 @@ Closes **all** error prompts on the page.
 
     $('#formID1').validationEngine('hideAll');
 
-    
+### updatePromptsPosition
+
+Update the form prompts positions.
+
+    $("#formID").validationEngine("updatePromptsPosition")    
+
+
+
 Options
 ---
 
@@ -578,6 +585,16 @@ Edit the file *validationEngine.jquery.css* and customize the stylesheet to your
 
 You can easy add a locale by taking *jquery.validationEngine-en.js* as an example. 
 Feel free to share the translation ;-)
+
+### Changing defaults options globally
+
+You can, for example, disable the scrolling globally by using $.validationEngine.defaults.scroll = false.
+
+This need to be added before the initialization, one good way to handle this would be to add your settings in a file.
+
+    <script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.validationEngine-settings.js" type="text/javascript" charset="utf-8"></script>
 
 Rules of thumb
 ---
