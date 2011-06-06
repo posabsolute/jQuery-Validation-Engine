@@ -39,6 +39,7 @@
          * ie. jQuery("#formID1").validationEngine('attach', {promptPosition : "centerRight"});
          */
         attach: function(userOptions) {
+			
             var form = this;
             var options;
 
@@ -46,15 +47,15 @@
                 options = methods._saveOptions(form, userOptions);
             else
                 options = form.data('jqv');
-			
+
 			var validateAttribute = (form.find("[data-validation-engine*=validate]")) ? "data-validation-engine" : "class";
 			
             if (!options.binded) {
 					if (options.bindMethod == "bind"){
 						
 						// bind fields
-                        form.find("[class*=validate]:not([type=checkbox])").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
-                        form.find("[class*=validate][type=checkbox]").bind("click", methods._onFieldEvent);
+                        form.find("[class*=validate]:not([type=checkbox])").not("[type=radio]").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
+                        form.find("[class*=validate][type=checkbox],[class*=validate][type=radio]").bind("click", methods._onFieldEvent);
 						
 						form.find("[class*=validate][class*=datepicker]").bind(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
 
@@ -85,7 +86,7 @@
 
                 // unbind fields
                 form.find("[class*=validate]").not("[type=checkbox]").unbind(options.validationEventTrigger, methods._onFieldEvent);
-                form.find("[class*=validate][type=checkbox]").unbind("click", methods._onFieldEvent);
+                form.find("[class*=validate][type=checkbox],[class*=validate][type=radio]").unbind("click", methods._onFieldEvent);
 
                 // unbind form.submit
                 form.unbind("submit", methods.onAjaxFormComplete);
@@ -581,7 +582,6 @@
                 case "checkbox":
                     var name = field.attr("name");
                     if ($("input[name='" + name + "']:checked").size() == 0) {
-
                         if ($("input[name='" + name + "']").size() == 1)
                             return options.allrules[rules[i]].alertTextCheckboxe;
                         else
@@ -1303,49 +1303,11 @@
                 var allRules = $.validationEngineLanguage.allRules;
             else
                 $.error("jQuery.validationEngine rules are not loaded, plz add localization files to the page");
-
-            var userOptions = $.extend({
-
-                // Name of the event triggering field validation
-                validationEventTrigger: "blur",
-                // Automatically scroll viewport to the first error
-                scroll: true,
-                // Opening box position, possible locations are: topLeft,
-                // topRight, bottomLeft, centerRight, bottomRight
-                promptPosition: "topRight",
-                bindMethod:"bind",
-				// internal, automatically set to true when it parse a _ajax rule
-				inlineAjax: false,
-                // if set to true, the form data is sent asynchronously via ajax to the form.action url (get)
-                ajaxFormValidation: false,
-                // Ajax form validation callback method: boolean onComplete(form, status, errors, options)
-                // retuns false if the form.submit event needs to be canceled.
-				ajaxFormValidationURL: false,
-                // The url to send the submit ajax validation (default to action)
-                onAjaxFormComplete: $.noop,
-                // called right before the ajax call, may return false to cancel
-                onBeforeAjaxFormValidation: $.noop,
-                // Stops form from submitting and execute function assiciated with it
-                onValidationComplete: false,
-
-                // Used when the form is displayed within a scrolling DIV
-                isOverflown: false,
-                overflownDIV: "",
-
-                // --- Internals DO NOT TOUCH or OVERLOAD ---
-                // validation rules and i18
-                allrules: allRules,
-                // true when form and fields are binded
-                binded: false,
-                // set to true, when the prompt arrow needs to be displayed
-                showArrow: true,
-                // did one of the validation fail ? kept global to stop further ajax validations
-                isError: false,
-                // Caches field validation status, typically only bad status are created.
-                // the array is used during ajax form validation to detect issues early and prevent an expensive submit
-                ajaxValidCache: {}
-
-            }, options);
+			// --- Internals DO NOT TOUCH or OVERLOAD ---
+			// validation rules and i18
+			$.validationEngine.defaults.allrules = allRules;
+			
+            var userOptions = $.extend({},$.validationEngine.defaults, options);
 
             form.data('jqv', userOptions);
             return userOptions;
@@ -1379,14 +1341,56 @@
             // make sure init is called once
             if(method != "showPrompt" && method != "hidePrompt" && method != "hide" && method != "hideAll") 
             	methods.init.apply(form);
-             
+
             return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method == 'object' || !method) {
             // default constructor with or without arguments
+			
 			methods.init.apply(form, arguments);
             return methods.attach.apply(form);
         } else {
             $.error('Method ' + method + ' does not exist in jQuery.validationEngine');
         }
     };
+	// LEAK GLOBAL OPTIONS
+	$.validationEngine= {defaults:{
+
+        // Name of the event triggering field validation
+        validationEventTrigger: "blur",
+        // Automatically scroll viewport to the first error
+        scroll: true,
+        // Opening box position, possible locations are: topLeft,
+        // topRight, bottomLeft, centerRight, bottomRight
+        promptPosition: "topRight",
+        bindMethod:"bind",
+		// internal, automatically set to true when it parse a _ajax rule
+		inlineAjax: false,
+        // if set to true, the form data is sent asynchronously via ajax to the form.action url (get)
+        ajaxFormValidation: false,
+        // Ajax form validation callback method: boolean onComplete(form, status, errors, options)
+        // retuns false if the form.submit event needs to be canceled.
+		ajaxFormValidationURL: false,
+        // The url to send the submit ajax validation (default to action)
+        onAjaxFormComplete: $.noop,
+        // called right before the ajax call, may return false to cancel
+        onBeforeAjaxFormValidation: $.noop,
+        // Stops form from submitting and execute function assiciated with it
+        onValidationComplete: false,
+
+        // Used when the form is displayed within a scrolling DIV
+        isOverflown: false,
+        overflownDIV: "",
+
+        // true when form and fields are binded
+        binded: false,
+        // set to true, when the prompt arrow needs to be displayed
+        showArrow: true,
+        // did one of the validation fail ? kept global to stop further ajax validations
+        isError: false,
+        // Caches field validation status, typically only bad status are created.
+        // the array is used during ajax form validation to detect issues early and prevent an expensive submit
+        ajaxValidCache: {}
+
+    }}
+	
 })(jQuery);
