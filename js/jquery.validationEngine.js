@@ -495,17 +495,41 @@
                         errorMsg = methods._future(field, rules, i, options);
                         break;
                     case "dateRange":
-                        field = $($("input[name='" + fieldName + "']"));
-						errorMsg = methods._dateRange(field, rules, i, options);
-						if(errorMsg) required = true;
-                        options.showArrow = false;
-						break;
-                    case "dateTimeRange":
-                        field = $($("input[name='" + fieldName + "']"));
-						errorMsg = methods._dateTimeRange(field, rules, i, options);
-						if(errorMsg) required = true;
+                        var classGroup = "[class*=" + rules[i + 1] + "]";
+                        var firstOfGroup = field.closest("form").find(classGroup).eq(0);
+                        var secondOfGroup = field.closest("form").find(classGroup).eq(1);
+                        if (firstOfGroup[0] != field[0]) {
+                            methods._validateField(firstOfGroup, options, skipAjaxValidation)
+                            options.showArrow = true;
+                            continue;
+                        };
+                        
+                        //if one entry out of the pair has value then proceed to run through validation
+                        if (firstOfGroup[0].value || secondOfGroup[0].value) {
+                            errorMsg = methods._dateRange(firstOfGroup, secondOfGroup, rules, i, options);
+                        }
+                        if (errorMsg) required = true;
                         options.showArrow = false;
                         break;
+
+                    case "dateTimeRange":
+                        var classGroup = "[class*=" + rules[i + 1] + "]";
+                        var firstOfGroup = field.closest("form").find(classGroup).eq(0);
+                        var secondOfGroup = field.closest("form").find(classGroup).eq(1);
+                        if (firstOfGroup[0] != field[0]) {
+                            methods._validateField(firstOfGroup, options, skipAjaxValidation)
+                            options.showArrow = true;
+                            continue;
+                        };
+
+                        //if one entry out of the pair has value then proceed to run through validation
+                        if (firstOfGroup[0].value || secondOfGroup[0].value) {
+                            errorMsg = methods._dateTimeRange(firstOfGroup, secondOfGroup, rules, i, options);
+                        }
+                        if (errorMsg) required = true;
+                        options.showArrow = false;
+                        break;
+
                     case "maxCheckbox":
                         errorMsg = methods._maxCheckbox(field, rules, i, options);
                         field = $($("input[name='" + fieldName + "']"));
@@ -587,13 +611,6 @@
                         else
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
                     }
-                    break;
-                case "dateTimeRange":
-                case "dateRange":
-                    var name = field.attr("name");
-                    var dateRangeFields = $("input[name='" + name + "']");
-                    if (!dateRangeFields[0].val() || !dateRangeFields[1].val())
-                        return options.allrules[rules[i]].alertTextDateRange;
                     break;
                 // required for <select>
                 case "select-one":
@@ -816,14 +833,10 @@
             }
         },
         /**
-        * Checks date range
+        * Checks if valid date
         *
-        * @param {jqObject} field name
-        * @param {Array[String]} rules
-        * @param {int} i rules index
-        * @param {Map}
-        *            user options
-        * @return an error string if validation failed
+        * @param {string} date string
+        * @return a bool based on determination of valid date
         */
         _isDate: function (value) {
             var dateRegEx = new RegExp(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/);
@@ -832,6 +845,12 @@
             }
             return false;
         },
+        /**
+        * Checks if valid date time
+        *
+        * @param {string} date string
+        * @return a bool based on determination of valid date time
+        */
         _isDateTime: function (value){
             var dateTimeRegEx = new RegExp(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/);
             if (dateTimeRegEx.test(value)) {
@@ -844,38 +863,50 @@
         _dateCompare: function (start, end) {
             return (new Date(start.toString()) < new Date(end.toString()));
         },
-        _dateRange: function (field, rules, i, options) {
-            var name = field.attr("name");
-            //if there are 2 fields to compare
-            if ($("input[name='" + name + "']").length == 2) {
-                var inDate1 = $("input[name='" + name + "']")[0].value;
-                var inDate2 = $("input[name='" + name + "']")[1].value;
-                if (methods._isDate(inDate1) && methods._isDate(inDate2)) {
-                    if (!methods._dateCompare(inDate1, inDate2)) {
-                        return "* Invalid Date Range";
-                    }
-                } else {
-                    return "* Invalid Date Range";
-                }
-            } else {
-                return "* Invalid Date Range";
+        /**
+        * Checks date range
+        *
+        * @param {jqObject} first field name
+        * @param {jqObject} second field name
+        * @return an error string if validation failed
+        */
+        _dateRange: function (first, second, rules, i, options) {
+            //are not both populated
+            if ((!first[0].value && second[0].value) || (first[0].value && !second[0].value)) {
+                return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
+            }
+
+            //are not both dates
+            if (!methods._isDate(first[0].value) || !methods._isDate(second[0].value)) {
+                return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
+            }
+
+            //are both dates but range is off
+            if (!methods._dateCompare(first[0].value, second[0].value)) {
+                return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
             }
         },
-        _dateTimeRange: function (field, rules, i, options) {
-            var name = field.attr("name");
-            //if there are 2 fields to compare
-            if ($("input[name='" + name + "']").length == 2) {
-                var inDate1 = $("input[name='" + name + "']")[0].value;
-                var inDate2 = $("input[name='" + name + "']")[1].value;
-                if (methods._isDateTime(inDate1) && methods._isDateTime(inDate2)) {
-                    if (!methods._dateCompare(inDate1, inDate2)) {
-                        return "* Invalid Date Time Range";
-                    }
-                } else {
-                    return "* Invalid Date Time Range";
-                }
-            } else {
-                return "* Invalid Date Time Range";
+
+
+        /**
+        * Checks date time range
+        *
+        * @param {jqObject} first field name
+        * @param {jqObject} second field name
+        * @return an error string if validation failed
+        */
+        _dateTimeRange: function (first, second, rules, i, options) {
+            //are not both populated
+            if ((!first[0].value && second[0].value) || (first[0].value && !second[0].value)) {
+                return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
+            }
+            //are not both dates
+            if (!methods._isDateTime(first[0].value) || !methods._isDateTime(second[0].value)) {
+                return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
+            }
+            //are both dates but range is off
+            if (!methods._dateCompare(first[0].value, second[0].value)) {
+                return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
             }
         },
         /**
@@ -1224,19 +1255,19 @@
          */		
 		  _escapeExpression: function (selector) {
 		    return selector.replace(/([#;&,\.\+\*\~':"\!\^$\[\]\(\)=>\|])/g, "\\$1");
-		  },
+        },
         /**
-         * Calculates prompt position
-         *
-         * @param {jqObject}
-         *            field
-         * @param {jqObject}
-         *            the prompt
-         * @param {Map}
-         *            options
-         * @return positions
-         */
-        _calculatePosition: function(field, promptElmt, options) {
+        * Calculates prompt position
+        *
+        * @param {jqObject}
+        *            field
+        * @param {jqObject}
+        *            the prompt
+        * @param {Map}
+        *            options
+        * @return positions
+        */
+        _calculatePosition: function (field, promptElmt, options) {
 
             var promptTopPosition, promptleftPosition, marginTopSize;
             var fieldWidth = field.width();
