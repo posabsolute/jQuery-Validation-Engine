@@ -498,11 +498,6 @@
                         var classGroup = "[class*=" + rules[i + 1] + "]";
                         var firstOfGroup = field.closest("form").find(classGroup).eq(0);
                         var secondOfGroup = field.closest("form").find(classGroup).eq(1);
-                        if (firstOfGroup[0] != field[0]) {
-                            methods._validateField(firstOfGroup, options, skipAjaxValidation)
-                            options.showArrow = true;
-                            continue;
-                        };
                         
                         //if one entry out of the pair has value then proceed to run through validation
                         if (firstOfGroup[0].value || secondOfGroup[0].value) {
@@ -516,11 +511,6 @@
                         var classGroup = "[class*=" + rules[i + 1] + "]";
                         var firstOfGroup = field.closest("form").find(classGroup).eq(0);
                         var secondOfGroup = field.closest("form").find(classGroup).eq(1);
-                        if (firstOfGroup[0] != field[0]) {
-                            methods._validateField(firstOfGroup, options, skipAjaxValidation)
-                            options.showArrow = true;
-                            continue;
-                        };
 
                         //if one entry out of the pair has value then proceed to run through validation
                         if (firstOfGroup[0].value || secondOfGroup[0].value) {
