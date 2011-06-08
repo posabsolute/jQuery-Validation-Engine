@@ -8,18 +8,7 @@
                     "regex": "none",
                     "alertText": "* This field is required",
                     "alertTextCheckboxMultiple": "* Please select an option",
-                    "alertTextCheckboxe": "* This checkbox is required",
-                    "alertTextDateRange": "* Both date range fields are required"
-                },
-                "dateRange": {
-                    "regex": "none",
-                    "alertText": "* Invalid ",
-                    "alertText2": "Date Range"
-                },
-                "dateTimeRange": {
-                    "regex": "none",
-                    "alertText": "* Invalid ",
-                    "alertText2": "Date Time Range"
+                    "alertTextCheckboxe": "* This checkbox is required"
                 },
                 "minSize": {
                     "regex": "none",
@@ -30,6 +19,10 @@
                     "regex": "none",
                     "alertText": "* Maximum ",
                     "alertText2": " characters allowed"
+                },
+				"groupRequired": {
+                    "regex": "none",
+                    "alertText": "* You must fill one of the following fields"
                 },
                 "min": {
                     "regex": "none",
