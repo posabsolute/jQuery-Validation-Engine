@@ -531,7 +531,7 @@
             if(!required){
             	if(field.val() == "") options.isError = false;
             }			
-
+			
             // Hack for radio/checkbox group button, the validation go into the
             // first radio/checkbox of the group
             var fieldType = field.attr("type");
@@ -540,10 +540,10 @@
                 field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
-            if (fieldType == "text" && $("input[name='" + fieldName + "']").size() > 1) {
-                field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
-                options.showArrow = false;
-            }
+            //if (fieldType == "text" && $("input[name='" + fieldName + "']").size() > 1) {
+            //    field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
+            //    options.showArrow = false;
+            //}
 
             if (options.isError){
 				
