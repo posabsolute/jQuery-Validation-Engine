@@ -1314,7 +1314,7 @@
          * @param {String} className
          */
         _getClassName: function(className) {
-        	return className.replace(":","_").replace(".","_");
+        	if(className) return className.replace(":","_").replace(".","_");
         }
     };
 
