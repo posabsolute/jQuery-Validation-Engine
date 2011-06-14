@@ -224,13 +224,13 @@ note that the field is optional - it won't fail if it has no value
 					Checks that the start date is before the end date
 					Please enter an end date ealier than the start date<br /><br />
                     <label for="date1">Start Date : </label>
-					<input value="9/1/2009"  class="validate[required,dateRange]" type="text" name="daterange" id="date1" />
+					<input value="9/1/2009"  class="validate[dateRange[grp1]]" type="text" id="date1" />
                 </label>
                 <label>
 					<label for="date2">End Date : </label>
-					<input value="3/18/1985" class="validate[daterange]" type="text" name="daterange" id="date2" />
+					<input value="3/18/1985" class="validate[dateRange[grp1]]" type="text" id="date2" />
                     <br/>
-                    validate[dateRange]<br />
+                    validate[dateRange[grp1]]<br />
 					Note* Both fields must have the same name
                 </label>
             </fieldset>
@@ -243,13 +243,13 @@ note that the field is optional - it won't fail if it has no value
 					Checks that the start date and time are before the end date and time
 					Please enter an end date ealier than the start date<br /><br />
                     <label for="date1">Start Date Time: </label>
-					<input value="9/1/2009 9:30:00 PM"  class="validate[dateTimeRange]" type="text" name="datetimerange" id="datetime1" />
+					<input value="9/1/2009 9:30:00 PM"  class="validate[dateTimeRange[grp2]]" type="text" id="datetime1" />
                 </label>
                 <label>
 					<label for="date2">End Date Time: </label>
-					<input value="9/1/2009 2:30:00 AM" class="validate[dateTimeRange]" type="text" name="datetimerange" id="datetime2" />
+					<input value="9/1/2009 2:30:00 AM" class="validate[dateTimeRange[grp2]]" type="text" id="datetime2" />
                     <br/>
-                    validate[dateTimeRange]<br />
+                    validate[dateTimeRange[grp2]<br />
 					Note* Both fields must have the same name
                 </label>
             </fieldset>
