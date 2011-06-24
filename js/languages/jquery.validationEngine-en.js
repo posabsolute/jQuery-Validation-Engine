@@ -8,12 +8,23 @@
                     "regex": "none",
                     "alertText": "* This field is required",
                     "alertTextCheckboxMultiple": "* Please select an option",
-                    "alertTextCheckboxe": "* This checkbox is required"
+                    "alertTextCheckboxe": "* This checkbox is required",
+                    "alertTextDateRange": "* Both date range fields are required"
+                },
+                "dateRange": {
+                    "regex": "none",
+                    "alertText": "* Invalid ",
+                    "alertText2": "Date Range"
+                },
+                "dateTimeRange": {
+                    "regex": "none",
+                    "alertText": "* Invalid ",
+                    "alertText2": "Date Time Range"
                 },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Minimum ",
-                    "alertText2": " characters required"
+                    "alertText2": " characters allowed"
                 },
                 "maxSize": {
                     "regex": "none",
@@ -143,7 +154,10 @@
                 //tls warning:homegrown not fielded 
 				"dateTimeFormat": {
 	                "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/,
-	                "alertText": "* Invalid Date or Date Format\nExpected Format: mm/dd/yyyy hh:mm:ss AM|PM or yyyy-mm-dd hh:mm:ss AM|PM"
+                    "alertText": "* Invalid Date or Date Format",
+                    "alertText2": "Expected Format: ",
+                    "alertText3": "mm/dd/yyyy hh:mm:ss AM|PM or ", 
+                    "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
 	            }
             };
             
