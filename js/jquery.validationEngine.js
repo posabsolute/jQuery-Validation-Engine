@@ -1214,6 +1214,7 @@
                 var pos = methods._calculatePosition(field, prompt, options);
                 prompt.animate({
                     "top": pos.callerTopPosition,
+                    "left": pos.callerleftPosition,
                     "marginTop": pos.marginTopSize
                 });
             }
