@@ -74,7 +74,7 @@
 
                 options.binded = true;
             }
-
+			return this;
         },
         /**
          * Unregisters any bindings that may point to jQuery.validaitonEngine
