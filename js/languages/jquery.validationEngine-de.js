@@ -87,7 +87,7 @@
                     "alertText": "* Ungültige URL"
                 },
                 "onlyLetterSp": {
-	                 "regex": /^[a-zA-ZäüöÄÜÖßs\\\']+$/,
+	                 "regex": /^[a-zA-ZäüöÄÜÖßs\ \\\']+$/,
                      "alertText": "* Nur Buchstaben erlaubt"
                 },
 				"onlyLetterNumber": {
