@@ -209,8 +209,8 @@ If set, the ajax submit validation will use this url instead of the form action
 ### onBeforeAjaxFormValidation(form, options)
 When ajaxFormValidation is turned on, this is the function that will be called before the asynchronous AJAX form validation call. May return false to stop the Ajax form validation
 
-### onAjaxFormComplete: function(form, status, errors, options)
-When ajaxFormValidation is turned on, this function is used to asynchronously process the result of the validation.
+### onAjaxFormComplete: function(status, form, errors, options)
+When ajaxFormValidation is turned on, this function is used to asynchronously process the result of the validation. the status is a boolean. If true, the ajax call completed and all the server side form validations passed. 
 
 ### isOverflown
 Set to true when the form shows in a scrolling div, defaults to *false*.
