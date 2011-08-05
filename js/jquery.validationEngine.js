@@ -122,7 +122,14 @@
          */
         validateField: function(el) {
             var options = $(this).data('jqv');
-            return methods._validateField($(el), options);
+            var r = methods._validateField($(el), options);
+
+            if (options.onSuccess && options.InvalidFields.length == 0)
+                options.onSuccess();
+            else if (options.onFailure && options.InvalidFields.length > 0)
+                options.onFailure();
+
+            return r;
         },
         /**
          * Validates the form fields, shows prompts accordingly.
@@ -211,6 +218,11 @@
             // validate the current field
 			window.setTimeout(function() {
 			    methods._validateField(field, options);
+				if (options.InvalidFields.length == 0 && options.onSuccess) {
+					options.onSuccess();
+				} else if (options.InvalidFields.length > 0 && options.onFailure) {
+					options.onFailure();
+				}
 			}, (event.data) ? event.data.delay : 0);
             
         },
@@ -581,6 +593,16 @@
 				if (!isAjaxValidator) methods._closePrompt(field);
 			}
 			field.trigger("jqv.field.result", [field, options.isError, promptText]);
+
+            /* Record error */
+            var errindex = $.inArray(field[0], options.InvalidFields);
+            if (errindex == -1) {
+                if (options.isError)
+                    options.InvalidFields.push(field[0]);
+            } else if (!options.isError) {
+                options.InvalidFields.splice(errindex, 1);
+            }
+
             return options.isError;
         },
         /**
@@ -1138,6 +1160,10 @@
                     break;
                 case "load":
                     prompt.addClass("blackPopup");
+                    break;
+                default:
+                    /* it has error  */
+                    options.InvalidCount++;
             }
             if (ajaxed)
                 prompt.addClass("ajaxed");
@@ -1422,8 +1448,11 @@
         isError: false,
         // Caches field validation status, typically only bad status are created.
         // the array is used during ajax form validation to detect issues early and prevent an expensive submit
-        ajaxValidCache: {}
+        ajaxValidCache: {},
 
+        InvalidFields: [],
+		onSuccess: false,
+		onFailure: false
     }}
 	
 })(jQuery);
