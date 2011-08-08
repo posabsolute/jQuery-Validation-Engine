@@ -1149,7 +1149,7 @@
             if (options.showArrow) {
                 var arrow = $('<div>').addClass("formErrorArrow");
 
-                switch (options.promptPosition) {
+                switch (field.data("promptPosition") || options.promptPosition) {
                     case "bottomLeft":
                     case "bottomRight":
                         prompt.find(".formErrorContent").before(arrow);
@@ -1288,7 +1288,7 @@
                 marginTopSize = 0;
             }
 
-            switch (options.promptPosition) {
+            switch (field.data("promptPosition") || options.promptPosition) {
 
                 default:
                 case "topRight":
