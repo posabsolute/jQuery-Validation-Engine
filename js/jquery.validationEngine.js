@@ -113,7 +113,6 @@
                 form.removeData('jqv');
 		
 		if (options.autoPositionUpdate) {
-		    console.log(1)
 		    $(window).unbind("resize", methods.updatePromptsPosition)
 		}
 
