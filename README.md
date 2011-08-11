@@ -245,6 +245,9 @@ If set, this callback function will be called when all validations passed.
 ### onFailure
 If set, this callback function will be called when it found an error.
 
+### autoPositionUpdate
+Auto update prompt position after window resize, disabled by default
+
 Validators
 ---
 

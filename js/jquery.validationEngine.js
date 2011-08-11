@@ -32,19 +32,6 @@
                     });
                 });
             }
-	    
-	    $(window).resize(function() {
-                $(".parentForm"+form.attr("id")).map(function() {
-                    var pos = methods._calculatePosition($(this).data("callerField"), $(this), form.data("jqv"))
-                    $(this).css({
-                        "top": pos.callerTopPosition,
-                        "left": pos.callerleftPosition,
-                        "marginTop": pos.marginTopSize
-                    });
-
-                }) 
-            })
-
         },
         /**
          * Attachs jQuery.validationEngine to form.submit and field.blur events
@@ -86,6 +73,21 @@
 					}
 
                 options.binded = true;
+		
+		if (options.autoPositionUpdate) {
+		    $(window).resize(function() {
+			$(".parentForm"+form.attr("id")).map(function() {
+			    var pos = methods._calculatePosition($(this).data("callerField"), $(this), options)
+			    $(this).css({
+				"top": pos.callerTopPosition,
+				"left": pos.callerleftPosition,
+				"marginTop": pos.marginTopSize
+			    });
+
+			}) 
+		    })
+		}
+
             }
 			return this;
         },
@@ -1462,6 +1464,8 @@
         // Caches field validation status, typically only bad status are created.
         // the array is used during ajax form validation to detect issues early and prevent an expensive submit
         ajaxValidCache: {},
+        // Auto update prompt position after window resize
+	autoPositionUpdate: false,
 
         InvalidFields: [],
 		onSuccess: false,
