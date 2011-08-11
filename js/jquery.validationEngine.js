@@ -32,6 +32,19 @@
                     });
                 });
             }
+	    
+	    $(window).resize(function() {
+                $(".parentForm"+form.attr("id")).map(function() {
+                    var pos = methods._calculatePosition($(this).data("callerField"), $(this), form.data("jqv"))
+                    $(this).css({
+                        "top": pos.callerTopPosition,
+                        "left": pos.callerleftPosition,
+                        "marginTop": pos.marginTopSize
+                    });
+
+                }) 
+            })
+
         },
         /**
          * Attachs jQuery.validationEngine to form.submit and field.blur events
@@ -1202,7 +1215,7 @@
                 "left": pos.callerleftPosition,
                 "marginTop": pos.marginTopSize,
                 "opacity": 0
-            });
+            }).data("callerField", field);
 
             return prompt.animate({
                 "opacity": 0.87
