@@ -15,9 +15,9 @@
         
         jQuery(document).ready(function(){
               // binds form submission and fields to the validation engine
-              jQuery("#formID1").validationEngine('attach', {promptPosition : "centerRight"});
-		      jQuery("#formID2").validationEngine('attach', {promptPosition : "bottomLeft"});
-		      jQuery("#formID3").validationEngine('attach', {promptPosition : "bottomRight"});
+              jQuery("#formID1").validationEngine('attach', {promptPosition : "centerRight", autoPositionUpdate : true});
+		      jQuery("#formID2").validationEngine('attach', {promptPosition : "bottomLeft", autoPositionUpdate : true});
+		      jQuery("#formID3").validationEngine('attach', {promptPosition : "bottomRight", autoPositionUpdate : true});
 		      jQuery("#formID4").validationEngine('attach', {promptPosition : "topLeft"});
             });
         </script>
