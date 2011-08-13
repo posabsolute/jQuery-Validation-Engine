@@ -73,6 +73,14 @@
 					}
 
                 options.binded = true;
+		
+		if (options.autoPositionUpdate) {
+		    $(window).bind("resize", {
+			"noAnimation": true, 
+			"formElem": form
+		    }, methods.updatePromptsPosition)
+		}
+
             }
 			return this;
         },
@@ -103,6 +111,11 @@
                 form.die("submit", methods.onAjaxFormComplete);
                 
                 form.removeData('jqv');
+		
+		if (options.autoPositionUpdate) {
+		    $(window).unbind("resize", methods.updatePromptsPosition)
+		}
+
             }
         },
         /**
@@ -143,18 +156,22 @@
 		/**
          *  Redraw prompts position, useful when you change the DOM state when validating
          */
-        updatePromptsPosition: function() {
-			var form = this.closest('form');
+        updatePromptsPosition: function(event) {
+	    if (event && this == window)
+		var form = event.data.formElem, noAnimation = event.data.noAnimation;
+	    else
+		var form = this.closest('form');
+	    
             var options = form.data('jqv');
             // No option, take default one
-			form.find('[class*=validate]').not(':hidden').not(":disabled").each(function(){
-				var field = $(this);
+	    form.find('[class*=validate]').not(':hidden').not(":disabled").each(function(){
+		    var field = $(this);
 
-				var prompt = methods._getPrompt(field);
-				var promptText = $(prompt).find(".formErrorContent").html();
+		    var prompt = methods._getPrompt(field);
+		    var promptText = $(prompt).find(".formErrorContent").html();
 
-				if(prompt) methods._updatePrompt(field, $(prompt), promptText, undefined, false, options);
-			})
+		    if(prompt) methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
+	    })
         },
         /**
          * Displays a prompt on a element.
@@ -1202,7 +1219,7 @@
                 "left": pos.callerleftPosition,
                 "marginTop": pos.marginTopSize,
                 "opacity": 0
-            });
+            }).data("callerField", field);
 
             return prompt.animate({
                 "opacity": 0.87
@@ -1217,7 +1234,7 @@
          * @param {boolean} ajaxed - use to mark fields than being validated with ajax
          * @param {Map} options user options
          */
-        _updatePrompt: function(field, prompt, promptText, type, ajaxed, options) {
+        _updatePrompt: function(field, prompt, promptText, type, ajaxed, options, noAnimation) {
 			
             if (prompt) {
                 if (type == "pass")
@@ -1237,12 +1254,15 @@
 
                 prompt.find(".formErrorContent").html(promptText);
 
-                var pos = methods._calculatePosition(field, prompt, options);
-                prompt.animate({
+                var pos = methods._calculatePosition(field, prompt, options),
+		css = {
                     "top": pos.callerTopPosition,
                     "left": pos.callerleftPosition,
                     "marginTop": pos.marginTopSize
-                });
+                }
+		
+		if (noAnimation) prompt.css(css);
+		else prompt.animate(css)
             }
         },
         /**
@@ -1449,6 +1469,8 @@
         // Caches field validation status, typically only bad status are created.
         // the array is used during ajax form validation to detect issues early and prevent an expensive submit
         ajaxValidCache: {},
+        // Auto update prompt position after window resize
+	autoPositionUpdate: false,
 
         InvalidFields: [],
 		onSuccess: false,
