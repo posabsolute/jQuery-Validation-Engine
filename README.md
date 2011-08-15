@@ -629,33 +629,34 @@ Contribution
 ---
 Contributions are always welcome, please follow these steps to submit your changes:
 
-1. Install git from http://git-scm.com/
-2. Create a github account on ![https://github.com]
-3. set up your git ssh key using these instructions ![http://help.github.com/set-up-git-redirect]
-4. Open the jQuery Validation Engine project home page on github on https://github.com/posabsolute/jQuery-Validation-Engine
-5. Click "Fork"
-6. Clone your forked repository on your local machine (don't clone the original repository)
+1. Install git from [http://git-scm.com/]()
+2. Create a github account on [https://github.com]()
+3. Set up your git ssh key using these instructions [http://help.github.com/set-up-git-redirect]()
+4. Open the jQuery Validation Engine project home page on github on [https://github.com/posabsolute/jQuery-Validation-Engine]()
+5. Click the "Fork" button, this will get you to a new page: your own copy of the code.
+6. Copy the SSH URL at the top of the page and clone the repository on your local machine
 
     git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
 
 7. Create a branch and switch to it
 
-    cd my-jqv-repo
-    git branch mynewfeature-patch
-    git checkout mynewfeature-patch
+    cd my-jqv-repo<br/>
+    git branch mynewfeature-patch<br/>
+    git checkout mynewfeature-patch<br/>
 
-8. Make your changes, then commit them. add a meaningful comment, that's the comment everybody will see!
+8. Apply your changes, then commit using a meaningful comment, that's the comment everybody will see!
 
-    git commit -m "Fixing issues around prompt positioning in an overflow DIV"
+    git add .<br/>
+    git commit -m "Fixing issue 157, blablabla"
 
-9. Push the changes from your local branch to your forked repository on github
+9. Push the changes back to github (under a different branch, here myfeature-patch)
 
     git push origin mynewfeature-patch
 
 10. Open your forked repository on github at https://github.com/your-username/jQuery-Validation-Engine
 11. Click "Switch Branches" and select your branch (mynewfeature-patch)
 12. Click "Pull Request"
-13. Submit your pull request to jqv developers
+13. Submit your pull request to JQV Developers
 
 
 Support
