@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.2, jQuery plugin
+ * Inline Form Validation Engine 2.2.2, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -589,22 +589,23 @@
             if(!required){
             	if(field.val() == "") options.isError = false;
             }			
-			
+
             // Hack for radio/checkbox group button, the validation go into the
             // first radio/checkbox of the group
             var fieldType = field.attr("type");
-
-            if ((fieldType == "radio" || fieldType == "checkbox") && $("input[name='" + fieldName + "']").size() > 1) {
-                field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
+			var form = field.closest("form");
+            if ((fieldType == "radio" || fieldType == "checkbox") && $(form).find("input[name='" + fieldName + "']").size() > 1) {
+                field = $($(form).find("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
-            if (fieldType == "text" && $("input[name='" + fieldName + "']").size() > 1) {
-                field = $($("input[name='" + fieldName + "'][type!=hidden]:first"));
+			
+            if (fieldType == "text" && $(form).find("input[name='" + fieldName + "']").size() > 1) {
+                field = $($(form).find("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
 
             if (options.isError){
-				
+	
                 methods._showPrompt(field, promptText, "", false, options);
             }else{
 				if (!isAjaxValidator) methods._closePrompt(field);
@@ -1163,7 +1164,7 @@
          * @param {Map} options user options
          */
         _buildPrompt: function(field, promptText, type, ajaxed, options) {
-
+			
             // create the prompt
             var prompt = $('<div>');
             prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
