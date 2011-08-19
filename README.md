@@ -82,7 +82,7 @@ Prompt direction can be define using the field's **data** attribute. Here are a 
 
 ### Instantiation
 
-The validator is typically instantiated with a call in the following format:
+The validator is typically instantiated with a call in the following format, the plugin can only be instanciated on form elements:
 
     $("#form.id").validationEngine();
 
