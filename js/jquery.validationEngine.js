@@ -304,9 +304,11 @@
 			// Trigger hook, start validation
 			form.trigger("jqv.form.validating");
             // first, evaluate status of non ajax fields
+		var first_err=null;
             form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
+		    if (errorFound && first_err==null) first_err=field; 
             });
             // second, check to see if all ajax calls completed ok
             // errorFound |= !methods._checkAjaxStatus(options);
@@ -314,50 +316,37 @@
             // thrird, check status and scroll the container accordingly
 			form.trigger("jqv.form.result", [errorFound]);
 			
-            if (errorFound) {
-				
-                if (options.scroll) {
-
+		if (errorFound) {				
+      		if (options.scroll) {
+				first_err.focus(); 		
+				var destination=first_err.offset().top;
+				var fixleft = first_err.offset().left;
+				if (options.promptPosition!="bottomRight"&& 
+				    options.promptPosition!="bottomLeft") {
+					var prompt_err= methods._getPrompt(first_err);
+					destination=prompt_err.offset().top;
+				}
                     // get the position of the first error, there should be at least one, no need to check this
                     //var destination = form.find(".formError:not('.greenPopup'):first").offset().top;
 
-                    // look for the visually top prompt
-                    var destination = Number.MAX_VALUE;
-                    var fixleft = 0;
-                    var lst = $(".formError:not('.greenPopup')");
-
-                    for (var i = 0; i < lst.length; i++) {
-                        var d = $(lst[i]).offset().top;
-                        if (d < destination){
-                            destination = d;
-                            fixleft = $(lst[i]).offset().left;
-                        }
-                    }
-
-                    if (!options.isOverflown)
                         $("html:not(:animated),body:not(:animated)").animate({
                             scrollTop: destination,
                             scrollLeft: fixleft
                         }, 1100);
-                    else {
-                        var overflowDIV = $(options.overflownDIV);
-                        var scrollContainerScroll = overflowDIV.scrollTop();
-                        var scrollContainerPos = -parseInt(overflowDIV.offset().top);
+                 		if (options.isOverflown) {
+                        	var overflowDIV = $(options.overflownDIV);
+	                        var scrollContainerScroll = overflowDIV.scrollTop();
+      	                  var scrollContainerPos = -parseInt(overflowDIV.offset().top);
+	
+      	                  destination += scrollContainerScroll + scrollContainerPos - 5;
+            	            var scrollContainer = $(options.overflownDIV + ":not(:animated)");
 
-                        destination += scrollContainerScroll + scrollContainerPos - 5;
-                        var scrollContainer = $(options.overflownDIV + ":not(:animated)");
-
-                        scrollContainer.animate({
-                            scrollTop: destination
-                        }, 1100);
-
-                        $("html:not(:animated),body:not(:animated)").animate({
-                            scrollTop: overflowDIV.offset().top,
-                            scrollLeft: fixleft
-                        }, 1100);
-                    }
-                }
-                return false;
+                  	      scrollContainer.animate({
+                        		scrollTop: destination
+					}, 1100);
+                 		}
+			}
+                	return false;
             }
             return true;
         },
