@@ -317,8 +317,7 @@
 			form.trigger("jqv.form.result", [errorFound]);
 			
 		if (errorFound) {				
-      		if (options.scroll) {
-				first_err.focus(); 		
+      		if (options.scroll) {	
 				var destination=first_err.offset().top;
 				var fixleft = first_err.offset().left;
 				if (options.promptPosition!="bottomRight"&& 
@@ -332,7 +331,9 @@
                         $("html:not(:animated),body:not(:animated)").animate({
                             scrollTop: destination,
                             scrollLeft: fixleft
-                        }, 1100);
+                        }, 1100, function(){
+							if(options.focusFirstField) first_err.focus(); 		
+						});
                  		if (options.isOverflown) {
                         	var overflowDIV = $(options.overflownDIV);
 	                        var scrollContainerScroll = overflowDIV.scrollTop();
@@ -343,10 +344,11 @@
 
                   	      scrollContainer.animate({
                         		scrollTop: destination
-					}, 1100);
-                 		}
-			}
-                	return false;
+						  }, 1100);
+						}
+                 
+				}else{ if(options.focusFirstField) first_err.focus(); }
+                return false;
             }
             return true;
         },
@@ -1428,6 +1430,8 @@
         validationEventTrigger: "blur",
         // Automatically scroll viewport to the first error
         scroll: true,
+		// Focus on the first input
+		focusFirstField:true,
         // Opening box position, possible locations are: topLeft,
         // topRight, bottomLeft, centerRight, bottomRight
         promptPosition: "topRight",
