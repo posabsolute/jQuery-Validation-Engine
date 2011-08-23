@@ -235,10 +235,6 @@ Stop the form from submitting, and let you handle it after it validated via a fu
 	  }  
 	})
 
-
-### bindMethod (defaut: bind)
-By default the engine bind to the form and the fields with bind. If you need persistence, you can also use 'live'
-
 ### onSuccess
 If set, this callback function will be called when all validations passed.
 
