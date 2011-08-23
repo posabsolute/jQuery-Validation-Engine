@@ -304,7 +304,7 @@
 			// Trigger hook, start validation
 			form.trigger("jqv.form.validating");
             // first, evaluate status of non ajax fields
-		var first_err=null;
+			var first_err=null;
             form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
@@ -450,11 +450,12 @@
 
             var rulesParsing = field.attr('class');
             var getRules = /validate\[(.*)\]/.exec(rulesParsing);
+			
             if (!getRules)
                 return false;
             var str = getRules[1];
             var rules = str.split(/\[|,|\]/);
-
+	
             // true if we ran the ajax validation, tells the logic to stop messing with prompts
             var isAjaxValidator = false;
             var fieldName = field.attr("name");
@@ -464,7 +465,8 @@
             options.showArrow = true;
 
             for (var i = 0; i < rules.length; i++) {
-
+				// Fix for adding spaces in the rules
+				rules[i] = rules[i].replace(" ", "")
                 var errorMsg = undefined;
                 switch (rules[i]) {
 
@@ -994,7 +996,6 @@
          * @return nothing! the ajax validator handles the prompts itself
          */
         _ajax: function(field, rules, i, options) {
-			
 			
             var errorSelector = rules[i + 1];
             var rule = options.allrules[errorSelector];
