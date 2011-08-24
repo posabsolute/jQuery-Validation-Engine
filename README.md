@@ -322,6 +322,10 @@ This validator is explained in further details in the Ajax section.
 
 Check if the current field's value equals the value of the specified field.
 
+### minCheckbox[integrer]
+
+Validates if there is at least the required number of checkboxes check.
+
 ### min[float]
 
 Validates when the field's value is less than, or equal to, the given parameter.
