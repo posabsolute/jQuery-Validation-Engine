@@ -1230,21 +1230,22 @@
         _updatePrompt: function(field, prompt, promptText, type, ajaxed, options, noAnimation) {
 			
             if (prompt) {
-                if (type == "pass")
-                    prompt.addClass("greenPopup");
-                else
-                    prompt.removeClass("greenPopup");
+		if (typeof type !== "undefined") {
+	                if (type == "pass")
+        	            prompt.addClass("greenPopup");
+                	else
+			    prompt.removeClass("greenPopup");
 
-                if (type == "load")
-                    prompt.addClass("blackPopup");
-                else
-                    prompt.removeClass("blackPopup");
-
-                if (ajaxed)
-                    prompt.addClass("ajaxed");
-                else
-                    prompt.removeClass("ajaxed");
-
+			if (type == "load")
+			    prompt.addClass("blackPopup");
+			else
+			    prompt.removeClass("blackPopup");
+		}
+		if (ajaxed)
+		    prompt.addClass("ajaxed");
+		else
+		    prompt.removeClass("ajaxed");
+		
                 prompt.find(".formErrorContent").html(promptText);
 
                 var pos = methods._calculatePosition(field, prompt, options),
