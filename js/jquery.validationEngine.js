@@ -725,7 +725,7 @@
          */
         _funcCall: function(field, rules, i, options) {
             var functionName = rules[i + 1];
-            var fn = window[functionName];
+            var fn = window[functionName] || options.customFunctions[functionName];
             if (typeof(fn) == 'function')
                 return fn(field, rules, i, options);
 
