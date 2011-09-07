@@ -308,6 +308,9 @@
             form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
+				field.focus();
+                if (options.doNotShowAllErrosOnSubmit)
+                    return false;
 		    if (errorFound && first_err==null) first_err=field; 
             });
             // second, check to see if all ajax calls completed ok
@@ -1455,6 +1458,9 @@
         // Used when the form is displayed within a scrolling DIV
         isOverflown: false,
         overflownDIV: "",
+		
+		// Used when you have a form fields too close and the errors messages are on top of other disturbing viewing messages
+        doNotShowAllErrosOnSubmit: false,
 
         // true when form and fields are binded
         binded: false,
@@ -1466,7 +1472,7 @@
         // the array is used during ajax form validation to detect issues early and prevent an expensive submit
         ajaxValidCache: {},
         // Auto update prompt position after window resize
-	autoPositionUpdate: false,
+		autoPositionUpdate: false,
 
         InvalidFields: [],
 		onSuccess: false,
