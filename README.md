@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.0
+jQuery.validationEngine v2.2.3
 =====
 
 Summary
@@ -98,7 +98,7 @@ Here's a glimpse: say you have a form as such:
         <input value="2010-12-01" class="validate[required,custom[date]]" type="text" name="date" id="date" />
     </form>
 
-The code below will instance the validation engine and attach it to the form:
+The code below will instantiate the validation engine and attach it to the form:
     <script>
     $(document).ready(function(){
         $("#formID").validationEngine();
@@ -174,9 +174,9 @@ Closes the prompt linked to the input.
 
 ### hide
 
-Closes error prompts in the current form (in case you have more than one form on the page)
+Closes error prompts in the current form (in case you have more than one form on the page).
 
-    $('#formID1').validationEngine('hide')">Hide prompts
+    $('#formID1').validationEngine('hide');
 
 ### hideAll
 
@@ -195,8 +195,9 @@ Update the form prompts positions.
 Options
 ---
 
-Options are typically passed to the init action as a parameter.
+Options are typically passed to the init or attach action as a parameter.
     $("#formID1").validationEngine({promptPosition : "centerRight", scroll: false});
+    $("#formID1").validationEngine('attach', {promptPosition : "centerRight", scroll: false});
 
 ### validationEventTrigger
 Name of the event triggering field validation, defaults to *blur*.
