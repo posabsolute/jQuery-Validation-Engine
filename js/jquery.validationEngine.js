@@ -320,12 +320,22 @@
       		if (options.scroll) {	
 				var destination=first_err.offset().top;
 				var fixleft = first_err.offset().left;
-				if (options.promptPosition!="bottomRight"&& 
-				    options.promptPosition!="bottomLeft") {
+
+				//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
+				var positionType=options.promptPosition;
+				if (typeof(positionType)=='string') {
+					if (positionType.indexOf(":")!=-1) {
+						positionType=positionType.substring(0,positionType.indexOf(":"));
+					}
+				}
+
+				if (positionType!="bottomRight"&& 
+				    positionType!="bottomLeft") {
 					var prompt_err= methods._getPrompt(first_err);
 					destination=prompt_err.offset().top;
 				}
-                    // get the position of the first error, there should be at least one, no need to check this
+
+					// get the position of the first error, there should be at least one, no need to check this
                     //var destination = form.find(".formError:not('.greenPopup'):first").offset().top;
 
                         $("html:not(:animated),body:not(:animated)").animate({
@@ -1185,7 +1195,16 @@
             if (options.showArrow) {
                 var arrow = $('<div>').addClass("formErrorArrow");
 
-                switch (field.data("promptPosition") || options.promptPosition) {
+				//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
+				var positionType=field.data("promptPosition") || options.promptPosition;
+				if (typeof(positionType)=='string') {
+					if (positionType.indexOf(":")!=-1) {
+						positionType=positionType.substring(0,positionType.indexOf(":"));
+					};
+				};
+
+				
+                switch (positionType) {
                     case "bottomLeft":
                     case "bottomRight":
                         prompt.find(".formErrorContent").before(arrow);
@@ -1328,7 +1347,42 @@
                 marginTopSize = 0;
             }
 
-            switch (field.data("promptPosition") || options.promptPosition) {
+			//prompt positioning adjustment support 
+			//now you can adjust prompt position
+			//usage: positionType:Xshift,Yshift
+			//for example: 
+			//   bottomLeft:+20 means bottomLeft position shifted by 20 pixels right horizontally
+			//   topRight:20, -15 means topRight position shifted by 20 pixels to right and 15 pixels to top
+			//You can use +pixels, - pixels. If no sign is provided than + is default.
+			var positionType=field.data("promptPosition") || options.promptPosition;
+			var shift1="";
+			var shift2="";
+			var shiftX=0;
+			var shiftY=0;
+			if (typeof(positionType)=='string') {
+			//do we have any position adjustments ?
+				if (positionType.indexOf(":")!=-1) {
+					shift1=positionType.substring(positionType.indexOf(":")+1);
+					positionType=positionType.substring(0,positionType.indexOf(":"));
+
+					//if any advanced positioning will be needed (percents or something else) - parser should be added here
+					//for now we use simple parseInt()
+					
+					//do we have second parameter?
+					if (shift1.indexOf(",")!=-1) {
+						shift2=shift1.substring(shift1.indexOf(",")+1);
+						shift1=shift1.substring(0,shift1.indexOf(","));
+						shiftY=parseInt(shift2);
+						if (isNaN(shiftY)) {shiftY=0;};
+					};
+					
+					shiftX=parseInt(shift1);
+					if (isNaN(shift1)) {shift1=0;};
+					
+				};
+			};
+
+            switch (positionType) {
 
                 default:
                 case "topRight":
@@ -1353,6 +1407,10 @@
                     promptleftPosition += fieldWidth - 30;
                     promptTopPosition += field.height() + 5;
             }
+
+			//apply adjusments if any
+			promptleftPosition += shiftX;
+			promptTopPosition  += shiftY;
 
             return {
                 "callerTopPosition": promptTopPosition + "px",
