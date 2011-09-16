@@ -113,6 +113,10 @@ When using options, the default behavior is to only initialize ValidationEngine,
        });
     </script>
 
+All calls to validationEngine() are chainable, so one can do the following:
+
+    $("#formID").validationEngine().css({border : "2px solid #000"});
+
 
 Actions
 ---
