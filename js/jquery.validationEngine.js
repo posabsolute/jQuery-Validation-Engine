@@ -32,6 +32,7 @@
                     });
                 });
             }
+            return this;
         },
         /**
          * Attachs jQuery.validationEngine to form.submit and field.blur events
@@ -82,7 +83,7 @@
 		}
 
             }
-			return this;
+            return this;
         },
         /**
          * Unregisters any bindings that may point to jQuery.validaitonEngine
@@ -117,6 +118,7 @@
 		}
 
             }
+            return this;
         },
         /**
          * Validates the form fields, shows prompts accordingly.
@@ -172,6 +174,7 @@
 
 		    if(prompt) methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
 	    })
+            return this;
         },
         /**
          * Displays a prompt on a element.
@@ -192,6 +195,7 @@
             options.showArrow = showArrow==true;
 
             methods._showPrompt(this, promptText, type, false, options);
+            return this;
         },
         /**
          * Closes all error prompts on the page
@@ -201,6 +205,7 @@
             $(promptClass).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
+            return this;
         },
         /**
          * Closes form error prompts, CAN be invidual
@@ -215,6 +220,7 @@
             $('.'+closingtag).fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
+            return this;
         },
         /**
          * Closes all error prompts on the page
@@ -223,6 +229,7 @@
             $('.formError').fadeTo("fast", 0.3, function() {
                 $(this).remove();
             });
+            return this;
         },
         /**
          * Typically called when user exists a field using tab or a mouse click, triggers a field
