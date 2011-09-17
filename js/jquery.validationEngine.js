@@ -52,38 +52,36 @@
 			var validateAttribute = (form.find("[data-validation-engine*=validate]")) ? "data-validation-engine" : "class";
 			
             if (!options.binded) {
-					if (options.bindMethod == "bind"){
-						
-						// bind fields
-                        form.find("[class*=validate]").not("[type=checkbox]").not("[type=radio]").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
-                        form.find("[class*=validate][type=checkbox],[class*=validate][type=radio]").bind("click", methods._onFieldEvent);
-						
-						form.find("[class*=validate][class*=datepicker]").bind(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
+				if (options.bindMethod == "bind"){
+				
+					// bind fields
+                    form.find("[class*=validate]").not("[type=checkbox]").not("[type=radio]").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
+                    form.find("[class*=validate][type=checkbox],[class*=validate][type=radio]").bind("click", methods._onFieldEvent);
+					form.find("[class*=validate][class*=datepicker]").bind(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
 
-                        // bind form.submit
-                        form.bind("submit", methods._onSubmitEvent);
-					} else if (options.bindMethod == "live") {
-                        // bind fields with LIVE (for persistant state)
-                        form.find("[class*=validate]").not("[type=checkbox]").not(".datepicker").live(options.validationEventTrigger, methods._onFieldEvent);
-                        form.find("[class*=validate][type=checkbox]").live("click", methods._onFieldEvent);
+                    // bind form.submit
+                    form.bind("submit", methods._onSubmitEvent);
+				} else if (options.bindMethod == "live") {
+                    // bind fields with LIVE (for persistant state)
+                    form.find("[class*=validate]").not("[type=checkbox]").not(".datepicker").live(options.validationEventTrigger, methods._onFieldEvent);
+                    form.find("[class*=validate][type=checkbox]").live("click", methods._onFieldEvent);
+					form.find("[class*=validate][class*=datepicker]").live(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
 
-						form.find("[class*=validate][class*=datepicker]").live(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
+                    // bind form.submit
+                    form.live("submit", methods._onSubmitEvent);
+				}
 
-                        // bind form.submit
-                        form.live("submit", methods._onSubmitEvent);
-					}
-
-                options.binded = true;
+               	options.binded = true;
+	
+				if (options.autoPositionUpdate) {
+	    			$(window).bind("resize", {
+						"noAnimation": true, 
+						"formElem": form
+	    				}, methods.updatePromptsPosition);
+				}
 		
-		if (options.autoPositionUpdate) {
-		    $(window).bind("resize", {
-			"noAnimation": true, 
-			"formElem": form
-		    }, methods.updatePromptsPosition)
-		}
-
-            }
-            return this;
+           }
+           return this;
         },
         /**
          * Unregisters any bindings that may point to jQuery.validaitonEngine
@@ -100,24 +98,19 @@
                 // unbind form.submit
                 form.unbind("submit", methods.onAjaxFormComplete);
                 
-               
                 // unbind live fields (kill)
                 form.find("[class*=validate]").not("[type=checkbox]").die(options.validationEventTrigger, methods._onFieldEvent);
                 form.find("[class*=validate][type=checkbox]").die("click", methods._onFieldEvent);
-                // unbind form.submit
-
-				
-
-
+                
+				// unbind form.submit
                 form.die("submit", methods.onAjaxFormComplete);
                 
                 form.removeData('jqv');
 		
-		if (options.autoPositionUpdate) {
-		    $(window).unbind("resize", methods.updatePromptsPosition)
-		}
-
-            }
+				if (options.autoPositionUpdate) {
+		    		$(window).unbind("resize", methods.updatePromptsPosition)
+				}
+           	}
             return this;
         },
         /**
@@ -159,22 +152,23 @@
          *  Redraw prompts position, useful when you change the DOM state when validating
          */
         updatePromptsPosition: function(event) {
-	    if (event && this == window)
-		var form = event.data.formElem, noAnimation = event.data.noAnimation;
-	    else
-		var form = this.closest('form');
 	    
-            var options = form.data('jqv');
-            // No option, take default one
-	    form.find('[class*=validate]').not(':hidden').not(":disabled").each(function(){
-		    var field = $(this);
+			if (event && this == window)
+				var form = event.data.formElem, noAnimation = event.data.noAnimation;
+		    else
+				var form = $(this.closest('form'));
+            
+			var options = form.data('jqv');
+	        // No option, take default one
+		    form.find('[class*=validate]').not(':hidden').not(":disabled").each(function(){
+			   	var field = $(this);
+			   	var prompt = methods._getPrompt(field);
+			   	var promptText = $(prompt).find(".formErrorContent").html();
 
-		    var prompt = methods._getPrompt(field);
-		    var promptText = $(prompt).find(".formErrorContent").html();
-
-		    if(prompt) methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
-	    })
-            return this;
+			   	if(prompt)
+					methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
+		    })
+	        return this;
         },
         /**
          * Displays a prompt on a element.
@@ -344,17 +338,16 @@
                  		if (options.isOverflown) {
                         	var overflowDIV = $(options.overflownDIV);
 	                        var scrollContainerScroll = overflowDIV.scrollTop();
-      	                  var scrollContainerPos = -parseInt(overflowDIV.offset().top);
+      	                  	var scrollContainerPos = -parseInt(overflowDIV.offset().top);
 	
-      	                  destination += scrollContainerScroll + scrollContainerPos - 5;
+      	                  	destination += scrollContainerScroll + scrollContainerPos - 5;
             	            var scrollContainer = $(options.overflownDIV + ":not(:animated)");
 
-                  	      scrollContainer.animate({
-                        		scrollTop: destination
-						  }, 1100);
+                  	      	scrollContainer.animate({ scrollTop: destination }, 1100);
 						}
                  
-				}else{ if(options.focusFirstField) first_err.focus(); }
+				} else if(options.focusFirstField)
+				 	first_err.focus();
                 return false;
             }
             return true;
@@ -471,6 +464,8 @@
             options.isError = false;
             options.showArrow = true;
 
+			var form = $(field.closest("form"));
+
             for (var i = 0; i < rules.length; i++) {
 				// Fix for adding spaces in the rules
 				rules[i] = rules[i].replace(" ", "")
@@ -488,7 +483,7 @@
 						// Check is its the first of group, if not, reload validation with first field
 						// AND continue normal validation on present field
 						var classGroup = "[class*=" +rules[i + 1] +"]";	
-						var firstOfGroup = field.closest("form").find(classGroup).eq(0);
+						var firstOfGroup = form.find(classGroup).eq(0);
 						if(firstOfGroup[0] != field[0]){
 							methods._validateField(firstOfGroup, options, skipAjaxValidation)
 							options.showArrow = true;
@@ -525,15 +520,9 @@
                         break;
                     case "dateRange":
                         var classGroup = "[class*=" + rules[i + 1] + "]";
-                        var firstOfGroup = field.closest("form").find(classGroup).eq(0);
-                        var secondOfGroup = field.closest("form").find(classGroup).eq(1);
-                        /*
-                        if (firstOfGroup[0] != field[0]) {
-                            methods._validateField(firstOfGroup, options, skipAjaxValidation)
-                            options.showArrow = true;
-                            continue;
-                        };
-                        */
+                        var firstOfGroup = form.find(classGroup).eq(0);
+                        var secondOfGroup = form.find(classGroup).eq(1);
+
                         //if one entry out of the pair has value then proceed to run through validation
                         if (firstOfGroup[0].value || secondOfGroup[0].value) {
                             errorMsg = methods._dateRange(firstOfGroup, secondOfGroup, rules, i, options);
@@ -544,15 +533,9 @@
 
                     case "dateTimeRange":
                         var classGroup = "[class*=" + rules[i + 1] + "]";
-                        var firstOfGroup = field.closest("form").find(classGroup).eq(0);
-                        var secondOfGroup = field.closest("form").find(classGroup).eq(1);
-                        /*
-                        if (firstOfGroup[0] != field[0]) {
-                            methods._validateField(firstOfGroup, options, skipAjaxValidation)
-                            options.showArrow = true;
-                            continue;
-                        };
-                        */
+                        var firstOfGroup = form.find(classGroup).eq(0);
+                        var secondOfGroup = form.find(classGroup).eq(1);
+
                         //if one entry out of the pair has value then proceed to run through validation
                         if (firstOfGroup[0].value || secondOfGroup[0].value) {
                             errorMsg = methods._dateTimeRange(firstOfGroup, secondOfGroup, rules, i, options);
@@ -561,12 +544,12 @@
                         options.showArrow = false;
                         break;
                     case "maxCheckbox":
-                        errorMsg = methods._maxCheckbox(field, rules, i, options);
-                        field = $($("input[name='" + fieldName + "']"));
+                        errorMsg = methods._maxCheckbox(form, field, rules, i, options);
+                        field = $(form.find("input[name='" + fieldName + "']"));
                         break;
                     case "minCheckbox":
-                        errorMsg = methods._minCheckbox(field, rules, i, options);
-                        field = $($("input[name='" + fieldName + "']"));
+                        errorMsg = methods._minCheckbox(form, field, rules, i, options);
+                        field = $(form.find("input[name='" + fieldName + "']"));
                         break;
                     case "equals":
                         errorMsg = methods._equals(field, rules, i, options);
@@ -581,31 +564,26 @@
                 if (errorMsg !== undefined) {
                     promptText += errorMsg + "<br/>";
                     options.isError = true;
-					
                 }
-
             }
             // If the rules required is not added, an empty field is not validated
-            if(!required){
-            	if(field.val() == "") options.isError = false;
-            }			
+            if(!required && field.val() == "") options.isError = false;
 
             // Hack for radio/checkbox group button, the validation go into the
             // first radio/checkbox of the group
             var fieldType = field.attr("type");
-			var form = field.closest("form");
-            if ((fieldType == "radio" || fieldType == "checkbox") && $(form).find("input[name='" + fieldName + "']").size() > 1) {
-                field = $($(form).find("input[name='" + fieldName + "'][type!=hidden]:first"));
+
+            if ((fieldType == "radio" || fieldType == "checkbox") && form.find("input[name='" + fieldName + "']").size() > 1) {
+                field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
 			
-            if (fieldType == "text" && $(form).find("input[name='" + fieldName + "']").size() > 1) {
-                field = $($(form).find("input[name='" + fieldName + "'][type!=hidden]:first"));
+            if (fieldType == "text" && form.find("input[name='" + fieldName + "']").size() > 1) {
+                field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
                 options.showArrow = false;
             }
 
             if (options.isError){
-	
                 methods._showPrompt(field, promptText, "", false, options);
             }else{
 				if (!isAjaxValidator) methods._closePrompt(field);
@@ -645,9 +623,10 @@
                     break;
                 case "radio":
                 case "checkbox":
+					var form = field.closest("form");
                     var name = field.attr("name");
-                    if ($("input[name='" + name + "']:checked").size() == 0) {
-                        if ($("input[name='" + name + "']").size() == 1)
+                    if (form.find("input[name='" + name + "']:checked").size() == 0) {
+                        if (form.find("input[name='" + name + "']").size() == 1)
                             return options.allrules[rules[i]].alertTextCheckboxe;
                         else
                             return options.allrules[rules[i]].alertTextCheckboxMultiple;
@@ -960,11 +939,11 @@
          *            user options
          * @return an error string if validation failed
          */
-        _maxCheckbox: function(field, rules, i, options) {
+        _maxCheckbox: function(form, field, rules, i, options) {
 
             var nbCheck = rules[i + 1];
             var groupname = field.attr("name");
-            var groupSize = $("input[name='" + groupname + "']:checked").size();
+            var groupSize = form.find("input[name='" + groupname + "']:checked").size();
             if (groupSize > nbCheck) {
                 options.showArrow = false;
                 if (options.allrules.maxCheckbox.alertText2) return options.allrules.maxCheckbox.alertText + " " + nbCheck + " " + options.allrules.maxCheckbox.alertText2;
@@ -981,15 +960,14 @@
          *            user options
          * @return an error string if validation failed
          */
-        _minCheckbox: function(field, rules, i, options) {
+        _minCheckbox: function(form, field, rules, i, options) {
 
             var nbCheck = rules[i + 1];
             var groupname = field.attr("name");
-            var groupSize = $("input[name='" + groupname + "']:checked").size();
+            var groupSize = form.find("input[name='" + groupname + "']:checked").size();
             if (groupSize < nbCheck) {
                 options.showArrow = false;
-                return options.allrules.minCheckbox.alertText + " " + nbCheck + " " +
-                options.allrules.minCheckbox.alertText2;
+                return options.allrules.minCheckbox.alertText + " " + nbCheck + " " + options.allrules.minCheckbox.alertText2;
             }
         },
         /**
@@ -1237,33 +1215,33 @@
         _updatePrompt: function(field, prompt, promptText, type, ajaxed, options, noAnimation) {
 			
             if (prompt) {
-		if (typeof type !== "undefined") {
-	                if (type == "pass")
+				if (typeof type !== "undefined") {
+	            	if (type == "pass")
         	            prompt.addClass("greenPopup");
                 	else
-			    prompt.removeClass("greenPopup");
+					    prompt.removeClass("greenPopup");
 
-			if (type == "load")
-			    prompt.addClass("blackPopup");
-			else
-			    prompt.removeClass("blackPopup");
-		}
-		if (ajaxed)
-		    prompt.addClass("ajaxed");
-		else
-		    prompt.removeClass("ajaxed");
+					if (type == "load")
+					    prompt.addClass("blackPopup");
+					else
+					    prompt.removeClass("blackPopup");
+				}
+				if (ajaxed)
+				    prompt.addClass("ajaxed");
+				else
+				    prompt.removeClass("ajaxed");
 		
                 prompt.find(".formErrorContent").html(promptText);
 
-                var pos = methods._calculatePosition(field, prompt, options),
-		css = {
-                    "top": pos.callerTopPosition,
-                    "left": pos.callerleftPosition,
-                    "marginTop": pos.marginTopSize
-                }
+                var pos = methods._calculatePosition(field, prompt, options);
+				css = {"top": pos.callerTopPosition,
+		               "left": pos.callerleftPosition,
+		               "marginTop": pos.marginTopSize};
 		
-		if (noAnimation) prompt.css(css);
-		else prompt.animate(css)
+				if (noAnimation)
+				 	prompt.css(css);
+				else
+				 	prompt.animate(css)
             }
         },
         /**
@@ -1414,7 +1392,7 @@
     $.fn.validationEngine = function(method) {
 
         var form = $(this);
-		  if(!form[0]) return false;  // stop here if the form does not exist
+		if(!form[0]) return false;  // stop here if the form does not exist
 		  
         if (typeof(method) == 'string' && method.charAt(0) != '_' && methods[method]) {
 
@@ -1424,8 +1402,8 @@
 
             return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));
         } else if (typeof method == 'object' || !method) {
+	
             // default constructor with or without arguments
-			
 			methods.init.apply(form, arguments);
             return methods.attach.apply(form);
         } else {
@@ -1473,7 +1451,7 @@
         // the array is used during ajax form validation to detect issues early and prevent an expensive submit
         ajaxValidCache: {},
         // Auto update prompt position after window resize
-	autoPositionUpdate: false,
+		autoPositionUpdate: false,
 
         InvalidFields: [],
 		onSuccess: false,
