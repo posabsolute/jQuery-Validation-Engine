@@ -308,10 +308,9 @@
             form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
-				field.focus();
-                if (options.doNotShowAllErrosOnSubmit)
-                    return false;
 		    if (errorFound && first_err==null) first_err=field; 
+                if (options.doNotShowAllErrorsOnSubmit)
+                    return false;
             });
             // second, check to see if all ajax calls completed ok
             // errorFound |= !methods._checkAjaxStatus(options);
@@ -1460,7 +1459,7 @@
         overflownDIV: "",
 		
 		// Used when you have a form fields too close and the errors messages are on top of other disturbing viewing messages
-        doNotShowAllErrosOnSubmit: false,
+        doNotShowAllErrorsOnSubmit: false,
 
         // true when form and fields are binded
         binded: false,
