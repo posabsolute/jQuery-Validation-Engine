@@ -564,6 +564,7 @@
                 if (errorMsg !== undefined) {
                     promptText += errorMsg + "<br/>";
                     options.isError = true;
+					if (options.showFirstAlertForFieldOnly) break; 
                 }
             }
             // If the rules required is not added, an empty field is not validated
@@ -1452,6 +1453,8 @@
         ajaxValidCache: {},
         // Auto update prompt position after window resize
 		autoPositionUpdate: false,
+		// Option to only show the first alert text when using multiple validators.
+		showFirstAlertForFieldOnly:false,
 
         InvalidFields: [],
 		onSuccess: false,
