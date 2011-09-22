@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.2.3, jQuery plugin
+ * Inline Form Validation Engine 2.2.4, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -581,7 +581,7 @@
 
             // Hack for radio/checkbox group button, the validation go into the
             // first radio/checkbox of the group
-            var fieldType = field.attr("type");
+            var fieldType = field.prop("type");
 
             if ((fieldType == "radio" || fieldType == "checkbox") && form.find("input[name='" + fieldName + "']").size() > 1) {
                 field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
@@ -625,7 +625,7 @@
          * @return an error string if validation failed
          */
         _required: function(field, rules, i, options) {
-            switch (field.attr("type")) {
+            switch (field.prop("type")) {
                 case "text":
                 case "password":
                 case "textarea":
