@@ -631,6 +631,7 @@ Rules of thumb
 ---
 
 * field.id is **unique** across the page
+* From 2.2.4 and up, jquery 1.6+ is required because of prop()
 * for simplicity and consistency field.id and field.name should match (except with minCheckbox and maxCheckbox validators)
 * spaces or special chars should be avoided in field.id or field.name
 * use lower case for input.type  ie. *text, password, textarea, checkbox, radio*
