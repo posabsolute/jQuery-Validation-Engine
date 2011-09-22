@@ -586,9 +586,12 @@
             if (options.isError){
                 methods._showPrompt(field, promptText, "", false, options);
             }else{
-				if (!isAjaxValidator) methods._closePrompt(field);
-			}
-			field.trigger("jqv.field.result", [field, options.isError, promptText]);
+                if (!isAjaxValidator) methods._closePrompt(field);
+            }
+	    
+            if (!isAjaxValidator) {
+              field.trigger("jqv.field.result", [field, options.isError, promptText]);
+            }
 
             /* Record error */
             var errindex = $.inArray(field[0], options.InvalidFields);
@@ -1075,6 +1078,7 @@
                                     methods._closePrompt(errorField);
                             }
                         }
+                        errorField.trigger("jqv.field.result", [errorField, !options.isError, msg]);
                     }
                 });
             }
