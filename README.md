@@ -80,6 +80,16 @@ Prompt direction can be define using the field's **data** attribute. Here are a 
     <input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft" />
     <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight" />
 
+### Prompt Position Adjustment
+
+Prompt position can be adjusted by providing shiftX and shiftY with position type in the field's **data** attribute. 
+Prompt will be placed in (defaultX+shiftX),(defaultY+shiftY) position instead of default for selected position type.
+Here are a few examples showing how it happens:
+
+    <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft:70" />
+    <input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft:20,5" />
+    <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight:-100,3" />
+	
 ### Instantiation
 
 The validator is typically instantiated with a call in the following format, the plugin can only be instanciated on form elements:
@@ -211,6 +221,7 @@ Determines if we should scroll the page to the first error, defaults to *true*.
 
 ### promptPosition
 Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
+Default position adjustment could also be provided.
 
 ### ajaxFormValidation
 If set to true, turns Ajax form validation logic on. Defaults to *false*.
