@@ -1438,7 +1438,9 @@
          * @param {String} className
          */
         _getClassName: function(className) {
-        	return className.replace(":","_").replace(".","_");
+        	if(className) {
+                return className.replace(":","_").replace(".","_");
+            }    
         }
     };
 
@@ -1472,6 +1474,9 @@
             $.error('Method ' + method + ' does not exist in jQuery.validationEngine');
         }
     };
+
+
+
 	// LEAK GLOBAL OPTIONS
 	$.validationEngine= {defaults:{
 
@@ -1519,5 +1524,4 @@
 		onSuccess: false,
 		onFailure: false
     }}
-	
 })(jQuery);
