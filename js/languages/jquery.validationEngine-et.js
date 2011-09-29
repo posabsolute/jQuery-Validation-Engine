@@ -30,7 +30,7 @@
                 },
                 "past": {
                     "regex": "none",
-                    "alertText": "* Kuupäev eelnev "
+                    "alertText": "* Kuupäev enne "
                 },
                 "future": {
                     "regex": "none",
