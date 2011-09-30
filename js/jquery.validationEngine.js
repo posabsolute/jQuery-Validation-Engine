@@ -1292,7 +1292,7 @@
          * @return undefined or the error prompt (jqObject)
          */
   		  _getPrompt: function(field) {
-		    var className = field.attr("id").replace(":","_") + "formError";
+		    var className = methods._getClassName(field.attr("id")) + "formError";
 		    var match = $("." + methods._escapeExpression(className))[0];
 		    if (match)
 		      return $(match);
