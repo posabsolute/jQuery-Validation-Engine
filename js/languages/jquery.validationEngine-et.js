@@ -44,7 +44,7 @@
                 "minCheckbox": {
                     "regex": "none",
                     "alertText": "* Palun vali ",
-                    "alertText2": " valik"
+                    "alertText2": " valik(ut)"
                 },
                 "equals": {
                     "regex": "none",
