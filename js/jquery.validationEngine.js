@@ -1430,7 +1430,7 @@
 			// validation rules and i18
 			$.validationEngine.defaults.allrules = allRules;
 			
-            var userOptions = $.extend({},$.validationEngine.defaults, options);
+            var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
 
             form.data('jqv', userOptions);
             return userOptions;
