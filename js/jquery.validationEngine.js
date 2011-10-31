@@ -207,9 +207,9 @@
         hide: function() {
 			var closingtag;
         	if($(this).is("form")){
-        		closingtag = "parentForm"+$(this).attr('id');
+        		closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
         	}else{
-        		closingtag = $(this).attr('id') +"formError";
+        		closingtag = methods._getClassName($(this).attr("id")) +"formError";
         	}
             $('.'+closingtag).fadeTo("fast", 0.3, function() {
                 $(this).remove();
@@ -1442,7 +1442,7 @@
          */
         _getClassName: function(className) {
         	if(className) {
-                return className.replace(":","_").replace(".","_");
+                return className.replace(/:/g, "_").replace(/\./g, "_");
             }    
         }
     };
