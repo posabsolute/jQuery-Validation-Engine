@@ -6,14 +6,14 @@
             $.validationEngineLanguage.allRules = {
                 "required": {
                     "regex": "none",
-                    "alertText": "* Ce champs est requis",
+                    "alertText": "* Ce champ est requis",
                     "alertTextCheckboxMultiple": "* Choisir une option",
                     "alertTextCheckboxe": "* Cette option est requise"
                 },
                "minSize": {
                     "regex": "none",
                     "alertText": "* Minimum ",
-                    "alertText2": " caracteres requis"
+                    "alertText2": " caractères requis"
                 },
 				"groupRequired": {
                     "regex": "none",
@@ -22,7 +22,7 @@
                 "maxSize": {
                     "regex": "none",
                     "alertText": "* Maximum ",
-                    "alertText2": " caracteres requis"
+                    "alertText2": " caractères requis"
                 },
 		        "min": {
                     "regex": "none",
@@ -51,7 +51,7 @@
                 },
                 "equals": {
                     "regex": "none",
-                    "alertText": "* Votre champs n'est pas identique"
+                    "alertText": "* Votre champ n'est pas identique"
                 },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
@@ -86,7 +86,7 @@
                 },
                 "onlyNumberSp": {
                     "regex": /^[0-9\ ]+$/,
-                    "alertText": "* Seules les chiffres sont acceptées"
+                    "alertText": "* Seuls les chiffres sont acceptés"
                 },
                 "onlyLetterSp": {
                     "regex": /^[a-zA-Z\ \']+$/,
