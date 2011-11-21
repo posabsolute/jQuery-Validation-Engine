@@ -131,13 +131,6 @@ All calls to validationEngine() are chainable, so one can do the following:
 Actions
 ---
 
-### init
-
-Initializes the engine with default settings
-
-    $("#formID1").validationEngine({promptPosition : "centerRight", scroll: false});
-    $("#formID1").validationEngine('init', {promptPosition : "centerRight", scroll: false});
-
 ### attach
 
 Attaches jQuery.validationEngine to form.submit and field.blur events.
