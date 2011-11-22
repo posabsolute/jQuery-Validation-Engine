@@ -53,6 +53,10 @@
   position:relative;
   z-index: 5006;
 }
+body[dir='rtl'] .formError .formErrorArrow,
+body.rtl .formError .formErrorArrow {
+	margin: -2px 13px 0 0;
+}
 
 .formError .formErrorArrowBottom {
   box-shadow: none;
