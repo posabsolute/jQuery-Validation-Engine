@@ -1309,6 +1309,24 @@
 		  _escapeExpression: function (selector) {
 		    return selector.replace(/([#;&,\.\+\*\~':"\!\^$\[\]\(\)=>\|])/g, "\\$1");
 		  },
+		/**
+		 * returns true if we are in a RTLed document
+		 *
+		 * @param {jqObject} field
+		 */
+		isRTL: function(field)
+		{
+			var $document = $(document);
+			var $body = $('body');
+			var rtl =
+				(field && field.hasClass('rtl')) ||
+				(field && (field.attr('dir') || '').toLowerCase()==='rtl') ||
+				$document.hasClass('rtl') ||
+				($document.attr('dir') || '').toLowerCase()==='rtl' ||
+				$body.hasClass('rtl') ||
+				($body.attr('dir') || '').toLowerCase()==='rtl';
+			return Boolean(rtl);
+		},
         /**
         * Calculates prompt position
         *
@@ -1374,31 +1392,73 @@
 				};
 			};
 
-            switch (positionType) {
-
-                default:
-                case "topRight":
-                    if (overflow)
-                        // Is the form contained in an overflown container?
-                        promptleftPosition += fieldWidth - 30;
-                    else {
-                        promptleftPosition += fieldWidth - 30;
-                        promptTopPosition += -promptHeight -2;
-                    }
-                    break;
-                case "topLeft":
-                    promptTopPosition += -promptHeight - 10;
-                    break;
-                case "centerRight":
-                    promptleftPosition += fieldWidth + 13;
-                    break;
-                case "bottomLeft":
-                    promptTopPosition = promptTopPosition + field.height() + 15;
-                    break;
-                case "bottomRight":
-                    promptleftPosition += fieldWidth - 30;
-                    promptTopPosition += field.height() + 5;
-            }
+			if(!methods.isRTL(field))
+			{
+				switch (positionType) {
+					default:
+					case "topRight":
+						if (overflow)
+							// Is the form contained in an overflown container?
+							promptleftPosition += fieldWidth - 30;
+						else {
+							promptleftPosition += fieldWidth - 30;
+							promptTopPosition += -promptHeight -2;
+						}
+						break;
+					case "topLeft":
+						promptTopPosition += -promptHeight - 10;
+						break;
+					case "centerRight":
+						promptleftPosition += fieldWidth + 13;
+						break;
+					case "centerLeft":
+						promptleftPosition -= promptElmt.width() + 2;
+						break;
+					case "bottomLeft":
+						promptTopPosition = promptTopPosition + field.height() + 15;
+						break;
+					case "bottomRight":
+						promptleftPosition += fieldWidth - 30;
+						promptTopPosition += field.height() + 5;
+				}
+			}
+			else
+			{
+				switch (positionType) {
+					default:
+					case "topLeft":
+						if (overflow)
+							// Is the form contained in an overflown container?
+							promptleftPosition -= promptElmt.width() - 30;
+						else {
+							promptleftPosition -= promptElmt.width() - 30;
+							promptTopPosition += -promptHeight -2;
+						}
+						break;
+					case "topRight":
+						if (overflow)
+							// Is the form contained in an overflown container?
+							promptleftPosition += fieldWidth - promptElmt.width();
+						else {
+							promptleftPosition += fieldWidth - promptElmt.width();
+							promptTopPosition += -promptHeight -2;
+						}
+						break;
+					case "centerRight":
+						promptleftPosition += fieldWidth + 13;
+						break;
+					case "centerLeft":
+						promptleftPosition -= promptElmt.width() + 2;
+						break;
+					case "bottomLeft":
+						promptleftPosition += -promptElmt.width() + 30;
+						promptTopPosition = promptTopPosition + field.height() + 15;
+						break;
+					case "bottomRight":
+						promptleftPosition += fieldWidth - promptElmt.width();
+						promptTopPosition += field.height() + 15;
+				}
+			}
 
 			//apply adjusments if any
 			promptleftPosition += shiftX;
@@ -1529,5 +1589,6 @@
         InvalidFields: [],
 		onSuccess: false,
 		onFailure: false
-    }}
+    }};
+	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
