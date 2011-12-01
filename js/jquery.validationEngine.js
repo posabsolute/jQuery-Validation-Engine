@@ -28,6 +28,7 @@
                     $(this).fadeOut(150, function() {
 
                         // remove prompt once invisible
+		        $(this).parent('.formErrorOuter').remove();
                         $(this).remove();
                     });
                 });
@@ -197,6 +198,7 @@
         hidePrompt: function() {
         	var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
             $(promptClass).fadeTo("fast", 0.3, function() {
+		$(this).parent('.formErrorOuter').remove();
                 $(this).remove();
             });
             return this;
@@ -212,6 +214,7 @@
         		closingtag = methods._getClassName($(this).attr("id")) +"formError";
         	}
             $('.'+closingtag).fadeTo("fast", 0.3, function() {
+		$(this).parent('.formErrorOuter').remove();
                 $(this).remove();
             });
             return this;
@@ -221,6 +224,7 @@
          */
         hideAll: function() {
             $('.formError').fadeTo("fast", 0.3, function() {
+		$(this).parent('.formErrorOuter').remove();
                 $(this).remove();
             });
             return this;
@@ -1210,12 +1214,19 @@
                 }
             }
 
+	    if (options.relative) {
+		// empty relative span does not disturb page layout
+		// prompt positioned absolute to relative span
+		// vertical-align:top so position calculations are the same as isOverflown
+		var outer = $('<span>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
+		field.before(outer);
+	    } else if (options.isOverflown) {
             //Cedric: Needed if a container is in position:relative
             // insert prompt in the form or in the overflown container?
-            if (options.isOverflown)
             	field.before(prompt);
-            else
+            } else {
                $("body").append(prompt);
+	    }
 
             var pos = methods._calculatePosition(field, prompt, options);
             prompt.css({
@@ -1281,6 +1292,7 @@
             var prompt = methods._getPrompt(field);
             if (prompt)
                 prompt.fadeTo("fast", 0, function() {
+		    prompt.parent('.formErrorOuter').remove();
                     prompt.remove();
                 });
         },
@@ -1344,7 +1356,7 @@
             var fieldWidth = field.width();
             var promptHeight = promptElmt.height();
 
-            var overflow = options.isOverflown;
+            var overflow = options.isOverflown || options.relative;
             if (overflow) {
                 // is the form contained in an overflown container?
                 promptTopPosition = promptleftPosition = 0;
@@ -1567,6 +1579,8 @@
         // Stops form from submitting and execute function assiciated with it
         onValidationComplete: false,
 
+	// better relative positioning
+	relative: false,
         // Used when the form is displayed within a scrolling DIV
         isOverflown: false,
         overflownDIV: "",
