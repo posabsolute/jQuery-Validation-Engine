@@ -345,23 +345,24 @@
 
 					// get the position of the first error, there should be at least one, no need to check this
                     //var destination = form.find(".formError:not('.greenPopup'):first").offset().top;
-
-                        $("html:not(:animated),body:not(:animated)").animate({
-                            scrollTop: destination,
-                            scrollLeft: fixleft
-                        }, 1100, function(){
-							if(options.focusFirstField) first_err.focus(); 		
-						});
                  		if (options.isOverflown) {
-                        	var overflowDIV = $(options.overflownDIV);
-	                        var scrollContainerScroll = overflowDIV.scrollTop();
-      	                  	var scrollContainerPos = -parseInt(overflowDIV.offset().top);
-	
-      	                  	destination += scrollContainerScroll + scrollContainerPos - 5;
-            	            var scrollContainer = $(options.overflownDIV + ":not(:animated)");
+                            	var overflowDIV = $(options.overflownDIV);
+                                if(!overflowDIV.length) return false;
+    	                        var scrollContainerScroll = overflowDIV.scrollTop();
+          	                  	var scrollContainerPos = -parseInt(overflowDIV.offset().top);
+    	
+          	                  	destination += scrollContainerScroll + scrollContainerPos - 5;
+                	            var scrollContainer = $(options.overflownDIV + ":not(:animated)");
 
-                  	      	scrollContainer.animate({ scrollTop: destination }, 1100);
-						}
+                      	      	scrollContainer.animate({ scrollTop: destination }, 1100);
+    					}else{
+                                $("html:not(:animated),body:not(:animated)").animate({
+                                    scrollTop: destination,
+                                    scrollLeft: fixleft
+                                 }, 1100, function(){
+                                    if(options.focusFirstField) first_err.focus();      
+                                });
+                        }
                  
 				} else if(options.focusFirstField)
 				 	first_err.focus();
@@ -1515,6 +1516,7 @@
             var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
             // Needed to be retro compatible
             if (userOptions.isOverflown) userOptions.relative = true;
+            if (userOptions.relative) userOptions.isOverflown = true;
 
             form.data('jqv', userOptions);
             return userOptions;
