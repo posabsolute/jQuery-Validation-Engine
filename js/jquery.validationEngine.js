@@ -1421,7 +1421,12 @@
 						promptTopPosition += -promptHeight - 10;
 						break;
 					case "centerRight":
-						promptleftPosition += fieldWidth + 13;
+						if (overflow) {
+                            promptTopPosition=field.outerHeight();
+                            promptleftPosition=field.outerWidth(1)+5;
+                        } else {
+                            promptleftPosition+=field.outerWidth()+5;
+                        }
 						break;
 					case "centerLeft":
 						promptleftPosition -= promptElmt.width() + 2;
@@ -1457,7 +1462,12 @@
 						}
 						break;
 					case "centerRight":
-						promptleftPosition += fieldWidth + 13;
+						if (overflow) {
+                            promptTopPosition=field.outerHeight();
+                            promptleftPosition=field.outerWidth(1)+5;
+                        } else {
+                            promptleftPosition+=field.outerWidth()+5;
+                        }
 						break;
 					case "centerLeft":
 						promptleftPosition -= promptElmt.width() + 2;
@@ -1505,7 +1515,7 @@
             var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
             // Needed to be retro compatible
             if (userOptions.isOverflown) userOptions.relative = true;
-            
+
             form.data('jqv', userOptions);
             return userOptions;
         },
