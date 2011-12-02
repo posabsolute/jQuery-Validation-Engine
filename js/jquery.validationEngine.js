@@ -1503,7 +1503,9 @@
 			$.validationEngine.defaults.allrules = allRules;
 			
             var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
-
+            // Needed to be retro compatible
+            if (userOptions.isOverflown) userOptions.relative = true;
+            
             form.data('jqv', userOptions);
             return userOptions;
         },
@@ -1579,8 +1581,8 @@
         // Stops form from submitting and execute function assiciated with it
         onValidationComplete: false,
 
-	// better relative positioning
-	relative: false,
+	    // better relative positioning
+	    relative: false,
         // Used when the form is displayed within a scrolling DIV
         isOverflown: false,
         overflownDIV: "",
