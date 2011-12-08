@@ -16,7 +16,7 @@
                 // binds form submission and fields to the validation engine
                 jQuery("#formID").validationEngine();
             });
-            
+
             /**
              *
              * @param {jqObject} the field where the validation applies
@@ -52,14 +52,14 @@
         <form id="formID" class="formular" method="post" action="">
             <fieldset>
                 <legend>
-                    
+
                 </legend>
                 <label>
                     <span>Field is required : </span>
                     <input value="" class="validate[required] text-input" type="text" name="req" id="req" />
                 </label>
                 <label>
-                	
+
                     <span>Favorite sport 1:</span>
                     <select name="sport" id="sport" class="validate[required]">
                         <option value="">Choose a sport</option>
@@ -216,7 +216,7 @@ note that the field is optional - it won't fail if it has no value
 						<option value="Paypal">Paypal</option>
                 		<option value="Bank">Bank account</option>
 					</select>
-            </fieldset>			
+            </fieldset>
 			<fieldset>
                 <legend>
                     Date Range<br />
@@ -235,7 +235,7 @@ note that the field is optional - it won't fail if it has no value
 					Note* Both fields must have the same name
                 </label>
             </fieldset>
-			
+
 			<fieldset>
                 <legend>
                     Date Time Range<br />
@@ -260,7 +260,23 @@ note that the field is optional - it won't fail if it has no value
                     Credit Card
                 </legend>
                 <label>
-                    Valid Credit Card Number
+                    Checks that the credit card number is at least theoretically valid, according the to the
+                    <a href="http://en.wikipedia.org/wiki/Luhn_algorithm">Luhn checksum algorithm</a>, but not
+                    whether the specific card number is active with a bank, etc.
+
+                    <br/>
+                    <br/>
+                    Since credit cards are often presented in different formats, spaces and
+                    hyphens (' ','-') are simply ignored.
+
+                    <br/>
+                    <br/>
+                    Examples:
+                    <ul>
+	                    <li> 4111 1111 1111 1111
+						<li> 3737-321345-610004
+					</ul>
+						<a href="http://www.paypalobjects.com/en_US/vhelp/paypalmanager_help/credit_card_numbers.htm">More examples</a>
                     <br/>
                     <input value="" class="validate[required,creditCard] text-input" type="text" name="creditcard2" id="creditcard2" />
                     <br/>
