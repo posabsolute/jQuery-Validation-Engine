@@ -53,6 +53,10 @@
                     "regex": "none",
                     "alertText": "* Pola nie są jednakowe"
                 },
+                "creditCard": {
+                    "regex": "none",
+                    "alertText": "* Nieprawidłowy numer karty kredytowej"
+                },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
                     "regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,

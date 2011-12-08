@@ -65,6 +65,10 @@
                     "regex": "none",
                     "alertText": "* Campurile nu au fost completate identic"
                 },
+                "creditCard": {
+                    "regex": "none",
+                    "alertText": "* Nevalid num?rul de card de credit"
+                },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
                     "regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
