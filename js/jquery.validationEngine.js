@@ -380,9 +380,10 @@
         _validateFormWithAjax: function(form, options) {
 
             var data = form.serialize();
-			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
+            var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
+            var type = (form.attr("method") == "post") ? "POST" : "GET";
             $.ajax({
-                type: "GET",
+                type: type,
                 url: url,
                 cache: false,
                 dataType: "json",
