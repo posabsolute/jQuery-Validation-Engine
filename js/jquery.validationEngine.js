@@ -575,6 +575,9 @@
                     case "funcCall":
                         errorMsg = methods._funcCall(field, rules, i, options);
                         break;
+                    case "creditCard":
+                        errorMsg = methods._creditCard(field, rules, i, options);
+                        break;
 
                     default:
                     //$.error("jQueryValidator rule not found"+rules[i]);
@@ -990,6 +993,37 @@
                 options.showArrow = false;
                 return options.allrules.minCheckbox.alertText + " " + nbCheck + " " + options.allrules.minCheckbox.alertText2;
             }
+        },
+        /**
+         * Checks that it is a valid credit card number according to the
+         * Luhn checksum algorithm.
+         *
+         * @param {jqObject} field
+         * @param {Array[String]} rules
+         * @param {int} i rules index
+         * @param {Map}
+         *            user options
+         * @return an error string if validation failed
+         */
+        _creditCard: function(field, rules, i, options) {
+            //spaces and dashes may be valid characters, but must be stripped to calculate the checksum.
+            var valid = false, cardNumber = field.val().replace(/ +/g, '').replace(/-+/g, '');
+        
+            var numDigits = cardNumber.length;
+            if (numDigits >= 14 && numDigits <= 16 && parseInt(cardNumber) > 0) {
+        
+                var sum = 0, i = numDigits - 1, pos = 1, digit, luhn = new String();
+                do {
+                    digit = parseInt(cardNumber.charAt(i));
+                    luhn += (pos++ % 2 == 0) ? digit * 2 : digit;
+                } while (--i >= 0)
+        
+                for (i = 0; i < luhn.length; i++) {
+                    sum += parseInt(luhn.charAt(i));
+                }
+                valid = sum % 10 == 0;
+            } 
+            if (!valid) return options.allrules.creditCard.alertText;
         },
         /**
          * Ajax field validation
