@@ -53,6 +53,10 @@
                     "regex": "none",
                     "alertText": "* Pole se neshodují"
                 },
+                "creditCard": {
+                    "regex": "none",
+                    "alertText": "* Neplatné číslo kreditní karty"
+                },
                 "CZphone": {
                     // telefoní číslo
                     "regex": /^([\+][0-9]{1,3}[ \.\-])([0-9]{3}[\-][0-9]{3}[\-][0-9]{3})$/,

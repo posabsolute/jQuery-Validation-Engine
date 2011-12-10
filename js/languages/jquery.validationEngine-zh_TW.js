@@ -65,6 +65,10 @@
                     "regex": "none",
                     "alertText": "* 欄位內容不相符"
                 },
+                "creditCard": {
+                    "regex": "none",
+                    "alertText": "* 无效的信用卡号码"
+                },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
                     "regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
