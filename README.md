@@ -253,6 +253,12 @@ If set, this callback function will be called when it found an error.
 ### autoPositionUpdate
 Auto update prompt position after window resize, disabled by default
 
+### autoHidePrompt
+Determines if the prompt should hide itself automatically after a set period. Defaults to *false*. 
+
+### autoHidePromptDelay
+Sets the number of ms that the prompt should appear for if autoHidePrompt is set to *true*. Defaults to *2000*. 
+
 Validators
 ---
 

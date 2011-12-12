@@ -18,20 +18,19 @@
          * Kind of the constructor, called before any action
          * @param {Map} user options
          */
-        init: function(options) {
-            var form = this;
-            if (!form.data('jqv') || form.data('jqv') == null ) {
-                methods._saveOptions(form, options);
+        init: function(options) {               
+            var form = this;			
+            if (!form.data('jqv') || form.data('jqv') == null ) {		
+                options = methods._saveOptions(form, options);                  				
+				// bind all formError elements to close on click
+				$(".formError").live("click", function() {
+					$(this).fadeOut(150, function() {
+					 // remove prompt once invisible
+					$(this).parent('.formErrorOuter').remove();
+							$(this).remove();
+						});
+				});
 
-                // bind all formError elements to close on click
-                $(".formError").live("click", function() {
-                    $(this).fadeOut(150, function() {
-
-                        // remove prompt once invisible
-		        $(this).parent('.formErrorOuter').remove();
-                        $(this).remove();
-                    });
-                });
             }
             return this;
         },
@@ -1261,20 +1260,27 @@
             	field.before(prompt);
             } else {
                $("body").append(prompt);
-	    }
-
+	    }          
             var pos = methods._calculatePosition(field, prompt, options);
             prompt.css({
                 "top": pos.callerTopPosition,
                 "left": pos.callerleftPosition,
                 "marginTop": pos.marginTopSize,
                 "opacity": 0
-            }).data("callerField", field);
-
-            return prompt.animate({
-                "opacity": 0.87
-            });
-
+            }).data("callerField", field);            			
+			if (options.autoHidePrompt) {                			
+                return prompt.animate({
+				   "opacity": 0.87
+				}).delay(options.autoHideDelay).fadeOut(150, function() {
+			    // remove prompt once invisible
+					prompt.parent('.formErrorOuter').remove();
+					prompt.remove();
+				});			
+			} else {
+				return prompt.animate({
+				   "opacity": 0.87
+				});			      
+            }				
         },
         /**
          * Updates the prompt text field - the field for which the prompt
@@ -1548,6 +1554,7 @@
 			$.validationEngine.defaults.allrules = allRules;
 			
             var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
+			jim = userOptions;
             // Needed to be retro compatible
             if (userOptions.isOverflown) userOptions.relative = true;
             if (userOptions.relative) userOptions.isOverflown = true;
@@ -1650,7 +1657,11 @@
 
         InvalidFields: [],
 		onSuccess: false,
-		onFailure: false
+		onFailure: false,
+		// Auto-hide prompt
+		autoHidePrompt: false,
+		// Delay before auto-hide
+		autoHideDelay: 2000
     }};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
