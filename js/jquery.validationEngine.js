@@ -848,7 +848,7 @@
             var pdate = (p.toLowerCase() == "now")? new Date():methods._parseDate(p);
             var vdate = methods._parseDate(field.val());
 
-            if (vdate < pdate ) {
+            if (vdate > pdate ) {
                 var rule = options.allrules.past;
                 if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
@@ -870,7 +870,7 @@
             var pdate = (p.toLowerCase() == "now")? new Date():methods._parseDate(p);
             var vdate = methods._parseDate(field.val());
 
-            if (vdate > pdate ) {
+            if (vdate < pdate ) {
                 var rule = options.allrules.future;
                 if (rule.alertText2) return rule.alertText + methods._dateToString(pdate) + rule.alertText2;
                 return rule.alertText + methods._dateToString(pdate);
