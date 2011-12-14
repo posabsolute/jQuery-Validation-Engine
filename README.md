@@ -229,11 +229,8 @@ When ajaxFormValidation is turned on, this is the function that will be called b
 ### onAjaxFormComplete: function(status, form, errors, options)
 When ajaxFormValidation is turned on, this function is used to asynchronously process the result of the validation. the status is a boolean. If true, the ajax call completed and all the server side form validations passed. 
 
-### isOverflown
-Set to true when the form shows in a scrolling div, defaults to *false*.
-
-### overflownDIV
-Selector used to pick the overflown container, defaults to *""*.
+### relative
+Set to true when the form shows in a scrolling div, defaults to *false*, the error boxes are appended after the input instead of body
 
 ### onValidationComplete
 Stop the form from submitting, and let you handle it after it validated via a function
@@ -551,7 +548,7 @@ Only letters and space characters
 Only letters and numbers, no space 
 
 
-Overflow
+Relative
 ---
 
 Validation in overflown div and lightbox with scrollable content
@@ -559,13 +556,12 @@ Validation in overflown div and lightbox with scrollable content
 To get the supported mode you need to add these options when instantiating your plugin:
 
       $("#formID").validationEngine({
-        isOverflown: true,
-        overflownDIV: ".inputContainer"
+        relative: true,
       })
 
 The big change in this method is that normally the engine will append every error box to the body. In this case it will append every error box before the input validated. This adds a bit of complexity; if you want the error box to behave correctly you need to wrap the input in a div with relative position, and exactly wrap the input width and height. The easiest way to do that is by adding float:left, like in the example provided.
 
-The default top right position is currently the only supported position. Please use this mode only in overflown div and in scollable boxes, it is slower and a bit less stable (I have been using the engine for 2 years, but only one 1 month with this method). Also, the scrolling will be applied to the overflown parent, not the document body.
+The default top right position is currently the only supported position. Please use this mode only in overflown div and in scollable boxes, it is slower and a bit less stable, also there will be no scrolling, this is not supported in overflown boxes.
 
 Hooks
 ---
