@@ -24,11 +24,12 @@
                 options = methods._saveOptions(form, options);                  				
 				// bind all formError elements to close on click
 				$(".formError").live("click", function() {
+                  
 					$(this).fadeOut(150, function() {
 					 // remove prompt once invisible
-					$(this).parent('.formErrorOuter').remove();
-							$(this).remove();
-						});
+					   $(this).parent('.formErrorOuter').remove();
+					   $(this).remove();
+					});
 				});
 
             }
@@ -1248,34 +1249,39 @@
                 }
             }
 
-	    if (options.relative) {
-		// empty relative span does not disturb page layout
-		// prompt positioned absolute to relative span
-		// vertical-align:top so position calculations are the same as isOverflown
-		var outer = $('<span>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
-		field.before(outer);
-	    } else if (options.isOverflown) {
-            //Cedric: Needed if a container is in position:relative
-            // insert prompt in the form or in the overflown container?
-            	field.before(prompt);
-            } else {
-               $("body").append(prompt);
-	    }          
+    	    if (options.relative) {
+        		// empty relative span does not disturb page layout
+        		// prompt positioned absolute to relative span
+        		// vertical-align:top so position calculations are the same as isOverflown
+        		var outer = $('<span>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
+        		field.before(outer);
+    	    } else if (options.isOverflown) {
+                //Cedric: Needed if a container is in position:relative
+                // insert prompt in the form or in the overflown container?
+                	field.before(prompt);
+                } else {
+                   $("body").append(prompt);
+    	    }          
             var pos = methods._calculatePosition(field, prompt, options);
             prompt.css({
                 "top": pos.callerTopPosition,
                 "left": pos.callerleftPosition,
                 "marginTop": pos.marginTopSize,
                 "opacity": 0
-            }).data("callerField", field);            			
-			if (options.autoHidePrompt) {                			
+            }).data("callerField", field);  
+
+			if (options.autoHidePrompt) {   
+                setTimeout(function(){ 
+                    prompt.animate({
+                       "opacity": 0
+                    },function(){
+                        prompt.closest('.formErrorOuter').remove();
+                        prompt.remove();
+                    }) 
+                }, options.autoHideDelay)                			
                 return prompt.animate({
 				   "opacity": 0.87
-				}).delay(options.autoHideDelay).fadeOut(150, function() {
-			    // remove prompt once invisible
-					prompt.parent('.formErrorOuter').remove();
-					prompt.remove();
-				});			
+				})
 			} else {
 				return prompt.animate({
 				   "opacity": 0.87
@@ -1661,7 +1667,7 @@
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
-		autoHideDelay: 2000
+		autoHideDelay: 10000
     }};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
