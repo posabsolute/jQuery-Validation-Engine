@@ -313,7 +313,7 @@
             form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
-				field.focus();
+			field.focus();
                 if (options.doNotShowAllErrosOnSubmit)
                     return false;
 		    if (errorFound && first_err==null) first_err=field; 
@@ -1250,11 +1250,14 @@
             }
 
     	    if (options.relative) {
-        		// empty relative span does not disturb page layout
+        		// empty relative span does not disturb page layout if relativePadding = False
         		// prompt positioned absolute to relative span
         		// vertical-align:top so position calculations are the same as isOverflown
-        		var outer = $('<span>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
-        		field.before(outer);
+        		var outer = $('<div>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
+        		field.after(outer);
+        		if(options.relativePadding) {
+        		  outer.css('padding-bottom', prompt.height() + 'px');
+        		}
     	    } else if (options.isOverflown) {
                 //Cedric: Needed if a container is in position:relative
                 // insert prompt in the form or in the overflown container?
@@ -1642,6 +1645,8 @@
 
 	    // better relative positioning
 	    relative: false,
+	    // insert spacing when error prompts inserted if relative = True and relativePadding = True
+	    relativePadding: true,
         // Used when the form is displayed within a scrolling DIV
         isOverflown: false,
         overflownDIV: "",
