@@ -563,6 +563,13 @@ The big change in this method is that normally the engine will append every erro
 
 The default top right position is currently the only supported position. Please use this mode only in overflown div and in scollable boxes, it is slower and a bit less stable, also there will be no scrolling, this is not supported in overflown boxes.
 
+You can also defined a scrollable container if needed :
+
+      $("#formID").validationEngine({
+        relative: true,
+        overflownDIV:"#containerScrollable"
+      })
+
 Hooks
 ---
 

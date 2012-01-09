@@ -324,7 +324,6 @@
 			form.trigger("jqv.form.result", [errorFound]);
 			
 		if (errorFound) {		
-        	first_err.focus();
       		if (options.scroll) {	
 				var destination=first_err.offset().top;
 				var fixleft = first_err.offset().left;
@@ -354,7 +353,9 @@
           	                  	destination += scrollContainerScroll + scrollContainerPos - 5;
                 	            var scrollContainer = $(options.overflownDIV + ":not(:animated)");
 
-                      	      	scrollContainer.animate({ scrollTop: destination }, 1100);
+                      	      	scrollContainer.animate({ scrollTop: destination }, 1100, function(){
+                                  if(options.focusFirstField) first_err.focus();  
+                                });
     					}else{
                                 $("html:not(:animated),body:not(:animated)").animate({
                                     scrollTop: destination,
