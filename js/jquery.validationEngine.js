@@ -313,7 +313,6 @@
             form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
-				field.focus();
                 if (options.doNotShowAllErrosOnSubmit)
                     return false;
 		    if (errorFound && first_err==null) first_err=field; 
@@ -324,7 +323,8 @@
             // thrird, check status and scroll the container accordingly
 			form.trigger("jqv.form.result", [errorFound]);
 			
-		if (errorFound) {				
+		if (errorFound) {		
+        	first_err.focus();
       		if (options.scroll) {	
 				var destination=first_err.offset().top;
 				var fixleft = first_err.offset().left;
