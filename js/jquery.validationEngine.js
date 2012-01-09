@@ -354,7 +354,7 @@
                 	            var scrollContainer = $(options.overflownDIV + ":not(:animated)");
 
                       	      	scrollContainer.animate({ scrollTop: destination }, 1100, function(){
-                                  if(options.focusFirstField) first_err.focus();  
+                                  if(options.focusFirstField) first_err.focus();    
                                 });
     					}else{
                                 $("html:not(:animated),body:not(:animated)").animate({
