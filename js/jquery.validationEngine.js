@@ -1131,7 +1131,7 @@
                                     methods._closePrompt(errorField);
                             }
                         }
-                        errorField.trigger("jqv.field.result", [errorField, !options.isError, msg]);
+                        errorField.trigger("jqv.field.result", [errorField, options.isError, msg]);
                     }
                 });
             }
