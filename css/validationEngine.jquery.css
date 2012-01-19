@@ -50,8 +50,8 @@
 .formError .formErrorArrow {
 	width: 15px;
 	margin: -2px 0 0 13px;
-  position:relative;
-  z-index: 5006;
+	position:relative;
+	z-index: 5006;
 }
 body[dir='rtl'] .formError .formErrorArrow,
 body.rtl .formError .formErrorArrow {
@@ -59,11 +59,11 @@ body.rtl .formError .formErrorArrow {
 }
 
 .formError .formErrorArrowBottom {
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 	margin: 0px 0 0 12px;
-  top:2px;
+	top:2px;
 }
 
 .formError .formErrorArrow div {
@@ -82,9 +82,9 @@ body.rtl .formError .formErrorArrow {
 }
 
 .formError .formErrorArrowBottom div {
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 }
 
 .greenPopup .formErrorArrow div {
