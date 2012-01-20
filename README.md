@@ -167,10 +167,12 @@ The method takes four parameters:
 3. an optional position: either "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*
 4. an optional boolean which indicates if the prompt should display a directional arrow
 
+```html
     <fieldset>
        <legend id="legendid">Email</legend>
        <a href="#" onclick="$('#legendid').validationEngine('showPrompt', 'This a custom msg', 'load')">Show prompt</a>
     </fieldset>
+```
 
 ### hidePrompt
 
@@ -203,8 +205,11 @@ Options
 ---
 
 Options are typically passed to the init or attach action as a parameter.
+
+```js
     $("#formID1").validationEngine({promptPosition : "centerRight", scroll: false});
     $("#formID1").validationEngine('attach', {promptPosition : "centerRight", scroll: false});
+```
 
 ### validationEventTrigger
 Name of the event triggering field validation, defaults to *blur*.
@@ -233,7 +238,8 @@ When ajaxFormValidation is turned on, this function is used to asynchronously pr
 Set to true when the form shows in a scrolling div, defaults to *false*, the error boxes are appended after the input instead of body
 
 ### onValidationComplete
-Stop the form from submitting, and let you handle it after it validated via a function
+
+When defined, stops the the form from auto-submitting, and lets you handle the validation status via a function
 
 	jQuery("#formID2").validationEngine('attach', {
 	  onValidationComplete: function(form, status){
@@ -332,9 +338,7 @@ This validator is explained in further details in the Ajax section.
 
 ### equals[field.id]
 
-Check if the current field's value equals the value of the specified field.
-
-
+Checks if the current field's value equals the value of the specified field.
 
 ### min[float]
 
@@ -411,8 +415,8 @@ onlyNumber, onlyLetter and validate2fields are all selectors. jQuery.validationE
 
 The ValidationEngine with a datepicker
 ---
-Using a datepicker with the engine is problematic because the validation is binded to the blur event. since we lose the focus before any data is entered in the field it creates a weird bug.
-Fortunately we implemented a fix where we use a delay when a datepicker is binded.
+Using a datepicker with the engine is problematic because the validation is bound to the blur event. since we lose the focus before any data is entered in the field it creates a weird bug.
+Fortunately we implemented a fix that uses a delay during the datepicker binding.
 
 To use this mode you need to add the class *datepicker* to your input, like this:
 
