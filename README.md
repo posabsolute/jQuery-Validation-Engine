@@ -50,25 +50,33 @@ Usage
 
 First include jQuery on your page
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/javascript"></script>
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/
+javascript"></script>
+```
     
 Include *jquery.validationEngine* and its locale
 
-    <script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+```html
+<script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+```
 
 Finally include the desired theme
 
-    <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
-
+```html
+<link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
+```
 
 ### Field Validations
 
 Validations are defined using the field's **class** attribute. Here are a few examples showing how it happens:
 
-    <input value="someone@nowhere.com" class="validate[required,custom[email]]" type="text" name="email" id="email" />
-    <input value="2010-12-01" class="validate[required,custom[date]]" type="text" name="date" id="date" />
-    <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" />
+```html
+<input value="someone@nowhere.com" class="validate[required,custom[email]]" type="text" name="email" id="email" />
+<input value="2010-12-01" class="validate[required,custom[date]]" type="text" name="date" id="date" />
+<input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" />
+```
 
 For more details about validators, please refer to the section below.
 
@@ -88,47 +96,61 @@ Prompt position can be adjusted by providing shiftX and shiftY with position typ
 Prompt will be placed in (defaultX+shiftX),(defaultY+shiftY) position instead of default for selected position type.
 Here are a few examples showing how it happens:
 
-    <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft:70" />
-    <input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft:20,5" />
-    <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight:-100,3" />
-	
+```html
+<input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft:70" />
+<input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft:20,5" />
+<input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight:-100,3" />
+```
+
 ### Instantiation
 
 The validator is typically instantiated with a call in the following format, the plugin can only be instanciated on form elements:
 
-    $("#form.id").validationEngine();
+```js
+$("#form.id").validationEngine();
+```
 
 Without any parameters, the init() and attach() methods are automatically called.
 
-    $("#form.id").validationEngine(action or options);
+```js
+$("#form.id").validationEngine(action or options);
+```
 
 The method may take one or several parameters, either an action (and parameters) or a list of options to customize the behavior of the engine.
 
 Here's a glimpse: say you have a form as such:
 
-    <form id="formID" method="post" action="submit.action">
-        <input value="2010-12-01" class="validate[required,custom[date]]" type="text" name="date" id="date" />
-    </form>
+```html
+<form id="formID" method="post" action="submit.action">
+    <input value="2010-12-01" class="validate[required,custom[date]]" type="text" name="date" id="date" />
+</form>
+```
 
 The code below will instantiate the validation engine and attach it to the form:
-    <script>
-    $(document).ready(function(){
-        $("#formID").validationEngine();
-       });
-    </script>
+
+```html
+<script>
+$(document).ready(function(){
+    $("#formID").validationEngine();
+   });
+</script>
+```
 
 When using options, the default behavior is to only initialize ValidationEngine, so attachment needs to be done manually.
 
-    <script>
-    $(document).ready(function(){
-        $("#formID").validationEngine('attach', {promptPosition : "centerRight", scroll: false});
-       });
-    </script>
+```html
+<script>
+$(document).ready(function(){
+    $("#formID").validationEngine('attach', {promptPosition : "centerRight", scroll: false});
+   });
+</script>
+```
 
 All calls to validationEngine() are chainable, so one can do the following:
 
-    $("#formID").validationEngine().css({border : "2px solid #000"});
-
+```js
+$("#formID").validationEngine().css({border : "2px solid #000"});
+```
 
 Actions
 ---
@@ -137,27 +159,35 @@ Actions
 
 Attaches jQuery.validationEngine to form.submit and field.blur events.
 
-    $("#formID1").validationEngine('attach');
+```js
+$("#formID1").validationEngine('attach');
+```
 
 ### detach
 
 Unregisters any bindings that may point to jQuery.validaitonEngine.
 
-    $("#formID1").validationEngine('detach');
+```js
+$("#formID1").validationEngine('detach');
+```
 
 ### validate
 
 Validates the form and displays prompts accordingly. 
 Returns *true* if the form validates, *false* if it contains errors. Note that if you use an ajax form validator, the actual result will be delivered asynchronously to the function *options.onAjaxFormComplete*.
 
-    alert( $("#formID1").validationEngine('validate') );
-    
+```js
+alert( $("#formID1").validationEngine('validate') );
+```
+
 ### validate one field
 
 Validates one field and displays the prompt accordingly. 
 Returns *false* if the input validates, *true* if it contains errors. 
 
-    alert( $("#formID1").validationEngine('validateField', "#emailInput") );
+```js
+alert( $("#formID1").validationEngine('validateField', "#emailInput") );
+```
 
 ### showPrompt (promptText, type, promptPosition, showArrow)
 
@@ -180,28 +210,33 @@ The method takes four parameters:
 
 Closes the prompt linked to the input.
 
-    $('#inputID').validationEngine('hidePrompt');
-
+```js
+$('#inputID').validationEngine('hidePrompt');
+```
 
 ### hide
 
 Closes error prompts in the current form (in case you have more than one form on the page).
 
-    $('#formID1').validationEngine('hide');
+```js
+$('#formID1').validationEngine('hide');
+```
 
 ### hideAll
 
 Closes **all** error prompts on the page.
 
-    $('#formID1').validationEngine('hideAll');
+```js
+$('#formID1').validationEngine('hideAll');
+```
 
 ### updatePromptsPosition
 
 Update the form prompts positions.
 
-    $("#formID").validationEngine("updatePromptsPosition")    
-
-
+```js
+$("#formID").validationEngine("updatePromptsPosition")    
+```
 
 Options
 ---
@@ -243,11 +278,13 @@ Set to true when the form shows in a scrolling div, defaults to *false*, the err
 
 When defined, stops the the form from auto-submitting, and lets you handle the validation status via a function
 
-	jQuery("#formID2").validationEngine('attach', {
-	  onValidationComplete: function(form, status){
-	    alert("The form status is: " +status+", it will never submit");
-	  }  
-	})
+```js
+jQuery("#formID2").validationEngine('attach', {
+  onValidationComplete: function(form, status){
+    alert("The form status is: " +status+", it will never submit");
+  }  
+});
+```
 
 ### onSuccess
 If set, this callback function will be called when all validations passed.
@@ -273,29 +310,34 @@ Validators are encoded in the field's class attribute, as follows
 
 Speaks for itself, fails if the element has no value. This validator can apply to pretty much any kind of input field.
 
-    <input value="" class="validate[required]" type="text" name="email" id="email" />
-    <input class="validate[required]" type="checkbox" id="agree" name="agree"/>
+```html
+<input value="" class="validate[required]" type="text" name="email" id="email" />
+<input class="validate[required]" type="checkbox" id="agree" name="agree"/>
 
-    <select name="sport" id="sport" class="validate[required]" id="sport">
-       <option value="">Choose a sport</option>
-       <option value="option1">Tennis</option>
-       <option value="option2">Football</option>
-       <option value="option3">Golf</option>
-    </select>
-
+<select name="sport" id="sport" class="validate[required]" id="sport">
+   <option value="">Choose a sport</option>
+   <option value="option1">Tennis</option>
+   <option value="option2">Football</option>
+   <option value="option3">Golf</option>
+</select>
+```
 
 ### groupRequired
 
 At least one of the field of the group must be filled. It needs to be given a group name that is unique across the form.
 
-    <input value="" class="validate[groupRequired[payments]]" type="text" name="creditcard" id="creditcard" />
-    <input class="validate[groupRequired[payments]]" type="text" id="paypal" name="paypal"/>
+```html
+<input value="" class="validate[groupRequired[payments]]" type="text" name="creditcard" id="creditcard" />
+<input class="validate[groupRequired[payments]]" type="text" id="paypal" name="paypal"/>
+```
 
 ### custom[regex_name]
 
 Validates the element's value to a predefined list of regular expressions.
 
-    <input value="someone@nowhere.com" class="validate[required,custom[email]]" type="text" name="email" id="email" />
+```html
+<input value="someone@nowhere.com" class="validate[required,custom[email]]" type="text" name="email" id="email" />
+```
 
 Please refer to the section *Custom Regex* for a list of available regular expressions.
 
@@ -303,31 +345,38 @@ Please refer to the section *Custom Regex* for a list of available regular expre
 
 Validates a field using a third party function call. If a validation error occurs, the function must return an error message that will automatically show in the error prompt.
 
-    function checkHELLO(field, rules, i, options){
-      if (field.val() != "HELLO") {
-         // this allows the use of i18 for the error msgs
-         return options.allrules.validate2fields.alertText;
-      }
-    }
+```js
+function checkHELLO(field, rules, i, options){
+  if (field.val() != "HELLO") {
+     // this allows the use of i18 for the error msgs
+     return options.allrules.validate2fields.alertText;
+  }
+}
+```
 
-The following declaration will do            
-    <input value="" class="validate[required,funcCall[checkHELLO]]" type="text" id="lastname" name="lastname" />
+The following declaration will do
+
+```html          
+<input value="" class="validate[required,funcCall[checkHELLO]]" type="text" id="lastname" name="lastname" />
+```
  
 ### ajax[selector]
 
 Delegates the validation to a server URL using an asynchronous Ajax request. The selector is used to identify a block of properties in the translation file, take the following for example.
 
-    <input value="" class="validate[required,custom[onlyLetterNumber],maxSize[20],ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
-                 
-
-    "ajaxUserCall": {
-        "url": "ajaxValidateFieldUser",
-        "extraData": "name=eric",
-        "extraDataDynamic": ['#user_id', '#user_email'],
-        "alertText": "* This user is already taken",
-        "alertTextOk": "All good!",
-        "alertTextLoad": "* Validating, please wait"
-    },
+```html
+<input value="" class="validate[required,custom[onlyLetterNumber],maxSize[20],ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
+```          
+```js
+"ajaxUserCall": {
+    "url": "ajaxValidateFieldUser",
+    "extraData": "name=eric",
+    "extraDataDynamic": ['#user_id', '#user_email'],
+    "alertText": "* This user is already taken",
+    "alertTextOk": "All good!",
+    "alertTextLoad": "* Validating, please wait"
+},
+```
 
 * url - is the remote restful service to call
 * extraData - optional parameters to send
@@ -362,16 +411,20 @@ Validates if the element content size (in characters) is less than, or equal to,
 
 Checks if the element's value (which is implicitly a date) is earlier than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
 
-    <input value="" class="validate[required,custom[date],past[now]]" type="text" id="birthdate" name="birthdate" />
-    <input value="" class="validate[required,custom[date],past[2010-01-01]]" type="text" id="appointment" name="appointment" />
+```html
+<input value="" class="validate[required,custom[date],past[now]]" type="text" id="birthdate" name="birthdate" />
+<input value="" class="validate[required,custom[date],past[2010-01-01]]" type="text" id="appointment" name="appointment" />
+```
 
 ### future[NOW or a date]
 
 Checks if the element's value (which is implicitly a date) is greater than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
 
-    <input value="" class="validate[required,custom[date],future[now]]" type="text" id="appointment" name="appointment" />
-    // a date in 2009
-    <input value="" class="validate[required,custom[date],future[2009-01-01],past[2009-12-31]]" type="text" id="d1" name="d1" />
+```html
+<input value="" class="validate[required,custom[date],future[now]]" type="text" id="appointment" name="appointment" />
+// a date in 2009
+<input value="" class="validate[required,custom[date],future[2009-01-01],past[2009-12-31]]" type="text" id="d1" name="d1" />
+```
 
 
 ### minCheckbox[integer]
@@ -380,9 +433,12 @@ Validates when a minimum of *integer* checkboxes are selected.
 The validator uses a special naming convention to identify the checkboxes as part of a group.
 
 The following example, enforces a minimum of two selected checkboxes
-    <input class="validate[minCheckbox[2]]" type="checkbox" name="group1" id="maxcheck1" value="5"/>
-    <input class="validate[minCheckbox[2]]" type="checkbox" name="group1" id="maxcheck2" value="3"/>
-    <input class="validate[minCheckbox[2]]" type="checkbox" name="group1" id="maxcheck3" value="9"/>
+
+```html
+<input class="validate[minCheckbox[2]]" type="checkbox" name="group1" id="maxcheck1" value="5"/>
+<input class="validate[minCheckbox[2]]" type="checkbox" name="group1" id="maxcheck2" value="3"/>
+<input class="validate[minCheckbox[2]]" type="checkbox" name="group1" id="maxcheck3" value="9"/>
+```
 
 Note how the input.name is identical across the fields. 
 
@@ -396,21 +452,22 @@ Selectors
 We've introduced the notion of selectors without giving many details about them: A selector is a string which is used as a key to match properties in the translation files.
 Take the following example:
 
-    "onlyNumber": {
-        "regex": /^[0-9\ ]+$/,
-        "alertText": "* Numbers only"
-    },
-    "ajaxUserCall": {
-        "url": "ajaxValidateFieldUser",
-        "extraData": "name=eric",
-        "alertText": "* This user is already taken",
-        "alertTextOk": " * User is valid",
-        "alertTextLoad": "* Validating, please wait"
-    },
-    "validate2fields": {
-        "alertText": "* Please input HELLO"
-    }
-
+```js
+"onlyNumber": {
+    "regex": /^[0-9\ ]+$/,
+    "alertText": "* Numbers only"
+},
+"ajaxUserCall": {
+    "url": "ajaxValidateFieldUser",
+    "extraData": "name=eric",
+    "alertText": "* This user is already taken",
+    "alertTextOk": " * User is valid",
+    "alertTextLoad": "* Validating, please wait"
+},
+"validate2fields": {
+    "alertText": "* Please input HELLO"
+}
+```
 
 onlyNumber, onlyLetter and validate2fields are all selectors. jQuery.validationEngine comes with a standard set but you are welcome to add you own to define AJAX backend services, error messages and/or new regular expressions.
 
@@ -422,9 +479,9 @@ Fortunately we implemented a fix that uses a delay during the datepicker binding
 
 To use this mode you need to add the class *datepicker* to your input, like this:
 
-    <input type="text" id="req" name="req" class="validate[required] text-input datepicker" value="">
-
-
+```html
+<input type="text" id="req" name="req" class="validate[required] text-input datepicker" value="">
+```
 
 Ajax Protocol
 ---
@@ -438,8 +495,9 @@ Ajax validation comes in two flavors:
 
 Both options are optional.
 
-    <input value="" class="validate[required,ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
-
+```html
+<input value="" class="validate[required,ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
+```
 
 You can see a tutorial that makes the use of php here: [http://www.position-absolute.com/articles/using-form-ajax-validation-with-the-jquery-validation-engine-plugin/](http://www.position-absolute.com/articles/using-form-ajax-validation-with-the-jquery-validation-engine-plugin/)
 
@@ -498,8 +556,10 @@ Custom Regex
 ---
 
 jQuery.validationEngine comes with a lot of predefined expressions. Regex validation rules are specified as follows:
-    
-    <input value="" class="validate[custom[email]]" type="text" name="email" id="email" />
+
+```html    
+<input value="" class="validate[custom[email]]" type="text" name="email" id="email" />
+```
     
 Note that the selector identifies a given regular expression in the translation file, but also its associated error prompt messages and optional green prompt message.    
 
@@ -561,9 +621,11 @@ Validation in overflown div and lightbox with scrollable content
 
 To get the supported mode you need to add these options when instantiating your plugin:
 
-      $("#formID").validationEngine({
-        relative: true,
-      })
+```js
+$("#formID").validationEngine({
+  relative: true,
+});
+```
 
 The big change in this method is that normally the engine will append every error box to the body. In this case it will append every error box before the input validated. This adds a bit of complexity; if you want the error box to behave correctly you need to wrap the input in a div with relative position, and exactly wrap the input width and height. The easiest way to do that is by adding float:left, like in the example provided.
 
@@ -571,10 +633,12 @@ The default top right position is currently the only supported position. Please 
 
 You can also defined a scrollable container if needed :
 
-      $("#formID").validationEngine({
-        relative: true,
-        overflownDIV:"#containerScrollable"
-      })
+```js
+$("#formID").validationEngine({
+  relative: true,
+  overflownDIV:"#containerScrollable"
+});
+```
 
 Hooks
 ---
@@ -587,9 +651,12 @@ The plugin provides some hooks using jQuery bind functionality.
 
 An example of binding a custom function to these events would be:
 
-    $("#formID").bind("jqv.form.result", function(event, errorFound) {
-	  if(errorFound) alert("There is a problem with your form");
-    })
+```js
+$("#formID").bind("jqv.form.result", function(event, errorFound) {
+  if(errorFound)
+     alert("There is a problem with your form");
+});
+```
 
 
 Customizations
@@ -601,10 +668,12 @@ What would a good library be without customization?
 
 Adding new regular expressions is easy: open your translation file and add a new entry to the list
 
-    "onlyLetter": {
-        "regex": /^[a-zA-Z\ \']+$/,
-        "alertText": "* Letters only"
-    },
+```js
+"onlyLetter": {
+    "regex": /^[a-zA-Z\ \']+$/,
+    "alertText": "* Letters only"
+},
+```
 
 * "onlyLetter" is a sample selector name
 * "regex" is a javascript regular expression
@@ -612,7 +681,9 @@ Adding new regular expressions is easy: open your translation file and add a new
 
 You can now use the new regular expression as such
 
-    <input type="text" id="myid" name="myid" class="validation[custom[onlyLetter]]"/>
+```html
+<input type="text" id="myid" name="myid" class="validation[custom[onlyLetter]]"/>
+```
 
 Don't forget to contribute!
 
@@ -631,9 +702,11 @@ You can, for example, disable the scrolling globally by using $.validationEngine
 
 This need to be added before the initialization, one good way to handle this would be to add your settings in a file.
 
-    <script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/jquery.validationEngine-settings.js" type="text/javascript" charset="utf-8"></script>
+```html
+<script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery.validationEngine-settings.js" type="text/javascript" charset="utf-8"></script>
+```
 
 Rules of thumb
 ---
@@ -659,22 +732,30 @@ Contributions are always welcome, please follow these steps to submit your chang
 5. Click the "Fork" button, this will get you to a new page: your own copy of the code.
 6. Copy the SSH URL at the top of the page and clone the repository on your local machine
 
-    git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
+```shell
+git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
+```
 
 7. Create a branch and switch to it
 
-    cd my-jqv-repo<br/>
-    git branch mynewfeature-patch<br/>
-    git checkout mynewfeature-patch<br/>
+```shell
+cd my-jqv-repo
+git branch mynewfeature-patch
+git checkout mynewfeature-patch
+```
 
 8. Apply your changes, then commit using a meaningful comment, that's the comment everybody will see!
 
-    git add .<br/>
-    git commit -m "Fixing issue 157, blablabla"
+```shell
+git add .
+git commit -m "Fixing issue 157, blablabla"
+```
 
 9. Push the changes back to github (under a different branch, here myfeature-patch)
 
-    git push origin mynewfeature-patch
+```shell
+git push origin mynewfeature-patch
+```
 
 10. Open your forked repository on github at https://github.com/your-username/jQuery-Validation-Engine
 11. Click "Switch Branches" and select your branch (mynewfeature-patch)
@@ -684,7 +765,7 @@ Contributions are always welcome, please follow these steps to submit your chang
 
 Support
 ---
-We offer limited support at http://validationengine.vanillaforums.com/
+We offer limited support at [http://validationengine.vanillaforums.com/](http://validationengine.vanillaforums.com/)
 
 License
 ---
