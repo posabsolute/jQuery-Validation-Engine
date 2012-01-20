@@ -76,9 +76,11 @@ For more details about validators, please refer to the section below.
 
 Prompt direction can be define using the field's **data** attribute. Here are a few examples showing how it happens:
 
-    <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft" />
-    <input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft" />
-    <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight" />
+```html
+<input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft" />
+<input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft" />
+<input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight" />
+```
 
 ### Prompt Position Adjustment
 
@@ -168,10 +170,10 @@ The method takes four parameters:
 4. an optional boolean which indicates if the prompt should display a directional arrow
 
 ```html
-    <fieldset>
-       <legend id="legendid">Email</legend>
-       <a href="#" onclick="$('#legendid').validationEngine('showPrompt', 'This a custom msg', 'load')">Show prompt</a>
-    </fieldset>
+<fieldset>
+   <legend id="legendid">Email</legend>
+   <a href="#" onclick="$('#legendid').validationEngine('showPrompt', 'This a custom msg', 'load')">Show prompt</a>
+</fieldset>
 ```
 
 ### hidePrompt
