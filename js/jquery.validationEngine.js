@@ -11,7 +11,8 @@
  * Licensed under the MIT License
  */
 (function($) {
-
+	"use strict";
+	
     var methods = {
 
         /**
@@ -137,8 +138,10 @@
          */
         updatePromptsPosition: function(event) {
 	    
-			if (event && this == window)
-				var form = event.data.formElem, noAnimation = event.data.noAnimation;
+			if (event && this == window) {
+				var form = event.data.formElem;
+				var noAnimation = event.data.noAnimation;
+			}
 		    else
 				var form = $(this.closest('form'));
             
@@ -151,7 +154,7 @@
 
 			   	if(prompt)
 					methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
-		    })
+		    });
 	        return this;
         },
         /**
@@ -303,7 +306,7 @@
             // second, check to see if all ajax calls completed ok
             // errorFound |= !methods._checkAjaxStatus(options);
 			
-            // thrird, check status and scroll the container accordingly
+            // third, check status and scroll the container accordingly
 			form.trigger("jqv.form.result", [errorFound]);
 			
 		if (errorFound) {		
@@ -319,7 +322,7 @@
 					}
 				}
 
-				if (positionType!="bottomRight"&& 
+				if (positionType!="bottomRight" && 
 				    positionType!="bottomLeft") {
 					var prompt_err= methods._getPrompt(first_err);
 					destination=prompt_err.offset().top;
@@ -1069,7 +1072,9 @@
 						
                         // asynchronously called on success, data is the json answer from the server
                         var errorFieldId = json[0];
-                        var errorField = $($("#" + errorFieldId)[0]);
+                        //var errorField = $($("#" + errorFieldId)[0]);
+                        var errorField = $($("input[id='" + errorFieldId +"']")[0]);
+						
                         // make sure we found the element
                         if (errorField.length == 1) {
                             var status = json[1];
@@ -1186,7 +1191,8 @@
             var prompt = $('<div>');
             prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
             // add a class name to identify the parent form of the prompt
-            if(field.is(":input")) prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
+            if(field.is(":input"))
+				 prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
             prompt.addClass("formError");
 
             switch (type) {
@@ -1212,12 +1218,9 @@
 
 				//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
 				var positionType=field.data("promptPosition") || options.promptPosition;
-				if (typeof(positionType)=='string') {
-					if (positionType.indexOf(":")!=-1) {
-						positionType=positionType.substring(0,positionType.indexOf(":"));
-					};
-				};
-
+				if (typeof(positionType)=='string' && positionType.indexOf(":")!=-1) {
+						positionType=positionType.substring(0,positionType.indexOf(":"));	
+				}
 				
                 switch (positionType) {
                     case "bottomLeft":
