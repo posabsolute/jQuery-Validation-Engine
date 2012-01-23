@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.2.3
+jQuery.validationEngine v2.5
 =====
 
 Summary
@@ -71,6 +71,11 @@ Validations are defined using the field's **class** attribute. Here are a few ex
     <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" />
 
 For more details about validators, please refer to the section below.
+
+#### Experimental attribut data-validation-engine
+
+We are currently in the process of replaceing the class attribute by something more standard, it should normally work but consider this feature in beta.
+     <input value="someone@nowhere.com" data-validation-engine="validate[required,custom[email]]" type="text" name="email" id="email" />
 
 ### Per Field Prompt Direction
 
@@ -211,6 +216,9 @@ Name of the event triggering field validation, defaults to *blur*.
                 
 ### scroll
 Determines if we should scroll the page to the first error, defaults to *true*.
+
+### binded
+If set to false, it remove blur events and only validate on submit.
 
 ### promptPosition
 Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
@@ -628,6 +636,12 @@ This need to be added before the initialization, one good way to handle this wou
     <script src="js/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/jquery.validationEngine-settings.js" type="text/javascript" charset="utf-8"></script>
+
+Using the validationEngine with modal & dialog plugins
+---
+You can have more information about implementing the engine with modal views here:
+[http://www.position-absolute.com/articles/using-the-jquery-validation-engine-with-modal-plugins/]
+
 
 Rules of thumb
 ---

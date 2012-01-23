@@ -50,38 +50,22 @@
             else
                 options = form.data('jqv');
 
-			var validateAttribute = (form.find("[data-validation-engine*=validate]")) ? "data-validation-engine" : "class";
-			
-            if (!options.binded) {
-				if (options.bindMethod == "bind"){
+			options.validateAttribute = (form.find("[data-validation-engine*=validate]").length) ? "data-validation-engine" : "class";
+            if (options.binded) {
 				
-					// bind fields
-                    form.find("[class*=validate]").not("[type=checkbox]").not("[type=radio]").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
-                    form.find("[class*=validate][type=checkbox],[class*=validate][type=radio]").bind("click", methods._onFieldEvent);
-					form.find("[class*=validate][class*=datepicker]").bind(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
-
-                    // bind form.submit
-                    form.bind("submit", methods._onSubmitEvent);
-				} else if (options.bindMethod == "live") {
-                    // bind fields with LIVE (for persistant state)
-                    form.find("[class*=validate]").not("[type=checkbox]").not(".datepicker").live(options.validationEventTrigger, methods._onFieldEvent);
-                    form.find("[class*=validate][type=checkbox]").live("click", methods._onFieldEvent);
-					form.find("[class*=validate][class*=datepicker]").live(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
-
-                    // bind form.submit
-                    form.live("submit", methods._onSubmitEvent);
-				}
-
-               	options.binded = true;
-	
-				if (options.autoPositionUpdate) {
-	    			$(window).bind("resize", {
-						"noAnimation": true, 
-						"formElem": form
-	    				}, methods.updatePromptsPosition);
-				}
-		
-           }
+				// bind fields
+                form.find("["+options.validateAttribute+"*=validate]").not("[type=checkbox]").not("[type=radio]").not(".datepicker").bind(options.validationEventTrigger, methods._onFieldEvent);
+                form.find("["+options.validateAttribute+"*=validate][type=checkbox],[class*=validate][type=radio]").bind("click", methods._onFieldEvent);
+				form.find("["+options.validateAttribute+"*=validate][class*=datepicker]").bind(options.validationEventTrigger,{"delay": 300}, methods._onFieldEvent);
+            }
+            if (options.autoPositionUpdate) {
+                $(window).bind("resize", {
+                    "noAnimation": true, 
+                    "formElem": form
+                }, methods.updatePromptsPosition);
+            }
+            // bind form.submit
+            form.bind("submit", methods._onSubmitEvent);
            return this;
         },
         /**
@@ -90,18 +74,17 @@
         detach: function() {
             var form = this;
             var options = form.data('jqv');
-            if (options.binded) {
 
                 // unbind fields
-                form.find("[class*=validate]").not("[type=checkbox]").unbind(options.validationEventTrigger, methods._onFieldEvent);
-                form.find("[class*=validate][type=checkbox],[class*=validate][type=radio]").unbind("click", methods._onFieldEvent);
+                form.find("["+options.validateAttribute+"*=validate]").not("[type=checkbox]").unbind(options.validationEventTrigger, methods._onFieldEvent);
+                form.find("["+options.validateAttribute+"*=validate][type=checkbox],[class*=validate][type=radio]").unbind("click", methods._onFieldEvent);
 
                 // unbind form.submit
                 form.unbind("submit", methods.onAjaxFormComplete);
                 
                 // unbind live fields (kill)
-                form.find("[class*=validate]").not("[type=checkbox]").die(options.validationEventTrigger, methods._onFieldEvent);
-                form.find("[class*=validate][type=checkbox]").die("click", methods._onFieldEvent);
+                form.find("["+options.validateAttribute+"*=validate]").not("[type=checkbox]").die(options.validationEventTrigger, methods._onFieldEvent);
+                form.find("["+options.validateAttribute+"*=validate][type=checkbox]").die("click", methods._onFieldEvent);
                 
 				// unbind form.submit
                 form.die("submit", methods.onAjaxFormComplete);
@@ -111,7 +94,7 @@
 				if (options.autoPositionUpdate) {
 		    		$(window).unbind("resize", methods.updatePromptsPosition)
 				}
-           	}
+
             return this;
         },
         /**
@@ -161,7 +144,7 @@
             
 			var options = form.data('jqv');
 	        // No option, take default one
-		    form.find('[class*=validate]').not(':hidden').not(":disabled").each(function(){
+		    form.find('['+options.validateAttribute+'*=validate]').not(':hidden').not(":disabled").each(function(){
 			   	var field = $(this);
 			   	var prompt = methods._getPrompt(field);
 			   	var promptText = $(prompt).find(".formErrorContent").html();
@@ -310,7 +293,7 @@
 			form.trigger("jqv.form.validating");
             // first, evaluate status of non ajax fields
 			var first_err=null;
-            form.find('[class*=validate]').not(':hidden').not(":disabled").each( function() {
+            form.find('['+options.validateAttribute+'*=validate]').not(':hidden').not(":disabled").each( function() {
                 var field = $(this);
                 errorFound |= methods._validateField(field, options, skipAjaxValidation);
                 if (options.doNotShowAllErrosOnSubmit)
@@ -467,7 +450,7 @@
                 $.error("jQueryValidate: an ID attribute is required for this field: " + field.attr("name") + " class:" +
                 field.attr("class"));
 
-            var rulesParsing = field.attr('class');
+            var rulesParsing = field.attr(options.validateAttribute);
             var getRules = /validate\[(.*)\]/.exec(rulesParsing);
 			
             if (!getRules)
@@ -501,7 +484,7 @@
 					case "groupRequired":
 						// Check is its the first of group, if not, reload validation with first field
 						// AND continue normal validation on present field
-						var classGroup = "[class*=" +rules[i + 1] +"]";	
+						var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";	
 						var firstOfGroup = form.find(classGroup).eq(0);
 						if(firstOfGroup[0] != field[0]){
 							methods._validateField(firstOfGroup, options, skipAjaxValidation)
@@ -538,7 +521,7 @@
                         errorMsg = methods._future(field, rules, i, options);
                         break;
                     case "dateRange":
-                        var classGroup = "[class*=" + rules[i + 1] + "]";
+                        var classGroup = "["+options.validateAttribute+"*=" + rules[i + 1] + "]";
                         var firstOfGroup = form.find(classGroup).eq(0);
                         var secondOfGroup = form.find(classGroup).eq(1);
 
@@ -551,7 +534,7 @@
                         break;
 
                     case "dateTimeRange":
-                        var classGroup = "[class*=" + rules[i + 1] + "]";
+                        var classGroup = "["+options.validateAttribute+"*=" + rules[i + 1] + "]";
                         var firstOfGroup = form.find(classGroup).eq(0);
                         var secondOfGroup = form.find(classGroup).eq(1);
 
@@ -681,7 +664,7 @@
          * @return an error string if validation failed
          */
         _groupRequired: function(field, rules, i, options) {
-            var classGroup = "[class*=" +rules[i + 1] +"]";
+            var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";
 			var isValid = false;
 			// Check all fields from the group
 			field.closest("form").find(classGroup).each(function(){
@@ -1656,8 +1639,8 @@
 		// Used when you have a form fields too close and the errors messages are on top of other disturbing viewing messages
         doNotShowAllErrosOnSubmit: false,
 
-        // true when form and fields are binded
-        binded: false,
+        // true if you want to vind the input fields
+        binded: true,
         // set to true, when the prompt arrow needs to be displayed
         showArrow: true,
         // did one of the validation fail ? kept global to stop further ajax validations
