@@ -5,7 +5,7 @@
             $.validationEngineLanguage.allRules = {
                 "required": {
                     "regex": "none",
-                    "alertText": "* Este campo é obirgatório",
+                    "alertText": "* Este campo é obrigatório",
                     "alertTextCheckboxMultiple": "* Favor selecionar uma opção",
                     "alertTextCheckboxe": "* Este checkbox é obrigatório",
                     "alertTextDateRange": "* Ambas as datas do intervalo são obrigatórias"
@@ -110,7 +110,7 @@
                 	// Brazilian (Real - R$) money format
                 	"regex": /^([1-9]{1}[\d]{0,2}(\.[\d]{3})*(\,[\d]{0,2})?|[1-9]{1}[\d]{0,}(\,[\d]{0,2})?|0(\,[\d]{0,2})?|(\,[\d]{1,2})?)$/,
                     "alertText": "* Número decimal inválido"
-                },
+                }
             };
             
         }
