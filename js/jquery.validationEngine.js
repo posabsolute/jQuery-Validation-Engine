@@ -12,6 +12,8 @@
  */
 (function($) {
 
+		"use strict";
+		
         var methods = {
 
         /**
@@ -1307,7 +1309,7 @@
                 prompt.find(".formErrorContent").html(promptText);
 
                 var pos = methods._calculatePosition(field, prompt, options);
-				css = {"top": pos.callerTopPosition,
+				var css = {"top": pos.callerTopPosition,
 		               "left": pos.callerleftPosition,
 		               "marginTop": pos.marginTopSize};
 		
@@ -1549,7 +1551,7 @@
 			$.validationEngine.defaults.allrules = allRules;
 			
             var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
-			jim = userOptions;
+			
             // Needed to be retro compatible
             if (userOptions.isOverflown) userOptions.relative = true;
             if (userOptions.relative) userOptions.isOverflown = true;
