@@ -11,9 +11,8 @@
  * Licensed under the MIT License
  */
 (function($) {
-	"use strict";
-	
-    var methods = {
+
+        var methods = {
 
         /**
          * Kind of the constructor, called before any action
