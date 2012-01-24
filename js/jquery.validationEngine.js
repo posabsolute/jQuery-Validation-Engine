@@ -180,38 +180,53 @@
 		/**
 		* Closes all error prompts on the page
 		*/
-		hidePrompt: function() {
+		hidePrompt: function(fade) {
 			var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
-			$(promptClass).fadeTo("fast", 0.3, function() {
-				$(this).parent('.formErrorOuter').remove();
-				$(this).remove();
-			});
+			if(fade) {
+    			$(promptClass).fadeTo("fast", 0.3, function() {
+    				$(this).parent('.formErrorOuter').remove();
+    				$(this).remove();
+    			});
+			} else {
+				$(promptClass).parent('.formErrorOuter').remove();
+				$(promptClass).remove();
+			}
 			return this;
 		},
 		/**
 		* Closes form error prompts, CAN be invidual
 		*/
-		 hide: function() {
+		 hide: function(fade) {
 			 var closingtag;
 			 if($(this).is("form")){
 				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
 			 }else{
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
-			 $('.'+closingtag).fadeTo("fast", 0.3, function() {
-				 $(this).parent('.formErrorOuter').remove();
-				 $(this).remove();
-			 });
+			 if(fade) {
+    			 $('.'+closingtag).fadeTo("fast", 0.3, function() {
+    				 $(this).parent('.formErrorOuter').remove();
+    				 $(this).remove();
+    			 });
+			 } else {
+				 $('.'+closingtag).parent('.formErrorOuter').remove();
+				 $('.'+closingtag).remove();
+			 }
 			 return this;
 		 },
 		 /**
 		 * Closes all error prompts on the page
 		 */
-		 hideAll: function() {
-			 $('.formError').fadeTo("fast", 0.3, function() {
-				 $(this).parent('.formErrorOuter').remove();
-				 $(this).remove();
-			 });
+		 hideAll: function(fade) {
+		     if(fade) {
+    			$('.formError').fadeTo("fast", 0.3, function() {
+    				$(this).parent('.formErrorOuter').remove();
+    				$(this).remove();
+    			});
+		     } else {
+		    	 $('.formError').parent('.formErrorOuter').remove();
+		    	 $('.formError').remove();
+		     }
 			 return this;
 		 },
 		/**
