@@ -181,8 +181,10 @@
 		* Closes all error prompts on the page
 		*/
 		hidePrompt: function() {
+			var form = this;
+			var options = form.data('jqv');
 			var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
-			$(promptClass).fadeTo("fast", 0.3, function() {
+			$(promptClass).fadeTo(options.fadeDuration, 0.3, function() {
 				$(this).parent('.formErrorOuter').remove();
 				$(this).remove();
 			});
@@ -192,13 +194,15 @@
 		* Closes form error prompts, CAN be invidual
 		*/
 		 hide: function() {
+			 var form = this;
+			 var options = form.data('jqv');
 			 var closingtag;
 			 if($(this).is("form")){
 				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
 			 }else{
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
-			 $('.'+closingtag).fadeTo("fast", 0.3, function() {
+			 $('.'+closingtag).fadeTo(options.fadeDuration, 0.3, function() {
 				 $(this).parent('.formErrorOuter').remove();
 				 $(this).remove();
 			 });
@@ -208,7 +212,9 @@
 		 * Closes all error prompts on the page
 		 */
 		 hideAll: function() {
-			 $('.formError').fadeTo("fast", 0.3, function() {
+			 var form = this;
+			 var options = form.data('jqv');
+			 $('.formError').fadeTo(options.fadeDuration, 0.3, function() {
 				 $(this).parent('.formErrorOuter').remove();
 				 $(this).remove();
 			 });
@@ -1647,7 +1653,9 @@
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
-		autoHideDelay: 10000
+		autoHideDelay: 10000,
+		// Fade out duration while hiding the validations
+		fadeDuration: 0.3
 	}};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
