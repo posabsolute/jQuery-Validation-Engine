@@ -1193,7 +1193,7 @@
 					break;
 				default:
 					/* it has error  */
-					options.InvalidCount++;
+					alert("unknown popup type:"+type);
 			}
 			if (ajaxed)
 				prompt.addClass("ajaxed");
@@ -1207,8 +1207,11 @@
 
 				//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
 				var positionType=field.data("promptPosition") || options.promptPosition;
-				if (typeof(positionType)=='string' && positionType.indexOf(":")!=-1) {
-					positionType=positionType.substring(0,positionType.indexOf(":"));
+				if (typeof(positionType)=='string') 
+				{
+					var pos=positionType.indexOf(":");
+				 	if(pos!=-1)
+						positionType=positionType.substring(0,pos);
 				}
 
 				switch (positionType) {
@@ -1256,16 +1259,12 @@
 					},function(){
 						prompt.closest('.formErrorOuter').remove();
 						prompt.remove();
-					})
-				}, options.autoHideDelay)
-				return prompt.animate({
-					"opacity": 0.87
-				})
-			} else {
-				return prompt.animate({
-					"opacity": 0.87
-				});
-			}
+					});
+				}, options.autoHideDelay);
+			} 
+			return prompt.animate({
+				"opacity": 0.87
+			});
 		},
 		/**
 		* Updates the prompt text field - the field for which the prompt
@@ -1304,7 +1303,7 @@
 				if (noAnimation)
 					prompt.css(css);
 				else
-					prompt.animate(css)
+					prompt.animate(css);
 			}
 		},
 		/**
