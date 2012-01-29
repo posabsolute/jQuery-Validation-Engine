@@ -1193,7 +1193,7 @@
 					break;
 				default:
 					/* it has error  */
-					alert("unknown popup type:"+type);
+					//alert("unknown popup type:"+type);
 			}
 			if (ajaxed)
 				prompt.addClass("ajaxed");
