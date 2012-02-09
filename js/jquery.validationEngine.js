@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.5, jQuery plugin
+ * Inline Form Validation Engine 2.5.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -1227,6 +1227,9 @@
 						break;
 				}
 			}
+			// Modify z-indexes  for jquery ui
+			if (field.closest('.ui-dialog').length)
+				prompt.addClass('formErrorInsideDialog');
 
 			if (options.relative) {
 				// empty relative span does not disturb page layout
