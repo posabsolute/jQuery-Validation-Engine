@@ -34,7 +34,7 @@ form.formular {
 }
 
 .formular input,.formular select,.formular textarea {
-	display: block;
+	display: block;  /* this breaks relative positioning */
 	margin-bottom: 5px;
 }
 
@@ -67,7 +67,7 @@ form.formular {
 	margin-bottom: 10px;
 }
 
-.formular span.checkbox,.formular .checkbox {
+.formular span.checkbox, .formular .checkbox, .formular .radio {
 	display: inline;
 }
 

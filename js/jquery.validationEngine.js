@@ -1231,12 +1231,15 @@
 			if (field.closest('.ui-dialog').length)
 				prompt.addClass('formErrorInsideDialog');
 
+			prompt.css({
+				"opacity": 0
+			});
 			if (options.relative) {
 				// empty relative span does not disturb page layout
 				// prompt positioned absolute to relative span
 				// vertical-align:top so position calculations are the same as isOverflown
-				var outer = $('<div>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
-				field.after(outer);
+				var outer = $('<span>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
+				field.before(outer);
 				if(options.relativePadding) {
 					outer.css('padding-bottom', prompt.height() + 'px');
 				}
@@ -1437,7 +1440,6 @@
 					default:
 					case "topRight":
 						if (overflow)
-							// Is the form contained in an overflown container?
 							promptleftPosition += fieldWidth - 30;
 						else {
 							promptleftPosition += fieldWidth - 30;
@@ -1446,12 +1448,15 @@
 						break;
 
 					case "topLeft":
-						promptTopPosition += -promptHeight - 10;
+						if (!overflow) {
+							promptTopPosition += -promptHeight - 10;
+						}
 						break;
 
 					case "centerRight":
 						if (overflow) {
-							promptTopPosition=field.outerHeight();
+							promptTopPosition = 0;
+							marginTopSize = 0;
 							promptleftPosition=field.outerWidth(1)+5;
 						} else {
 							promptleftPosition+=field.outerWidth()+5;
@@ -1459,14 +1464,24 @@
 						break;
 					case "centerLeft":
 						promptleftPosition -= promptElmt.width() + 2;
+						if (overflow) {
+							promptTopPosition = 0;
+							marginTopSize = 0;
+						}
 						break;
 
 					case "bottomLeft":
-						promptTopPosition = promptTopPosition + field.height() + 15;
+						promptTopPosition = promptTopPosition + field.height() + 5;
+						if (overflow) {
+							marginTopSize = 0;
+						}
 						break;
 					case "bottomRight":
 						promptleftPosition += fieldWidth - 30;
 						promptTopPosition += field.height() + 5;
+						if (overflow) {
+							marginTopSize = 0;
+						}
 				}
 			}
 			else
@@ -1474,44 +1489,61 @@
 				switch (positionType) {
 					default:
 					case "topLeft":
-					if (overflow)
-						// Is the form contained in an overflown container?
-						promptleftPosition -= promptElmt.width() - 30;
-					else {
-						promptleftPosition -= promptElmt.width() - 30;
-						promptTopPosition += -promptHeight -2;
-					}
-					break;
+						if (overflow)
+							promptleftPosition = -(promptElmt.width() + fieldWidth - 30);
+						else {
+							promptleftPosition -= promptElmt.width() - 30;
+							promptTopPosition += -promptHeight -2;
+						}
+						break;
 					case "topRight":
-					if (overflow)
-						// Is the form contained in an overflown container?
-						promptleftPosition += fieldWidth - promptElmt.width();
-					else {
-						promptleftPosition += fieldWidth - promptElmt.width();
-						promptTopPosition += -promptHeight -2;
-					}
-					break;
+						if (overflow)
+							promptleftPosition = -promptElmt.width();
+						else {
+							promptleftPosition += fieldWidth - promptElmt.width();
+							promptTopPosition += -promptHeight -2;
+						}
+						break;
 					case "centerRight":
-					if (overflow) {
-						promptTopPosition=field.outerHeight();
-						promptleftPosition=field.outerWidth(1)+5;
-					} else {
-						promptleftPosition+=field.outerWidth()+5;
-					}
-					break;
+						if (overflow) {
+							promptTopPosition = 0;
+							marginTopSize = 0;
+							promptleftPosition = 5;
+						} else {
+							promptleftPosition+=field.outerWidth()+5;
+						}
+						break;
 
 					case "centerLeft":
-					promptleftPosition -= promptElmt.width() + 2;
-					break;
+						if (overflow) {
+							promptleftPosition = -(promptElmt.width() + field.outerWidth() + 2);
+							promptTopPosition = 0;
+							marginTopSize = 0;
+						} else {
+							promptleftPosition -= promptElmt.width() + 2;
+						}
+						break;
 
 					case "bottomLeft":
-					promptleftPosition += -promptElmt.width() + 30;
-					promptTopPosition = promptTopPosition + field.height() + 15;
-					break;
+						if (overflow) {
+							promptTopPosition = field.height() + 5;
+							promptleftPosition = -(promptElmt.width() + fieldWidth - 30);
+							marginTopSize = 0;
+						} else {
+							promptleftPosition += -promptElmt.width() + 30;
+							promptTopPosition = promptTopPosition + field.height() + 15;
+						}
+						break;
 
 					case "bottomRight":
-					promptleftPosition += fieldWidth - promptElmt.width();
-					promptTopPosition += field.height() + 15;
+						if (overflow) {
+							promptTopPosition = field.height() + 5;
+							promptleftPosition = -promptElmt.width();
+							marginTopSize = 0;
+						} else {
+							promptleftPosition += fieldWidth - promptElmt.width();
+							promptTopPosition += field.height() + 15;
+						}
 				}
 			}
 
