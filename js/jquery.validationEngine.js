@@ -250,8 +250,9 @@
 			var form = $(this);
 			var options = form.data('jqv');
 
-			// validate each field (- skip field ajax validation, no necessary since we will perform an ajax form validation)
-			var r=methods._validateFields(form, true);
+			// validate each field 
+			// (- skip field ajax validation, not necessary IF we will perform an ajax form validation)
+			var r=methods._validateFields(form, options.ajaxFormValidation);
 
 			if (r && options.ajaxFormValidation) {
 				methods._validateFormWithAjax(form, options);
