@@ -7,9 +7,9 @@
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
-                    "alertText": "* Este campo es requerido",
-                    "alertTextCheckboxMultiple": "* Por favor selecciona una opción",
-                    "alertTextCheckboxe": "* Este checkbox está requerido"
+                    "alertText": "* Este campo es obligatorio",
+                    "alertTextCheckboxMultiple": "* Por favor seleccione una opción",
+                    "alertTextCheckboxe": "* Este checkbox es obligatorio"
                 },
                 "minSize": {
                     "regex": "none",
@@ -18,7 +18,7 @@
                 },
 				"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* Debe de rellenar al menos uno de los siguientes campos"
                 },
                 "maxSize": {
                     "regex": "none",
@@ -27,11 +27,11 @@
                 },
 		        "min": {
                     "regex": "none",
-                    "alertText": "* Valor mínimo es "
+                    "alertText": "* El valor mínimo es "
                 },
                 "max": {
                     "regex": "none",
-                    "alertText": "* Valor máximo es "
+                    "alertText": "* El valor máximo es "
                 },
 		        "past": {
                     "regex": "none",
@@ -56,7 +56,7 @@
                 },
                 "creditCard": {
                     "regex": "none",
-                    "alertText": "* No válido de tarjeta de crédito"
+                    "alertText": "* La tarjeta de crédito no es válida"
                 },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
