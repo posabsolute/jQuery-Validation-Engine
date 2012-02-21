@@ -10,7 +10,6 @@ form.formular {
 	width: 300px;
 	margin: 0 auto;
 }
-
 .formular fieldset {
 	margin-top: 20px;
 	padding: 15px;
@@ -26,6 +25,7 @@ form.formular {
 .formular fieldset label {
 	float: none;
 	text-align: inherit;
+	display:block;
 	width: auto;
 }
 

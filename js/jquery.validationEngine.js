@@ -1239,7 +1239,12 @@
 				// empty relative span does not disturb page layout
 				// prompt positioned absolute to relative span
 				// vertical-align:top so position calculations are the same as isOverflown
-				var outer = $('<span>').css('position','relative').css('vertical-align','top').addClass('formErrorOuter').append(prompt.css('position','absolute'));
+				var outer = $('<div>').css({
+					'position'		:'relative',
+					'display'		:'inline',
+					'overflow'		:'auto'
+				}).addClass('formErrorOuter').append(prompt.css('position','absolute'));
+
 				field.before(outer);
 				if(options.relativePadding) {
 					outer.css('padding-bottom', prompt.height() + 'px');
