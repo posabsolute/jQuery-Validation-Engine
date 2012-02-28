@@ -10,7 +10,6 @@ form.formular {
 	width: 300px;
 	margin: 0 auto;
 }
-
 .formular fieldset {
 	margin-top: 20px;
 	padding: 15px;
@@ -26,6 +25,7 @@ form.formular {
 .formular fieldset label {
 	float: none;
 	text-align: inherit;
+	display:block;
 	width: auto;
 }
 
@@ -34,7 +34,7 @@ form.formular {
 }
 
 .formular input,.formular select,.formular textarea {
-	display: block;
+	display: block;  /* this breaks relative positioning */
 	margin-bottom: 5px;
 }
 
@@ -67,7 +67,7 @@ form.formular {
 	margin-bottom: 10px;
 }
 
-.formular span.checkbox,.formular .checkbox {
+.formular span.checkbox, .formular .checkbox, .formular .radio {
 	display: inline;
 }
 
@@ -88,7 +88,7 @@ form.formular {
 
 .formular .fc-error {
 	width: 350px;
-	color: 555;
+	color: #555;
 	padding: 4px;
 	border: 1px solid #B5B8C8;
 	font-size: 12px;

@@ -1,3 +1,19 @@
+
+
+
+
+/* Z-INDEX */
+ .formError { z-index: 990; }
+    .formError .formErrorContent { z-index: 991; }
+    .formError .formErrorArrow { z-index: 996; }
+    
+    .formErrorInsideDialog.formError { z-index: 5000; }
+    .formErrorInsideDialog.formError .formErrorContent { z-index: 5001; }
+    .formErrorInsideDialog.formError .formErrorArrow { z-index: 5006; }
+
+
+
+
 .inputContainer {
 	position: relative;
 	float: left;
@@ -8,7 +24,6 @@
 	top: 300px;
 	left: 300px;
 	display: block;
-	z-index: 5000;
 	cursor: pointer;
 }
 
@@ -23,10 +38,8 @@
 	width: 100%;
 	background: #ee0101;
 	position:relative;
-	z-index:5001;
 	color: #fff;
 	width: 150px;
-	font-family: tahoma;
 	font-size: 11px;
 	border: 2px solid #ddd;
 	box-shadow: 0 0 6px #000;
@@ -50,8 +63,7 @@
 .formError .formErrorArrow {
 	width: 15px;
 	margin: -2px 0 0 13px;
-  position:relative;
-  z-index: 5006;
+	position:relative;
 }
 body[dir='rtl'] .formError .formErrorArrow,
 body.rtl .formError .formErrorArrow {
@@ -59,11 +71,11 @@ body.rtl .formError .formErrorArrow {
 }
 
 .formError .formErrorArrowBottom {
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 	margin: 0px 0 0 12px;
-  top:2px;
+	top:2px;
 }
 
 .formError .formErrorArrow div {
@@ -82,9 +94,9 @@ body.rtl .formError .formErrorArrow {
 }
 
 .formError .formErrorArrowBottom div {
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
 }
 
 .greenPopup .formErrorArrow div {
