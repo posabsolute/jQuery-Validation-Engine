@@ -716,7 +716,19 @@
 		*/
 		_funcCall: function(field, rules, i, options) {
 			var functionName = rules[i + 1];
-			var fn = window[functionName] || options.customFunctions[functionName];
+			var fn;
+			if(functionName.indexOf('.')>-1)
+			{
+				var namespaces = functionName.split('.');
+				var scope = window;
+				while(namespaces.length)
+				{
+					scope = scope[namespaces.shift()];
+				}
+				fn = scope;
+			}
+			else
+				fn = window[functionName] || options.customFunctions[functionName];
 			if (typeof(fn) == 'function')
 				return fn(field, rules, i, options);
 
