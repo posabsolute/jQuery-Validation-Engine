@@ -622,7 +622,10 @@
 		*/
 		_required: function(field, rules, i, options) {
 			switch (field.prop("type")) {
-				case "text":
+				case "text"://avoid text input with HINT plugin
+					if (!($.trim(field.val())) || $.trim(field.val())==$.trim(field.prop("attr"))
+						return options.allrules[rules[i]].alertText;
+					break;
 				case "password":
 				case "textarea":
 				case "file":
