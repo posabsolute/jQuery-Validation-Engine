@@ -302,12 +302,19 @@
 			// first, evaluate status of non ajax fields
 			var first_err=null;
 			form.find('['+options.validateAttribute+'*=validate]').not(':hidden').not(":disabled").each( function() {
-				var field = $(this);
-				errorFound |= methods._validateField(field, options, skipAjaxValidation);
-				if (options.doNotShowAllErrosOnSubmit)
-					return false;
-				if (errorFound && first_err==null) first_err=field;
+		            var field = $(this);
+		            var names = [];
+		            if ($.inArray(field.attr('name'), names) < 0) {                   
+		                errorFound |= methods._validateField(field, options, skipAjaxValidation);
+		                if (options.doNotShowAllErrosOnSubmit)
+		                    return false;
+		                if (errorFound && first_err==null) {
+		                    first_err=field;
+		                }
+		                names.push(field.attr('name'));
+		            }
 			});
+
 			// second, check to see if all ajax calls completed ok
 			// errorFound |= !methods._checkAjaxStatus(options);
 
