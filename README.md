@@ -307,7 +307,7 @@ Auto update prompt position after window resize, disabled by default
 Determines if the prompt should hide itself automatically after a set period. Defaults to *false*. 
 
 ### autoHideDelay
-Sets the number of ms that the prompt should appear for if autoHidePrompt is set to *true*. Defaults to *2000*. 
+Sets the number of ms that the prompt should appear for if autoHidePrompt is set to *true*. Defaults to *10000*. 
 
 Validators
 ---
