@@ -46,7 +46,7 @@
                 },
                 "future": {
                     "regex": "none",
-                    "alertText": "* Data porterior a "
+                    "alertText": "* Data posterior a "
                 },	
                 "maxCheckbox": {
                     "regex": "none",
