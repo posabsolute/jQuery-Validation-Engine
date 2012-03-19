@@ -376,11 +376,12 @@
 
 			var data = form.serialize();
 			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
+                        var dataType = (options.dataType) ? options.dataType : "json";
 			$.ajax({
 				type: "GET",
 				url: url,
 				cache: false,
-				dataType: "json",
+				dataType: dataType,
 				data: data,
 				form: form,
 				methods: methods,
