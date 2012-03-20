@@ -648,6 +648,14 @@ $("#formID").validationEngine({
 });
 ```
 
+
+Placeholders
+---
+The engine support by default placeholders  when a field is required. use the attribute data-validation-placeholder in the input to define it.
+
+   <input value="This is a placeholder" data-validation-placeholder="This is a placeholder" class="validate[required] text-input" type="text" name="reqplaceholder" id="reqplaceholder" />
+
+
 Hooks
 ---
 

@@ -634,7 +634,8 @@
 				case "textarea":
 				case "file":
 				default:
-					if (!($.trim(field.val())))
+
+					if (! $.trim(field.val()) || field.val() == field.attr("data-validation-placeholder"))
 						return options.allrules[rules[i]].alertText;
 					break;
 				case "radio":
