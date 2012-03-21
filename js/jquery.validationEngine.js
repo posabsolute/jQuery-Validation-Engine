@@ -454,9 +454,10 @@
 		* @return true if field is valid
 		*/
 		_validateField: function(field, options, skipAjaxValidation) {
-			if (!field.attr("id"))
-				$.error("jQueryValidate: an ID attribute is required for this field: " + field.attr("name") + " class:" +
-			field.attr("class"));
+			if (!field.attr("id")) {
+				field.attr("id", "form-validation-field-" + $.validationEngine.fieldIdCounter);
+				++$.validationEngine.fieldIdCounter;
+			}
 
 			var rulesParsing = field.attr(options.validateAttribute);
 			var getRules = /validate\[(.*)\]/.exec(rulesParsing);
@@ -1658,7 +1659,7 @@
 
 
 	// LEAK GLOBAL OPTIONS
-	$.validationEngine= {defaults:{
+	$.validationEngine= {fieldIdCounter: 0,defaults:{
 
 		// Name of the event triggering field validation
 		validationEventTrigger: "blur",
