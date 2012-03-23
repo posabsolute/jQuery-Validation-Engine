@@ -12,6 +12,11 @@
 		        "regex": /^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$/,
 				"alertText": "* Invalid postcode"
 		};
+		$.validationEngineLanguage.allRules["postcodeUS"] = {
+		        // US zip codes | Accepts 12345 and 12345-1234 format zipcodes
+                "regex": /^\d{5}(-\d{4})?$/,
+                "alertText": "* Invalid zipcode"
+		};
 		$.validationEngineLanguage.allRules["onlyLetNumSpec"] = {
 				// Good for database fields
 				"regex": /^[0-9a-zA-Z_-]+$/,
