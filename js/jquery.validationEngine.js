@@ -193,8 +193,9 @@
 		/**
 		* Closes form error prompts, CAN be invidual
 		*/
-		 hide: function() {
-			 var form = this;
+		hide: function() {
+			 var form = $(this).closest('form');
+			 if(form.length == 0) return this;
 			 var options = form.data('jqv');
 			 var closingtag;
 			 if($(this).is("form")){
