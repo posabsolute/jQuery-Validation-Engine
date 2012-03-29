@@ -215,7 +215,7 @@
 		 hideAll: function() {
 			 var form = this;
 			 var options = form.data('jqv');
-			 $('.formError').fadeTo(options.fadeDuration, 0.3, function() {
+			 options&&$('.formError').fadeTo(options.fadeDuration, 0.3, function() {
 				 $(this).parent('.formErrorOuter').remove();
 				 $(this).remove();
 			 });
