@@ -131,6 +131,10 @@
                 },
                 "validate2fields": {
                     "alertText": "* 『HELLO』と入力してください"
+                },
+                "zipcode": {
+                    "regex": /^\d{3}(-\d{4})?$/,
+                    "alertText": "* Invalid zipcode"
                 }
             };
             
