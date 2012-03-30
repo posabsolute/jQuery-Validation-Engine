@@ -27,7 +27,7 @@ Installation
 ### What's in the archive?
 
 The archive holds, of course, the core library along with translations in different languages.
-It also comes with a set of demo pages and a simple ajax server (built in Java).
+It also comes with a set of demo pages and a simple ajax server (built in Java and php).
 
 1. Unpack the archive
 2. Include the script jquery.validationEngine.closure.js in your page 
@@ -178,21 +178,23 @@ $("#formID1").validationEngine('detach');
 
 ### validate
 
-Validates the form and displays prompts accordingly. 
-Returns *true* if the form validates, *false* if it contains errors. Note that if you use an ajax form validator, the actual result will be delivered asynchronously to the function *options.onAjaxFormComplete*.
+Validates a form or a list of fields, displays error prompts accordingly.  
+Returns *true* if the form validates, *false* if it contains errors.
 
-```js
+When using form validation with ajax, it returns *undefined* , the result is delivered asynchronously via function *options.onAjaxFormComplete*.
+
+```
+// form validation
 alert( $("#formID1").validationEngine('validate') );
+
+// field validation
+alert( $("#emailInput").validationEngine('validate') );
+
+// multiple field validations
+alert( $("#email1 #email2 #email3").validationEngine('validate') );
 ```
 
-### validate one field
-
-Validates one field and displays the prompt accordingly. 
-Returns *false* if the input validates, *true* if it contains errors. 
-
-```js
-alert( $("#formID1").validationEngine('validateField', "#emailInput") );
-```
+Note: validating a list of forms is not supported.
 
 ### showPrompt (promptText, type, promptPosition, showArrow)
 
@@ -211,25 +213,25 @@ The method takes four parameters:
 </fieldset>
 ```
 
-### hidePrompt
-
-Closes the prompt linked to the input.
-
-```js
-$('#inputID').validationEngine('hidePrompt');
-```
-
 ### hide
 
-Closes error prompts in the current form (in case you have more than one form on the page).
+The hide method can be applied to a form or a list of fields.  
+It closes/hides error prompts.
 
 ```js
+// closes all form prompts
 $('#formID1').validationEngine('hide');
+
+// closes onle one prompt
+$('#email1').validationEngine('hide');
+
+// closes a set of prompts
+$('#email1 #email2 #email3').validationEngine('hide');
 ```
 
 ### hideAll
 
-Closes **all** error prompts on the page.
+Closes/hides **all** error prompts on the page no matter what form they are attached to.
 
 ```js
 $('#formID1').validationEngine('hideAll');

@@ -32,7 +32,6 @@
 						 $(this).remove();
 					 });
 				 });
-
 			 }
 			 return this;
 		 },
@@ -43,6 +42,11 @@
 		*/
 		attach: function(userOptions) {
 
+			if(!$(this).is("form")) {
+				alert("Sorry, jqv.attach() only applies to a form");
+				return this;
+			}
+			
 			var form = this;
 			var options;
 
@@ -73,6 +77,12 @@
 		* Unregisters any bindings that may point to jQuery.validaitonEngine
 		*/
 		detach: function() {
+			
+			if(!$(this).is("form")) {
+				alert("Sorry, jqv.detach() only applies to a form");
+				return this;
+			}
+
 			var form = this;
 			var options = form.data('jqv');
 
@@ -91,47 +101,34 @@
 			form.die("submit", methods.onAjaxFormComplete);
 			form.removeData('jqv');
 
-			if (options.autoPositionUpdate) {
-				$(window).unbind("resize", methods.updatePromptsPosition)
-			}
+			if (options.autoPositionUpdate)
+				$(window).unbind("resize", methods.updatePromptsPosition);
 
 			return this;
 		},
 		/**
-		* Validates the form fields, shows prompts accordingly.
+		* Validates either a form or a list of fields, shows prompts accordingly.
 		* Note: There is no ajax form validation with this method, only field ajax validation are evaluated
 		*
 		* @return true if the form validates, false if it fails
 		*/
-		 validate: function() {
-			 return methods._validateFields(this);
-		 },
-		 /**
-		 * Validates one field, shows prompt accordingly.
-		 * Note: There is no ajax form validation with this method, only field ajax validation are evaluated
-		 *
-		 * @return true if the form validates, false if it fails
-		 */
-		 validateField: function(el) {
-			 var options = $(this).data('jqv');
-			 var r = methods._validateField($(el), options);
+		validate: function() {
+			if($(this).is("form"))
+				return methods._validateFields(this);
+			else {
+				// field validation
+				var form = $(this).closest('form');
+				var options = form.data('jqv');  
+				var r = methods._validateField($(this), options);
 
-			 if (options.onSuccess && options.InvalidFields.length == 0)
-			 	options.onSuccess();
-			 else if (options.onFailure && options.InvalidFields.length > 0)
-			 	options.onFailure();
+				if (options.onSuccess && options.InvalidFields.length == 0)
+					options.onSuccess();
+				else if (options.onFailure && options.InvalidFields.length > 0)
+					options.onFailure();
 
-			 return r;
-		 },
-		 /**
-		 * Validates the form fields, shows prompts accordingly.
-		 * Note: this methods performs fields and form ajax validations(if setup)
-		 *
-		 * @return true if the form validates, false if it fails, undefined if ajax is used for form validation
-		 */
-		 validateform: function() {
-			 return methods._onSubmitEvent.call(this);
-		 },
+				return r;
+			}
+		},
 		/**
 		*  Redraw prompts position, useful when you change the DOM state when validating
 		*/
@@ -142,7 +139,7 @@
 				var noAnimation = event.data.noAnimation;
 			}
 			else
-			var form = $(this.closest('form'));
+				var form = $(this.closest('form'));
 
 			var options = form.data('jqv');
 			// No option, take default one
@@ -152,7 +149,7 @@
 				var promptText = $(prompt).find(".formErrorContent").html();
 
 				if(prompt)
-				methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
+					methods._updatePrompt(field, $(prompt), promptText, undefined, false, options, noAnimation);
 			});
 			return this;
 		},
@@ -169,25 +166,13 @@
 			var form = this.closest('form');
 			var options = form.data('jqv');
 			// No option, take default one
-			if(!options) options = methods._saveOptions(this, options);
+			if(!options)
+				options = methods._saveOptions(this, options);
 			if(promptPosition)
-			options.promptPosition=promptPosition;
+				options.promptPosition=promptPosition;
 			options.showArrow = showArrow==true;
 
 			methods._showPrompt(this, promptText, type, false, options);
-			return this;
-		},
-		/**
-		* Closes all error prompts on the page
-		*/
-		hidePrompt: function() {
-			var form = this;
-			var options = form.data('jqv');
-			var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
-			$(promptClass).fadeTo(options.fadeDuration, 0.3, function() {
-				$(this).parent('.formErrorOuter').remove();
-				$(this).remove();
-			});
 			return this;
 		},
 		/**
@@ -195,12 +180,13 @@
 		*/
 		hide: function() {
 			 var form = $(this).closest('form');
-			 if(form.length == 0) return this;
+			 if(form.length == 0)
+			 	return this;
 			 var options = form.data('jqv');
 			 var closingtag;
-			 if($(this).is("form")){
+			 if($(this).is("form")) {
 				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
-			 }else{
+			 } else {
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
 			 $('.'+closingtag).fadeTo(options.fadeDuration, 0.3, function() {
@@ -213,6 +199,7 @@
 		 * Closes all error prompts on the page
 		 */
 		 hideAll: function() {
+
 			 var form = this;
 			 var options = form.data('jqv');
 			 var duration = options ? options.fadeDuration:0.3;
@@ -258,6 +245,7 @@
 
 			if (r && options.ajaxFormValidation) {
 				methods._validateFormWithAjax(form, options);
+				// cancel form auto-submission - process with async call onAjaxFormComplete
 				return false;
 			}
 
@@ -310,10 +298,9 @@
 		                errorFound |= methods._validateField(field, options, skipAjaxValidation);
 		                if (options.doNotShowAllErrosOnSubmit)
 		                    return false;
-		                if (errorFound && first_err==null) {
+		                if (errorFound && first_err==null)
 		                    first_err=field;
-		                }
-		                names.push(field.attr('name'));
+						names.push(field.attr('name'));
 		            }
 			});
 
@@ -1644,7 +1631,7 @@
 		 if (typeof(method) == 'string' && method.charAt(0) != '_' && methods[method]) {
 
 			 // make sure init is called once
-			 if(method != "showPrompt" && method != "hidePrompt" && method != "hide" && method != "hideAll")
+			 if(method != "showPrompt" && method != "hide" && method != "hideAll")
 			 methods.init.apply(form);
 
 			 return methods[method].apply(form, Array.prototype.slice.call(arguments, 1));

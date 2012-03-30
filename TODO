@@ -1,0 +1,40 @@
+
+#get rid of 
+
+$("#formID1").validationEngine('validateField', "#emailInput")
+
+now duplicate with 'hide'
+$('#inputID').validationEngine('hidePrompt');
+
+$("#formID1").validationEngine('validateField', "#emailInput") );
+
+#support
+
+$("#emailInput").validationEngine('validate') 
+
+$("#f1 #f2 #f3).validationEngine('hide');
+
+
+
+update doc
+
+
+   /**
+    * Closes all error prompts on the page
+    */
+    hidePrompt: function() {
+        var form = $(this).closest('form');
+        var options = form.data('jqv');
+
+        this.each(function(){
+
+            var promptClass =  "."+ methods._getClassName($(this).attr("id")) + "formError";
+            $(promptClass).fadeTo(options.fadeDuration, 0.3, function() {
+                $(this).parent('.formErrorOuter').remove();
+                $(this).remove();
+            });
+
+        });
+
+        return this;
+    },
