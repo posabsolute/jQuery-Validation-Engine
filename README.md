@@ -260,7 +260,7 @@ Name of the event triggering field validation, defaults to *blur*.
 Determines if we should scroll the page to the first error, defaults to *true*.
 
 ### binded
-If set to false, it remove blur events and only validate on submit.
+If set to true, it remove blur events and only validate on submit.
 
 ### promptPosition
 Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
