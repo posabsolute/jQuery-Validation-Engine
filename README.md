@@ -178,7 +178,7 @@ $("#formID1").validationEngine('detach');
 
 ### validate
 
-Validates a form or a list of fields, displays error prompts accordingly.  
+Validates a form or field, displays error prompts accordingly.  
 Returns *true* if the form validates, *false* if it contains errors.
 
 When using form validation with ajax, it returns *undefined* , the result is delivered asynchronously via function *options.onAjaxFormComplete*.
@@ -189,12 +189,7 @@ alert( $("#formID1").validationEngine('validate') );
 
 // field validation
 alert( $("#emailInput").validationEngine('validate') );
-
-// multiple field validations
-alert( $("#email1 #email2 #email3").validationEngine('validate') );
 ```
-
-Note: validating a list of forms is not supported.
 
 ### showPrompt (promptText, type, promptPosition, showArrow)
 
@@ -215,7 +210,7 @@ The method takes four parameters:
 
 ### hide
 
-The hide method can be applied to a form or a list of fields.  
+The hide method can be applied to a form or a field.  
 It closes/hides error prompts.
 
 ```js
@@ -224,9 +219,6 @@ $('#formID1').validationEngine('hide');
 
 // closes onle one prompt
 $('#email1').validationEngine('hide');
-
-// closes a set of prompts
-$('#email1 #email2 #email3').validationEngine('hide');
 ```
 
 ### hideAll
