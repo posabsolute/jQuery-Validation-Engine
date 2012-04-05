@@ -237,6 +237,13 @@ Update the form prompts positions.
 $("#formID").validationEngine("updatePromptsPosition")    
 ```
 
+
+### hidePrompt & validateField
+
+Deprecated and not part of the code base anymore.  
+Use _hide_ and _validate_ instead.
+
+
 Options
 ---
 
