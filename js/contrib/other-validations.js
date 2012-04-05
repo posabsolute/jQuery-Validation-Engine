@@ -17,6 +17,11 @@
                 "regex": /^\d{5}(-\d{4})?$/,
                 "alertText": "* Invalid zipcode"
 		};
+    $.validationEngineLanguage.allRules["postcodeJP"] = {
+      // JP zip codes | Accepts 123 and 123-1234 format zipcodes
+      "regex": /^\d{3}(-\d{4})?$/,
+      "alertText": "* 郵便番号が正しくありません"
+    };
 		$.validationEngineLanguage.allRules["onlyLetNumSpec"] = {
 				// Good for database fields
 				"regex": /^[0-9a-zA-Z_-]+$/,
