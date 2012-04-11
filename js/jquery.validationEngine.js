@@ -581,11 +581,6 @@
 				options.showArrow = false;
 			}
 
-			if (fieldType == "text" && form.find("input[name='" + fieldName + "']").size() > 1) {
-				field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
-				options.showArrow = false;
-			}
-
 			if (options.isError){
 				methods._showPrompt(field, promptText, "", false, options);
 			}else{
