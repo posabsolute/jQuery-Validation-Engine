@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.5.2
+jQuery.validationEngine v2.5.3
 =====
 
 Summary
@@ -279,9 +279,6 @@ When ajaxFormValidation is turned on, this is the function that will be called b
 
 ### onAjaxFormComplete: function(status, form, errors, options)
 When ajaxFormValidation is turned on, this function is used to asynchronously process the result of the validation. the status is a boolean. If true, the ajax call completed and all the server side form validations passed. 
-
-### relative
-Set to true when the form shows in a scrolling div, defaults to *false*, the error boxes are appended after the input instead of body
 
 ### onValidationComplete
 
@@ -623,31 +620,9 @@ Only letters and space characters
 Only letters and numbers, no space 
 
 
-Relative
+Position fixed and overflow scroll
 ---
-
-Validation in overflown div and lightbox with scrollable content
-
-To get the supported mode you need to add these options when instantiating your plugin:
-
-```js
-$("#formID").validationEngine({
-  relative: true,
-});
-```
-
-The big change in this method is that normally the engine will append every error box to the body. In this case it will append every error box before the input validated. This adds a bit of complexity; if you want the error box to behave correctly you need to wrap the input in a div with relative position, and exactly wrap the input width and height. The easiest way to do that is by adding float:left, like in the example provided.
-
-The default top right position is currently the only supported position. Please use this mode only in overflown div and in scollable boxes, it is slower and a bit less stable, also there will be no scrolling, this is not supported in overflown boxes.
-
-You can also defined a scrollable container if needed :
-
-```js
-$("#formID").validationEngine({
-  relative: true,
-  overflownDIV:"#containerScrollable"
-});
-```
+Before 2.5.3 some options were needed to use the engine ina div with overflow scroll or position foxed, now you just have to set position relative on the form and you are good to go.
 
 
 Placeholders

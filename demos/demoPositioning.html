@@ -48,13 +48,7 @@
 		function changemethod(welche) {
 			jQuery('#formID').validationEngine('hide');
 			jQuery("#formID").validationEngine('detach');
-			if (welche == 'relative') {
-			jQuery("#formID").validationEngine('attach',{ relative: true });
-			} else if (welche == 'isOverflown') {
-			jQuery("#formID").validationEngine('attach',{ isOverflown: true });
-			} else {
 			jQuery("#formID").validationEngine('attach');
-			}
 		}
 	</script>
 	<style>
@@ -68,9 +62,6 @@
 	<p>
 		<a href="#" onclick="jQuery('#formID').validationEngine('validate')">Evaluate form</a>
 		| <a href="#" onclick="jQuery('#formID').validationEngine('hide')">Close all prompts on form</a>
-		<br> <a href="#" onclick="changemethod('')">Default (fixed) Positioning</a>
-		| <a href="#" onclick="changemethod('relative')">Relative Positioning</a>
-		| <a href="#" onclick="changemethod('isOverflown')">isOverflown Positioning</a>
 		<br> <a href="#" onclick="changeposition('topRight')">TopRight</a>
 		| <a href="#" onclick="changeposition('topLeft')">TopLeft</a>
 		| <a href="#" onclick="changeposition('bottomRight')">BottomRight</a>
@@ -88,7 +79,7 @@
 	</p>
 <div style="height:500px;overflow-y:scroll;">
   <div style="height:1000px;">
-	<form id="formID" class="formular" method="post" action="">
+	<form id="formID" class="formular" method="post" action="" style="position:relative;">
 		<fieldset>
 			<legend>
                     

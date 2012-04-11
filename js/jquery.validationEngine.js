@@ -1243,29 +1243,11 @@
 				prompt.addClass('formErrorInsideDialog');
 
 			prompt.css({
-				"opacity": 0
+				"opacity": 0,
+				'position':'absolute'
 			});
-			if (options.relative) {
-				// empty relative span does not disturb page layout
-				// prompt positioned absolute to relative span
-				// vertical-align:top so position calculations are the same as isOverflown
-				var outer = $('<div>').css({
-					'position'		:'relative',
-					'display'		:'inline',
-					'overflow'		:'auto'
-				}).addClass('formErrorOuter').append(prompt.css('position','absolute'));
-
-				field.before(outer);
-				if(options.relativePadding) {
-					outer.css('padding-bottom', prompt.height() + 'px');
-				}
-			} else if (options.isOverflown) {
-				//Cedric: Needed if a container is in position:relative
-				// insert prompt in the form or in the overflown container?
-				field.before(prompt);
-			} else {
-				$("body").append(prompt);
-			}
+			field.before(prompt);
+			
 			var pos = methods._calculatePosition(field, prompt, options);
 			prompt.css({
 				"top": pos.callerTopPosition,
@@ -1400,21 +1382,18 @@
 		_calculatePosition: function (field, promptElmt, options) {
 
 			var promptTopPosition, promptleftPosition, marginTopSize;
-			var fieldWidth = field.width();
+			var fieldWidth 	= field.width();
+			var fieldLeft 	= field.position().left 
+			var fieldTop 	=  field.position().top;
+			var fieldHeight 	=  field.height();	
 			var promptHeight = promptElmt.height();
 
-			var overflow = options.isOverflown || options.relative;
-			if (overflow) {
-				// is the form contained in an overflown container?
-				promptTopPosition = promptleftPosition = 0;
-				// compensation for the arrow
-				marginTopSize = -promptHeight;
-			} else {
-				var offset = field.offset();
-				promptTopPosition = offset.top;
-				promptleftPosition = offset.left;
-				marginTopSize = 0;
-			}
+
+			// is the form contained in an overflown container?
+			promptTopPosition = promptleftPosition = 0;
+			// compensation for the arrow
+			marginTopSize = -promptHeight;
+		
 
 			//prompt positioning adjustment support
 			//now you can adjust prompt position
@@ -1451,118 +1430,42 @@
 				};
 			};
 
-			if(!methods.isRTL(field))
-			{
-				switch (positionType) {
-					default:
-					case "topRight":
-						if (overflow)
-							promptleftPosition += fieldWidth - 30;
-						else {
-							promptleftPosition += fieldWidth - 30;
-							promptTopPosition += -promptHeight -2;
-						}
-						break;
+			
+			switch (positionType) {
+				default:
+				case "topRight":
+					promptleftPosition +=  fieldLeft + fieldWidth - 30;
+					promptTopPosition +=  fieldTop;
+					break;
 
-					case "topLeft":
-						if (!overflow) {
-							promptTopPosition += -promptHeight - 10;
-						}
-						break;
+				case "topLeft":
+					promptTopPosition +=  fieldTop;
+					promptleftPosition += fieldLeft
+					break;
 
-					case "centerRight":
-						if (overflow) {
-							promptTopPosition = 0;
-							marginTopSize = 0;
-							promptleftPosition=field.outerWidth(1)+5;
-						} else {
-							promptleftPosition+=field.outerWidth()+5;
-						}
-						break;
-					case "centerLeft":
-						promptleftPosition -= promptElmt.width() + 2;
-						if (overflow) {
-							promptTopPosition = 0;
-							marginTopSize = 0;
-						}
-						break;
+				case "centerRight":
+					promptTopPosition = fieldTop+4;
+					marginTopSize = 0;
+					promptleftPosition= fieldLeft + field.outerWidth(1)+5;
+					break;
+				case "centerLeft":
+					promptleftPosition = fieldLeft - (promptElmt.width() + 2);
+					promptTopPosition = fieldTop+4;
+					marginTopSize = 0;
+					
+					break;
 
-					case "bottomLeft":
-						promptTopPosition = promptTopPosition + field.height() + 5;
-						if (overflow) {
-							marginTopSize = 0;
-						}
-						break;
-					case "bottomRight":
-						promptleftPosition += fieldWidth - 30;
-						promptTopPosition += field.height() + 5;
-						if (overflow) {
-							marginTopSize = 0;
-						}
-				}
+				case "bottomLeft":
+					promptTopPosition = fieldTop + field.height() + 5;
+					marginTopSize = 0;
+					promptleftPosition = fieldLeft;
+					break;
+				case "bottomRight":
+					promptleftPosition = fieldLeft + fieldWidth - 30;
+					promptTopPosition =  fieldTop +  field.height() + 5;
+					marginTopSize = 0;
 			}
-			else
-			{
-				switch (positionType) {
-					default:
-					case "topLeft":
-						if (overflow)
-							promptleftPosition = -(promptElmt.width() + fieldWidth - 30);
-						else {
-							promptleftPosition -= promptElmt.width() - 30;
-							promptTopPosition += -promptHeight -2;
-						}
-						break;
-					case "topRight":
-						if (overflow)
-							promptleftPosition = -promptElmt.width();
-						else {
-							promptleftPosition += fieldWidth - promptElmt.width();
-							promptTopPosition += -promptHeight -2;
-						}
-						break;
-					case "centerRight":
-						if (overflow) {
-							promptTopPosition = 0;
-							marginTopSize = 0;
-							promptleftPosition = 5;
-						} else {
-							promptleftPosition+=field.outerWidth()+5;
-						}
-						break;
-
-					case "centerLeft":
-						if (overflow) {
-							promptleftPosition = -(promptElmt.width() + field.outerWidth() + 2);
-							promptTopPosition = 0;
-							marginTopSize = 0;
-						} else {
-							promptleftPosition -= promptElmt.width() + 2;
-						}
-						break;
-
-					case "bottomLeft":
-						if (overflow) {
-							promptTopPosition = field.height() + 5;
-							promptleftPosition = -(promptElmt.width() + fieldWidth - 30);
-							marginTopSize = 0;
-						} else {
-							promptleftPosition += -promptElmt.width() + 30;
-							promptTopPosition = promptTopPosition + field.height() + 15;
-						}
-						break;
-
-					case "bottomRight":
-						if (overflow) {
-							promptTopPosition = field.height() + 5;
-							promptleftPosition = -promptElmt.width();
-							marginTopSize = 0;
-						} else {
-							promptleftPosition += fieldWidth - promptElmt.width();
-							promptTopPosition += field.height() + 15;
-						}
-				}
-			}
+		
 
 			//apply adjusments if any
 			promptleftPosition += shiftX;
@@ -1595,10 +1498,6 @@
 			 $.validationEngine.defaults.allrules = allRules;
 
 			 var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
-
-			 // Needed to be retro compatible
-			 if (userOptions.isOverflown) userOptions.relative = true;
-			 if (userOptions.relative) userOptions.isOverflown = true;
 
 			 form.data('jqv', userOptions);
 			 return userOptions;
@@ -1673,15 +1572,6 @@
 		onBeforeAjaxFormValidation: $.noop,
 		// Stops form from submitting and execute function assiciated with it
 		onValidationComplete: false,
-
-		// better relative positioning
-		relative: false,
-		// insert spacing when error prompts inserted if relative = True and relativePadding = True
-		// Use it if you want to have your prompts below your field integrated
-		relativePadding: false,
-		// Used when the form is displayed within a scrolling DIV
-		isOverflown: false,
-		overflownDIV: "",
 
 		// Used when you have a form fields too close and the errors messages are on top of other disturbing viewing messages
 		doNotShowAllErrosOnSubmit: false,
