@@ -622,7 +622,7 @@ Only letters and numbers, no space
 
 Position fixed and overflow scroll
 ---
-Before 2.5.3 some options were needed to use the engine ina div with overflow scroll or position foxed, now you just have to set position relative on the form and you are good to go.
+Before 2.5.3 some options were needed to use the engine in a div with overflow scroll or position fixed, now you just have to set position relative on the form and you are good to go.
 
 
 Placeholders
