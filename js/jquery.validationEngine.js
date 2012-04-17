@@ -477,7 +477,7 @@
 						errorMsg = methods._required(field, rules, i, options);
 						break;
 					case "custom":
-						errorMsg = methods._customRegex(field, rules, i, options);
+						errorMsg = methods._custom(field, rules, i, options);
 						break;
 					case "groupRequired":
 						// Check is its the first of group, if not, reload validation with first field
@@ -670,7 +670,7 @@
 			if(!isValid) return options.allrules[rules[i]].alertText;
 		},
 		/**
-		* Validate Regex rules
+		* Validate rules
 		*
 		* @param {jqObject} field
 		* @param {Array[String]} rules
@@ -679,23 +679,39 @@
 		*            user options
 		* @return an error string if validation failed
 		*/
-		_customRegex: function(field, rules, i, options) {
+		_custom: function(field, rules, i, options) {
 			var customRule = rules[i + 1];
 			var rule = options.allrules[customRule];
+			var fn;
 			if(!rule) {
-				alert("jqv:custom rule not found "+customRule);
+				alert("jqv:custom rule not found - "+customRule);
 				return;
 			}
+			
+			if(rule["regex"]) {
+			    var ex=rule.regex;
+	            if(!ex) {
+	                alert("jqv:custom regex not found - "+customRule);
+	                return;
+	            }
+	            var pattern = new RegExp(ex);
 
-			var ex=rule.regex;
-			if(!ex) {
-				alert("jqv:custom regex not found "+customRule);
-				return;
+	            if (!pattern.test(field.val()))
+	                return options.allrules[customRule].alertText;
+			} else if(rule["function"]) {
+			    fn = rule["function"]
+			    
+			    if (typeof(fn) !== "function") {
+			        alert("jqv:custom parameter 'function' is no function - "+customRule);
+                    return;
+			    }
+			    
+			    if (!fn(field, rules, i, options))
+			        return options.allrules[customRule].alertText;
+			} else {
+			    alert("jqv:custom type not allowed "+customRule);
+                return;
 			}
-			var pattern = new RegExp(ex);
-
-			if (!pattern.test(field.val()))
-				return options.allrules[customRule].alertText;
 		},
 		/**
 		* Validate custom function outside of the engine scope
