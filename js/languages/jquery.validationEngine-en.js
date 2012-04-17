@@ -162,7 +162,14 @@
                     "alertText2": "Expected Format: ",
                     "alertText3": "mm/dd/yyyy hh:mm:ss AM|PM or ", 
                     "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
-	            }
+	            },
+               "condRequired": {
+                    "regex": "none",
+                    "alertText": "* This field is required",
+                    "alertTextCheckboxMultiple": "* Please select an option",
+                    "alertTextCheckboxe": "* This checkbox is required",
+                    "alertTextDateRange": "* Both date range fields are required"
+                }
             };
             
         }

@@ -579,7 +579,13 @@
                     case "creditCard":
                         errorMsg = methods._creditCard(field, rules, i, options);
                         break;
+					case "condRequired":
+                        errorMsg = methods._condRequired(field, rules, i, options);
 
+                        if (errorMsg !== undefined) {
+                            required = true;
+                        }
+                        break;
                     default:
                     //$.error("jQueryValidator rule not found"+rules[i]);
                 }
@@ -1578,6 +1584,68 @@
         	if(className) {
                 return className.replace(/:/g, "_").replace(/\./g, "_");
             }    
+        },
+
+        /**
+         * Conditionally requried field
+         *
+         * @param {jqObject} field
+         * @param {Array[String]} rules
+         * @param {int} i rules index
+         * @param {Map}
+         *            user options
+         * @return an error string if validation failed
+         */
+        _condRequired: function(field, rules, i, options) {
+            var idx, max;
+            
+            max = rules.length;
+            
+            if ($(field).val().trim() == '') {
+            
+                for(idx = (i + 1); idx < max; idx++) {
+                    
+                    if (rules[idx] == '') {
+                        break;
+                    }
+
+
+                    if (field.prop("type") === 'radio' || field.prop("type") === 'checkbox') {
+                        var form = field.closest("form");
+                        var name = field.attr("name");
+
+                        if (form.find("input[name='" + name + "']:checked").size() == 0) {
+                    
+                            if (form.find("input[name='" + name + "']").size() == 1) {
+                                return options.allrules.condRequired.alertTextCheckboxe;
+                            } else {
+                                return options.allrules.condRequired.alertTextCheckboxMultiple;
+                            }
+                        }
+                        
+                        break;
+                    } else if (field.prop("type") === 'select-one') {
+                        // required for <select>
+                        // added by paul@kinetek.net for select boxes, Thank you
+                        if (!field.val()) {
+                            return options.allrules.condRequired.alertText;
+                        }
+                        break;
+                    } else if (field.prop("type") === 'select-multiple') {
+                        // added by paul@kinetek.net for select boxes, Thank you
+                        if (!field.find("option:selected").val()) {
+                            return options.allrules.condRequired.alertText;
+                        }
+                        break;
+                    } else {
+                        // text, password, textarea, file
+                        if (!field.val()) {
+                            return options.allrules.condRequired.alertText;
+                        }
+                        break;
+                    }
+                }
+            }
         }
     };
 
