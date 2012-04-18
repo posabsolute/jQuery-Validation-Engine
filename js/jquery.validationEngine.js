@@ -366,7 +366,7 @@
 			var data = form.serialize();
 			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
 			$.ajax({
-				type: "GET",
+				type: options.ajaxFormValidationMethod,
 				url: url,
 				cache: false,
 				dataType: "json",
@@ -1046,7 +1046,7 @@
 
 			 if (!options.isError) {
 				 $.ajax({
-					 type: "GET",
+					 type: options.ajaxFormValidationMethod,
 					 url: rule.url,
 					 cache: false,
 					 dataType: "json",
@@ -1558,10 +1558,12 @@
 		inlineAjax: false,
 		// if set to true, the form data is sent asynchronously via ajax to the form.action url (get)
 		ajaxFormValidation: false,
+		// The url to send the submit ajax validation (default to action)
+		ajaxFormValidationURL: false,
+		// HTTP method used for ajax validation
+		ajaxFormValidationMethod: 'get',
 		// Ajax form validation callback method: boolean onComplete(form, status, errors, options)
 		// retuns false if the form.submit event needs to be canceled.
-		ajaxFormValidationURL: false,
-		// The url to send the submit ajax validation (default to action)
 		onAjaxFormComplete: $.noop,
 		// called right before the ajax call, may return false to cancel
 		onBeforeAjaxFormValidation: $.noop,
