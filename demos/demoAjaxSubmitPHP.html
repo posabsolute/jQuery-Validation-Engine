@@ -39,7 +39,8 @@
 		jQuery(document).ready(function(){
 			jQuery("#formID").validationEngine({
 				ajaxFormValidation: true,
-				onAjaxFormComplete: ajaxValidationCallback,
+				ajaxFormValidationMethod: 'post',
+				onAjaxFormComplete: ajaxValidationCallback
 			});
 		});
 	</script>

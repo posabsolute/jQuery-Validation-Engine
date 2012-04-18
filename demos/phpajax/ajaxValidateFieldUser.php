@@ -1,8 +1,8 @@
 <?php
 
 /* RECEIVE VALUE */
-$validateValue=$_GET['fieldValue'];
-$validateId=$_GET['fieldId'];
+$validateValue=$_REQUEST['fieldValue'];
+$validateId=$_REQUEST['fieldId'];
 
 
 $validateError= "This username is already taken";

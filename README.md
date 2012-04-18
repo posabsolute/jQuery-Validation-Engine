@@ -274,6 +274,9 @@ Form validation takes place when the validate() action is called or when the for
 ### ajaxFormValidationURL
 If set, the ajax submit validation will use this url instead of the form action
 
+### ajaxFormValidationMethod
+HTTP method used for ajax validation, defaults to 'get', can be set to 'post'
+
 ### onBeforeAjaxFormValidation(form, options)
 When ajaxFormValidation is turned on, this is the function that will be called before the asynchronous AJAX form validation call. May return false to stop the Ajax form validation
 
