@@ -455,6 +455,10 @@ Note how the input.name is identical across the fields.
 
 Same as above but limits the maximum number of selected check boxes.
 
+### creditCard
+
+Validates that a credit card number is at least theoretically valid, according the to the [Luhn checksum algorithm](http://en.wikipedia.org/wiki/Luhn_algorithm), but not whether the specific card number is active with a bank, etc. 
+
 Selectors
 ---
 
@@ -733,30 +737,30 @@ Contributions are always welcome, please follow these steps to submit your chang
 5. Click the "Fork" button, this will get you to a new page: your own copy of the code.
 6. Copy the SSH URL at the top of the page and clone the repository on your local machine
 
-```shell
-git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
-```
+    ```shell
+    git clone git@github.com:your-username/jQuery-Validation-Engine.git my-jqv-repo
+    ```
 
 7. Create a branch and switch to it
 
-```shell
-cd my-jqv-repo
-git branch mynewfeature-patch
-git checkout mynewfeature-patch
-```
+    ```shell
+    cd my-jqv-repo
+    git branch mynewfeature-patch
+    git checkout mynewfeature-patch
+    ```
 
 8. Apply your changes, then commit using a meaningful comment, that's the comment everybody will see!
 
-```shell
-git add .
-git commit -m "Fixing issue 157, blablabla"
-```
+    ```shell
+    git add .
+    git commit -m "Fixing issue 157, blablabla"
+    ```
 
 9. Push the changes back to github (under a different branch, here myfeature-patch)
 
-```shell
-git push origin mynewfeature-patch
-```
+    ```shell
+    git push origin mynewfeature-patch
+    ```
 
 10. Open your forked repository on github at https://github.com/your-username/jQuery-Validation-Engine
 11. Click "Switch Branches" and select your branch (mynewfeature-patch)
