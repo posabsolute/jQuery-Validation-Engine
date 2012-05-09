@@ -286,7 +286,6 @@ When ajaxFormValidation is turned on, this function is used to asynchronously pr
 ### onValidationComplete
 
 When defined, stops the the form from auto-submitting, and lets you handle the validation status via a function
-
 ```js
 jQuery("#formID2").validationEngine('attach', {
   onValidationComplete: function(form, status){
@@ -294,6 +293,16 @@ jQuery("#formID2").validationEngine('attach', {
   }  
 });
 ```
+
+### focusFirstField
+
+Specifies whether or not the first field in a form receives auto-focus after validation returns false.  Default is set to *true*.
+If you want to disable the auto-focusing use:
+```js
+$('#form').validationEngine('attach', {focusFirstField : false});
+```
+
+
 
 ### onSuccess
 If set, this callback function will be called when all validations passed.
