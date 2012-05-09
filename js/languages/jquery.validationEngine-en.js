@@ -50,7 +50,7 @@
                 "future": {
                     "regex": "none",
                     "alertText": "* Date past "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* Maximum ",
@@ -79,7 +79,12 @@
                     "regex": /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                     "alertText": "* Invalid email address"
                 },
-                "integer": {
+                 "postcode": {
+                    // My own postcode addition - SR :)
+                    "regex": /^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$/,
+                    "alertText": "* Invalid postcode"
+                },
+                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
                     "alertText": "* Not a valid integer"
                 },
@@ -111,6 +116,11 @@
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* No special characters allowed"
+                },
+                // My own specific addition, but very good for database field names, variable names, etc ;) - SR
+                "onlyLetNumSpec": {
+                	"regex": /^[0-9a-zA-Z_-]+$/,
+                	"alertText": "* Only Letters, Numbers, hyphen(-) and underscore(_) allowed"
                 },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
@@ -164,7 +174,7 @@
                     "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
 	            }
             };
-            
+
         }
     };
 
