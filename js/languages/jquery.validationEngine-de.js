@@ -1,4 +1,3 @@
-
 (function($){
     $.fn.validationEngineLanguage = function(){
     };
@@ -23,7 +22,7 @@
                 },
 				"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* Sie müssen mindestens eines dieser Felder ausfüllen"
                 },
                 "min": {
                     "regex": "none",
