@@ -1599,7 +1599,7 @@
 		//Called when field successed validation
 		onFieldSuccess: function(field) {},
 		//Called when field failed validation
-		onFieldError: function(field, promptText) {,
+		onFieldError: function(field, promptText) {},
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
