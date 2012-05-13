@@ -583,7 +583,7 @@
 
 			if (options.isError) {
 				if (options.onFieldSuccess) {
-					options.OnFieldSuccess(field);
+					options.onFieldSuccess(field);
 				}
 				methods._showPrompt(field, promptText, "", false, options);
 			} else {
