@@ -834,7 +834,7 @@
 		_past: function(form, field, rules, i, options) {
 
 			var p=rules[i + 1];
-			var fieldAlt = $(form.find("input[name='" + p + "']"));
+			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
 			var pdate;
 
 			if (p.toLowerCase() == "now") {
@@ -867,7 +867,7 @@
 		_future: function(form, field, rules, i, options) {
 
 			var p=rules[i + 1];
-			var fieldAlt = $(form.find("input[name='" + p + "']"));
+			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
 			var pdate;
 
 			if (p.toLowerCase() == "now") {
