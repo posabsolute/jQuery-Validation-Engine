@@ -581,10 +581,18 @@
 				options.showArrow = false;
 			}
 
-			if (options.isError){
+			if (options.isError) {
+				if (options.onFieldSuccess) {
+					options.OnFieldSuccess(field);
+				}
 				methods._showPrompt(field, promptText, "", false, options);
-			}else{
-				if (!isAjaxValidator) methods._closePrompt(field);
+			} else {
+				if (!isAjaxValidator) {
+					if (options.onFieldError) {
+						options.onFieldError(field, promptText);
+					}
+					methods._closePrompt(field);
+				}
 			}
 
 			if (!isAjaxValidator) {
@@ -1588,6 +1596,10 @@
 		InvalidFields: [],
 		onSuccess: false,
 		onFailure: false,
+		//Called when field successed validation
+		onFieldSuccess: function(field) {},
+		//Called when field failed validation
+		onFieldError: function(field, promptText) {,
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
