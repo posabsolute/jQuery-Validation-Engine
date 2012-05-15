@@ -77,9 +77,9 @@
                     "alertText": "* Keine gültige Fließkommazahl"
                 },
                 "date": {
-                    // Date in ISO format. Credit: bassistance
-                    "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
-                    "alertText": "* Ungültiges Datumsformat, erwartet wird das Format JJJJ-MM-TT"
+                    	// Date in German format. Credit: nedien
+			"regex" :  /^(0?[1-9]|[12]\d|3[01])\.(0?\d|1[0-2])\.(19\d{2}|20[0-7]\d|\d\d)$/,
+                    	"alertText": "* Ungültiges Datumsformat, erwartet wird das Format TT.MM.JJJJ"
                 },
                 "ipv4": {
                 	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
