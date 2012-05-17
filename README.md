@@ -416,21 +416,24 @@ Validates if the element content size (in characters) is more than, or equal to,
 
 Validates if the element content size (in characters) is less than, or equal to, the given *integer*. input.value.length <= integer
 
-### past[NOW or a date]
+### past[NOW, a date or another element's name]
 
-Checks if the element's value (which is implicitly a date) is earlier than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
+Checks if the element's value (which is implicitly a date) is earlier than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. When a "#field name" is used ( The '#' is optional ), it will compare the element's value with another element's value within the same form. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
 
 ```html
 <input value="" class="validate[required,custom[date],past[now]]" type="text" id="birthdate" name="birthdate" />
 <input value="" class="validate[required,custom[date],past[2010-01-01]]" type="text" id="appointment" name="appointment" />
+<input value="" class="validate[required,custom[date],past[#appointment]]" type="text" id="restaurant" name="restaurant" />
+<input value="" class="validate[required,custom[date],past[appointment]]" type="text" id="restaurant_2" name="restaurant_2" />
 ```
 
-### future[NOW or a date]
+### future[NOW, a date or another element's name]
 
-Checks if the element's value (which is implicitly a date) is greater than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
+Checks if the element's value (which is implicitly a date) is greater than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. When a "#field name" is used ( The '#' is optional ), it will compare the element's value with another element's value within the same form. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
 
 ```html
 <input value="" class="validate[required,custom[date],future[now]]" type="text" id="appointment" name="appointment" />
+<input value="" class="validate[required,custom[date],future[#appointment]]" type="text" id="restaurant" name="restaurant" />
 // a date in 2009
 <input value="" class="validate[required,custom[date],future[2009-01-01],past[2009-12-31]]" type="text" id="d1" name="d1" />
 ```

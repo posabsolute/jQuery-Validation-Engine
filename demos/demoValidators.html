@@ -207,8 +207,7 @@
 				<span>Please enter a date older than today's date</span>
 				<input value="2011-01-" class="validate[custom[date],future[NOW]] text-input" type="text" name="future" id="future" />
 				<br/>
-				validate[custom[date],future[NOW]]
-			</label>
+				validate[custom[date],future[NOW]]<br/><br/>
 		</fieldset>
 			
 		<fieldset>
@@ -242,7 +241,7 @@
 				Date Range<br />
 			</legend>
 			<label>
-				Checks that the start date is before the end date
+				Checks that the start date is before the end date.
 				Please enter an end date ealier than the start date<br /><br />
 				<label for="date1">Start Date : </label>
 				<input value="9/1/2009"  class="validate[dateRange[grp1]]" type="text" id="date1" />
@@ -261,7 +260,7 @@
 				Date Time Range<br />
 			</legend>
 			<label>
-				Checks that the start date and time are before the end date and time
+				Checks that the start date and time are before the end date and time.
 				Please enter an end date ealier than the start date<br /><br />
 				<label for="date1">Start Date Time: </label>
 				<input value="9/1/2009 9:30:00 PM"  class="validate[dateTimeRange[grp2]]" type="text" id="datetime1" />
@@ -273,6 +272,42 @@
 				validate[dateTimeRange[grp2]<br />
 				Note* Both fields must have the same name
 			</label>
+		</fieldset>
+		
+		<fieldset>
+			<script>
+		/**
+		* 
+		* @param {input[type=checkbox]} the checkbox to read
+		* @param {input[type=textbox]} the field bound to the checkbox that gets enabled or disabled
+		*/
+		    function ToggleState(checkbox, field) {
+					if ($(checkbox).attr('checked'))
+						$(field).attr('disabled', 'disabled');
+					else
+						$(field).removeAttr('disabled');
+		    }
+			</script>
+			<legend>
+				Date compare<br />
+			</legend>
+
+				Checks that the first date is before the second date.
+				Please enter the second date ealier than the first date<br /><br />
+				<label>First Date :<br />
+					<input class="checkbox" type="checkbox" name="name1" id="name1" onclick="javascript:ToggleState('#name1', '#dateCmp1');" />
+					<i>Disable first date field</i><br />
+				</label>
+				<input value="2011/3/4" class="validate[custom[date],past[#dateCmp2]]" type="text" name="dateCmp1" id="dateCmp1" />
+				<br/>
+				validate[custom[date],past[#dateCmp2]]<br /><br />
+				<label>Second Date :<br />
+					<input class="checkbox" type="checkbox" name="name2" id="name2" onclick="javascript:ToggleState('#name2', '#dateCmp2');" />
+					<i>Disable second date field</i><br />
+				</label>
+				<input value="2010/1/2" class="validate[custom[date],future[#dateCmp1]]" type="text" name="dateCmp2" id="dateCmp2" />
+				<br/>
+				validate[custom[date],future[#dateCmp1]]<br />
 		</fieldset>
 
 		<fieldset>
