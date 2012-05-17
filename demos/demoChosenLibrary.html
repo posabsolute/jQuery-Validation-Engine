@@ -14,7 +14,8 @@
 			jQuery(document).ready(function() {
 				// binds form submission and fields to the validation engine
 				jQuery("#formID").validationEngine({
-					useChosen : true
+					prettySelect : true,
+					useSuffix: "_chzn"
 					//promptPosition : "bottomLeft"
 				});
 				$("#country").chosen({
