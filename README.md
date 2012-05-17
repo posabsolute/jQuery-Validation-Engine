@@ -773,7 +773,9 @@ Contributions are always welcome, please follow these steps to submit your chang
 
 Support
 ---
-We offer limited support at [http://validationengine.vanillaforums.com/](http://validationengine.vanillaforums.com/)
+We offer limited support on [http://www.stackoverflow.com/](http://www.stackoverflow.com/)
+
+Use the tag jQuery-Validation-Engine
 
 License
 ---
