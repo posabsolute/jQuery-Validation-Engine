@@ -181,7 +181,7 @@
 		hide: function() {
 			 var form = $(this).closest('form');
 			 if(form.length == 0)
-			 	return this;
+				return this;
 			 var options = form.data('jqv');
 			 var closingtag;
 			 if($(this).is("form")) {
@@ -689,28 +689,28 @@
 			}
 			
 			if(rule["regex"]) {
-			    var ex=rule.regex;
-	            if(!ex) {
-	                alert("jqv:custom regex not found - "+customRule);
-	                return;
-	            }
-	            var pattern = new RegExp(ex);
+				 var ex=rule.regex;
+					if(!ex) {
+						alert("jqv:custom regex not found - "+customRule);
+						return;
+					}
+					var pattern = new RegExp(ex);
 
-	            if (!pattern.test(field.val()))
-	                return options.allrules[customRule].alertText;
-			} else if(rule["function"]) {
-			    fn = rule["function"]
-			    
-			    if (typeof(fn) !== "function") {
-			        alert("jqv:custom parameter 'function' is no function - "+customRule);
-                    return;
-			    }
-			    
-			    if (!fn(field, rules, i, options))
-			        return options.allrules[customRule].alertText;
+					if (!pattern.test(field.val())) return options.allrules[customRule].alertText;
+					
+			} else if(rule["func"]) {
+				fn = rule["func"]
+				 
+				if (typeof(fn) !== "function") {
+					alert("jqv:custom parameter 'function' is no function - "+customRule);
+						return;
+				}
+				 
+				if (!fn(field, rules, i, options))
+					return options.allrules[customRule].alertText;
 			} else {
-			    alert("jqv:custom type not allowed "+customRule);
-                return;
+				alert("jqv:custom type not allowed "+customRule);
+					return;
 			}
 		},
 		/**
@@ -1042,7 +1042,7 @@
 			 var extraDataDynamic = rule.extraDataDynamic;
 
 			 if (!extraData)
-			 	extraData = "";
+				extraData = "";
 
 			 if (extraDataDynamic) {
 				 var tmpData = [];
@@ -1075,7 +1075,7 @@
 						 // build the loading prompt
 						 var loadingText = rule.alertTextLoad;
 						 if (loadingText)
-						 	methods._showPrompt(field, loadingText, "load", true, options);
+							methods._showPrompt(field, loadingText, "load", true, options);
 					 },
 					 error: function(data, transport) {
 						 methods._ajaxError(data, transport);
@@ -1102,23 +1102,23 @@
 									 if (options.allrules[msg]) {
 										 var txt = options.allrules[msg].alertText;
 										 if (txt)
-										 	msg = txt;
+											msg = txt;
 									 }
 								 }
 								 else
-								 	msg = rule.alertText;
+									msg = rule.alertText;
 
 								 methods._showPrompt(errorField, msg, "", true, options);
 							 } else {
 								 if (options.ajaxValidCache[errorFieldId] !== undefined)
-								 	options.ajaxValidCache[errorFieldId] = true;
+									options.ajaxValidCache[errorFieldId] = true;
 
 								 // resolves the msg prompt
 								 if(msg) {
 									 if (options.allrules[msg]) {
 										 var txt = options.allrules[msg].alertTextOk;
 										 if (txt)
-										 	msg = txt;
+											msg = txt;
 									 }
 								 }
 								 else
@@ -1126,9 +1126,9 @@
 
 								 // see if we should display a green prompt
 								 if (msg)
-								 	methods._showPrompt(errorField, msg, "pass", true, options);
+									methods._showPrompt(errorField, msg, "pass", true, options);
 								 else
-								 	methods._closePrompt(errorField);
+									methods._closePrompt(errorField);
 							 }
 						 }
 						 errorField.trigger("jqv.field.result", [errorField, options.isError, msg]);
@@ -1183,9 +1183,9 @@
 			 // Because no error was found befor submitting
 			 if(ajaxform) prompt = false;
 			 if (prompt)
-			 	methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
+				methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
 			 else
-			 	methods._buildPrompt(field, promptText, type, ajaxed, options);
+				methods._buildPrompt(field, promptText, type, ajaxed, options);
 		 },
 		/**
 		* Builds and shades a prompt for the given field.
@@ -1232,7 +1232,7 @@
 				if (typeof(positionType)=='string') 
 				{
 					var pos=positionType.indexOf(":");
-				 	if(pos!=-1)
+					if(pos!=-1)
 						positionType=positionType.substring(0,pos);
 				}
 
@@ -1346,9 +1346,9 @@
 		* @return undefined or the error prompt (jqObject)
 		*/
 		_getPrompt: function(field) {
-            var formId = $(field).closest('form').attr('id');
+				var formId = $(field).closest('form').attr('id');
 			var className = methods._getClassName(field.attr("id")) + "formError";
-            var match = $("." + methods._escapeExpression(className) + '.parentForm' + formId)[0];
+				var match = $("." + methods._escapeExpression(className) + '.parentForm' + formId)[0];
 			if (match)
 			return $(match);
 		},

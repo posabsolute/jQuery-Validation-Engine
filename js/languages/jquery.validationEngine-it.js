@@ -9,6 +9,12 @@
                     "alertTextCheckboxMultiple": "* Per favore selezionare un'opzione",
                     "alertTextCheckboxe": "* E' richiesta la selezione della casella"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "length": {
                     "regex": "none",
                     "alertText": "* Fra ",

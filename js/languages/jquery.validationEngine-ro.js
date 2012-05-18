@@ -11,6 +11,12 @@
                     "alertTextCheckboxe": "* Optiune obligatorie",
                     "alertTextDateRange": "* Campurile data cu ajutorul carora se stabileste perioada sunt obligatorii"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* Perioada ",

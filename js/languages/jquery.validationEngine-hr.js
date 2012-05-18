@@ -11,6 +11,12 @@
                     "alertTextCheckboxe": "* Ovaj odabir je obavezan",
                     "alertTextDateRange": "* Oba datuma su obavezna"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* Greška ",

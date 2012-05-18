@@ -11,6 +11,12 @@
                     "alertTextCheckboxe": "* Linnuke on nõutud",
                     "alertTextDateRange": "* Mõlemad kuupäeva valikud on nõutud"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* Vigane ",

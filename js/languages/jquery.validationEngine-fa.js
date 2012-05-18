@@ -11,6 +11,12 @@
                     "alertTextCheckboxe": "* این چک باکس ضروری است",
                     "alertTextDateRange": "* هر دو فیلد‌های بازه‌ی تاریخی ضروری هستند"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* بازه‌ی تاریخی ",

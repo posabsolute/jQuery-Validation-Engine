@@ -17,6 +17,12 @@
                     "alertTextCheckboxMultiple": "* 選択してください",
                     "alertTextCheckboxe": "* チェックボックスをチェックしてください"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* ",

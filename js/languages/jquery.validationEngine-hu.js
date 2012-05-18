@@ -11,6 +11,12 @@
                     "alertTextCheckboxe": "* Ez az opció be kell legyen jelölve",
                     "alertTextDateRange": "* Mindkét dátum mezőt ki kell tölteni"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* Érvénytelen ",

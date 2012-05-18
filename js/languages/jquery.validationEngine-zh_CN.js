@@ -11,6 +11,12 @@
                     "alertTextCheckboxe": "* 您必须钩选此栏",
                     "alertTextDateRange": "* 日期范围不可空白"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* 无效的 ",

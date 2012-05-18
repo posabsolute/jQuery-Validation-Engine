@@ -10,6 +10,12 @@
                     "alertTextCheckboxe": "* Este checkbox é obrigatório",
                     "alertTextDateRange": "* Ambas as datas do intervalo são obrigatórias"
                 },
+                "requiredInFunction": { 
+                    "func": function(field, rules, i, options){
+                        return (field.val() == "test") ? true : false;
+                    },
+                    "alertText": "* Field must equal test"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* Intervalo de datas inválido"
