@@ -513,10 +513,10 @@
 						errorMsg = methods._max(field, rules, i, options);
 						break;
 					case "past":
-						errorMsg = methods._past(field, rules, i, options);
+						errorMsg = methods._past(form, field, rules, i, options);
 						break;
 					case "future":
-						errorMsg = methods._future(field, rules, i, options);
+						errorMsg = methods._future(form, field, rules, i, options);
 						break;
 					case "dateRange":
 						var classGroup = "["+options.validateAttribute+"*=" + rules[i + 1] + "]";
@@ -847,10 +847,21 @@
 		*            user options
 		* @return an error string if validation failed
 		*/
-		_past: function(field, rules, i, options) {
+		_past: function(form, field, rules, i, options) {
 
 			var p=rules[i + 1];
-			var pdate = (p.toLowerCase() == "now")? new Date():methods._parseDate(p);
+			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
+			var pdate;
+
+			if (p.toLowerCase() == "now") {
+				pdate = new Date();
+			} else if (undefined != fieldAlt.val()) {
+				if (fieldAlt.is(":disabled"))
+					return;
+				pdate = methods._parseDate(fieldAlt.val());
+			} else {
+				pdate = methods._parseDate(p);
+			}
 			var vdate = methods._parseDate(field.val());
 
 			if (vdate > pdate ) {
@@ -869,10 +880,21 @@
 		*            user options
 		* @return an error string if validation failed
 		*/
-		_future: function(field, rules, i, options) {
+		_future: function(form, field, rules, i, options) {
 
 			var p=rules[i + 1];
-			var pdate = (p.toLowerCase() == "now")? new Date():methods._parseDate(p);
+			var fieldAlt = $(form.find("input[name='" + p.replace(/^#+/, '') + "']"));
+			var pdate;
+
+			if (p.toLowerCase() == "now") {
+				pdate = new Date();
+			} else if (undefined != fieldAlt.val()) {
+				if (fieldAlt.is(":disabled"))
+					return;
+				pdate = methods._parseDate(fieldAlt.val());
+			} else {
+				pdate = methods._parseDate(p);
+			}
 			var vdate = methods._parseDate(field.val());
 
 			if (vdate < pdate ) {

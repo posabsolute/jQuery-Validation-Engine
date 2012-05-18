@@ -286,7 +286,6 @@ When ajaxFormValidation is turned on, this function is used to asynchronously pr
 ### onValidationComplete
 
 When defined, stops the the form from auto-submitting, and lets you handle the validation status via a function
-
 ```js
 jQuery("#formID2").validationEngine('attach', {
   onValidationComplete: function(form, status){
@@ -294,6 +293,16 @@ jQuery("#formID2").validationEngine('attach', {
   }  
 });
 ```
+
+### focusFirstField
+
+Specifies whether or not the first field in a form receives auto-focus after validation returns false.  Default is set to *true*.
+If you want to disable the auto-focusing use:
+```js
+$('#form').validationEngine('attach', {focusFirstField : false});
+```
+
+
 
 ### onSuccess
 If set, this callback function will be called when all validations passed.
@@ -427,21 +436,24 @@ Validates if the element content size (in characters) is more than, or equal to,
 
 Validates if the element content size (in characters) is less than, or equal to, the given *integer*. input.value.length <= integer
 
-### past[NOW or a date]
+### past[NOW, a date or another element's name]
 
-Checks if the element's value (which is implicitly a date) is earlier than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
+Checks if the element's value (which is implicitly a date) is earlier than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. When a "#field name" is used ( The '#' is optional ), it will compare the element's value with another element's value within the same form. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
 
 ```html
 <input value="" class="validate[required,custom[date],past[now]]" type="text" id="birthdate" name="birthdate" />
 <input value="" class="validate[required,custom[date],past[2010-01-01]]" type="text" id="appointment" name="appointment" />
+<input value="" class="validate[required,custom[date],past[#appointment]]" type="text" id="restaurant" name="restaurant" />
+<input value="" class="validate[required,custom[date],past[appointment]]" type="text" id="restaurant_2" name="restaurant_2" />
 ```
 
-### future[NOW or a date]
+### future[NOW, a date or another element's name]
 
-Checks if the element's value (which is implicitly a date) is greater than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
+Checks if the element's value (which is implicitly a date) is greater than the given *date*. When "NOW" is used as a parameter, the date will be calculate in the browser. When a "#field name" is used ( The '#' is optional ), it will compare the element's value with another element's value within the same form. Note that this may be different from the server date. Dates use the ISO format YYYY-MM-DD
 
 ```html
 <input value="" class="validate[required,custom[date],future[now]]" type="text" id="appointment" name="appointment" />
+<input value="" class="validate[required,custom[date],future[#appointment]]" type="text" id="restaurant" name="restaurant" />
 // a date in 2009
 <input value="" class="validate[required,custom[date],future[2009-01-01],past[2009-12-31]]" type="text" id="d1" name="d1" />
 ```
@@ -781,7 +793,9 @@ Contributions are always welcome, please follow these steps to submit your chang
 
 Support
 ---
-We offer limited support at [http://validationengine.vanillaforums.com/](http://validationengine.vanillaforums.com/)
+We offer limited support on [http://www.stackoverflow.com/](http://www.stackoverflow.com/)
+
+Use the tag jQuery-Validation-Engine
 
 License
 ---

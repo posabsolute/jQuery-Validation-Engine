@@ -17,6 +17,16 @@
                 "regex": /^\d{5}(-\d{4})?$/,
                 "alertText": "* Invalid zipcode"
 		};
+		$.validationEngineLanguage.allRules["postcodeDE"] = {
+		        // Germany zip codes | Accepts 12345 format zipcodes
+                "regex": /^\d{5}?$/,
+                "alertText": "* Invalid zipcode"
+		};
+		$.validationEngineLanguage.allRules["postcodeAT"] = {
+		        // Austrian zip codes | Accepts 1234 format zipcodes
+                "regex": /^\d{4}?$/,
+                "alertText": "* Invalid zipcode"
+		};
     $.validationEngineLanguage.allRules["postcodeJP"] = {
       // JP zip codes | Accepts 123 and 123-1234 format zipcodes
       "regex": /^\d{3}(-\d{4})?$/,
