@@ -581,17 +581,17 @@
 				options.showArrow = false;
 			}
 
-			if (options.isError) {
-				if (options.onFieldSuccess) {
-					options.onFieldSuccess(field);
+			if (options.isError){
+				if (options.onFieldError) {
+					options.onFieldError(field, promptText);
 				}
 				methods._showPrompt(field, promptText, "", false, options);
 			} else {
 				if (!isAjaxValidator) {
-					if (options.onFieldError) {
-						options.onFieldError(field, promptText);
-					}
 					methods._closePrompt(field);
+				}
+				if (options.onFieldSuccess) {
+					options.onFieldSuccess(field);
 				}
 			}
 
