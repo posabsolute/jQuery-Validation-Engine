@@ -143,7 +143,7 @@
 
 			var options = form.data('jqv');
 			// No option, take default one
-			form.find('['+options.validateAttribute+'*=validate]').not(':hidden').not(":disabled").each(function(){
+			form.find('['+options.validateAttribute+'*=validate]').not(":disabled").each(function(){
 				var field = $(this);
 				var prompt = methods._getPrompt(field);
 				var promptText = $(prompt).find(".formErrorContent").html();
@@ -291,13 +291,16 @@
 			form.trigger("jqv.form.validating");
 			// first, evaluate status of non ajax fields
 			var first_err=null;
-			form.find('['+options.validateAttribute+'*=validate]').not(':hidden').not(":disabled").each( function() {
+			form.find('['+options.validateAttribute+'*=validate]').not(":disabled").each( function() {
 				var field = $(this);
 				var names = [];
 				if ($.inArray(field.attr('name'), names) < 0) {
 					errorFound |= methods._validateField(field, options, skipAjaxValidation);
 					if (errorFound && first_err==null)
-						first_err=field;
+						if (field.is(":hidden") && options.prettySelect)
+                first_err = field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+            else
+                first_err=field;
 					if (options.doNotShowAllErrosOnSubmit)
 						return false;
 					names.push(field.attr('name'));
@@ -448,6 +451,9 @@
 				++$.validationEngine.fieldIdCounter;
 			}
 
+      if (field.is(":hidden") && !options.prettySelect)
+          return false;
+
 			var rulesParsing = field.attr(options.validateAttribute);
 			var getRules = /validate\[(.*)\]/.exec(rulesParsing);
 
@@ -580,6 +586,10 @@
 				field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
 				options.showArrow = false;
 			}
+
+			if(field.is(":hidden") && options.prettySelect) {
+        field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+      }
 
 			if (options.isError){
 				methods._showPrompt(field, promptText, "", false, options);
@@ -1224,8 +1234,7 @@
 			var prompt = $('<div>');
 			prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
 			// add a class name to identify the parent form of the prompt
-			if(field.is(":input"))
-				prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
+			prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
 			prompt.addClass("formError");
 
 			switch (type) {
@@ -1631,7 +1640,13 @@
 		// Delay before auto-hide
 		autoHideDelay: 10000,
 		// Fade out duration while hiding the validations
-		fadeDuration: 0.3
+		fadeDuration: 0.3,
+    // Use Prettify select library
+    prettySelect: false,
+    // Custom ID uses prefix
+    usePrefix: "",
+    // Custom ID uses suffix
+    useSuffix: ""
 	}};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
