@@ -1479,7 +1479,7 @@
 				case "centerRight":
 					promptTopPosition = fieldTop+4;
 					marginTopSize = 0;
-					promptleftPosition= fieldLeft + field.outerWidth(1)+5;
+					promptleftPosition= fieldLeft + field.outerWidth(true)+5;
 					break;
 				case "centerLeft":
 					promptleftPosition = fieldLeft - (promptElmt.width() + 2);
