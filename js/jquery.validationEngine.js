@@ -1072,9 +1072,22 @@
 			 var rule = options.allrules[errorSelector];
 			 var extraData = rule.extraData;
 			 var extraDataDynamic = rule.extraDataDynamic;
+			 var data = {
+				"fieldId" : field.attr("id"),
+				"fieldValue" : field.val()
+			 };
 
-			 if (!extraData)
-				extraData = "";
+			 if (typeof extraData === "object") {
+				$.extend(data, extraData);
+			 } else if (typeof extraData === "string") {
+				var tempData = extraData.split("&");
+				for(var i = 0; i < tempData.length; i++) {
+					var values = tempData[i].split("=");
+					if (values[0] && values[0]) {
+						data[values[0]] = values[1];
+					}
+				}
+			 }
 
 			 if (extraDataDynamic) {
 				 var tmpData = [];
@@ -1084,12 +1097,9 @@
 					 if ($(id).length) {
 						 var inputValue = field.closest("form").find(id).val();
 						 var keyValue = id.replace('#', '') + '=' + escape(inputValue);
-						 tmpData.push(keyValue);
+						 data[id.replace('#', '')] = inputValue;
 					 }
 				 }
-				 extraDataDynamic = tmpData.join("&");
-			 } else {
-				 extraDataDynamic = "";
 			 }
 
 			 if (!options.isError) {
@@ -1098,7 +1108,7 @@
 					 url: rule.url,
 					 cache: false,
 					 dataType: "json",
-					 data: "fieldId=" + field.attr("id") + "&fieldValue=" + field.val() + "&extraData=" + extraData + "&" + extraDataDynamic,
+					 data: data,
 					 field: field,
 					 rule: rule,
 					 methods: methods,
