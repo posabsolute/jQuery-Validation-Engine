@@ -21,7 +21,7 @@
 					usePrefix: prefix
 				});
 
-				$("#country").selectBox();
+				$("select").selectBox();
 
 				// By default, selectBox does not create an id to the newly created element - We need to add this manually
 				$('select').each(function(){ 
@@ -32,8 +32,21 @@
 			    // By default, all classes are passed on to the new element - Important: We need to remove it
 			    .removeClass("validate[required]");		
 			  })
+			  
+			  // This demo is for hidden elements in the form
+			  $('#hidden_samples').change(function(){
+			    var value = $(this).val();
+			    if (value != '') $('#section_' +value).show().siblings().hide();
+			    else $('#hidden_elements').children().hide();
+			  });
+			  
 			});
 		</script>
+		
+		<style type="text/css">
+			select {width: 250px}
+			div {margin-top: 20px}
+		</style>
 	</head>
 	<body>
 		<p>
@@ -294,6 +307,43 @@
 						<option value="Zambia">Zambia</option>
 						<option value="Zimbabwe">Zimbabwe</option>
 					</select> </label>
+			</fieldset>
+			
+			<fieldset>
+				<legend>
+					Hidden Form Sections
+				</legend>
+				<label>
+					<select name="hidden_samples" id="hidden_samples" class="validate[required]">
+						<option value="">- Please Select -</option>
+						<option value="1">Show Option 1</option>
+						<option value="2">Show Option 2</option>
+					</select>
+				</label>				
+				
+				<div id="hidden_elements">
+					<div id="section_1" style="display:none">
+						<label>
+							This is the hidden option for "Show Option 1"
+							<select name="hidden_samples" id="hidden_samples_1" class="validate[required]">
+								<option value="">- Please Select -</option>
+								<option value="1">Show Option 1</option>
+								<option value="2">Show Option 2</option>
+							</select>
+						</label>
+					</div>
+					
+					<div id="section_2" style="display:none">
+						<label>
+							This is the hidden option for "Show Option 2"
+							<select name="hidden_samples" id="hidden_samples_2" class="validate[required]">
+								<option value="">- Please Select -</option>
+								<option value="1">Show Option 1</option>
+								<option value="2">Show Option 2</option>
+							</select>
+						</label>
+					</div>
+				</div>					
 			</fieldset>
 
 			<input class="submit" type="submit" value="Validate &amp; Send the form!"/>
