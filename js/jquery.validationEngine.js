@@ -474,7 +474,7 @@
 
 			for (var i = 0; i < rules.length; i++) {
 				// Fix for adding spaces in the rules
-				rules[i] = rules[i].replace(" ", "")
+				rules[i] = rules[i].replace(" ", ""); 
 				var errorMsg = undefined;
 				switch (rules[i]) {
 
@@ -491,7 +491,7 @@
 						var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";
 						var firstOfGroup = form.find(classGroup).eq(0);
 						if(firstOfGroup[0] != field[0]){
-							methods._validateField(firstOfGroup, options, skipAjaxValidation)
+							methods._validateField(firstOfGroup, options, skipAjaxValidation); 
 							options.showArrow = true;
 							continue;
 						};
@@ -568,7 +568,6 @@
 						break;
 
 					default:
-					//$.error("jQueryValidator rule not found"+rules[i]);
 				}
 				if (errorMsg !== undefined) {
 					promptText += errorMsg + "<br/>";
@@ -675,9 +674,11 @@
 					isValid = true;
 					return false;
 				}
-			})
+			}); 
 
-			if(!isValid) return options.allrules[rules[i]].alertText;
+			if(!isValid) {
+        return options.allrules[rules[i]].alertText;
+      }
 		},
 		/**
 		* Validate rules
@@ -709,7 +710,7 @@
 					if (!pattern.test(field.val())) return options.allrules[customRule].alertText;
 					
 			} else if(rule["func"]) {
-				fn = rule["func"]
+				fn = rule["func"]; 
 				 
 				if (typeof(fn) !== "function") {
 					alert("jqv:custom parameter 'function' is no function - "+customRule);
@@ -1143,8 +1144,9 @@
 								 if(msg) {
 									 if (options.allrules[msg]) {
 										 var txt = options.allrules[msg].alertText;
-										 if (txt)
+										 if (txt) {
 											msg = txt;
+                     }
 									 }
 								 }
 								 else
@@ -1159,8 +1161,9 @@
 								 if(msg) {
 									 if (options.allrules[msg]) {
 										 var txt = options.allrules[msg].alertTextOk;
-										 if (txt)
+										 if (txt) {
 											msg = txt;
+                     }
 									 }
 								 }
 								 else
@@ -1435,7 +1438,7 @@
 
 			var promptTopPosition, promptleftPosition, marginTopSize;
 			var fieldWidth 	= field.width();
-			var fieldLeft 	= field.position().left 
+			var fieldLeft 	= field.position().left; 
 			var fieldTop 	=  field.position().top;
 			var fieldHeight 	=  field.height();	
 			var promptHeight = promptElmt.height();
@@ -1492,7 +1495,7 @@
 
 				case "topLeft":
 					promptTopPosition +=  fieldTop;
-					promptleftPosition += fieldLeft
+					promptleftPosition += fieldLeft; 
 					break;
 
 				case "centerRight":
@@ -1516,7 +1519,8 @@
 					promptleftPosition = fieldLeft + fieldWidth - 30;
 					promptTopPosition =  fieldTop +  field.height() + 5;
 					marginTopSize = 0;
-			}
+			};
+
 		
 
 			//apply adjusments if any
@@ -1660,3 +1664,5 @@
 	}};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
+
+
