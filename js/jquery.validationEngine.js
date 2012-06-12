@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.5.3, jQuery plugin
+ * Inline Form Validation Engine 2.5.4, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -575,7 +575,7 @@
 				}
 			}
 			// If the rules required is not added, an empty field is not validated
-			if(!required && field.val() == "") options.isError = false;
+			if(!required && field.val() == "" && !promptText) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
