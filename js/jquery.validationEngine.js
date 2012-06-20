@@ -480,10 +480,10 @@
 
 					case "required":
 						required = true;
-						errorMsg = methods._required(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._required);
 						break;
 					case "custom":
-						errorMsg = methods._custom(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._custom);
 						break;
 					case "groupRequired":
 						// Check is its the first of group, if not, reload validation with first field
@@ -494,9 +494,9 @@
 							methods._validateField(firstOfGroup, options, skipAjaxValidation); 
 							options.showArrow = true;
 							continue;
-						};
-						errorMsg = methods._groupRequired(field, rules, i, options);
-						if(errorMsg) required = true;
+						}
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._groupRequired);
+						if(errorMsg)  required = true;
 						options.showArrow = false;
 						break;
 					case "ajax":
@@ -507,16 +507,16 @@
 						}
 						break;
 					case "minSize":
-						errorMsg = methods._minSize(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._minSize);
 						break;
 					case "maxSize":
-						errorMsg = methods._maxSize(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._maxSize);
 						break;
 					case "min":
-						errorMsg = methods._min(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._min);
 						break;
 					case "max":
-						errorMsg = methods._max(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._max);
 						break;
 					case "past":
 						errorMsg = methods._past(form, field, rules, i, options);
@@ -550,21 +550,21 @@
 						options.showArrow = false;
 						break;
 					case "maxCheckbox":
-						errorMsg = methods._maxCheckbox(form, field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._maxCheckbox);
 						field = $(form.find("input[name='" + fieldName + "']"));
 						break;
 					case "minCheckbox":
-						errorMsg = methods._minCheckbox(form, field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._minCheckbox);
 						field = $(form.find("input[name='" + fieldName + "']"));
 						break;
 					case "equals":
-						errorMsg = methods._equals(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._equals);
 						break;
 					case "funcCall":
-						errorMsg = methods._funcCall(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._funcCall);
 						break;
 					case "creditCard":
-						errorMsg = methods._creditCard(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._creditCard);
 						break;
 
 					default:
@@ -587,8 +587,8 @@
 			}
 
 			if(field.is(":hidden") && options.prettySelect) {
-        field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
-      }
+				field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+			}
 
 			if (options.isError){
 				methods._showPrompt(field, promptText, "", false, options);
@@ -611,6 +611,74 @@
 
 			return options.isError;
 		},
+		 /********************
+		  * _getErrorMessage
+		  *
+		  * @param form
+		  * @param field
+		  * @param rule
+		  * @param rules
+		  * @param i
+		  * @param options
+		  * @param originalValidationMethod
+		  * @return {*}
+		  * @private
+		  */
+		 _getErrorMessage:function (form, field, rule, rules, i, options, originalValidationMethod) {
+			 // If we are using the custon validation type, build the index for the rule.
+			 // Otherwise if we are doing a function call, make the call and return the object
+			 // that is passed back.
+			 if (rule == "custom") {
+				 var custom_validation_type_index = rules.indexOf(rule) + 1;
+				 var custom_validation_type = rules[custom_validation_type_index];
+				 rule = "custom[" + custom_validation_type + "]";
+			 }
+			 var id = field.context.attributes.id.nodeValue;
+			 var element_classes = field.context.attributes['class'].nodeValue;
+			 var element_classes_array = element_classes.split(" ");
+			 var custom_message = methods._getCustomErrorMessage(id, element_classes_array, rule, options);
+
+			 // Call the original validation method. If we are dealing with dates, also pass the form
+			 var errorMsg;
+			 if (rule == "future" || rule == "past") {
+				 errorMsg = originalValidationMethod(form, field, rules, i, options);
+			 } else {
+				 errorMsg = originalValidationMethod(field, rules, i, options);
+			 }
+
+			 // If the original validation method returned an error and we have a custom error message,
+			 // return the custom message instead. Otherwise return the original error message.
+			 if (errorMsg != undefined && custom_message) {
+				 return custom_message;
+			 }
+			 return errorMsg;
+
+		 },
+		 _getCustomErrorMessage:function (id, classes, rule, options) {
+			var custom_message = false;
+			id = '#' + id;
+			// If we have custom messages for the element's id, get the message for the rule from the id.
+			// Otherwise, if we have custom messages for the element's classes, use the first class message we find instead.
+			if (typeof options.custom_error_messages[id] != "undefined" &&
+				typeof options.custom_error_messages[id][rule] != "undefined" ) {
+				        custom_message = options.custom_error_messages[id][rule]['message'];
+			} else if (classes.length > 0) {
+				for (var i = 0; i < classes.length && classes.length > 0; i++) {
+					 var element_class = "." + classes[i];
+					if (typeof options.custom_error_messages[element_class] != "undefined" &&
+						typeof options.custom_error_messages[element_class][rule] != "undefined") {
+							custom_message = options.custom_error_messages[element_class][rule]['message'];
+							break;
+					}
+				}
+			}
+			if (!custom_message &&
+				typeof options.custom_error_messages[rule] != "undefined" &&
+				typeof options.custom_error_messages[rule]['message'] != "undefined"){
+					 custom_message = options.custom_error_messages[rule]['message'];
+			 }
+			 return custom_message;
+		 },
 		/**
 		* Required validation
 		*
@@ -1633,7 +1701,8 @@
 
 		// Used when you have a form fields too close and the errors messages are on top of other disturbing viewing messages
 		doNotShowAllErrosOnSubmit: false,
-
+		// Object where you store custom messages to override the default error messages
+		custom_error_messages:{},
 		// true if you want to vind the input fields
 		binded: true,
 		// set to true, when the prompt arrow needs to be displayed
