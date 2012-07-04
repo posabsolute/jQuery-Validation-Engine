@@ -349,6 +349,15 @@ At least one of the field of the group must be filled. It needs to be given a gr
 <input class="validate[groupRequired[payments]]" type="text" id="paypal" name="paypal"/>
 ```
 
+### condRequired
+
+This makes the field required, but only if any of the referred fields has a value.
+
+```html
+<input value="" type="text" name="creditcard" id="creditcard" />
+<input class="validate[condRequired[creditcard]]" type="text" id="ccv" name="ccv"/>
+```
+
 ### custom[regex_name]
 
 Validates the element's value to a predefined list of regular expressions.
