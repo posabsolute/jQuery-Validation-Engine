@@ -443,6 +443,8 @@ The following declaration will do
 
 Delegates the validation to a server URL using an asynchronous Ajax request. The selector is used to identify a block of properties in the translation file, take the following for example.
 
+** The validation execution order is taken form the order you put them in the HTML, it is recommended to always put the ajax[] validation last. For example, the custom events might fail if you put ajax[] in the middle
+
 ```html
 <input value="" class="validate[required,custom[onlyLetterNumber],maxSize[20],ajax[ajaxUserCall]] text-input" type="text" name="user" id="user" />
 ```          
