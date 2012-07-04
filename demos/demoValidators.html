@@ -132,6 +132,41 @@
 			
 		<fieldset>
 			<legend>
+				Conditional required
+			</legend>
+			<label>
+				<span>Depending field (1): </span>
+				<input value="" class="text-input" type="text" name="dep1" id="dep1" />
+			</label>
+			<label>
+				<span>This field is required if above field has a value : </span>
+				<input class="validate[condRequired[dep1]] text-input" type="text" name="conditionalrequired1" id="conditionalrequired1" />
+                                <br/>
+				validate[condRequired[dep1]]
+			</label>
+                        
+			<label>
+                                <br/>
+                                <strong>OR with 2 depending fields</strong><br/>
+                                <br/>
+				<span>Depending field (2a) : </span>
+				<input value="" class="text-input" type="text" name="dep2a" id="dep2a" />
+			</label>
+			<label>
+				<span>Depending field (2b) : </span>
+				<input value="" class="text-input" type="text" name="dep2b" id="dep2b" />
+			</label>
+			<label>
+				<span>This field is required if any of above fields has a value : </span>
+				<input class="validate[condRequired[dep2a,dep2b]] text-input" type="text" name="conditionalrequired2" id="conditionalrequired2" />
+                                <br/>
+				validate[condRequired[dep2a,dep2b]]
+			</label>
+                    
+		</fieldset>
+			
+		<fieldset>
+			<legend>
 				MinSize
 			</legend>
 			<label>

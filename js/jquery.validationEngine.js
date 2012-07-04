@@ -566,6 +566,12 @@
 					case "creditCard":
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._creditCard);
 						break;
+					case "condRequired":
+						errorMsg = methods._condRequired(field, rules, i, options);
+						if (errorMsg !== undefined) {
+							required = true;
+						}
+						break;
 
 					default:
 				}
@@ -1634,8 +1640,36 @@
 		 _getClassName: function(className) {
 			 if(className)
 				 return className.replace(/:/g, "_").replace(/\./g, "_");
-		 }
-	 };
+                 },
+
+		/**
+		* Conditionally required field
+		*
+		* @param {jqObject} field
+		* @param {Array[String]} rules
+		* @param {int} i rules index
+		* @param {Map}
+		* user options
+		* @return an error string if validation failed
+		*/
+		_condRequired: function(field, rules, i, options) {
+			var idx, dependingField;
+
+			for(idx = (i + 1); idx < rules.length; idx++) {
+				dependingField = jQuery("#" + rules[idx]).first();
+
+				/* Use _required for determining wether dependingField has a value.
+				 * There is logic there for handling all field types, and default value; so we won't replicate that here
+				 */
+				if (dependingField.length && methods._required(dependingField, ["required"], 0, options) == undefined) {
+					/* We now know any of the depending fields has a value,
+					 * so we can validate this field as per normal required code
+					 */
+					return methods._required(field, ["required"], 0, options);
+				}
+			}
+		}
+        };
 
 	 /**
 	 * Plugin entry point.
