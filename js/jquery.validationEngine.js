@@ -640,7 +640,7 @@
 				 rule = "custom[" + custom_validation_type + "]";
 			 }
 			 var id = field.context.attributes.id.nodeValue;
-			 var element_classes = field.context.attributes['class'].nodeValue;
+			 var element_classes = field.context.attributes['class'] ? field.context.attributes['class'].nodeValue : "";
 			 var element_classes_array = element_classes.split(" ");
 			 var custom_message = methods._getCustomErrorMessage(id, element_classes_array, rule, options);
 
