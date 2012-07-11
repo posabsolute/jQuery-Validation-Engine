@@ -701,8 +701,9 @@
 				case "password":
 				case "textarea":
 				case "file":
+				case "select-one":
+				case "select-multiple":
 				default:
-
 					if (! $.trim(field.val()) || field.val() == field.attr("data-validation-placeholder"))
 						return options.allrules[rules[i]].alertText;
 					break;
@@ -717,16 +718,6 @@
 							return options.allrules[rules[i]].alertTextCheckboxMultiple;
 					}
 					break;
-				// required for <select>
-				case "select-one":
-					// added by paul@kinetek.net for select boxes, Thank you
-					if (!field.val())
-						return options.allrules[rules[i]].alertText;
-					break;
-				case "select-multiple":
-					// added by paul@kinetek.net for select boxes, Thank you
-					if (!field.find("option:selected").val())
-						return options.allrules[rules[i]].alertText;
 			}
 		},
 		/**
