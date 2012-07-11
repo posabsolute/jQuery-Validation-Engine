@@ -443,7 +443,7 @@
 		*            field's validation rules
 		* @param {Map}
 		*            user options
-		* @return true if field is valid
+		* @return false if field is valid (It is inversed for *fields*, it return false on validate and true on errors.)
 		*/
 		_validateField: function(field, options, skipAjaxValidation) {
 			if (!field.attr("id")) {
