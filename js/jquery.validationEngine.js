@@ -550,12 +550,12 @@
 						options.showArrow = false;
 						break;
 					case "maxCheckbox":
-						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._maxCheckbox);
 						field = $(form.find("input[name='" + fieldName + "']"));
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._maxCheckbox);
 						break;
 					case "minCheckbox":
-						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._minCheckbox);
 						field = $(form.find("input[name='" + fieldName + "']"));
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._minCheckbox);
 						break;
 					case "equals":
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._equals);
@@ -646,7 +646,7 @@
 
 			 // Call the original validation method. If we are dealing with dates, also pass the form
 			 var errorMsg;
-			 if (rule == "future" || rule == "past") {
+			 if (rule == "future" || rule == "past"  || rule == "maxCheckbox" || rule == "minCheckbox") {
 				 errorMsg = originalValidationMethod(form, field, rules, i, options);
 			 } else {
 				 errorMsg = originalValidationMethod(field, rules, i, options);
