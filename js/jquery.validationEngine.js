@@ -320,8 +320,8 @@
 
 					//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
 					var positionType=options.promptPosition;
-					if (typeof(positionType)=='string' && positionType.indexOf(":")!=-1)
-						positionType=positionType.substring(0,positionType.indexOf(":"));
+					if (typeof(positionType)=='string' && jQuery.inArray(":", positionType) !=-1)
+						positionType=positionType.substring(0,jQuery.inArray(":", positionType));
 
 					if (positionType!="bottomRight" && positionType!="bottomLeft") {
 						var prompt_err= methods._getPrompt(first_err);
@@ -635,12 +635,12 @@
 			 // Otherwise if we are doing a function call, make the call and return the object
 			 // that is passed back.
 			 if (rule == "custom") {
-				 var custom_validation_type_index = rules.indexOf(rule) + 1;
+				 var custom_validation_type_index = jQuery.inArray(rule, rules)+ 1;
 				 var custom_validation_type = rules[custom_validation_type_index];
 				 rule = "custom[" + custom_validation_type + "]";
 			 }
-			 var id = field.context.attributes.id.nodeValue;
-			 var element_classes = field.context.attributes['class'].nodeValue;
+			 var id = $(field).attr("id");
+			 var element_classes = (field.attr("data-validation-engine")) ? field.attr("data-validation-engine") : field.attr("class");
 			 var element_classes_array = element_classes.split(" ");
 			 var custom_message = methods._getCustomErrorMessage(id, element_classes_array, rule, options);
 
@@ -802,7 +802,7 @@
 		_funcCall: function(field, rules, i, options) {
 			var functionName = rules[i + 1];
 			var fn;
-			if(functionName.indexOf('.')>-1)
+			if($.inArray('.',functionName) >-1)
 			{
 				var namespaces = functionName.split('.');
 				var scope = window;
@@ -1340,7 +1340,7 @@
 				var positionType=field.data("promptPosition") || options.promptPosition;
 				if (typeof(positionType)=='string') 
 				{
-					var pos=positionType.indexOf(":");
+					var pos=jQuery.inArray(":", positionType);
 					if(pos!=-1)
 						positionType=positionType.substring(0,pos);
 				}
@@ -1529,17 +1529,17 @@
 			var shiftY=0;
 			if (typeof(positionType)=='string') {
 				//do we have any position adjustments ?
-				if (positionType.indexOf(":")!=-1) {
-					shift1=positionType.substring(positionType.indexOf(":")+1);
-					positionType=positionType.substring(0,positionType.indexOf(":"));
+				if (jQuery.inArray(":", positionType)!=-1) {
+					shift1=positionType.substring(jQuery.inArray(":", positionType)+1);
+					positionType=positionType.substring(0,jQuery.inArray(":", positionType));
 
 					//if any advanced positioning will be needed (percents or something else) - parser should be added here
 					//for now we use simple parseInt()
 
 					//do we have second parameter?
-					if (shift1.indexOf(",")!=-1) {
-						shift2=shift1.substring(shift1.indexOf(",")+1);
-						shift1=shift1.substring(0,shift1.indexOf(","));
+					if (jQuery.inArray(",", shift1) !=-1) {
+						shift2=shift1.substring(jQuery.inArray(",", shift1)+1);
+						shift1=shift1.substring(0,jQuery.inArray(",", shift1));
 						shiftY=parseInt(shift2);
 						if (isNaN(shiftY)) shiftY=0;
 					};
