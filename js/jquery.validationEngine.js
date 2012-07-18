@@ -581,7 +581,7 @@
 				}
 			}
 			// If the rules required is not added, an empty field is not validated
-			if(!required && field.val() == "" && !errorMsg) options.isError = false;
+			if(!required && field.val() == "" && !promptText) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
