@@ -27,6 +27,12 @@
                     "alertText": "* Invalid ",
                     "alertText2": "Date Time Range"
                 },
+                "length":{
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Minimum ",
