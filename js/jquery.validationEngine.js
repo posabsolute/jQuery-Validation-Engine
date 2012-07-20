@@ -849,8 +849,14 @@
 			var len = field.val().length;
 
 			if (len > max) {
-				var rule = options.allrules.maxSize;
-				return rule.alertText + max + rule.alertText2;
+				var minI = $.inArray('minSize', rules);
+				if (minI > -1) {
+					var rule = options.allrules.length;
+					return rule.alertText + rules[minI + 1] + rule.alertText2 + max + rule.alertText3;
+				} else {
+					var rule = options.allrules.maxSize;
+					return rule.alertText + max + rule.alertText2;
+				}
 			}
 		},
 		/**
@@ -868,8 +874,14 @@
 			var len = field.val().length;
 
 			if (len < min) {
-				var rule = options.allrules.minSize;
-				return rule.alertText + min + rule.alertText2;
+				var maxI = $.inArray('maxSize', rules);
+				if (maxI > -1) {
+					var rule = options.allrules.length;
+					return rule.alertText + min + rule.alertText2 + rules[maxI + 1] + rule.alertText3;
+				} else {
+					var rule = options.allrules.minSize;
+					return rule.alertText + min + rule.alertText2;
+				}
 			}
 		},
 		/**
