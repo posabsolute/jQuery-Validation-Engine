@@ -24,6 +24,12 @@
                     "regex": "none",
                     "alertText": "* Intervalo de data e hora inválido"
                 },
+                "length": {
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Permitido o mínimo de ",

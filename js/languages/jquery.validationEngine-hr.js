@@ -27,6 +27,12 @@
                     "alertText": "* Greška ",
                     "alertText2": "Raspon vremena i datuma"
                 },
+                "length": {
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Minimalno ",

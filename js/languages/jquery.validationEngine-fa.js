@@ -27,6 +27,12 @@
                     "alertText": "* بازه‌ی زمانی",
                     "alertText2": "نامعتبر"
                 },
+                "length": {
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* حداقل ",

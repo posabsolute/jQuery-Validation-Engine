@@ -17,6 +17,12 @@
                     },
                     "alertText": "* Field must equal test"
                 },
+                "length": {
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "dateRange": {
                     "regex": "none",
                     "alertText": "* 无效的 ",

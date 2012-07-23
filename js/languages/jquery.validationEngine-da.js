@@ -16,6 +16,12 @@
                     },
                     "alertText": "* Field must equal test"
                 },
+                "length":{
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Minimum ",

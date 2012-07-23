@@ -27,6 +27,12 @@
                     "alertText": "* Không đúng ",
                     "alertText2": "Khoảng thời gian"
                 },
+                "length": {
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Tối thiểu ",

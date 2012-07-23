@@ -27,6 +27,12 @@
                     "alertText": "* Vigane ",
                     "alertText2": "Aja valik"
                 },
+                "length":{
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Minimaalselt ",

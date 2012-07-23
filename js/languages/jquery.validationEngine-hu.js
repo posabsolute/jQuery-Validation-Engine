@@ -27,6 +27,12 @@
                     "alertText": "* Érvénytelen ",
                     "alertText2": "Dátum-idő tartomány"
                 },
+                "length": {
+                    "regex": "none",
+                    "alertText": "* Between ",
+                    "alertText2": " and ",
+                    "alertText3": " characters allowed"
+                },
                 "minSize": {
                     "regex": "none",
                     "alertText": "* Minimum ",
