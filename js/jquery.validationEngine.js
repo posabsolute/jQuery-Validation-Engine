@@ -451,7 +451,7 @@
 				++$.validationEngine.fieldIdCounter;
 			}
 
-			if (field.is(":hidden") && !options.prettySelect || field.parents().is(":hidden"))
+			if (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden"))
 				return false;
 
 			var rulesParsing = field.attr(options.validateAttribute);
