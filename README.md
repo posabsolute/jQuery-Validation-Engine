@@ -98,37 +98,37 @@ Customize error messages with data-errormessage and data-errormessage-* attribut
 
 The following attribute's value will be loaded for the relative validation rule: 
 
-* data-errormessage-value-missing
+##### data-errormessage-value-missing
 required
 groupRequired
 condRequired
 
-* data-errormessage-type-mismatch
+##### data-errormessage-type-mismatch
 past
 future
 dateRange
 dateTimeRange
 
-* data-errormessage-pattern-mismatch
+##### data-errormessage-pattern-mismatch
 creditCard
 equals
 
-* data-errormessage-range-underflow
+##### data-errormessage-range-underflow
 minSize
 min
 minCheckbox
 
-* data-errormessage-range-overflow
+##### data-errormessage-range-overflow
 maxSize
 max
 maxCheckbox
 
-* data-errormessage-custom-error
+##### data-errormessage-custom-error
 custom
 ajax
 funcCall
 
-* data-errormessage 
+##### data-errormessage 
 a generic fall-back error message
 
 ### Per Field Prompt Direction
