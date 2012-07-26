@@ -708,9 +708,9 @@
 			 "dateTimeRange": "type-mismatch",
 			 "maxCheckbox": "range-overflow",
 			 "minCheckbox": "range-underflow",
-			 "equals": "type-mismatch",
+			 "equals": "pattern-mismatch",
 			 "funcCall": "custom-error",
-			 "creditCard": "type-mismatch",
+			 "creditCard": "pattern-mismatch",
 			 "condRequired": "value-missing",
 		 },
 		/**
