@@ -80,10 +80,56 @@ Validations are defined using the field's **class** attribute. Here are a few ex
 
 For more details about validators, please refer to the section below.
 
-#### Experimental attribut data-validation-engine
+#### Experimental attribute data-validation-engine
 
 We are currently in the process of replaceing the class attribute by something more standard, it should normally work but consider this feature in beta.
      <input value="someone@nowhere.com" data-validation-engine="validate[required,custom[email]]" type="text" name="email" id="email" />
+
+#### Standard HTML5 attribute for error message
+
+Customize error messages with data-errormessage and data-errormessage-* attributes on the form elements. For example:
+
+```html
+<input type="email" name="email" id="email" data-validation-engine="validate[required,custom[email]]"
+	data-errormessage-value-missing="Email is required!" 
+	data-errormessage-custom-error="Let me give you a hint: someone@nowhere.com" 
+	data-errormessage="This is the fall-back error message."/>
+```
+
+The following attribute's value will be loaded for the relative validation rule: 
+
+* data-errormessage-value-missing
+required
+groupRequired
+condRequired
+
+* data-errormessage-type-mismatch
+past
+future
+dateRange
+dateTimeRange
+
+* data-errormessage-pattern-mismatch
+creditCard
+equals
+
+* data-errormessage-range-underflow
+minSize
+min
+minCheckbox
+
+* data-errormessage-range-overflow
+maxSize
+max
+maxCheckbox
+
+* data-errormessage-custom-error
+custom
+ajax
+funcCall
+
+* data-errormessage 
+a generic fall-back error message
 
 ### Per Field Prompt Direction
 

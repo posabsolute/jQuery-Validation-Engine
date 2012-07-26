@@ -639,10 +639,8 @@
 				 var custom_validation_type = rules[custom_validation_type_index];
 				 rule = "custom[" + custom_validation_type + "]";
 			 }
-			 var id = $(field).attr("id");
 			 var element_classes = (field.attr("data-validation-engine")) ? field.attr("data-validation-engine") : field.attr("class");
 			 var element_classes_array = element_classes.split(" ");
-			 var custom_message = methods._getCustomErrorMessage(id, element_classes_array, rule, options);
 
 			 // Call the original validation method. If we are dealing with dates, also pass the form
 			 var errorMsg;
@@ -654,15 +652,25 @@
 
 			 // If the original validation method returned an error and we have a custom error message,
 			 // return the custom message instead. Otherwise return the original error message.
-			 if (errorMsg != undefined && custom_message) {
-				 return custom_message;
+			 if (errorMsg != undefined) {
+				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, rule, options);
+				 if (custom_message) return custom_message;
 			 }
 			 return errorMsg;
 
 		 },
-		 _getCustomErrorMessage:function (id, classes, rule, options) {
+		 _getCustomErrorMessage:function (field, classes, rule, options) {
 			var custom_message = false;
-			id = '#' + id;
+			var validityProp = methods._validityProp[rule];
+			if (validityProp != undefined) {
+				custom_message = field.attr("data-errormessage-"+validityProp);
+				if (custom_message != undefined) 
+					return custom_message;
+			}
+			custom_message = field.attr("data-errormessage");
+			if (custom_message != undefined) 
+				return custom_message;
+			var id = '#' + field.attr("id");
 			// If we have custom messages for the element's id, get the message for the rule from the id.
 			// Otherwise, if we have custom messages for the element's classes, use the first class message we find instead.
 			if (typeof options.custom_error_messages[id] != "undefined" &&
@@ -684,6 +692,26 @@
 					 custom_message = options.custom_error_messages[rule]['message'];
 			 }
 			 return custom_message;
+		 },
+		 _validityProp: {
+			 "required": "value-missing",
+			 "custom": "custom-error",
+			 "groupRequired": "value-missing",
+			 "ajax": "custom-error",
+			 "minSize": "range-underflow",
+			 "maxSize": "range-overflow",
+			 "min": "range-underflow",
+			 "max": "range-overflow",
+			 "past": "type-mismatch",
+			 "future": "type-mismatch",
+			 "dateRange": "type-mismatch",
+			 "dateTimeRange": "type-mismatch",
+			 "maxCheckbox": "range-overflow",
+			 "minCheckbox": "range-underflow",
+			 "equals": "pattern-mismatch",
+			 "funcCall": "custom-error",
+			 "creditCard": "pattern-mismatch",
+			 "condRequired": "value-missing",
 		 },
 		/**
 		* Required validation
