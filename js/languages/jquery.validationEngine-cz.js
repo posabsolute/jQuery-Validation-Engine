@@ -14,7 +14,7 @@
                     "func": function(field, rules, i, options){
                         return (field.val() == "test") ? true : false;
                     },
-                    "alertText": "* Field must equal test"
+                    "alertText": "* Pole se musí rovnat test"
                 },
                 "minSize": {
                     "regex": "none",
@@ -28,7 +28,7 @@
                 },
 				"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* Musíte zadat jedno z nasledujících polí"
                 },
                 "min": {
                     "regex": "none",
@@ -40,11 +40,11 @@
                 },
                 "past": {
                     "regex": "none",
-                    "alertText": "* Date prior to "
+                    "alertText": "* Datum před "
                 },
                 "future": {
                     "regex": "none",
-                    "alertText": "* Date past "
+                    "alertText": "* Datum po "
                 },	
                 "maxCheckbox": {
                     "regex": "none",
@@ -71,7 +71,7 @@
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
                     "regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
-                    "alertText": "* Invalid phone number"
+                    "alertText": "* Neplatné telefoní číslo"
                 },
                 "email": {
                     // Shamelessly lifted from Scott Gonzalez via the Bassistance Validation plugin http://projects.scottsplayground.com/email_address_validation/
