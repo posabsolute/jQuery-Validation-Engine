@@ -1705,7 +1705,7 @@
 	 $.fn.validationEngine = function(method) {
 
 		 var form = $(this);
-		 if(!form[0]) return false;  // stop here if the form does not exist
+		 if(!form[0]) return form;  // stop here if the form does not exist
 
 		 if (typeof(method) == 'string' && method.charAt(0) != '_' && methods[method]) {
 
