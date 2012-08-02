@@ -519,19 +519,19 @@
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._max);
 						break;
 					case "past":
-						errorMsg = methods._past(form, field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field,rules[i], rules, i, options, methods._past);
 						break;
 					case "future":
-						errorMsg = methods._future(form, field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field,rules[i], rules, i, options, methods._future);
 						break;
 					case "dateRange":
 						var classGroup = "["+options.validateAttribute+"*=" + rules[i + 1] + "]";
-						var firstOfGroup = form.find(classGroup).eq(0);
-						var secondOfGroup = form.find(classGroup).eq(1);
+						options.firstOfGroup = form.find(classGroup).eq(0);
+						options.secondOfGroup = form.find(classGroup).eq(1);
 
 						//if one entry out of the pair has value then proceed to run through validation
-						if (firstOfGroup[0].value || secondOfGroup[0].value) {
-							errorMsg = methods._dateRange(firstOfGroup, secondOfGroup, rules, i, options);
+						if (options.firstOfGroup[0].value || options.secondOfGroup[0].value) {
+							errorMsg = methods._getErrorMessage(form, field,rules[i], rules, i, options, methods._dateRange);
 						}
 						if (errorMsg) required = true;
 						options.showArrow = false;
@@ -539,12 +539,12 @@
 
 					case "dateTimeRange":
 						var classGroup = "["+options.validateAttribute+"*=" + rules[i + 1] + "]";
-						var firstOfGroup = form.find(classGroup).eq(0);
-						var secondOfGroup = form.find(classGroup).eq(1);
+						options.firstOfGroup = form.find(classGroup).eq(0);
+						options.secondOfGroup = form.find(classGroup).eq(1);
 
 						//if one entry out of the pair has value then proceed to run through validation
-						if (firstOfGroup[0].value || secondOfGroup[0].value) {
-							errorMsg = methods._dateTimeRange(firstOfGroup, secondOfGroup, rules, i, options);
+						if (options.firstOfGroup[0].value || options.secondOfGroup[0].value) {
+							errorMsg = methods._getErrorMessage(form, field,rules[i], rules, i, options, methods._dateTimeRange);
 						}
 						if (errorMsg) required = true;
 						options.showArrow = false;
@@ -567,7 +567,7 @@
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._creditCard);
 						break;
 					case "condRequired":
-						errorMsg = methods._condRequired(field, rules, i, options);
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._condRequired);
 						if (errorMsg !== undefined) {
 							required = true;
 						}
@@ -634,6 +634,7 @@
 			 // If we are using the custon validation type, build the index for the rule.
 			 // Otherwise if we are doing a function call, make the call and return the object
 			 // that is passed back.
+			 var beforeChangeRule = rule;
 			 if (rule == "custom") {
 				 var custom_validation_type_index = jQuery.inArray(rule, rules)+ 1;
 				 var custom_validation_type = rules[custom_validation_type_index];
@@ -653,7 +654,7 @@
 			 // If the original validation method returned an error and we have a custom error message,
 			 // return the custom message instead. Otherwise return the original error message.
 			 if (errorMsg != undefined) {
-				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, rule, options);
+				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, beforeChangeRule, options);
 				 if (custom_message) return custom_message;
 			 }
 			 return errorMsg;
@@ -662,6 +663,7 @@
 		 _getCustomErrorMessage:function (field, classes, rule, options) {
 			var custom_message = false;
 			var validityProp = methods._validityProp[rule];
+			console.log(rule)
 			if (validityProp != undefined) {
 				custom_message = field.attr("data-errormessage-"+validityProp);
 				if (custom_message != undefined) 
@@ -1040,19 +1042,19 @@
 		* @param {jqObject} second field name
 		* @return an error string if validation failed
 		*/
-		_dateRange: function (first, second, rules, i, options) {
+		_dateRange: function (field, rules, i, options) {
 			//are not both populated
-			if ((!first[0].value && second[0].value) || (first[0].value && !second[0].value)) {
+			if ((!options.firstOfGroup[0].value && options.secondOfGroup[0].value) || (options.firstOfGroup[0].value && !options.secondOfGroup[0].value)) {
 				return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
 			}
 
 			//are not both dates
-			if (!methods._isDate(first[0].value) || !methods._isDate(second[0].value)) {
+			if (!methods._isDate(options.firstOfGroup[0].value) || !methods._isDate(options.secondOfGroup[0].value)) {
 				return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
 			}
 
 			//are both dates but range is off
-			if (!methods._dateCompare(first[0].value, second[0].value)) {
+			if (!methods._dateCompare(options.firstOfGroup[0].value, options.secondOfGroup[0].value)) {
 				return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
 			}
 		},
@@ -1063,17 +1065,17 @@
 		* @param {jqObject} second field name
 		* @return an error string if validation failed
 		*/
-		_dateTimeRange: function (first, second, rules, i, options) {
+		_dateTimeRange: function (field, rules, i, options) {
 			//are not both populated
-			if ((!first[0].value && second[0].value) || (first[0].value && !second[0].value)) {
+			if ((!options.firstOfGroup[0].value && options.secondOfGroup[0].value) || (options.firstOfGroup[0].value && !options.secondOfGroup[0].value)) {
 				return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
 			}
 			//are not both dates
-			if (!methods._isDateTime(first[0].value) || !methods._isDateTime(second[0].value)) {
+			if (!methods._isDateTime(options.firstOfGroup[0].value) || !methods._isDateTime(options.secondOfGroup[0].value)) {
 				return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
 			}
 			//are both dates but range is off
-			if (!methods._dateCompare(first[0].value, second[0].value)) {
+			if (!methods._dateCompare(options.firstOfGroup[0].value, options.secondOfGroup[0].value)) {
 				return options.allrules[rules[i]].alertText + options.allrules[rules[i]].alertText2;
 			}
 		},
