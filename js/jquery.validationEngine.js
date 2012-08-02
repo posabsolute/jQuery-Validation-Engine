@@ -663,7 +663,6 @@
 		 _getCustomErrorMessage:function (field, classes, rule, options) {
 			var custom_message = false;
 			var validityProp = methods._validityProp[rule];
-			console.log(rule)
 			if (validityProp != undefined) {
 				custom_message = field.attr("data-errormessage-"+validityProp);
 				if (custom_message != undefined) 
