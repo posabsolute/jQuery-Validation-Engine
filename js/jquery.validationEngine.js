@@ -250,8 +250,8 @@
 			}
 
 			if(options.onValidationComplete) {
-				options.onValidationComplete(form, r);
-				return false;
+				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
+				return !!options.onValidationComplete(form, r);
 			}
 			return r;
 		},
