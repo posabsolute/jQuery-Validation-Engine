@@ -333,7 +333,7 @@ When ajaxFormValidation is turned on, this function is used to asynchronously pr
 
 ### onValidationComplete
 
-When defined, stops the the form from auto-submitting, and lets you handle the validation status via a function
+When defined, it stops by default the form from auto-submitting, and lets you handle the validation status via a function. You can also return true in this function and the form will be allowed to submit.
 ```js
 jQuery("#formID2").validationEngine('attach', {
   onValidationComplete: function(form, status){
