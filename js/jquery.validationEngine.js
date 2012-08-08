@@ -496,6 +496,7 @@
 							continue;
 						}
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._groupRequired);
+						console.log(errorMsg)
 						if(errorMsg)  required = true;
 						options.showArrow = false;
 						break;
