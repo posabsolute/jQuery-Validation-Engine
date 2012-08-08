@@ -315,6 +315,9 @@ If set to true, it remove blur events and only validate on submit.
 Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
 Default position adjustment could also be provided.
 
+### showOneMessage
+Only display the first incorrect validation message instead of normally stacking it.
+
 ### ajaxFormValidation
 If set to true, turns Ajax form validation logic on. Defaults to *false*.
 Form validation takes place when the validate() action is called or when the form is submitted.
