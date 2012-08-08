@@ -580,6 +580,10 @@
 					promptText += errorMsg + "<br/>";
 					options.isError = true;
 				}
+
+				//if option set, stop checking validation rules after one error is found
+				if(options.showOneMessage === true && options.isError === true)
+					break;
 			}
 			// If the rules required is not added, an empty field is not validated
 			if(!required && field.val().length < 1) options.isError = false;
@@ -1785,7 +1789,9 @@
     // Custom ID uses prefix
     usePrefix: "",
     // Custom ID uses suffix
-    useSuffix: ""
+    useSuffix: "",
+    // Only show one message per error prompt
+    showOneMessage: false
 	}};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
