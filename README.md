@@ -316,7 +316,7 @@ Where should the prompt show? Possible values are "topLeft", "topRight", "bottom
 Default position adjustment could also be provided.
 
 ### showOneMessage
-Only display the first incorrect validation message instead of normally stacking it.
+Only display the first incorrect validation message instead of normally stacking it. It will follows the validation hierarchy you used in the input and only show the first error.
 
 ### ajaxFormValidation
 If set to true, turns Ajax form validation logic on. Defaults to *false*.
