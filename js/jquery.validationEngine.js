@@ -457,7 +457,7 @@
 		*            user options
 		* @return false if field is valid (It is inversed for *fields*, it return false on validate and true on errors.)
 		*/
-		_validateField: function(field, options) {
+		_validateField: function(field, options, skipAjaxValidation) {
 			if (!field.attr("id")) {
 				field.attr("id", "form-validation-field-" + $.validationEngine.fieldIdCounter);
 				++$.validationEngine.fieldIdCounter;
@@ -509,7 +509,6 @@
 							continue;
 						}
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._groupRequired);
-						console.log(errorMsg)
 						if(errorMsg)  required = true;
 						options.showArrow = false;
 						break;
