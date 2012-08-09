@@ -217,6 +217,7 @@
 			var field = $(this);
 			var form = field.closest('form');
 			var options = form.data('jqv');
+			options.eventTrigger = "field";
 			// validate the current field
 			window.setTimeout(function() {
 				methods._validateField(field, options);
@@ -238,10 +239,11 @@
 		_onSubmitEvent: function() {
 			var form = $(this);
 			var options = form.data('jqv');
+			options.eventTrigger = "submit";
 
 			// validate each field 
 			// (- skip field ajax validation, not necessary IF we will perform an ajax form validation)
-			var r=methods._validateFields(form, options.ajaxFormValidation);
+			var r=methods._validateFields(form);
 
 			if (r && options.ajaxFormValidation) {
 				methods._validateFormWithAjax(form, options);
@@ -271,6 +273,16 @@
 			});
 			return status;
 		},
+		
+		/**
+		* Return true if the ajax field is validated
+		* @param {String} fieldid
+		* @param {Object} options
+		* @return true, if validation passed, false if false or doesn't exist
+		*/
+		_checkAjaxFieldStatus: function(fieldid, options) {
+			return options.ajaxValidCache[fieldid] == true;
+		},
 		/**
 		* Validates form fields, shows prompts accordingly
 		*
@@ -281,7 +293,7 @@
 		*
 		* @return true if form is valid, false if not, undefined if ajax form validation is done
 		*/
-		_validateFields: function(form, skipAjaxValidation) {
+		_validateFields: function(form) {
 			var options = form.data('jqv');
 
 			// this variable is set to true if an error is found
@@ -295,7 +307,7 @@
 				var field = $(this);
 				var names = [];
 				if ($.inArray(field.attr('name'), names) < 0) {
-					errorFound |= methods._validateField(field, options, skipAjaxValidation);
+					errorFound |= methods._validateField(field, options);
 					if (errorFound && first_err==null)
 						if (field.is(":hidden") && options.prettySelect)
                 first_err = field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
@@ -445,7 +457,7 @@
 		*            user options
 		* @return false if field is valid (It is inversed for *fields*, it return false on validate and true on errors.)
 		*/
-		_validateField: function(field, options, skipAjaxValidation) {
+		_validateField: function(field, options) {
 			if (!field.attr("id")) {
 				field.attr("id", "form-validation-field-" + $.validationEngine.fieldIdCounter);
 				++$.validationEngine.fieldIdCounter;
@@ -466,6 +478,7 @@
 			var isAjaxValidator = false;
 			var fieldName = field.attr("name");
 			var promptText = "";
+			var promptType = "";
 			var required = false;
 			options.isError = false;
 			options.showArrow = true;
@@ -501,10 +514,10 @@
 						options.showArrow = false;
 						break;
 					case "ajax":
-						// ajax has its own prompts handling technique
-						if(!skipAjaxValidation){
-							methods._ajax(field, rules, i, options);
-							isAjaxValidator = true;
+						// AJAX defaults to returning it's loading message
+						errorMsg = methods._ajax(field, rules, i, options);
+						if (errorMsg) {
+							promptType = "load";
 						}
 						break;
 					case "minSize":
@@ -602,7 +615,7 @@
 			}
 
 			if (options.isError){
-				methods._showPrompt(field, promptText, "", false, options);
+				methods._showPrompt(field, promptText, promptType, false, options);
 			}else{
 				if (!isAjaxValidator) methods._closePrompt(field);
 			}
@@ -1202,8 +1215,14 @@
 					 }
 				 }
 			 }
+			 
+			 // If a field change event triggered this we want to clear the cache for this ID
+			 if (options.eventTrigger == "field") {
+				delete(options.ajaxValidCache[field.attr("id")]);
+			 }
 
-			 if (!options.isError) {
+			 // If there is an error or if the the field is already validated, do not re-execute AJAX
+			 if (!options.isError && !methods._checkAjaxFieldStatus(field.attr("id"), options)) {
 				 $.ajax({
 					 type: options.ajaxFormValidationMethod,
 					 url: rule.url,
@@ -1214,12 +1233,7 @@
 					 rule: rule,
 					 methods: methods,
 					 options: options,
-					 beforeSend: function() {
-						 // build the loading prompt
-						 var loadingText = rule.alertTextLoad;
-						 if (loadingText)
-							methods._showPrompt(field, loadingText, "load", true, options);
-					 },
+					 beforeSend: function() {},
 					 error: function(data, transport) {
 						 methods._ajaxError(data, transport);
 					 },
@@ -1254,8 +1268,7 @@
 
 								 methods._showPrompt(errorField, msg, "", true, options);
 							 } else {
-								 if (options.ajaxValidCache[errorFieldId] !== undefined)
-									options.ajaxValidCache[errorFieldId] = true;
+								 options.ajaxValidCache[errorFieldId] = true;
 
 								 // resolves the msg prompt
 								 if(msg) {
@@ -1274,11 +1287,17 @@
 									methods._showPrompt(errorField, msg, "pass", true, options);
 								 else
 									methods._closePrompt(errorField);
+								
+								 // If a submit form triggered this, we want to re-submit the form
+								 if (options.eventTrigger == "submit")
+									field.closest("form").submit();
 							 }
 						 }
 						 errorField.trigger("jqv.field.result", [errorField, options.isError, msg]);
 					 }
 				 });
+				 
+				 return rule.alertTextLoad;
 			 }
 		 },
 		/**
