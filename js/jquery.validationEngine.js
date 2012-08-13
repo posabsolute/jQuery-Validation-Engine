@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.5.5.1, jQuery plugin
+ * Inline Form Validation Engine 2.6, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -731,7 +731,7 @@
 			 "equals": "pattern-mismatch",
 			 "funcCall": "custom-error",
 			 "creditCard": "pattern-mismatch",
-			 "condRequired": "value-missing",
+			 "condRequired": "value-missing"
 		 },
 		/**
 		* Required validation
