@@ -761,7 +761,7 @@
 					var form = field.closest("form");
 					var name = field.attr("name");
 					if (form.find("input[name='" + name + "']:checked").size() == 0) {
-						if (form.find("input[name='" + name + "']").size() == 1)
+						if (form.find("input[name='" + name + "']:visible").size() == 1)
 							return options.allrules[rules[i]].alertTextCheckboxe;
 						else
 							return options.allrules[rules[i]].alertTextCheckboxMultiple;
