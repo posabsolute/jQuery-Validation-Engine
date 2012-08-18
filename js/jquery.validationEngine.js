@@ -1689,7 +1689,7 @@
                  },
 
 		 /**
- 		 * Escape special character for jQuery selector
+ 		 * Escapes special characters and returns a valid jQuery selector
  		 * http://totaldev.com/content/escaping-characters-get-valid-jquery-id
  		 * @param {String} selector
  		 */
