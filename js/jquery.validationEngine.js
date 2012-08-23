@@ -398,7 +398,7 @@
 					methods._ajaxError(data, transport);
 				},
 				success: function(json) {
-					if ((options.dataType == "json") && (json !== true)) {
+					if ((dataType == "json") && (json !== true)) {
 						// getting to this case doesn't necessary means that the form is invalid
 						// the server may return green or closing prompt actions
 						// this flag helps figuring it out
@@ -443,7 +443,8 @@
 						}
 						options.onAjaxFormComplete(!errorInForm, form, json, options);
 					} else
-						options.onAjaxFormComplete(true, form, "", options);
+						options.onAjaxFormComplete(true, form, json, options);
+
 				}
 			});
 
