@@ -180,16 +180,16 @@
 		*/
 		hide: function() {
 			 var form = $(this).closest('form');
-			 if(form.length == 0)
-				return this;
 			 var options = form.data('jqv');
+			 var fadeDuration = (options && options.fadeDuration) ? options.fadeDuration : 0.3;
 			 var closingtag;
+			 
 			 if($(this).is("form")) {
 				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
 			 } else {
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
-			 $('.'+closingtag).fadeTo(options.fadeDuration, 0.3, function() {
+			 $('.'+closingtag).fadeTo(fadeDuration, 0.3, function() {
 				 $(this).parent('.formErrorOuter').remove();
 				 $(this).remove();
 			 });
