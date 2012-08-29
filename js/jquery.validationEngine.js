@@ -117,7 +117,13 @@
 			var valid = null;
 			if(element.is("form") && !element.hasClass('validating')) {
 				element.addClass('validating');
+				var options = element.data('jqv');
 				valid = methods._validateFields(this);
+				
+				// If the form doesn't validate, clear the 'validating' class before the user has a chance to submit again
+				setTimeout(function(){
+					element.removeClass('validating');
+				}, 100);
 				if (valid && options.onFormSuccess) {
 					options.onFormSuccess();
 				} else if (!valid && options.onFormFailure) {
