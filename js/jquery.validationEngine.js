@@ -612,7 +612,36 @@
 
 					default:
 				}
-				if (errorMsg !== undefined) {
+				
+				var end_validation = false;
+				
+				// If we were passed back an message object, check what the status was to determine what to do
+				if (typeof errorMsg == "object") {
+					switch (errorMsg.status) {
+						case "_break":
+							end_validation = true;
+							break;
+						// If we have an error message, set errorMsg to the error message
+						case "_error":
+							errorMsg = errorMsg.message;
+							break;
+						// If we want to throw an error, but not show a prompt, return early with true
+						case "_error_no_prompt":
+							return true;
+							break;
+						// Anything else we continue on
+						default:
+							break;
+					}
+				}
+				
+				// If it has been specified that validation should end now, break
+				if (end_validation) {
+					break;
+				}
+				
+				// If we have a string, that means that we have an error, so add it to the error message.
+				if (typeof errorMsg == 'string') {
 					promptText += errorMsg + "<br/>";
 					options.isError = true;
 				}	
@@ -680,7 +709,7 @@
 			 var element_classes = (field.attr("data-validation-engine")) ? field.attr("data-validation-engine") : field.attr("class");
 			 var element_classes_array = element_classes.split(" ");
 
-			 // Call the original validation method. If we are dealing with dates, also pass the form
+			 // Call the original validation method. If we are dealing with dates or checkboxes, also pass the form
 			 var errorMsg;
 			 if (rule == "future" || rule == "past"  || rule == "maxCheckbox" || rule == "minCheckbox") {
 				 errorMsg = originalValidationMethod(form, field, rules, i, options);
@@ -692,7 +721,7 @@
 			 // return the custom message instead. Otherwise return the original error message.
 			 if (errorMsg != undefined) {
 				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, beforeChangeRule, options);
-				 if (custom_message) return custom_message;
+				 if (custom_message) errorMsg = custom_message;
 			 }
 			 return errorMsg;
 
@@ -700,12 +729,15 @@
 		 _getCustomErrorMessage:function (field, classes, rule, options) {
 			var custom_message = false;
 			var validityProp = methods._validityProp[rule];
+			 // If there is a validityProp for this rule, check to see if the field has an attribute for it
 			if (validityProp != undefined) {
 				custom_message = field.attr("data-errormessage-"+validityProp);
+				// If there was an error message for it, return the message
 				if (custom_message != undefined) 
 					return custom_message;
 			}
 			custom_message = field.attr("data-errormessage");
+			 // If there is an inline custom error message, return it
 			if (custom_message != undefined) 
 				return custom_message;
 			var id = '#' + field.attr("id");
