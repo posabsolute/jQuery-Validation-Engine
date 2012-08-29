@@ -113,21 +113,31 @@
 		* @return true if the form validates, false if it fails
 		*/
 		validate: function() {
-			if($(this).is("form"))
-				return methods._validateFields(this);
-			else {
+			var element = $(this);
+			var valid = null;
+			if(element.is("form") && !element.hasClass('validating')) {
+				element.addClass('validating');
+				valid = methods._validateFields(this);
+				if (valid && options.onFormSuccess) {
+					options.onFormSuccess();
+				} else if (!valid && options.onFormFailure) {
+					options.onFormFailure();
+				}
+			} else if (element.is('form')) {
+				element.removeClass('validating');
+			} else {
 				// field validation
-				var form = $(this).closest('form');
+				var form = element.closest('form');
 				var options = form.data('jqv');  
-				var r = methods._validateField($(this), options);
+				valid = methods._validateField(element, options);
 
-				if (options.onSuccess && options.InvalidFields.length == 0)
-					options.onSuccess();
-				else if (options.onFailure && options.InvalidFields.length > 0)
-					options.onFailure();
-
-				return r;
+				if (valid && options.onFieldSuccess)
+					options.onFieldSuccess();
+				else if (options.onFieldFailure && options.InvalidFields.length > 0) {
+					options.onFieldFailure();
+				}
 			}
+			return valid;
 		},
 		/**
 		*  Redraw prompts position, useful when you change the DOM state when validating
@@ -221,10 +231,10 @@
 			// validate the current field
 			window.setTimeout(function() {
 				methods._validateField(field, options);
-				if (options.InvalidFields.length == 0 && options.onSuccess) {
-					options.onSuccess();
-				} else if (options.InvalidFields.length > 0 && options.onFailure) {
-					options.onFailure();
+				if (options.InvalidFields.length == 0 && options.onFieldSuccess) {
+					options.onFieldSuccess();
+				} else if (options.InvalidFields.length > 0 && options.onFieldFailure) {
+					options.onFieldFailure();
 				}
 			}, (event.data) ? event.data.delay : 0);
 
@@ -1798,8 +1808,10 @@
 		autoPositionUpdate: false,
 
 		InvalidFields: [],
-		onSuccess: false,
-		onFailure: false,
+		onFieldSuccess: false,
+		onFieldFailure: false,
+		onFormSuccess: false,
+		onFormFailure: false,
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
