@@ -310,12 +310,17 @@
 					errorFound |= methods._validateField(field, options);
 					if (errorFound && first_err==null)
 						if (field.is(":hidden") && options.prettySelect)
-                first_err = field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
-            else
-                first_err=field;
+					                first_err = field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+					            else
+					                first_err=field;
 					if (options.doNotShowAllErrosOnSubmit)
 						return false;
 					names.push(field.attr('name'));
+
+					//if option set, stop checking validation rules after one error is found
+					if(options.showOneMessage == true && errorFound){
+						return false;
+					}
 				}
 			});
 
@@ -594,11 +599,7 @@
 				if (errorMsg !== undefined) {
 					promptText += errorMsg + "<br/>";
 					options.isError = true;
-				}
-
-				//if option set, stop checking validation rules after one error is found
-				if(options.showOneMessage === true && options.isError === true)
-					break;
+				}	
 			}
 			// If the rules required is not added, an empty field is not validated
 			if(!required && field.val().length < 1) options.isError = false;
