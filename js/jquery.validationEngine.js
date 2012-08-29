@@ -488,12 +488,24 @@
 			var promptText = "";
 			var promptType = "";
 			var required = false;
+			var limitErrors = false;
 			options.isError = false;
 			options.showArrow = true;
+			
+			// If the programmer wants to limit the amount of error messages per field,
+			if (options.maxErrorsPerField > 0) {
+				limitErrors = true;
+			}
 
 			var form = $(field.closest("form"));
 
-			for (var i = 0; i < rules.length; i++) {
+			for (var i = 0, field_errors = 0; i < rules.length; i++) {
+				
+				// If we are limiting errors, and have hit the max, break
+				if (limitErrors && field_errors >= options.maxErrorsPerField) {
+					break;
+				}
+				
 				// Fix for adding spaces in the rules
 				rules[i] = rules[i].replace(" ", ""); 
 				var errorMsg = undefined;
@@ -599,6 +611,7 @@
 				if (errorMsg !== undefined) {
 					promptText += errorMsg + "<br/>";
 					options.isError = true;
+					field_errors++;
 				}	
 			}
 			// If the rules required is not added, an empty field is not validated
@@ -1791,6 +1804,9 @@
 		showArrow: true,
 		// did one of the validation fail ? kept global to stop further ajax validations
 		isError: false,
+		// Limit how many displayed errors a field can have
+		maxErrorsPerField: false,
+		
 		// Caches field validation status, typically only bad status are created.
 		// the array is used during ajax form validation to detect issues early and prevent an expensive submit
 		ajaxValidCache: {},
