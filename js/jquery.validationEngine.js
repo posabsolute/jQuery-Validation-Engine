@@ -500,6 +500,14 @@
 			}
 
 			var form = $(field.closest("form"));
+			// Fix for adding spaces in the rules
+			for (var i in rules) {
+				rules[i] = rules[i].replace(" ", "");
+				// Remove any parsing errors
+				if (rules[i] === '') {
+					delete rules[i];
+				}
+			}
 
 			for (var i = 0, field_errors = 0; i < rules.length; i++) {
 				
@@ -514,8 +522,7 @@
 					break;
 				}
 				
-				// Fix for adding spaces in the rules
-				rules[i] = rules[i].replace(" ", ""); 
+				
 				var errorMsg = undefined;
 				switch (rules[i]) {
 
