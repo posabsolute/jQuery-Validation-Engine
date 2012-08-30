@@ -113,21 +113,37 @@
 		* @return true if the form validates, false if it fails
 		*/
 		validate: function() {
-			if($(this).is("form"))
-				return methods._validateFields(this);
-			else {
+			var element = $(this);
+			var valid = null;
+			if(element.is("form") && !element.hasClass('validating')) {
+				element.addClass('validating');
+				var options = element.data('jqv');
+				valid = methods._validateFields(this);
+				
+				// If the form doesn't validate, clear the 'validating' class before the user has a chance to submit again
+				setTimeout(function(){
+					element.removeClass('validating');
+				}, 100);
+				if (valid && options.onFormSuccess) {
+					options.onFormSuccess();
+				} else if (!valid && options.onFormFailure) {
+					options.onFormFailure();
+				}
+			} else if (element.is('form')) {
+				element.removeClass('validating');
+			} else {
 				// field validation
-				var form = $(this).closest('form');
+				var form = element.closest('form');
 				var options = form.data('jqv');  
-				var r = methods._validateField($(this), options);
+				valid = methods._validateField(element, options);
 
-				if (options.onSuccess && options.InvalidFields.length == 0)
-					options.onSuccess();
-				else if (options.onFailure && options.InvalidFields.length > 0)
-					options.onFailure();
-
-				return r;
+				if (valid && options.onFieldSuccess)
+					options.onFieldSuccess();
+				else if (options.onFieldFailure && options.InvalidFields.length > 0) {
+					options.onFieldFailure();
+				}
 			}
+			return valid;
 		},
 		/**
 		*  Redraw prompts position, useful when you change the DOM state when validating
@@ -221,10 +237,10 @@
 			// validate the current field
 			window.setTimeout(function() {
 				methods._validateField(field, options);
-				if (options.InvalidFields.length == 0 && options.onSuccess) {
-					options.onSuccess();
-				} else if (options.InvalidFields.length > 0 && options.onFailure) {
-					options.onFailure();
+				if (options.InvalidFields.length == 0 && options.onFieldSuccess) {
+					options.onFieldSuccess();
+				} else if (options.InvalidFields.length > 0 && options.onFieldFailure) {
+					options.onFieldFailure();
 				}
 			}, (event.data) ? event.data.delay : 0);
 
@@ -623,7 +639,36 @@
 
 					default:
 				}
-				if (errorMsg !== undefined) {
+				
+				var end_validation = false;
+				
+				// If we were passed back an message object, check what the status was to determine what to do
+				if (typeof errorMsg == "object") {
+					switch (errorMsg.status) {
+						case "_break":
+							end_validation = true;
+							break;
+						// If we have an error message, set errorMsg to the error message
+						case "_error":
+							errorMsg = errorMsg.message;
+							break;
+						// If we want to throw an error, but not show a prompt, return early with true
+						case "_error_no_prompt":
+							return true;
+							break;
+						// Anything else we continue on
+						default:
+							break;
+					}
+				}
+				
+				// If it has been specified that validation should end now, break
+				if (end_validation) {
+					break;
+				}
+				
+				// If we have a string, that means that we have an error, so add it to the error message.
+				if (typeof errorMsg == 'string') {
 					promptText += errorMsg + "<br/>";
 					options.isError = true;
 					field_errors++;
@@ -692,7 +737,7 @@
 			 var element_classes = (field.attr("data-validation-engine")) ? field.attr("data-validation-engine") : field.attr("class");
 			 var element_classes_array = element_classes.split(" ");
 
-			 // Call the original validation method. If we are dealing with dates, also pass the form
+			 // Call the original validation method. If we are dealing with dates or checkboxes, also pass the form
 			 var errorMsg;
 			 if (rule == "future" || rule == "past"  || rule == "maxCheckbox" || rule == "minCheckbox") {
 				 errorMsg = originalValidationMethod(form, field, rules, i, options);
@@ -704,7 +749,7 @@
 			 // return the custom message instead. Otherwise return the original error message.
 			 if (errorMsg != undefined) {
 				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, beforeChangeRule, options);
-				 if (custom_message) return custom_message;
+				 if (custom_message) errorMsg = custom_message;
 			 }
 			 return errorMsg;
 
@@ -712,12 +757,15 @@
 		 _getCustomErrorMessage:function (field, classes, rule, options) {
 			var custom_message = false;
 			var validityProp = methods._validityProp[rule];
+			 // If there is a validityProp for this rule, check to see if the field has an attribute for it
 			if (validityProp != undefined) {
 				custom_message = field.attr("data-errormessage-"+validityProp);
+				// If there was an error message for it, return the message
 				if (custom_message != undefined) 
 					return custom_message;
 			}
 			custom_message = field.attr("data-errormessage");
+			 // If there is an inline custom error message, return it
 			if (custom_message != undefined) 
 				return custom_message;
 			var id = '#' + field.attr("id");
@@ -1829,8 +1877,10 @@
 		autoPositionUpdate: false,
 
 		InvalidFields: [],
-		onSuccess: false,
-		onFailure: false,
+		onFieldSuccess: false,
+		onFieldFailure: false,
+		onFormSuccess: false,
+		onFormFailure: false,
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
