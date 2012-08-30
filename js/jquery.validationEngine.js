@@ -358,7 +358,9 @@
 
 					if (positionType!="bottomRight" && positionType!="bottomLeft") {
 						var prompt_err= methods._getPrompt(first_err);
-						destination=prompt_err.offset().top;
+						if (prompt_err) {
+							destination=prompt_err.offset().top;
+						}
 					}
 
 					// get the position of the first error, there should be at least one, no need to check this
@@ -504,14 +506,39 @@
 			var promptText = "";
 			var promptType = "";
 			var required = false;
+			var limitErrors = false;
 			options.isError = false;
 			options.showArrow = true;
+			
+			// If the programmer wants to limit the amount of error messages per field,
+			if (options.maxErrorsPerField > 0) {
+				limitErrors = true;
+			}
 
 			var form = $(field.closest("form"));
+			// Fix for adding spaces in the rules
+			for (var i in rules) {
+				rules[i] = rules[i].replace(" ", "");
+				// Remove any parsing errors
+				if (rules[i] === '') {
+					delete rules[i];
+				}
+			}
 
-			for (var i = 0; i < rules.length; i++) {
-				// Fix for adding spaces in the rules
-				rules[i] = rules[i].replace(" ", ""); 
+			for (var i = 0, field_errors = 0; i < rules.length; i++) {
+				
+				// If we are limiting errors, and have hit the max, break
+				if (limitErrors && field_errors >= options.maxErrorsPerField) {
+					// If we haven't hit a required yet, check to see if there is one in the validation rules for this
+					// field and that it's index is greater or equal to our current index
+					if (!required) {
+						var have_required = $.inArray('required', rules);
+						required = (have_required != -1 &&  have_required >= i);
+					}
+					break;
+				}
+				
+				
 				var errorMsg = undefined;
 				switch (rules[i]) {
 
@@ -644,6 +671,7 @@
 				if (typeof errorMsg == 'string') {
 					promptText += errorMsg + "<br/>";
 					options.isError = true;
+					field_errors++;
 				}	
 			}
 			// If the rules required is not added, an empty field is not validated
@@ -1839,6 +1867,9 @@
 		showArrow: true,
 		// did one of the validation fail ? kept global to stop further ajax validations
 		isError: false,
+		// Limit how many displayed errors a field can have
+		maxErrorsPerField: false,
+		
 		// Caches field validation status, typically only bad status are created.
 		// the array is used during ajax form validation to detect issues early and prevent an expensive submit
 		ajaxValidCache: {},
