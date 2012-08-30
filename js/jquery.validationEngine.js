@@ -342,7 +342,9 @@
 
 					if (positionType!="bottomRight" && positionType!="bottomLeft") {
 						var prompt_err= methods._getPrompt(first_err);
-						destination=prompt_err.offset().top;
+						if (prompt_err) {
+							destination=prompt_err.offset().top;
+						}
 					}
 
 					// get the position of the first error, there should be at least one, no need to check this
@@ -503,6 +505,12 @@
 				
 				// If we are limiting errors, and have hit the max, break
 				if (limitErrors && field_errors >= options.maxErrorsPerField) {
+					// If we haven't hit a required yet, check to see if there is one in the validation rules for this
+					// field and that it's index is greater or equal to our current index
+					if (!required) {
+						var have_required = $.inArray('required', rules);
+						required = (have_required != -1 &&  have_required >= i);
+					}
 					break;
 				}
 				
