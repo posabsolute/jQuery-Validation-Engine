@@ -708,9 +708,36 @@
 			} else if (!options.isError) {
 				options.InvalidFields.splice(errindex, 1);
 			}
-
+				
+			methods._handleStatusCssClasses(field, options);
+	
 			return options.isError;
 		},
+		/**
+		* Handling css classes of fields indicating result of validation 
+		*
+		* @param {jqObject}
+		*            field
+		* @param {Array[String]}
+		*            field's validation rules            
+		* @private
+		*/
+		_handleStatusCssClasses: function(field, options) {
+			/* remove all classes */
+			if(options.addSuccessCssClassToField)
+				field.removeClass(options.addSuccessCssClassToField);
+			
+			if(options.addFailureCssClassToField)
+				field.removeClass(options.addFailureCssClassToField);
+			
+			/* Add classes */
+			if (options.addSuccessCssClassToField && !options.isError)
+				field.addClass(options.addSuccessCssClassToField);
+			
+			if (options.addFailureCssClassToField && options.isError)
+				field.addClass(options.addFailureCssClassToField);		
+		},
+		
 		 /********************
 		  * _getErrorMessage
 		  *
@@ -1881,6 +1908,9 @@
 		onFieldFailure: false,
 		onFormSuccess: false,
 		onFormFailure: false,
+		addSuccessCssClassToField: false,
+		addFailureCssClassToField: false,
+		
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
