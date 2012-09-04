@@ -161,6 +161,8 @@
 			// No option, take default one
 			form.find('['+options.validateAttribute+'*=validate]').not(":disabled").each(function(){
 				var field = $(this);
+				if (options.prettySelect && field.is(":hidden"))
+				  field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
 				var prompt = methods._getPrompt(field);
 				var promptText = $(prompt).find(".formErrorContent").html();
 
