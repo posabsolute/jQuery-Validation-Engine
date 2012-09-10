@@ -328,7 +328,7 @@
 					errorFound |= methods._validateField(field, options);
 					if (errorFound && first_err==null)
 						if (field.is(":hidden") && options.prettySelect)
-					                first_err = field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+					                first_err = field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 					            else
 					                first_err=field;
 					if (options.doNotShowAllErrosOnSubmit)
@@ -689,7 +689,7 @@
 			}
 
 			if(field.is(":hidden") && options.prettySelect) {
-				field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+				field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 			}
 
 			if (options.isError){
@@ -1794,7 +1794,14 @@
 			 if(className)
 				 return className.replace(/:/g, "_").replace(/\./g, "_");
                  },
-
+		/**
+		 * Escape special character for jQuery selector
+		 * http://totaldev.com/content/escaping-characters-get-valid-jquery-id
+		 * @param {String} selector
+		 */
+		 _jqSelector: function(str){
+			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+		},
 		/**
 		* Conditionally required field
 		*
