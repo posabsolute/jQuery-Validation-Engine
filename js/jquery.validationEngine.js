@@ -1350,7 +1350,7 @@
 						 // asynchronously called on success, data is the json answer from the server
 						 var errorFieldId = json[0];
 						 //var errorField = $($("#" + errorFieldId)[0]);
-						 var errorField = $($("input[id='" + errorFieldId +"']")[0]);
+						 var errorField = $("#"+ errorFieldId +"']").eq(0);
 
 						 // make sure we found the element
 						 if (errorField.length == 1) {
