@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.6, jQuery plugin
+ * Inline Form Validation Engine 2.6.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -405,7 +405,7 @@
 		_validateFormWithAjax: function(form, options) {
 
 			var data = form.serialize();
-                        	var type = (options.ajaxmethod) ? options.ajaxmethod : "GET";
+                        	var type = (options.ajaxFormMethod) ? options.ajaxFormMethod : "GET";
 			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
                         	var dataType = (options.dataType) ? options.dataType : "json";
 			$.ajax({
