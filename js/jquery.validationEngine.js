@@ -379,13 +379,14 @@
 						scrollContainer.animate({ scrollTop: destination }, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
 						});
+
 					} else {
-						$("html:not(:animated),body:not(:animated)").animate({
+						$("html, body").animate({
 							scrollTop: destination,
-							scrollLeft: fixleft
 						}, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
 						});
+						$("html, body").animate({scrollLeft: fixleft},1100)
 					}
 
 				} else if(options.focusFirstField)
