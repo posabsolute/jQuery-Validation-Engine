@@ -1,4 +1,4 @@
-/*
+2/*
  * Inline Form Validation Engine 2.6.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
@@ -382,7 +382,7 @@
 
 					} else {
 						$("html, body").animate({
-							scrollTop: destination,
+							scrollTop: destination
 						}, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
 						});
