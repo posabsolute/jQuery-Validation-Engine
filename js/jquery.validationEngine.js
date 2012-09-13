@@ -1,5 +1,5 @@
-/*
- * Inline Form Validation Engine 2.6, jQuery plugin
+2/*
+ * Inline Form Validation Engine 2.6.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -328,7 +328,7 @@
 					errorFound |= methods._validateField(field, options);
 					if (errorFound && first_err==null)
 						if (field.is(":hidden") && options.prettySelect)
-					                first_err = field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+					                first_err = field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 					            else
 					                first_err=field;
 					if (options.doNotShowAllErrosOnSubmit)
@@ -379,13 +379,14 @@
 						scrollContainer.animate({ scrollTop: destination }, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
 						});
+
 					} else {
-						$("html:not(:animated),body:not(:animated)").animate({
-							scrollTop: destination,
-							scrollLeft: fixleft
+						$("html, body").animate({
+							scrollTop: destination
 						}, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
 						});
+						$("html, body").animate({scrollLeft: fixleft},1100)
 					}
 
 				} else if(options.focusFirstField)
@@ -404,7 +405,7 @@
 		_validateFormWithAjax: function(form, options) {
 
 			var data = form.serialize();
-                        	var type = (options.ajaxmethod) ? options.ajaxmethod : "GET";
+                        	var type = (options.ajaxFormMethod) ? options.ajaxFormMethod : "GET";
 			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
                         	var dataType = (options.dataType) ? options.dataType : "json";
 			$.ajax({
@@ -689,7 +690,7 @@
 			}
 
 			if(field.is(":hidden") && options.prettySelect) {
-				field = form.find("#" + options.usePrefix + field.attr('id') + options.useSuffix);
+				field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 			}
 
 			if (options.isError){
@@ -710,9 +711,36 @@
 			} else if (!options.isError) {
 				options.InvalidFields.splice(errindex, 1);
 			}
-
+				
+			methods._handleStatusCssClasses(field, options);
+	
 			return options.isError;
 		},
+		/**
+		* Handling css classes of fields indicating result of validation 
+		*
+		* @param {jqObject}
+		*            field
+		* @param {Array[String]}
+		*            field's validation rules            
+		* @private
+		*/
+		_handleStatusCssClasses: function(field, options) {
+			/* remove all classes */
+			if(options.addSuccessCssClassToField)
+				field.removeClass(options.addSuccessCssClassToField);
+			
+			if(options.addFailureCssClassToField)
+				field.removeClass(options.addFailureCssClassToField);
+			
+			/* Add classes */
+			if (options.addSuccessCssClassToField && !options.isError)
+				field.addClass(options.addSuccessCssClassToField);
+			
+			if (options.addFailureCssClassToField && options.isError)
+				field.addClass(options.addFailureCssClassToField);		
+		},
+		
 		 /********************
 		  * _getErrorMessage
 		  *
@@ -1323,7 +1351,7 @@
 						 // asynchronously called on success, data is the json answer from the server
 						 var errorFieldId = json[0];
 						 //var errorField = $($("#" + errorFieldId)[0]);
-						 var errorField = $($("input[id='" + errorFieldId +"']")[0]);
+						 var errorField = $("#"+ errorFieldId +"']").eq(0);
 
 						 // make sure we found the element
 						 if (errorField.length == 1) {
@@ -1767,7 +1795,14 @@
 			 if(className)
 				 return className.replace(/:/g, "_").replace(/\./g, "_");
                  },
-
+		/**
+		 * Escape special character for jQuery selector
+		 * http://totaldev.com/content/escaping-characters-get-valid-jquery-id
+		 * @param {String} selector
+		 */
+		 _jqSelector: function(str){
+			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+		},
 		/**
 		* Conditionally required field
 		*
@@ -1883,6 +1918,9 @@
 		onFieldFailure: false,
 		onFormSuccess: false,
 		onFormFailure: false,
+		addSuccessCssClassToField: false,
+		addFailureCssClassToField: false,
+		
 		// Auto-hide prompt
 		autoHidePrompt: false,
 		// Delay before auto-hide
