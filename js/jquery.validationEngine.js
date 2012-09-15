@@ -1,4 +1,4 @@
-2/*
+/*
  * Inline Form Validation Engine 2.6.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
