@@ -328,9 +328,9 @@
 					errorFound |= methods._validateField(field, options);
 					if (errorFound && first_err==null)
 						if (field.is(":hidden") && options.prettySelect)
-					                first_err = field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
-					            else
-					                first_err=field;
+										 first_err = field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
+									else
+										 first_err=field;
 					if (options.doNotShowAllErrosOnSubmit)
 						return false;
 					names.push(field.attr('name'));
@@ -405,9 +405,9 @@
 		_validateFormWithAjax: function(form, options) {
 
 			var data = form.serialize();
-                        	var type = (options.ajaxFormMethod) ? options.ajaxFormMethod : "GET";
+									var type = (options.ajaxFormMethod) ? options.ajaxFormMethod : "GET";
 			var url = (options.ajaxFormValidationURL) ? options.ajaxFormValidationURL : form.attr("action");
-                        	var dataType = (options.dataType) ? options.dataType : "json";
+									var dataType = (options.dataType) ? options.dataType : "json";
 			$.ajax({
 				type: type,
 				url: url,
@@ -520,14 +520,12 @@
 
 			var form = $(field.closest("form"));
 			// Fix for adding spaces in the rules
-			for (var i in rules) {
-                if (rules.hasOwnProperty(i)) {
-                    rules[i] = rules[i].replace(" ", "");
-                    // Remove any parsing errors
-                    if (rules[i] === '') {
-                        delete rules[i];
-                    }
-                }
+			for (var i = 0; i < rules.length; i++) {
+				rules[i] = rules[i].replace(" ", "");
+				// Remove any parsing errors
+				if (rules[i] === '') {
+					delete rules[i];
+				}
 			}
 
 			for (var i = 0, field_errors = 0; i < rules.length; i++) {
@@ -805,7 +803,7 @@
 			// Otherwise, if we have custom messages for the element's classes, use the first class message we find instead.
 			if (typeof options.custom_error_messages[id] != "undefined" &&
 				typeof options.custom_error_messages[id][rule] != "undefined" ) {
-				        custom_message = options.custom_error_messages[id][rule]['message'];
+						  custom_message = options.custom_error_messages[id][rule]['message'];
 			} else if (classes.length > 0) {
 				for (var i = 0; i < classes.length && classes.length > 0; i++) {
 					 var element_class = "." + classes[i];
@@ -901,8 +899,8 @@
 			}); 
 
 			if(!isValid) {
-        return options.allrules[rules[i]].alertText;
-      }
+		  return options.allrules[rules[i]].alertText;
+		}
 		},
 		/**
 		* Validate rules
@@ -1371,7 +1369,7 @@
 										 var txt = options.allrules[msg].alertText;
 										 if (txt) {
 											msg = txt;
-                     }
+							}
 									 }
 								 }
 								 else
@@ -1387,7 +1385,7 @@
 										 var txt = options.allrules[msg].alertTextOk;
 										 if (txt) {
 											msg = txt;
-                     }
+							}
 									 }
 								 }
 								 else
@@ -1796,7 +1794,7 @@
 		 _getClassName: function(className) {
 			 if(className)
 				 return className.replace(/:/g, "_").replace(/\./g, "_");
-                 },
+					  },
 		/**
 		 * Escape special character for jQuery selector
 		 * http://totaldev.com/content/escaping-characters-get-valid-jquery-id
@@ -1832,7 +1830,7 @@
 				}
 			}
 		}
-        };
+		  };
 
 	 /**
 	 * Plugin entry point.
@@ -1929,14 +1927,14 @@
 		autoHideDelay: 10000,
 		// Fade out duration while hiding the validations
 		fadeDuration: 0.3,
-    // Use Prettify select library
-    prettySelect: false,
-    // Custom ID uses prefix
-    usePrefix: "",
-    // Custom ID uses suffix
-    useSuffix: "",
-    // Only show one message per error prompt
-    showOneMessage: false
+	 // Use Prettify select library
+	 prettySelect: false,
+	 // Custom ID uses prefix
+	 usePrefix: "",
+	 // Custom ID uses suffix
+	 useSuffix: "",
+	 // Only show one message per error prompt
+	 showOneMessage: false
 	}};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
