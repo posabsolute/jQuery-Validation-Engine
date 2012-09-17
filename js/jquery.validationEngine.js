@@ -521,11 +521,13 @@
 			var form = $(field.closest("form"));
 			// Fix for adding spaces in the rules
 			for (var i in rules) {
-				rules[i] = rules[i].replace(" ", "");
-				// Remove any parsing errors
-				if (rules[i] === '') {
-					delete rules[i];
-				}
+                if (rules.hasOwnProperty(i)) {
+                    rules[i] = rules[i].replace(" ", "");
+                    // Remove any parsing errors
+                    if (rules[i] === '') {
+                        delete rules[i];
+                    }
+                }
 			}
 
 			for (var i = 0, field_errors = 0; i < rules.length; i++) {
