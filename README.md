@@ -16,13 +16,13 @@ Bundled with many locales, the error prompts can be translated into the language
 
 Documentation :
 ---
-[http://posabsolute.github.com/jQuery-Validation-Engine/](Nicer documention)
-[http://posabsolute.github.com/jQuery-Validation-Engine/releases.html](Release Notes)
+#### [http://posabsolute.github.com/jQuery-Validation-Engine/](Nicer documention)
+#### [http://posabsolute.github.com/jQuery-Validation-Engine/releases.html](Release Notes)
 
 
 Demo :
 ---
-[http://www.position-relative.net/creation/formValidator/](http://www.position-relative.net/creation/formValidator/)
+#### [http://www.position-relative.net/creation/formValidator/](http://www.position-relative.net/creation/formValidator/)
 
 
 Installation
