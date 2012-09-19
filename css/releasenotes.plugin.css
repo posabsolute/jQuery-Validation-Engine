@@ -125,7 +125,9 @@ p.dateRelease{margin:0 0 10px 0; font-size:14px;}
 	.milestoneContainer .cmeta .date {font-size:11px;}
 	.milestoneContainer  .issue{
 	  padding-bottom: 3px;
-	  list-style-type:disc
+	  list-style-type:disc;
+	  display:list-item;
+	  margin-left:20px;
 	}
 	.milestoneContainer .issues{
 	    color:#555;
