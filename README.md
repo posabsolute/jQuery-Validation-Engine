@@ -22,7 +22,7 @@ Documentation :
 
 Demo :
 ---
-[http://www.position-relative.net/creation/formValidator/]
+### http://www.position-relative.net/creation/formValidator/
 
 
 Installation
