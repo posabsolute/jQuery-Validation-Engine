@@ -9,7 +9,7 @@
 	.milestoneContainer.separator{background:url("../images/lineseparator.png") bottom center no-repeat;}
 	.milestoneContainer .cursor:hover{cursor:pointer;}
 
-h3.release {margin:0 0 2px 0;font-size:18px;}
+h3.release {margin:0 0 2px 0;font-size:19px;}
 p.dateRelease{margin:0 0 10px 0; font-size:14px;}
 
 	.milestoneContainer  .body p{padding:5px 0; margin:0;}
@@ -125,6 +125,7 @@ p.dateRelease{margin:0 0 10px 0; font-size:14px;}
 	.milestoneContainer .cmeta .date {font-size:11px;}
 	.milestoneContainer  .issue{
 	  padding-bottom: 3px;
+	  list-style-type:disc
 	}
 	.milestoneContainer .issues{
 	    color:#555;
