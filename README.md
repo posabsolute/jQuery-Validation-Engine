@@ -10,10 +10,14 @@ The plugin provides visually appealing prompts that grab user attention on the s
 Validations range from email, phone, and URL, to more complex calls such as ajax processing or custom javascript functions.
 Bundled with many locales, the error prompts can be translated into the language of your choice. 
 
-### Nicer documention: http://posabsolute.github.com/jQuery-Validation-Engine/
+
 
 ![Screenshot](https://github.com/posabsolute/jQuery-Validation-Engine/raw/master/css/screenshot.png)
 
+Documentation :
+---
+[http://posabsolute.github.com/jQuery-Validation-Engine/](Nicer documention)
+[http://posabsolute.github.com/jQuery-Validation-Engine/releases.html](Release Notes)
 
 
 Demo :
