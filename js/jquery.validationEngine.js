@@ -849,9 +849,10 @@
 		* @param {int} i rules index
 		* @param {Map}
 		*            user options
+		* @param {bool} condRequired flag when method is used for internal purpose in condRequired check
 		* @return an error string if validation failed
 		*/
-		_required: function(field, rules, i, options) {
+		_required: function(field, rules, i, options, condRequired) {
 			switch (field.prop("type")) {
 				case "text":
 				case "password":
@@ -866,6 +867,14 @@
 					break;
 				case "radio":
 				case "checkbox":
+					// new validation style to only check dependent field
+					if (condRequired) {
+						if (!field.attr('checked')) {
+							return options.allrules[rules[i]].alertTextCheckboxMultiple;
+						}
+						break;
+					}
+					// old validation style
 					var form = field.closest("form");
 					var name = field.attr("name");
 					if (form.find("input[name='" + name + "']:checked").size() == 0) {
@@ -1821,8 +1830,9 @@
 
 				/* Use _required for determining wether dependingField has a value.
 				 * There is logic there for handling all field types, and default value; so we won't replicate that here
+				 * Indicate this special use by setting the last parameter to true so we only validate the dependingField on chackboxes and radio buttons (#462)
 				 */
-				if (dependingField.length && methods._required(dependingField, ["required"], 0, options) == undefined) {
+				if (dependingField.length && methods._required(dependingField, ["required"], 0, options, true) == undefined) {
 					/* We now know any of the depending fields has a value,
 					 * so we can validate this field as per normal required code
 					 */
