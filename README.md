@@ -915,4 +915,5 @@ Authors
  v2.0 Rewrite by [Olivier Refalo](https://github.com/orefalo) [http://www.crionics.com](http://www.crionics.com)
  
 **Official Contributors**
+
 Stefan Fochler
