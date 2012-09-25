@@ -129,6 +129,7 @@
 			},
 			getPrettyDate : function(date){
 				var dateFormat = "";
+				if(!date) return "";
 				var date = date.split("T");
 				var dateArray = date[0].split("-");
 				var dateObj = new Date(dateArray[0],(dateArray[1]-1),dateArray[2]);
@@ -166,7 +167,13 @@
 			  },
 			callApi: function(options){
 				var myoption = $.extend({}, options);
+				var url = this.urls[options.action](options);
+
 				if(myoption.repo) delete myoption.repo;
+				if(myoption.username) delete myoption.username;
+				if(myoption.id) delete myoption.id;
+				if(myoption.action) delete myoption.action;
+
 				return $.ajax({
 					url:this.urls[options.action](options),
 					dataType:respType,
