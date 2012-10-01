@@ -1530,10 +1530,6 @@
 						break;
 				}
 			}
-			// Modify z-indexes  for jquery ui
-			if (field.closest('.ui-dialog').length)
-				prompt.addClass('formErrorInsideDialog');
-
 			prompt.css({
 				"opacity": 0,
 				'position':'absolute'

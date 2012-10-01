@@ -836,9 +836,14 @@ This need to be added before the initialization, one good way to handle this wou
 <script src="js/jquery.validationEngine-settings.js" type="text/javascript" charset="utf-8"></script>
 ```
 
-Using the validationEngine with modal & dialog plugins
+Using the validationEngine with modal & dialog plugins & kendo UI widgets
 ---
-You can have more information about implementing the engine with modal views here:
+Modal elements, have a tendency to take a high z-index, which in turn can interfer with the plugin. In the case of modal jQuery ui, if you want to change the z-index you can do this easily in your css.
+
+    .ui-dialog .formError
+
+
+For other cases please modify the css yourself, we will not support custom frameworks in the base code. You can have more information about implementing the engine with modal views here:
 [http://www.position-absolute.com/articles/using-the-jquery-validation-engine-with-modal-plugins/]
 
 
