@@ -1530,6 +1530,10 @@
 						break;
 				}
 			}
+			// Add custom prompt class
+			if (options.addPromptClass)
+				prompt.addClass(options.addPromptClass);
+
 			prompt.css({
 				"opacity": 0,
 				'position':'absolute'
@@ -1935,6 +1939,8 @@
 		fadeDuration: 0.3,
 	 // Use Prettify select library
 	 prettySelect: false,
+	 // Add css class on prompt
+	 addPromptClass : "",
 	 // Custom ID uses prefix
 	 usePrefix: "",
 	 // Custom ID uses suffix

@@ -414,6 +414,10 @@ Determines if the prompt should hide itself automatically after a set period. De
 ### autoHideDelay
 Sets the number of ms that the prompt should appear for if autoHidePrompt is set to *true*. Defaults to *10000*. 
 
+### addPromptClass
+Add a css class to the created prompt on each field (Useful for modals and stuff).
+
+
 Validators
 ---
 
