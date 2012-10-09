@@ -124,10 +124,10 @@
 				setTimeout(function(){
 					element.removeClass('validating');
 				}, 100);
-				if (valid && options.onFormSuccess) {
-					options.onFormSuccess();
-				} else if (!valid && options.onFormFailure) {
-					options.onFormFailure();
+				if (valid && options.onSuccess) {
+					options.onSuccess();
+				} else if (!valid && options.onFailure) {
+					options.onFailure();
 				}
 			} else if (element.is('form')) {
 				element.removeClass('validating');
@@ -558,9 +558,10 @@
 						var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";
 						var firstOfGroup = form.find(classGroup).eq(0);
 						if(firstOfGroup[0] != field[0]){
+
 							methods._validateField(firstOfGroup, options, skipAjaxValidation); 
 							options.showArrow = true;
-							continue;
+
 						}
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._groupRequired);
 						if(errorMsg)  required = true;
@@ -1926,8 +1927,8 @@
 		InvalidFields: [],
 		onFieldSuccess: false,
 		onFieldFailure: false,
-		onFormSuccess: false,
-		onFormFailure: false,
+		onSuccess: false,
+		onFailure: false,
 		addSuccessCssClassToField: false,
 		addFailureCssClassToField: false,
 		
