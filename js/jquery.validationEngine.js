@@ -453,7 +453,7 @@
 											if (txt)
 												msg = txt;
 										}
-										methods._showPrompt(errorField, msg, "pass", false, options, true);
+										if (options.showPrompts) methods._showPrompt(errorField, msg, "pass", false, options, true);
 									}
 								} else {
 									// the field is invalid, show the red error prompt
@@ -463,7 +463,7 @@
 										if (txt)
 											msg = txt;
 									}
-									methods._showPrompt(errorField, msg, "", false, options, true);
+									if(options.showPrompts) methods._showPrompt(errorField, msg, "", false, options, true);
 								}
 							}
 						}
@@ -694,7 +694,7 @@
 				field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 			}
 
-			if (options.isError){
+			if (options.isError && options.showPrompts){
 				methods._showPrompt(field, promptText, promptType, false, options);
 			}else{
 				if (!isAjaxValidator) methods._closePrompt(field);
@@ -1385,7 +1385,7 @@
 								 else
 									msg = rule.alertText;
 
-								 methods._showPrompt(errorField, msg, "", true, options);
+								 if (options.showPrompts) methods._showPrompt(errorField, msg, "", true, options);
 							 } else {
 								 options.ajaxValidCache[errorFieldId] = true;
 
@@ -1401,11 +1401,13 @@
 								 else
 								 msg = rule.alertTextOk;
 
-								 // see if we should display a green prompt
-								 if (msg)
-									methods._showPrompt(errorField, msg, "pass", true, options);
-								 else
-									methods._closePrompt(errorField);
+								 if (options.showPrompts) {
+									 // see if we should display a green prompt
+									 if (msg)
+										methods._showPrompt(errorField, msg, "pass", true, options);
+									 else
+										methods._closePrompt(errorField);
+								}
 								
 								 // If a submit form triggered this, we want to re-submit the form
 								 if (options.eventTrigger == "submit")
@@ -1885,6 +1887,8 @@
 		scroll: true,
 		// Focus on the first input
 		focusFirstField:true,
+		// Show prompts, set to false to disable prompts
+		showPrompts: true,
 		// Opening box position, possible locations are: topLeft,
 		// topRight, bottomLeft, centerRight, bottomRight
 		promptPosition: "topRight",
