@@ -1467,10 +1467,13 @@
 			 // When the form errors are returned, the engine see 2 bubbles, but those are ebing closed by the engine at the same time
 			 // Because no error was found befor submitting
 			 if(ajaxform) prompt = false;
-			 if (prompt)
-				methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
-			 else
-				methods._buildPrompt(field, promptText, type, ajaxed, options);
+			 // Check that there is indded text
+			 if($.trim(promptText)){ 
+				 if (prompt)
+					methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
+				 else
+					methods._buildPrompt(field, promptText, type, ajaxed, options);
+			}
 		 },
 		/**
 		* Builds and shades a prompt for the given field.
