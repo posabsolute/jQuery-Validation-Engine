@@ -323,6 +323,10 @@ Default position adjustment could also be provided.
 ### showOneMessage
 Only display the first incorrect validation message instead of normally stacking it. It will follows the validation hierarchy you used in the input and only show the first error.
 
+### showPrompts
+If set to false, prompts never show.
+
+
 ### ajaxFormValidation
 If set to true, turns Ajax form validation logic on. Defaults to *false*.
 Form validation takes place when the validate() action is called or when the form is submitted.
