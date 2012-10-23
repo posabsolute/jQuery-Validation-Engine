@@ -134,7 +134,7 @@
 			} else {
 				// field validation
 				var form = element.closest('form');
-				var options = form.data('jqv');  
+				var options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults;  
 				valid = methods._validateField(element, options);
 
 				if (valid && options.onFieldSuccess)
@@ -1936,6 +1936,7 @@
 		onFieldFailure: false,
 		onSuccess: false,
 		onFailure: false,
+		validateAttribute: "class",
 		addSuccessCssClassToField: false,
 		addFailureCssClassToField: false,
 		
