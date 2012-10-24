@@ -313,6 +313,9 @@ Name of the event triggering field validation, defaults to *blur*.
 ### scroll
 Determines if we should scroll the page to the first error, defaults to *true*.
 
+### scrollOffset
+The amount to offset the scroll in px.  Useful if there are fixed elements at the top of the page.
+
 ### binded
 If set to true, it remove blur events and only validate on submit.
 
