@@ -134,7 +134,7 @@
 			} else {
 				// field validation
 				var form = element.closest('form');
-				var options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults;  
+				var options = form.data('jqv');  
 				valid = methods._validateField(element, options);
 
 				if (valid && options.onFieldSuccess)
@@ -364,6 +364,9 @@
 							destination=prompt_err.offset().top;
 						}
 					}
+					if (options.scrollOffset) {
+						destination = destination - options.scrollOffset;
+					}
 
 					// get the position of the first error, there should be at least one, no need to check this
 					//var destination = form.find(".formError:not('.greenPopup'):first").offset().top;
@@ -453,7 +456,7 @@
 											if (txt)
 												msg = txt;
 										}
-										if (options.showPrompts) methods._showPrompt(errorField, msg, "pass", false, options, true);
+										methods._showPrompt(errorField, msg, "pass", false, options, true);
 									}
 								} else {
 									// the field is invalid, show the red error prompt
@@ -463,7 +466,7 @@
 										if (txt)
 											msg = txt;
 									}
-									if(options.showPrompts) methods._showPrompt(errorField, msg, "", false, options, true);
+									methods._showPrompt(errorField, msg, "", false, options, true);
 								}
 							}
 						}
@@ -679,7 +682,7 @@
 				}	
 			}
 			// If the rules required is not added, an empty field is not validated
-			if(!required && field.val() && field.val().length < 1) options.isError = false;
+			if(!required && field.val().length < 1) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
@@ -694,7 +697,7 @@
 				field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 			}
 
-			if (options.isError && options.showPrompts){
+			if (options.isError){
 				methods._showPrompt(field, promptText, promptType, false, options);
 			}else{
 				if (!isAjaxValidator) methods._closePrompt(field);
@@ -1385,7 +1388,7 @@
 								 else
 									msg = rule.alertText;
 
-								 if (options.showPrompts) methods._showPrompt(errorField, msg, "", true, options);
+								 methods._showPrompt(errorField, msg, "", true, options);
 							 } else {
 								 options.ajaxValidCache[errorFieldId] = true;
 
@@ -1401,13 +1404,11 @@
 								 else
 								 msg = rule.alertTextOk;
 
-								 if (options.showPrompts) {
-									 // see if we should display a green prompt
-									 if (msg)
-										methods._showPrompt(errorField, msg, "pass", true, options);
-									 else
-										methods._closePrompt(errorField);
-								}
+								 // see if we should display a green prompt
+								 if (msg)
+									methods._showPrompt(errorField, msg, "pass", true, options);
+								 else
+									methods._closePrompt(errorField);
 								
 								 // If a submit form triggered this, we want to re-submit the form
 								 if (options.eventTrigger == "submit")
@@ -1467,13 +1468,10 @@
 			 // When the form errors are returned, the engine see 2 bubbles, but those are ebing closed by the engine at the same time
 			 // Because no error was found befor submitting
 			 if(ajaxform) prompt = false;
-			 // Check that there is indded text
-			 if($.trim(promptText)){ 
-				 if (prompt)
-					methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
-				 else
-					methods._buildPrompt(field, promptText, type, ajaxed, options);
-			}
+			 if (prompt)
+				methods._updatePrompt(field, prompt, promptText, type, ajaxed, options);
+			 else
+				methods._buildPrompt(field, promptText, type, ajaxed, options);
 		 },
 		/**
 		* Builds and shades a prompt for the given field.
@@ -1890,8 +1888,6 @@
 		scroll: true,
 		// Focus on the first input
 		focusFirstField:true,
-		// Show prompts, set to false to disable prompts
-		showPrompts: true,
 		// Opening box position, possible locations are: topLeft,
 		// topRight, bottomLeft, centerRight, bottomRight
 		promptPosition: "topRight",
@@ -1936,7 +1932,6 @@
 		onFieldFailure: false,
 		onSuccess: false,
 		onFailure: false,
-		validateAttribute: "class",
 		addSuccessCssClassToField: false,
 		addFailureCssClassToField: false,
 		
