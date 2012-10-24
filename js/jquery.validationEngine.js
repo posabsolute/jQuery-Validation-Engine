@@ -367,7 +367,7 @@
 					
 					// Offset the amount the page scrolls by an amount in px to accomodate fixed elements at top of page
 					if (options.scrollOffset) {
-						destination -= options.scrollOffset
+						destination -= options.scrollOffset;
 					}
 
 					// get the position of the first error, there should be at least one, no need to check this
