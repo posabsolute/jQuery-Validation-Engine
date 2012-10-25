@@ -684,9 +684,14 @@
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
 			var fieldType = field.prop("type");
+			var positionType=field.data("promptPosition") || options.promptPosition;
 
 			if ((fieldType == "radio" || fieldType == "checkbox") && form.find("input[name='" + fieldName + "']").size() > 1) {
+				if(positionType === 'inline') {
+					field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:last"));
+				} else {
 				field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
+				}
 				options.showArrow = false;
 			}
 
@@ -1534,6 +1539,9 @@
 						arrow.html('<div class="line10"><!-- --></div><div class="line9"><!-- --></div><div class="line8"><!-- --></div><div class="line7"><!-- --></div><div class="line6"><!-- --></div><div class="line5"><!-- --></div><div class="line4"><!-- --></div><div class="line3"><!-- --></div><div class="line2"><!-- --></div><div class="line1"><!-- --></div>');
 						prompt.append(arrow);
 						break;
+					case "inline":
+						prompt.addClass("inline");
+						break;
 				}
 			}
 			// Add custom prompt class
@@ -1542,17 +1550,26 @@
 
 			prompt.css({
 				"opacity": 0,
-				'position':'absolute'
 			});
-			field.before(prompt);
+			if(positionType === 'inline') {
+				if(typeof field.attr('data-prompt-target') !== 'undefined' && $('#'+field.attr('data-prompt-target')).length > 0) {
+					prompt.appendTo($('#'+field.attr('data-prompt-target')));
+				} else {
+					field.after(prompt);
+				}
 			
+			} else {
+				field.before(prompt);				
 			var pos = methods._calculatePosition(field, prompt, options);
 			prompt.css({
+				'position':'absolute',
 				"top": pos.callerTopPosition,
 				"left": pos.callerleftPosition,
 				"marginTop": pos.marginTopSize,
 				"opacity": 0
 			}).data("callerField", field);
+			}
+			
 
 			if (options.autoHidePrompt) {
 				setTimeout(function(){
@@ -1762,6 +1779,11 @@
 					promptleftPosition = fieldLeft + fieldWidth - 30;
 					promptTopPosition =  fieldTop +  field.height() + 5;
 					marginTopSize = 0;
+					break;
+				case "inline":
+					marginTopSize = 0;
+					promptleftPosition = 0;
+					promptTopPosition = 0;
 			};
 
 		
@@ -1893,7 +1915,8 @@
 		// Show prompts, set to false to disable prompts
 		showPrompts: true,
 		// Opening box position, possible locations are: topLeft,
-		// topRight, bottomLeft, centerRight, bottomRight
+		// topRight, bottomLeft, centerRight, bottomRight, inline
+		// inline gets inserted after the validated field or into an element specified in data-prompt-target
 		promptPosition: "topRight",
 		bindMethod:"bind",
 		// internal, automatically set to true when it parse a _ajax rule

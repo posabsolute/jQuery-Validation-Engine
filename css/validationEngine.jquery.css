@@ -27,6 +27,11 @@
 	cursor: pointer;
 }
 
+.formError.inline {
+	position: static;
+	display: inline-block;
+}
+
 .ajaxSubmit {
 	padding: 20px;
 	background: #55ea55;
@@ -49,6 +54,16 @@
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
+}
+
+.formError.inline .formErrorContent {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	border: none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
 }
 
 .greenPopup .formErrorContent {
