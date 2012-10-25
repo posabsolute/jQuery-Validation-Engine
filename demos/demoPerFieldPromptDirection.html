@@ -12,6 +12,13 @@
 	<script src="../js/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
 	</script>
 	<script>
+
+		function showInlinePrompt() {
+			$('#footnote-req-target-1').validationEngine('showPrompt', 'Please read the footnote', 'pass');
+			$('#footnote-req-target-2').validationEngine('showPrompt', 'Please read the footnote', 'pass', 'inline');
+			$('#footnote-req-summary').validationEngine('showPrompt', 'Please read the footnote', 'pass');
+		}
+
 		jQuery(document).ready(function(){
 			// binds form submission and fields to the validation engine
 			jQuery("#formID").validationEngine();
@@ -22,6 +29,7 @@
 	<p>
 		This demonstration shows How the per field show prompt position setting work
 		<br/>
+		<a href="#" onclick="showInlinePrompt()">Show inline prompts on any element</a>
 	</p>
 	<form id="formID" class="formular" method="post" action="" style="width: 800px;">
 		<fieldset>
@@ -82,13 +90,13 @@
 			<label>
 				<span>Field is required (inline prompt with target): </span>
 				<input value="" class="validate[required] text-input" type="text" name="req-target-1" id="req-target-1"  data-prompt-position="inline" data-prompt-target="prompt-req-target-1" />
-				<p class="footnote">The prompt shown for this field will be put into following container.</p>
+				<p id="footnote-req-target-1" class="footnote" data-prompt-position="inline">The prompt shown for this field will be put into following container.</p>
 				<p id="prompt-req-target-1" class="prompt-target"></p>
 			</label>
 			<label>
 				<span>Field is required (inline prompt with target): </span>
-				<input value="" class="validate[required] text-input" type="text" name="req-target-2" id="req-target-2"  data-prompt-position="inline" data-prompt-target="prompt-req-target-2" />
-				<p class="footnote">The prompt shown for this field will be put into following container.</p>
+				<input value="" class="validate[required] text-input" type="text" name="req-target-2" id="req-target-2" data-prompt-position="inline" data-prompt-target="prompt-req-target-2" />
+				<p id="footnote-req-target-2" class="footnote">The prompt shown for this field will be put into following container.</p>
 				<p id="prompt-req-target-2" class="prompt-target"></p>
 			</label>
 		</fieldset>
@@ -101,14 +109,14 @@
 
 			<label>
 				<span>Field 1 is required (inline prompt with shared target): </span>
-				<input value="" class="validate[required] text-input" type="text" name="req-summary" id="req-summary"  data-prompt-position="inline" data-prompt-target="prompt-req-summary" data-errormessage="* Field 1 is required." />
+				<input value="" class="validate[required] text-input" type="text" name="req-summary" id="req-summary" data-prompt-position="inline" data-prompt-target="prompt-req-summary" data-errormessage="* Field 1 is required." />
 			</label>
             
 			<label>
 				<span>Field 2 is required (inline prompt with shared target): </span>
 				<input value="" class="validate[required] text-input" type="text" name="req-summary-2" id="req-summary-2"  data-prompt-position="inline" data-prompt-target="prompt-req-summary" data-errormessage="* Field 2 is required." />
 			</label>
-				<p class="footnote">All prompts are appended to the same container.</p>
+				<p id="footnote-req-summary" class="footnote" data-prompt-position="inline" data-prompt-target="prompt-req-summary">All prompts are appended to the same container.</p>
             
 		</fieldset>
             

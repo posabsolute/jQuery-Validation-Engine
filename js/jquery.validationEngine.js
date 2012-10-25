@@ -180,7 +180,6 @@
 		* @param {String} possible values topLeft, topRight, bottomLeft, centerRight, bottomRight
 		*/
 		showPrompt: function(promptText, type, promptPosition, showArrow) {
-
 			var form = this.closest('form');
 			var options = form.data('jqv');
 			// No option, take default one
@@ -1514,13 +1513,16 @@
 
 			// create the prompt content
 			var promptContent = $('<div>').addClass("formErrorContent").html(promptText).appendTo(prompt);
+
+			// determine position type
+			var positionType=field.data("promptPosition") || options.promptPosition;
+
 			// create the css arrow pointing at the field
 			// note that there is no triangle on max-checkbox and radio
 			if (options.showArrow) {
 				var arrow = $('<div>').addClass("formErrorArrow");
 
 				//prompt positioning adjustment support. Usage: positionType:Xshift,Yshift (for ex.: bottomLeft:+20 or bottomLeft:-20,+10)
-				var positionType=field.data("promptPosition") || options.promptPosition;
 				if (typeof(positionType)=='string') 
 				{
 					var pos=positionType.indexOf(":");
@@ -1539,9 +1541,6 @@
 						arrow.html('<div class="line10"><!-- --></div><div class="line9"><!-- --></div><div class="line8"><!-- --></div><div class="line7"><!-- --></div><div class="line6"><!-- --></div><div class="line5"><!-- --></div><div class="line4"><!-- --></div><div class="line3"><!-- --></div><div class="line2"><!-- --></div><div class="line1"><!-- --></div>');
 						prompt.append(arrow);
 						break;
-					case "inline":
-						prompt.addClass("inline");
-						break;
 				}
 			}
 			// Add custom prompt class
@@ -1552,6 +1551,7 @@
 				"opacity": 0,
 			});
 			if(positionType === 'inline') {
+				prompt.addClass("inline");
 				if(typeof field.attr('data-prompt-target') !== 'undefined' && $('#'+field.attr('data-prompt-target')).length > 0) {
 					prompt.appendTo($('#'+field.attr('data-prompt-target')));
 				} else {
@@ -1560,14 +1560,14 @@
 			
 			} else {
 				field.before(prompt);				
-			var pos = methods._calculatePosition(field, prompt, options);
-			prompt.css({
-				'position':'absolute',
-				"top": pos.callerTopPosition,
-				"left": pos.callerleftPosition,
-				"marginTop": pos.marginTopSize,
-				"opacity": 0
-			}).data("callerField", field);
+				var pos = methods._calculatePosition(field, prompt, options);
+				prompt.css({
+					'position':'absolute',
+					"top": pos.callerTopPosition,
+					"left": pos.callerleftPosition,
+					"marginTop": pos.marginTopSize,
+					"opacity": 0
+				}).data("callerField", field);
 			}
 			
 
