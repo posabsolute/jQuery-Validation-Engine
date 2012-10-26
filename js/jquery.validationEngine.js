@@ -1557,18 +1557,18 @@
 				} else {
 					field.after(prompt);
 				}
-			
 			} else {
 				field.before(prompt);				
-				var pos = methods._calculatePosition(field, prompt, options);
-				prompt.css({
-					'position':'absolute',
-					"top": pos.callerTopPosition,
-					"left": pos.callerleftPosition,
-					"marginTop": pos.marginTopSize,
-					"opacity": 0
-				}).data("callerField", field);
 			}
+			
+			var pos = methods._calculatePosition(field, prompt, options);
+			prompt.css({
+				'position': positionType === 'inline' ? 'relative' : 'absolute',
+				"top": pos.callerTopPosition,
+				"left": pos.callerleftPosition,
+				"marginTop": pos.marginTopSize,
+				"opacity": 0
+			}).data("callerField", field);
 			
 
 			if (options.autoHidePrompt) {
@@ -1781,9 +1781,9 @@
 					marginTopSize = 0;
 					break;
 				case "inline":
-					marginTopSize = 0;
 					promptleftPosition = 0;
 					promptTopPosition = 0;
+					marginTopSize = 0;
 			};
 
 		
