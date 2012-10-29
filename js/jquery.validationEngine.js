@@ -69,6 +69,8 @@
 					"formElem": form
 				}, methods.updatePromptsPosition);
 			}
+			form.on("click", "button [type='submit'], input[type='submit']", methods._submitButtonClick);
+
 			// bind form.submit
 			form.bind("submit", methods._onSubmitEvent);
 			return this;
@@ -100,6 +102,9 @@
 			// unbind form.submit
 			form.die("submit", methods.onAjaxFormComplete);
 			form.removeData('jqv');
+            
+			form.off("click", "button [type='submit'], input[type='submit']", _submitButtonClick);
+			form.removeData('jqv_submitButton');
 
 			if (options.autoPositionUpdate)
 				$(window).unbind("resize", methods.updatePromptsPosition);
@@ -257,6 +262,19 @@
 		_onSubmitEvent: function() {
 			var form = $(this);
 			var options = form.data('jqv');
+			
+			//check if it is trigger from skipped button
+			var submitButton = $("#" + form.data("jqv_submitButton"));
+			if (submitButton){
+				if (options.validateAttribute == "class") {
+				    if (submitButton.hasClass("validate-skip"))
+				        return true;
+				} else {
+				    if (submitButton.attr("data-validation-engine-skip") == "true")
+				        return true;
+				}
+			}
+
 			options.eventTrigger = "submit";
 
 			// validate each field 
@@ -1850,7 +1868,13 @@
 					return methods._required(field, ["required"], 0, options);
 				}
 			}
-		}
+		},
+
+	    _submitButtonClick: function(event) {
+	        var button = $(this);
+	        var form = button.closest('form');
+	        form.data("jqv_submitButton", button.attr("id"));
+	    }
 		  };
 
 	 /**
