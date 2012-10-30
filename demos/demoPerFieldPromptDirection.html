@@ -14,9 +14,9 @@
 	<script>
 
 		function showInlinePrompt() {
-			$('#footnote-req-target-1').validationEngine('showPrompt', 'Please read the footnote', 'pass');
-			$('#footnote-req-target-2').validationEngine('showPrompt', 'Please read the footnote', 'pass', 'inline');
-			$('#footnote-req-summary').validationEngine('showPrompt', 'Please read the footnote', 'pass');
+			$('#footnote-req-target-1').validationEngine('showPrompt', 'Please read the footnote', 'load');
+			$('#footnote-req-target-2').validationEngine('showPrompt', 'Please read the footnote', 'load', 'inline');
+			$('#footnote-req-summary').validationEngine('showPrompt', 'Please read the footnote', 'load');
 		}
 
 		jQuery(document).ready(function(){
@@ -27,9 +27,9 @@
 </head>
 <body>
 	<p>
-		This demonstration shows How the per field show prompt position setting work
+		This demonstration shows how the per field show prompt position setting work
 		<br/>
-		<a href="#" onclick="showInlinePrompt()">Show inline prompts on any element</a>
+		<a href="#" onclick="showInlinePrompt()">Show inline prompts on footnotes</a>
 	</p>
 	<form id="formID" class="formular" method="post" action="" style="width: 800px;">
 		<fieldset>
