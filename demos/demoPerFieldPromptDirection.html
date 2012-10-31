@@ -15,7 +15,7 @@
 
 		function showInlinePrompt() {
 			$('#footnote-req-target-1').validationEngine('showPrompt', 'Please read the footnote', 'load');
-			$('#footnote-req-target-2').validationEngine('showPrompt', 'Please read the footnote', 'load', 'inline');
+			$('#footnote-req-target-2').validationEngine('showPrompt', 'Please read the footnote', 'load');
 			$('#footnote-req-summary').validationEngine('showPrompt', 'Please read the footnote', 'load');
 		}
 
@@ -96,7 +96,7 @@
 			<label>
 				<span>Field is required (inline prompt with target): </span>
 				<input value="" class="validate[required] text-input" type="text" name="req-target-2" id="req-target-2" data-prompt-position="inline" data-prompt-target="prompt-req-target-2" />
-				<p id="footnote-req-target-2" class="footnote">The prompt shown for this field will be put into following container.</p>
+				<p id="footnote-req-target-2" class="footnote" data-prompt-position="inline">The prompt shown for this field will be put into following container.</p>
 				<p id="prompt-req-target-2" class="prompt-target"></p>
 			</label>
 		</fieldset>
