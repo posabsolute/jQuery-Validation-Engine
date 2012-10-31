@@ -317,7 +317,7 @@ Determines if we should scroll the page to the first error, defaults to *true*.
 The amount to offset the scroll in px.  Useful if there are fixed elements at the top of the page.
 
 ### binded
-If set to true, it remove blur events and only validate on submit.
+If set false, does not attach blur events and only validates on the form submit.
 
 ### promptPosition
 Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
