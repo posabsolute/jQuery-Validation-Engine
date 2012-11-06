@@ -138,9 +138,9 @@
 				valid = methods._validateField(element, options);
 
 				if (valid && options.onFieldSuccess)
-					options.onFieldSuccess();
+					options.onFieldSuccess(element);
 				else if (options.onFieldFailure && options.InvalidFields.length > 0) {
-					options.onFieldFailure();
+					options.onFieldFailure(element);
 				}
 			}
 			return valid;
@@ -240,9 +240,9 @@
 			window.setTimeout(function() {
 				methods._validateField(field, options);
 				if (options.InvalidFields.length == 0 && options.onFieldSuccess) {
-					options.onFieldSuccess();
+					options.onFieldSuccess(field);
 				} else if (options.InvalidFields.length > 0 && options.onFieldFailure) {
-					options.onFieldFailure();
+					options.onFieldFailure(field);
 				}
 			}, (event.data) ? event.data.delay : 0);
 
