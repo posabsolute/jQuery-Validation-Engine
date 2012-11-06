@@ -720,6 +720,13 @@
 				
 			methods._handleStatusCssClasses(field, options);
 	
+			/* run callback function for each field */
+			if (options.isError && options.onFieldFailure)
+				options.onFieldFailure(field);
+
+			if (!options.isError && options.onFieldSuccess)
+				options.onFieldSuccess(field);
+
 			return options.isError;
 		},
 		/**
