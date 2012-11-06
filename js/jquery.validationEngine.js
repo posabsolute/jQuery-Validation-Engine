@@ -138,9 +138,9 @@
 				valid = methods._validateField(element, options);
 
 				if (valid && options.onFieldSuccess)
-					options.onFieldSuccess(element);
+					options.onFieldSuccess();
 				else if (options.onFieldFailure && options.InvalidFields.length > 0) {
-					options.onFieldFailure(element);
+					options.onFieldFailure();
 				}
 			}
 			return valid;
@@ -240,9 +240,9 @@
 			window.setTimeout(function() {
 				methods._validateField(field, options);
 				if (options.InvalidFields.length == 0 && options.onFieldSuccess) {
-					options.onFieldSuccess(field);
+					options.onFieldSuccess();
 				} else if (options.InvalidFields.length > 0 && options.onFieldFailure) {
-					options.onFieldFailure(field);
+					options.onFieldFailure();
 				}
 			}, (event.data) ? event.data.delay : 0);
 
@@ -720,6 +720,13 @@
 				
 			methods._handleStatusCssClasses(field, options);
 	
+			/* run callback function for each field */
+			if (options.isError && options.onFieldFailure)
+				options.onFieldFailure(field);
+
+			if (!options.isError && options.onFieldSuccess)
+				options.onFieldSuccess(field);
+
 			return options.isError;
 		},
 		/**
