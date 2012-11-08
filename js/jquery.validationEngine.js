@@ -394,8 +394,15 @@
 						$("html, body").animate({scrollLeft: fixleft},1100)
 					}
 
-				} else if(options.focusFirstField)
-					first_err.focus();
+				} else if(options.focusFirstField) {
+					// FIX: Overcome fixed top elements, when scroll is disabled.
+					$("html,body").animate({
+						scrollTop: $('body').offset().top
+					}, 1100, function() {
+						first_err.focus();
+					});
+					
+				}
 				return false;
 			}
 			return true;
