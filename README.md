@@ -211,6 +211,20 @@ All calls to validationEngine() are chainable, so one can do the following:
 $("#formID").validationEngine().css({border : "2px solid #000"});
 ```
 
+### Suppress Validation Feature
+
+Hyperlink and Button ( <button> and input ) allow suppress the validation for special case such as multi fake submit buttons in web page.
+An id attribute for the HTML element is requried.
+
+Syntax (HTML5):
+```html
+<input id="skipbutton" data-validation-engine-skip="true" type="submit" value="Refresh button"/>
+```	
+Syntax (use class attribute):
+```html
+<input id="skipbutton" class="submit validate-skip" type="button" value="Refresh button"/>
+```	
+
 Actions
 ---
 
