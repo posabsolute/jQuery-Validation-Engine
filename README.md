@@ -144,7 +144,10 @@ Prompt direction can be define using the field's **data** attribute. Here are a 
 <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft" />
 <input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft" />
 <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight" />
+<input value="" class="validate[required] text-input" type="text" name="req-inline" id="req-inline" data-prompt-position="inline" />
 ```
+
+If "inline" is applied the prompt is attached after the corresponding input field with position set to "relative". You can specify an optional target container to which the prompt should be attached by providing the id of this container in the field's **data-prompt-target** attribute.
 
 ### Prompt Position Adjustment
 
@@ -265,7 +268,7 @@ Displays a prompt on a given element. Note that the prompt can be displayed on a
 The method takes four parameters: 
 1. the text of the prompt itself
 2. a type which defines the visual look of the prompt: 'pass' (green), 'load' (black) anything else (red)
-3. an optional position: either "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*
+3. an optional position: either "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight", "inline". Defaults to *"topRight"*
 4. an optional boolean which indicates if the prompt should display a directional arrow
 
 ```html
@@ -334,8 +337,9 @@ The amount to offset the scroll in px.  Useful if there are fixed elements at th
 If set false, does not attach blur events and only validates on the form submit.
 
 ### promptPosition
-Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
-Default position adjustment could also be provided.
+Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight", "inline". Defaults to *"topRight"*. Default position adjustment could also be provided.
+"topLeft" to "bottomRight" are absolutely positioned. 
+If "inline" is applied the prompt is attached after the corresponding input field with position set to "relative". By adding an optional "data-prompt-target" attribute to the field you can specify the id of an element to which the prompt should be appended alternatively. (see "Per Field Prompt Direction" for more details)
 
 ### showOneMessage
 Only display the first incorrect validation message instead of normally stacking it. It will follows the validation hierarchy you used in the input and only show the first error.
