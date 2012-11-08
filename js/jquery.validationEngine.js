@@ -69,6 +69,9 @@
 					"formElem": form
 				}, methods.updatePromptsPosition);
 			}
+			form.on("click", "a[data-validation-engine-skip], a[class*='validate-skip'], button[data-validation-engine-skip], button[class*='validate-skip'], input[data-validation-engine-skip], input[class*='validate-skip']", methods._submitButtonClick);
+			form.removeData('jqv_submitButton');
+
 			// bind form.submit
 			form.bind("submit", methods._onSubmitEvent);
 			return this;
@@ -100,6 +103,9 @@
 			// unbind form.submit
 			form.die("submit", methods.onAjaxFormComplete);
 			form.removeData('jqv');
+            
+			form.off("click", "a[data-validation-engine-skip], a[class*='validate-skip'], button[data-validation-engine-skip], button[class*='validate-skip'], input[data-validation-engine-skip], input[class*='validate-skip']", _submitButtonClick);
+			form.removeData('jqv_submitButton');
 
 			if (options.autoPositionUpdate)
 				$(window).unbind("resize", methods.updatePromptsPosition);
@@ -257,6 +263,18 @@
 		_onSubmitEvent: function() {
 			var form = $(this);
 			var options = form.data('jqv');
+			
+			//check if it is trigger from skipped button
+			if (form.data("jqv_submitButton")){
+				var submitButton = $("#" + form.data("jqv_submitButton"));
+				if (submitButton){
+					if (submitButton.length > 0){
+						if (submitButton.hasClass("validate-skip") || submitButton.attr("data-validation-engine-skip") == "true")
+							return true;
+					}
+				}
+			}
+
 			options.eventTrigger = "submit";
 
 			// validate each field 
@@ -684,7 +702,7 @@
 				}	
 			}
 			// If the rules required is not added, an empty field is not validated
-			if(!required && field.val() && field.val().length < 1) options.isError = false;
+			if(!required && !(field.val()) && field.val().length < 1) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
@@ -1857,7 +1875,13 @@
 					return methods._required(field, ["required"], 0, options);
 				}
 			}
-		}
+		},
+
+	    _submitButtonClick: function(event) {
+	        var button = $(this);
+	        var form = button.closest('form');
+	        form.data("jqv_submitButton", button.attr("id"));
+	    }
 		  };
 
 	 /**
