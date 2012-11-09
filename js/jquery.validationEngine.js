@@ -43,7 +43,7 @@
 		attach: function(userOptions) {
 
 			if(!$(this).is("form")) {
-				alert("Sorry, jqv.attach() only applies to a form");
+				console.log("Sorry, jqv.attach() only applies to a form");
 				return this;
 			}
 			
