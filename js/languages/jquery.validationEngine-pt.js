@@ -8,13 +8,24 @@
                     "regex": "none",
                     "alertText": "* Campo obrigatório",
                     "alertTextCheckboxMultiple": "* Selecione uma opção",
-                    "alertTextCheckboxe": "* Campo obrigatório"
+					"alertTextCheckboxe": "* Selecione uma ou mais opções",
+                    "alertTextDateRange": "* Ambos os campos de datas são obrigatórios"
                 },
                 "requiredInFunction": { 
                     "func": function(field, rules, i, options){
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Field must equal test"
+                },
+                "dateRange": {
+                    "regex": "none",
+                    "alertText": "* Inválido ",
+                    "alertText2": "Date Range"
+                },
+                "dateTimeRange": {
+                    "regex": "none",
+                    "alertText": "* Inválido ",
+                    "alertText2": "Intervalo de tempo da data"
                 },
                 "minSize": {
                     "regex": "none",
@@ -28,17 +39,17 @@
                 },
 				"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* Tem de preencher um dos seguintes campos"
                 },
-		        "min": {
+                "min": {
                     "regex": "none",
-                    "alertText": "* O valor mínimo é "
+					"alertText": "* O valor mínimo é "
                 },
                 "max": {
                     "regex": "none",
                     "alertText": "* O valor máximo é "
                 },
-		        "past": {
+                "past": {
                     "regex": "none",
                     "alertText": "* Data anterior a "
                 },
@@ -48,7 +59,8 @@
                 },	
                 "maxCheckbox": {
                     "regex": "none",
-                    "alertText": "* Foi ultrapassado o número máximo de escolhas"
+					"alertText": "* O número máximo ",
+					"alertText2": " de escolhas foi ultrapassado"
                 },
                 "minCheckbox": {
                     "regex": "none",
@@ -61,16 +73,16 @@
                 },
                 "creditCard": {
                     "regex": "none",
-                    "alertText": "* Inválido número de cartão de crédito"
+					"alertText": "* Número do cartão de crédito inválido"
                 },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
-                    "regex": /^([\+][0-9]{1,3}[ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9 \.\-\/]{3,20})((x|ext|extension)[ ]?[0-9]{1,4})?$/,
+                    "regex": /^([\+][0-9]{1,3}[\ \.\-])?([\(]{1}[0-9]{2,6}[\)])?([0-9\ \.\-\/]{3,20})((x|ext|extension)[\ ]?[0-9]{1,4})?$/,
                     "alertText": "* Número de telefone inválido"
                 },
                 "email": {
-                    // Shamelessly lifted from Scott Gonzalez via the Bassistance Validation plugin http://projects.scottsplayground.com/email_address_validation/
-                    "regex": /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
+                    // HTML5 compatible email regex ( http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#    e-mail-state-%28type=email%29 )
+                    "regex": /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     "alertText": "* Endereço de email inválido"
                 },
                 "integer": {
@@ -82,54 +94,99 @@
                     "regex": /^[\-\+]?((([0-9]{1,3})([,][0-9]{3})*)|([0-9]+))?([\.]([0-9]+))?$/,
                     "alertText": "* Não é um número decimal"
                 },
-                "date": {
-                    "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
-                    "alertText": "* Data inválida, o formato deve de ser AAAA-MM-DD"
+                "date": {                    
+                    //	Check if date is valid by leap year
+			"func": function (field) {
+					var pattern = new RegExp(/^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])$/);
+					var match = pattern.exec(field.val());
+					if (match == null)
+					   return false;
+	
+					var year = match[1];
+					var month = match[2]*1;
+					var day = match[3]*1;					
+					var date = new Date(year, month - 1, day); // because months starts from 0.
+	
+					return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
+				},                		
+			 "alertText": "* Data inválida, o formato deve de ser AAAA-MM-DD (ex.2012-12-31)"
                 },
                 "ipv4": {
-                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
+                    "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* Número IP inválido"
                 },
                 "url": {
                     "regex": /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i,
-                    "alertText": "* URL inválido"
+					"alertText": "* Endereço URL inválido"
                 },
                 "onlyNumberSp": {
                     "regex": /^[0-9\ ]+$/,
                     "alertText": "* Só é permitido números"
                 },
-			    "onlyLetterSp": {
+                "onlyLetterSp": {
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Só é permitido letras"
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
-                    "alertText": "* Só é permitido letras e números"
+                    "alertText": "* Só são permitidos letras e números"
                 },
-				// --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
+                // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
                     "url": "ajaxValidateFieldUser",
-					// you may want to pass extra data on the ajax call
+                    // you may want to pass extra data on the ajax call
                     "extraData": "name=eric",
-                    "alertText": "* Nome de utilizador não disponível",
+					"alertText": "* Este nome de utilizador já está sendo utilizado",
+                    "alertTextLoad": "* A validar, por favor aguarde"
+                },
+				"ajaxUserCallPhp": {
+                    "url": "phpajax/ajaxValidateFieldUser.php",
+                    // you may want to pass extra data on the ajax call
+                    "extraData": "name=eric",
+                    // if you provide an "alertTextOk", it will show as a green prompt when the field validates
+                    "alertTextOk": "* Este nome de utilizador está disponível",
+                    "alertText": "* Este nome de utilizador já está sendo utilizado",
                     "alertTextLoad": "* A validar, por favor aguarde"
                 },
                 "ajaxNameCall": {
-					// remote json service location
+                    // remote json service location
                     "url": "ajaxValidateFieldName",
-					// error
-                    "alertText": "* Nome não disponível",
-					// if you provide an "alertTextOk", it will show as a green prompt when the field validates
-                    "alertTextOk": "* Nome disponível",
-					// speaks by itself
+                    // error
+					"alertText": "* Este nome já está a ser utilizado",
+                    // if you provide an "alertTextOk", it will show as a green prompt when the field validates
+					"alertTextOk": "* Este nome está disponível",
+                    // speaks by itself
                     "alertTextLoad": "* A validar, por favor aguarde"
                 },
+				 "ajaxNameCallPhp": {
+	                    // remote json service location
+	                    "url": "phpajax/ajaxValidateFieldName.php",
+	                    // error
+	                    "alertText": "* Este nome já está a ser utilizado",
+	                    // speaks by itself
+	                    "alertTextLoad": "* A validar, por favor aguarde"
+	                },
                 "validate2fields": {
-                    "alertText": "* Escreva HELLO"
-                }
+					"alertText": "* Por favor escreva HELLO"
+                },
+	            //tls warning:homegrown not fielded 
+                "dateFormat":{
+                    "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/,
+					"alertText": "* Data inválida"
+                },
+                //tls warning:homegrown not fielded 
+				"dateTimeFormat": {
+	                "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1}$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^((1[012]|0?[1-9]){1}\/(0?[1-9]|[12][0-9]|3[01]){1}\/\d{2,4}\s+(1[012]|0?[1-9]){1}:(0?[1-5]|[0-6][0-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+(am|pm|AM|PM){1})$/,
+					"alertText": "* Data inválida ou mal formatada",
+                    "alertText2": "Formato esperado: ",
+                    "alertText3": "mm/dd/aaaa hh:mm:ss AM|PM ou ", 
+                    "alertText4": "aaaa-mm-dd hh:mm:ss AM|PM"
+	            }
             };
             
         }
     };
+
     $.validationEngineLanguage.newLang();
+    
 })(jQuery);
