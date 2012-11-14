@@ -9,9 +9,14 @@
 	else {
 		$.validationEngineLanguage.allRules["postcodeUK"] = {
 		        // UK zip codes
-		        "regex": /^([A-PR-UWYZ0-9][A-HK-Y0-9][AEHMNPRTVXY0-9]?[ABEHMNPRVWXY0-9]? {1,2}[0-9][ABD-HJLN-UW-Z]{2}|GIR 0AA)$/,
+		        "regex": /^([A-PR-UWYZa-pr-uwyz]([0-9]{1,2}|([A-HK-Ya-hk-y][0-9]|[A-HK-Ya-hk-y][0-9]([0-9]|[ABEHMNPRV-Yabehmnprv-y]))|[0-9][A-HJKS-UWa-hjks-uw])\ {0,1}[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}|([Gg][Ii][Rr]\ 0[Aa][Aa])|([Ss][Aa][Nn]\ {0,1}[Tt][Aa]1)|([Bb][Ff][Pp][Oo]\ {0,1}([Cc]\/[Oo]\ )?[0-9]{1,4})|(([Aa][Ss][Cc][Nn]|[Bb][Bb][Nn][Dd]|[BFSbfs][Ii][Qq][Qq]|[Pp][Cc][Rr][Nn]|[Ss][Tt][Hh][Ll]|[Tt][Dd][Cc][Uu]|[Tt][Kk][Cc][Aa])\ {0,1}1[Zz][Zz]))$/,
 				"alertText": "* Invalid postcode"
 		};
+		$.validationEngineLanguage.allRules["postcodeNL"] = {
+                // NL zip codes |  Accepts 1234AA format zipcodes
+                "regex": /^\d{4}[a-zA-Z]{2}?$/,
+                "alertText": "* Ongeldige postcode, formaat moet 1234AA zijn"
+        };
 		$.validationEngineLanguage.allRules["postcodeUS"] = {
 		        // US zip codes | Accepts 12345 and 12345-1234 format zipcodes
                 "regex": /^\d{5}(-\d{4})?$/,

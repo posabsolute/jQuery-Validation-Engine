@@ -95,3 +95,31 @@ form.formular {
 	margin-bottom: 15px;
 	background: #FFEAEA;
 }
+
+.formular input[data-prompt-position="inline"] {
+	display: inline;
+}
+
+.footnote {
+	font-size: 11px;
+	color: #666;
+	font-style: italic;
+}
+
+.prompt-target {
+	border: 1px dotted #666;
+	min-height: 21px;
+}
+
+.inline-prompts label>span{
+	display: inline-block;
+	width: 250px;
+}
+
+.inline-prompts .text-input+.formError{
+	margin-left: 10px;
+}
+
+.prompt-summary .inline {
+	display: block;
+}

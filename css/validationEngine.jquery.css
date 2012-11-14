@@ -7,9 +7,9 @@
     .formError .formErrorContent { z-index: 991; }
     .formError .formErrorArrow { z-index: 996; }
     
-    .formErrorInsideDialog.formError { z-index: 5000; }
-    .formErrorInsideDialog.formError .formErrorContent { z-index: 5001; }
-    .formErrorInsideDialog.formError .formErrorArrow { z-index: 5006; }
+    .ui-dialog .formError { z-index: 5000; }
+    .ui-dialog .formError .formErrorContent { z-index: 5001; }
+    .ui-dialog .formError .formErrorArrow { z-index: 5006; }
 
 
 
@@ -25,6 +25,13 @@
 	left: 300px;
 	display: block;
 	cursor: pointer;
+}
+
+.formError.inline {
+	position: relative;
+	top: 0;
+	left: 0;
+	display: inline-block;
 }
 
 .ajaxSubmit {
@@ -49,6 +56,16 @@
 	border-radius: 6px;
 	-moz-border-radius: 6px;
 	-webkit-border-radius: 6px;
+}
+
+.formError.inline .formErrorContent {
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	border: none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
 }
 
 .greenPopup .formErrorContent {
