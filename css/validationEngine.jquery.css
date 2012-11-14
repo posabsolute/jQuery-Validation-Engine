@@ -1,7 +1,6 @@
 
 
 
-
 /* Z-INDEX */
  .formError { z-index: 990; }
     .formError .formErrorContent { z-index: 991; }
@@ -38,7 +37,7 @@
 	padding: 20px;
 	background: #55ea55;
 	border: 1px solid #999;
-	display: none
+	display: none;
 }
 
 .formError .formErrorContent {
