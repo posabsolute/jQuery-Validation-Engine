@@ -1578,7 +1578,7 @@
 				prompt.addClass(options.addPromptClass);
 
 			prompt.css({
-				"opacity": 0,
+				"opacity": 0
 			});
 			if(positionType === 'inline') {
 				prompt.addClass("inline");
