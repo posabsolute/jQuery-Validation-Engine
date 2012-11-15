@@ -793,12 +793,18 @@
 			 // If we are using the custon validation type, build the index for the rule.
 			 // Otherwise if we are doing a function call, make the call and return the object
 			 // that is passed back.
-			 var beforeChangeRule = rule;
-			 if (rule == "custom") {
-				 var custom_validation_type_index = jQuery.inArray(rule, rules)+ 1;
-				 var custom_validation_type = rules[custom_validation_type_index];
-				 rule = "custom[" + custom_validation_type + "]";
+	 		 var rule_index = jQuery.inArray(rule, rules)+ 1;
+			 if (rule === "custom" || rule === "funcCall") {
+				 var custom_validation_type = rules[rule_index + 1];
+				 rule = rule + "[" + custom_validation_type + "]";
 			 }
+			 // Change the rule to the composite rule, if it was different from the original,
+			 // and delete the rule from the rules array so that it doesn't try to call the
+			 // same rule over again
+			 var alteredRule = rule;
+			 delete(rules[rule_index]);
+
+
 			 var element_classes = (field.attr("data-validation-engine")) ? field.attr("data-validation-engine") : field.attr("class");
 			 var element_classes_array = element_classes.split(" ");
 
@@ -813,7 +819,7 @@
 			 // If the original validation method returned an error and we have a custom error message,
 			 // return the custom message instead. Otherwise return the original error message.
 			 if (errorMsg != undefined) {
-				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, beforeChangeRule, options);
+				 var custom_message = methods._getCustomErrorMessage($(field), element_classes_array, alteredRule, options);
 				 if (custom_message) errorMsg = custom_message;
 			 }
 			 return errorMsg;
