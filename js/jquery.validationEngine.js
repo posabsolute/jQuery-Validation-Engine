@@ -797,12 +797,12 @@
 			 if (rule === "custom" || rule === "funcCall") {
 				 var custom_validation_type = rules[rule_index + 1];
 				 rule = rule + "[" + custom_validation_type + "]";
+				 // Delete the rule from the rules array so that it doesn't try to call the
+			    // same rule over again
+			    delete(rules[rule_index]);
 			 }
-			 // Change the rule to the composite rule, if it was different from the original,
-			 // and delete the rule from the rules array so that it doesn't try to call the
-			 // same rule over again
+			 // Change the rule to the composite rule, if it was different from the original
 			 var alteredRule = rule;
-			 delete(rules[rule_index]);
 
 
 			 var element_classes = (field.attr("data-validation-engine")) ? field.attr("data-validation-engine") : field.attr("class");
