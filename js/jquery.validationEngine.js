@@ -892,7 +892,7 @@
 				case "select-one":
 				case "select-multiple":
 				default:
-					if (! $.trim(field.val()) && ((field.val() != field.attr("data-validation-placeholder")) || (field.val() != field.attr("placeholder"))))
+					if (! $.trim(field.val()) && ((field.val() != field.attr("data-validation-placeholder")) || (field.val() !== field.attr("placeholder"))))
 						return options.allrules[rules[i]].alertText;
 					break;
 				case "radio":
