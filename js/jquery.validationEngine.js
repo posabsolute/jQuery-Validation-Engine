@@ -42,11 +42,6 @@
 		*/
 		attach: function(userOptions) {
 
-			if(!$(this).is("form")) {
-				console.log("Sorry, jqv.attach() only applies to a form");
-				return this;
-			}
-			
 			var form = this;
 			var options;
 
@@ -80,11 +75,6 @@
 		* Unregisters any bindings that may point to jQuery.validaitonEngine
 		*/
 		detach: function() {
-			
-			if(!$(this).is("form")) {
-				alert("Sorry, jqv.detach() only applies to a form");
-				return this;
-			}
 
 			var form = this;
 			var options = form.data('jqv');
@@ -117,10 +107,10 @@
 		validate: function() {
 			var element = $(this);
 			var valid = null;
-			if(element.is("form") && !element.hasClass('validating')) {
+			if((element.is("form") || element.hasClass(".validationEngineContainer")) && !element.hasClass('validating')) {
 				element.addClass('validating');
 				var options = element.data('jqv');
-				valid = methods._validateFields(this);
+				var valid = methods._validateFields(this);
 				
 				// If the form doesn't validate, clear the 'validating' class before the user has a chance to submit again
 				setTimeout(function(){
@@ -131,13 +121,13 @@
 				} else if (!valid && options.onFailure) {
 					options.onFailure();
 				}
-			} else if (element.is('form')) {
+			} else if (element.is('form') || element.hasClass('.validationEngineContainer')) {
 				element.removeClass('validating');
 			} else {
 				// field validation
-				var form = element.closest('form');
-				var options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults;  
-				valid = methods._validateField(element, options);
+				var form = element.closest('form, .validationEngineContainer'),
+					options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults,
+					valid = methods._validateField(element, options);
 
 				if (valid && options.onFieldSuccess)
 					options.onFieldSuccess();
@@ -161,7 +151,7 @@
 				var noAnimation = event.data.noAnimation;
 			}
 			else
-				var form = $(this.closest('form'));
+				var form = $(this.closest('form, .validationEngineContainer'));
 
 			var options = form.data('jqv');
 			// No option, take default one
@@ -186,7 +176,7 @@
 		* @param {String} possible values topLeft, topRight, bottomLeft, centerRight, bottomRight
 		*/
 		showPrompt: function(promptText, type, promptPosition, showArrow) {
-			var form = this.closest('form');
+			var form = this.closest('form, .validationEngineContainer');
 			var options = form.data('jqv');
 			// No option, take default one
 			if(!options)
@@ -202,12 +192,12 @@
 		* Closes form error prompts, CAN be invidual
 		*/
 		hide: function() {
-			 var form = $(this).closest('form');
+			 var form = $(this).closest('form, .validationEngineContainer');
 			 var options = form.data('jqv');
 			 var fadeDuration = (options && options.fadeDuration) ? options.fadeDuration : 0.3;
 			 var closingtag;
 			 
-			 if($(this).is("form")) {
+			 if($(this).is("form") || $(this).hasClass("validationEngineContainer")) {
 				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
 			 } else {
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
@@ -238,7 +228,7 @@
 		*/
 		_onFieldEvent: function(event) {
 			var field = $(this);
-			var form = field.closest('form');
+			var form = field.closest('form, .validationEngineContainer');
 			var options = form.data('jqv');
 			options.eventTrigger = "field";
 			// validate the current field
@@ -540,7 +530,7 @@
 				limitErrors = true;
 			}
 
-			var form = $(field.closest("form"));
+			var form = $(field.closest("form, .validationEngineContainer"));
 			// Fix for adding spaces in the rules
 			for (var i = 0; i < rules.length; i++) {
 				rules[i] = rules[i].replace(" ", "");
@@ -915,7 +905,7 @@
 						break;
 					}
 					// old validation style
-					var form = field.closest("form");
+					var form = field.closest("form, .validationEngineContainer");
 					var name = field.attr("name");
 					if (form.find("input[name='" + name + "']:checked").size() == 0) {
 						if (form.find("input[name='" + name + "']:visible").size() == 1)
@@ -940,7 +930,7 @@
 			var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";
 			var isValid = false;
 			// Check all fields from the group
-			field.closest("form").find(classGroup).each(function(){
+			field.closest("form, .validationEngineContainer").find(classGroup).each(function(){
 				if(!methods._required($(this), rules, i, options)){
 					isValid = true;
 					return false;
@@ -1367,7 +1357,7 @@
 				 for (var i = 0; i < domIds.length; i++) {
 					 var id = domIds[i];
 					 if ($(id).length) {
-						 var inputValue = field.closest("form").find(id).val();
+						 var inputValue = field.closest("form, .validationEngineContainer").find(id).val();
 						 var keyValue = id.replace('#', '') + '=' + escape(inputValue);
 						 data[id.replace('#', '')] = inputValue;
 					 }
@@ -1529,7 +1519,7 @@
 			var prompt = $('<div>');
 			prompt.addClass(methods._getClassName(field.attr("id")) + "formError");
 			// add a class name to identify the parent form of the prompt
-			prompt.addClass("parentForm"+methods._getClassName(field.parents('form').attr("id")));
+			prompt.addClass("parentForm"+methods._getClassName(field.closest('form, .validationEngineContainer').attr("id")));
 			prompt.addClass("formError");
 
 			switch (type) {
@@ -1685,7 +1675,7 @@
 		* @return undefined or the error prompt (jqObject)
 		*/
 		_getPrompt: function(field) {
-				var formId = $(field).closest('form').attr('id');
+				var formId = $(field).closest('form, .validationEngineContainer').attr('id');
 			var className = methods._getClassName(field.attr("id")) + "formError";
 				var match = $("." + methods._escapeExpression(className) + '.parentForm' + formId)[0];
 			if (match)
@@ -1906,7 +1896,7 @@
 
 	    _submitButtonClick: function(event) {
 	        var button = $(this);
-	        var form = button.closest('form');
+	        var form = button.closest('form, .validationEngineContainer');
 	        form.data("jqv_submitButton", button.attr("id"));
 	    }
 		  };
