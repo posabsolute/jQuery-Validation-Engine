@@ -107,7 +107,8 @@
 		validate: function() {
 			var element = $(this);
 			var valid = null;
-			if((element.is("form") || element.hasClass(".validationEngineContainer")) && !element.hasClass('validating')) {
+
+			if((element.is("form") || element.hasClass("validationEngineContainer")) && !element.hasClass('validating')) {
 				element.addClass('validating');
 				var options = element.data('jqv');
 				var valid = methods._validateFields(this);
@@ -121,7 +122,7 @@
 				} else if (!valid && options.onFailure) {
 					options.onFailure();
 				}
-			} else if (element.is('form') || element.hasClass('.validationEngineContainer')) {
+			} else if (element.is('form') || element.hasClass('validationEngineContainer')) {
 				element.removeClass('validating');
 			} else {
 				// field validation

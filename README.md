@@ -225,6 +225,12 @@ Syntax (use class attribute):
 <input id="skipbutton" class="submit validate-skip" type="button" value="Refresh button"/>
 ```	
 
+### Using a DIV container instead of a FORM
+
+You can use a div acting as a container using the class *"validationEngineContainer"*. Please be aware that events like submit() won't work and you will have to call the action 'validate' to validate the form.
+
+
+
 Actions
 ---
 

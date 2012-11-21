@@ -2,7 +2,7 @@ body {
 	background: #ececec;
 }
 
-form.formular {
+form.formular, .validationEngineContainer {
 	font-family: tahoma, verdana, "sans-serif";
 	font-size: 12px;
 	padding: 20px;
