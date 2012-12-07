@@ -216,8 +216,8 @@
 
 			 var form = this;
 			 var options = form.data('jqv');
-			 var duration = options ? options.fadeDuration:0.3;
-			 $('.formError').fadeTo(duration, 0.3, function() {
+			 var duration = options ? options.fadeDuration:300;
+			 $('.formError').fadeTo(duration, 300, function() {
 				 $(this).parent('.formErrorOuter').remove();
 				 $(this).remove();
 			 });
