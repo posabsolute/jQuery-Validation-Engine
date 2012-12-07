@@ -893,8 +893,16 @@
 				case "select-one":
 				case "select-multiple":
 				default:
-					if (! $.trim(field.val()) && ((field.val() != field.attr("data-validation-placeholder")) || (field.val() !== field.attr("placeholder"))))
+					var field_val      = $.trim( field.val()                               );
+					var dv_placeholder = $.trim( field.attr("data-validation-placeholder") );
+					var placeholder    = $.trim( field.attr("placeholder")                 );
+					if (
+						   ( !field_val                                    )
+						|| ( dv_placeholder && field_val == dv_placeholder )
+						|| ( placeholder    && field_val == placeholder    )
+					) {
 						return options.allrules[rules[i]].alertText;
+					}
 					break;
 				case "radio":
 				case "checkbox":
