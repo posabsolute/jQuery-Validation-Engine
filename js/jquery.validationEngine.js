@@ -2000,8 +2000,8 @@
 		onSuccess: false,
 		onFailure: false,
 		validateAttribute: "class",
-		addSuccessCssClassToField: false,
-		addFailureCssClassToField: false,
+		addSuccessCssClassToField: "",
+		addFailureCssClassToField: "",
 		
 		// Auto-hide prompt
 		autoHidePrompt: false,
