@@ -32,6 +32,12 @@
                 "regex": /^\d{4}?$/,
                 "alertText": "* Invalid zipcode"
 		};
+		$.validationEngineLanguage.allRules["postcodePL"] = {
+		        // Polish zip codes | Accepts 80-000 format zipcodes
+                "regex": /^\d{2}-\d{3}$/,
+                "alertText": "* Niepoprawny kod pocztowy, poprawny format to: 12-345"
+		};
+		
     $.validationEngineLanguage.allRules["postcodeJP"] = {
       // JP zip codes | Accepts 123 and 123-1234 format zipcodes
       "regex": /^\d{3}(-\d{4})?$/,
