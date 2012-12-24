@@ -13,7 +13,7 @@
 	</script>
 	<script>
 		//$.validationEngine.defaults.scroll = false;
-		
+
 
 		jQuery(document).ready(function(){
 			// binds form submission and fields to the validation engine
@@ -21,7 +21,7 @@
 			//jQuery("#formID").validationEngine('attach',{ isOverflown: true });
 			//jQuery("#formID").validationEngine('attach',{ relative: true });
 		});
-            
+
 		/**
 		*
 		* @param {jqObject} the field where the validation applies
@@ -68,7 +68,8 @@
 		| <a href="#" onclick="changeposition('bottomLeft')">BottomLeft</a>
 		| <a href="#" onclick="changeposition('centerRight')">CenterRight</a>
 		| <a href="#" onclick="changeposition('centerLeft')">CenterLeft</a>
-		<br> 
+		| <a href="#" onclick="changeposition('inline')">Inline</a>
+		<br>
 		<a href="#" style="float:left" onclick="jQuery('body').attr('dir','ltr')">Left to Right</a>
 		<a href="#" style="float:right" onclick="jQuery('body').attr('dir','rtl')">Right to Left</a>
 		<br> <a href="../index.html" >Back to index</a>
@@ -79,14 +80,14 @@
 	</p>
 <div style="height:500px;overflow-y:scroll;">
   <div style="height:1000px;">
-	<form id="formID" class="formular" method="post" action="" style="position:relative;">
+	<form id="formID" class="formular" method="post" action="" style="position:relative; width: 500px;">
 		<fieldset>
 			<legend>
-                    
+
 			</legend>
 			<label>
-				Field is required : 
-				
+				Field is required :
+
 			</label>
 			<input value="" class="validate[required] text-input" type="text" name="req" id="req" />
 			<label>Favorite sport 1:</label>
@@ -96,30 +97,30 @@
 					<option value="option2">Football</option>
 					<option value="option3">Golf</option>
 				</select>
-			
+
 			<label>Favorite sport 2:</label>
 				<select name="sport2" id="sport2" multiple class="validate[required]">
 					<option value="">Choose a sport</option>
-					<option value="option1"><l i>Tennis</li></option>
+					<option value="option1">Tennis</option>
 					<option value="option2">Football</option>
 					<option value="option3">Golf</option>
 				</select>
-			
+
 			<label>Additional info:</label>
 				<textarea class="validate[required]" id="add" style="width:250px;height:50px;"></textarea>
-			
+
 			<label>Radio Group: </label>
-				<div>radio 1: 
+				<div>radio 1:
 				<input class="validate[required] radio" type="radio" name="group0" id="radio1" value="5"/></div>
-				<div>radio 2: 
+				<div>radio 2:
 				<input class="validate[required] radio" type="radio" name="group0" id="radio2" value="3"/></div>
-				<div>radio 3: 
+				<div>radio 3:
 				<input class="validate[required] radio" type="radio" name="group0" id="radio3" value="9"/></div>
-			
+
 			<label>I accept terms of use : </label>
 				<input class="validate[required] checkbox" type="checkbox" id="agree" name="agree"/>
-				
-			
+
+
 		</fieldset>
 
 		<input class="submit" type="submit" value="Validate &amp; Send the form!"/><hr/>
