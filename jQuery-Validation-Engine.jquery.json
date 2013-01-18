@@ -1,0 +1,33 @@
+{
+  "name": "jQuery-Validation-Engine",
+  "title": "jQuery Form Validation Engine",
+  "description": "Validate your forms with style. Complete api included",
+  "keywords": [
+    "form",
+    "field",
+    "validation"
+  ],
+  "version": "2.6.2",
+  "author": {
+    "name": "Cedric Dugas",
+    "url": "http://www.position-absolute.com"
+  },
+  "maintainers": [
+    {
+      "name": "Olivier Refalo",
+      "url": "http://www.crionics.com"
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "docs": "http://posabsolute.github.com/jQuery-Validation-Engine/",
+  "demo": "http://www.position-relative.net/creation/formValidator/",
+  "download": "http://code.jquery.com/#color",
+  "dependencies": {
+    "jquery": ">=1.6"
+  }
+}
