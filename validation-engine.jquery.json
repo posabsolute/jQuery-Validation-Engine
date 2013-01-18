@@ -1,7 +1,7 @@
 {
   "name": "Form Validation Engine",
   "title": "jQuery Form Validation Engine",
-  "description": "Validate your forms with style. Complete api included",
+  "description": "Validate your forms with style. Complete api included for advanced users",
   "keywords": [
     "form",
     "field",
@@ -26,7 +26,6 @@
   ],
   "docs": "http://posabsolute.github.com/jQuery-Validation-Engine/",
   "demo": "http://www.position-relative.net/creation/formValidator/",
-  "download": "http://code.jquery.com/#color",
   "dependencies": {
     "jquery": ">=1.6"
   }
