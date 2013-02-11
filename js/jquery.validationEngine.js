@@ -108,19 +108,25 @@
 			var element = $(this);
 			var valid = null;
 
-			if((element.is("form") || element.hasClass("validationEngineContainer")) && !element.hasClass('validating')) {
-				element.addClass('validating');
-				var options = element.data('jqv');
-				var valid = methods._validateFields(this);
-				
-				// If the form doesn't validate, clear the 'validating' class before the user has a chance to submit again
-				setTimeout(function(){
-					element.removeClass('validating');
-				}, 100);
-				if (valid && options.onSuccess) {
-					options.onSuccess();
-				} else if (!valid && options.onFailure) {
-					options.onFailure();
+			if (element.is("form") || element.hasClass("validationEngineContainer")) {
+				if (element.hasClass('validating')) {
+					// form is already validating.
+					// Should abort old validation and start new one. I don't know how to implement it.
+					return false;
+				} else {				
+					element.addClass('validating');
+					var options = element.data('jqv');
+					var valid = methods._validateFields(this);
+
+					// If the form doesn't validate, clear the 'validating' class before the user has a chance to submit again
+					setTimeout(function(){
+						element.removeClass('validating');
+					}, 100);
+					if (valid && options.onSuccess) {
+						options.onSuccess();
+					} else if (!valid && options.onFailure) {
+						options.onFailure();
+					}
 				}
 			} else if (element.is('form') || element.hasClass('validationEngineContainer')) {
 				element.removeClass('validating');
