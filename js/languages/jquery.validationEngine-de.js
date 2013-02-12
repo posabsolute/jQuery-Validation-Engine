@@ -103,10 +103,6 @@
 					"regex": /^[0-9a-zA-ZäüöÄÜÖßs-]+$/,
 					"alertText": "* Keine Sonderzeichen erlaubt"
 				},
-                "onlyLetterNumber": {
-                    "regex": /^[0-9a-zA-Z]+$/,
-                    "alertText": "* Keine Sonderzeichen erlaubt"
-                },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
                     "url": "ajaxValidateFieldUser",
