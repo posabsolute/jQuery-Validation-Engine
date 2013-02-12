@@ -501,7 +501,7 @@ Please refer to the section *Custom Regex* for a list of available regular expre
 
 ### custom[function_name]
 
-Validates the element's value to a predefined function included in the language file (compared to funCall that can be anywhere in your application),
+Validates the element's value to a predefined function included in the language file (compared to funcCall that can be anywhere in your application),
 
 ```html
 <input value="someone@nowhere.com" class="validate[required,custom[requiredInFunction]]" type="text" name="email" id="email" />
