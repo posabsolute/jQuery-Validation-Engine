@@ -96,9 +96,9 @@ Customize error messages with data-errormessage and data-errormessage-* attribut
 
 ```html
 <input type="email" name="email" id="email" data-validation-engine="validate[required,custom[email]]"
-    data-errormessage-value-missing="Email is required!" 
-    data-errormessage-custom-error="Let me give you a hint: someone@nowhere.com" 
-    data-errormessage="This is the fall-back error message."/>
+	data-errormessage-value-missing="Email is required!" 
+	data-errormessage-custom-error="Let me give you a hint: someone@nowhere.com" 
+	data-errormessage="This is the fall-back error message."/>
 ```
 
 The following attribute's value will be loaded for the relative validation rule: 
@@ -219,11 +219,11 @@ An id attribute for the HTML element is required.
 Syntax (HTML5):
 ```html
 <input id="skipbutton" data-validation-engine-skip="true" type="submit" value="Refresh button"/>
-``` 
+```	
 Syntax (use class attribute):
 ```html
 <input id="skipbutton" class="submit validate-skip" type="button" value="Refresh button"/>
-``` 
+```	
 
 ### Using a DIV container instead of a FORM
 
@@ -393,29 +393,29 @@ messages or ID messages.
 These custom messages are declared in this manner:
 ```js
 jQuery("#formID2").validationEngine({'custom_error_messages' : {
-    '#someId' : {
-        'required': {
-            'message': "This is a custom message that is only attached to the input with id 'someId' if it
-                        has the validation of 'required'. This will always display, even if it has other
-                        custom messages."
-        }
-        ,'custom[min]': {
-            'message': "This is a custom message that is only attached to the input with id 'someID' if it
-                        has the validation of 'custom[min[someNumber]]'. This will always display, even if
-                         it has other custom messages."
-        }
-    },
-    '.someClass': {
-        'equals': {
-            'message': "This is a custom message that is only attached to inputs that have the class of
-                        'someClass' and the validation type of 'equals'. This will be displayed only on
-                        inputs without an ID message."
-        }
-    },
-    'required' {
-        'message': "This is a custom message that replaces the normal error message for the validation
-                    'required'. This only displays when there are no Class or ID messages."
-    }
+	'#someId' : {
+		'required': {
+			'message': "This is a custom message that is only attached to the input with id 'someId' if it
+						has the validation of 'required'. This will always display, even if it has other
+						custom messages."
+		}
+		,'custom[min]': {
+			'message': "This is a custom message that is only attached to the input with id 'someID' if it
+						has the validation of 'custom[min[someNumber]]'. This will always display, even if
+						 it has other custom messages."
+		}
+	},
+	'.someClass': {
+		'equals': {
+			'message': "This is a custom message that is only attached to inputs that have the class of
+						'someClass' and the validation type of 'equals'. This will be displayed only on
+						inputs without an ID message."
+		}
+	},
+	'required' {
+		'message': "This is a custom message that replaces the normal error message for the validation
+					'required'. This only displays when there are no Class or ID messages."
+	}
 }
 ```
 
@@ -501,7 +501,7 @@ Please refer to the section *Custom Regex* for a list of available regular expre
 
 ### custom[function_name]
 
-Validates the element's value to a predefined function included in the language file (compared to funcCall that can be anywhere in your application),
+Validates the element's value to a predefined function included in the language file (compared to funCall that can be anywhere in your application),
 
 ```html
 <input value="someone@nowhere.com" class="validate[required,custom[requiredInFunction]]" type="text" name="email" id="email" />
