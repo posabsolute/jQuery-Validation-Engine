@@ -134,7 +134,7 @@
 				// field validation
 				var form = element.closest('form, .validationEngineContainer'),
 					options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults,
-					valid = methods._validateField(element, options);
+					valid = !methods._validateField(element, options);
 
 				if (valid && options.onFieldSuccess)
 					options.onFieldSuccess();
