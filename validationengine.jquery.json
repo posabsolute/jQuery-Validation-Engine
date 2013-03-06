@@ -1,13 +1,13 @@
 {
-  "name": "Form Validation Engine",
-  "title": "jQuery Form Validation Engine",
+  "name": "validationengine",
+  "title": "Form Validation Engine",
   "description": "Validate your forms with style. Complete api included for advanced users",
   "keywords": [
     "form",
     "field",
     "validation"
   ],
-  "version": "2.6.3",
+  "version": "2.6.4",
   "author": {
     "name": "Cedric Dugas",
     "url": "http://www.position-absolute.com"
