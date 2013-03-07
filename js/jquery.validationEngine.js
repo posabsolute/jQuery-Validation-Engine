@@ -1711,7 +1711,7 @@
 		_getPrompt: function(field) {
 				var formId = $(field).closest('form, .validationEngineContainer').attr('id');
 			var className = methods._getClassName(field.attr("id")) + "formError";
-				var match = $("." + methods._escapeExpression(className) + '.parentForm' + formId)[0];
+				var match = $("." + methods._escapeExpression(className) + '.parentForm' + methods._getClassName(formId))[0];
 			if (match)
 			return $(match);
 		},
