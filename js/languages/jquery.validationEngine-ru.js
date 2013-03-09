@@ -14,7 +14,7 @@
                     "func": function(field, rules, i, options){
                         return (field.val() == "test") ? true : false;
                     },
-                    "alertText": "* Field must equal test"
+                    "alertText": "* Значением поля должно быть test"
                 },
                 "minSize": {
                     "regex": "none",
@@ -26,9 +26,9 @@
                     "alertText": "* Максимум ",
                     "alertText2": " символа(ов)"
                 },
-				"groupRequired": {
+		"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* Вы должны заполнить одно из следующих полей"
                 },
                 "min": {
                     "regex": "none",
