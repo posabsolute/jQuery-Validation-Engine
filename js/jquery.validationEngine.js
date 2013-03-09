@@ -91,7 +91,7 @@
 			form.removeData('jqv_submitButton');
 
 			if (options.autoPositionUpdate)
-				$(window).unbind("resize", methods.updatePromptsPosition);
+				$(window).off("resize", methods.updatePromptsPosition);
 
 			return this;
 		},
