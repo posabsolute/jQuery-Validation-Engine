@@ -362,30 +362,31 @@ messages or ID messages.
 These custom messages are declared in this manner:
 ```js
 jQuery("#formID2").validationEngine({'custom_error_messages' : {
-	'#someId' : {
-		'required': {
-			'message': "This is a custom message that is only attached to the input with id 'someId' if it
-						has the validation of 'required'. This will always display, even if it has other
-						custom messages."
+		'#someId' : {
+			'required': {
+				'message': "This is a custom message that is only attached to the input with id 'someId' if it
+							has the validation of 'required'. This will always display, even if it has other
+							custom messages."
+			},
+			'custom[min]': {
+				'message': "This is a custom message that is only attached to the input with id 'someID' if it
+							has the validation of 'custom[min[someNumber]]'. This will always display, even if
+		      				it has other custom messages."
+			}
+		},
+		'.someClass': {
+			'equals': {
+				'message': "This is a custom message that is only attached to inputs that have the class of
+							'someClass' and the validation type of 'equals'. This will be displayed only on
+							inputs without an ID message."
+			}
+		},
+		'required' {
+			'message': "This is a custom message that replaces the normal error message for the validation
+						'required'. This only displays when there are no Class or ID messages."
 		}
-		,'custom[min]': {
-			'message': "This is a custom message that is only attached to the input with id 'someID' if it
-						has the validation of 'custom[min[someNumber]]'. This will always display, even if
-						 it has other custom messages."
-		}
-	},
-	'.someClass': {
-		'equals': {
-			'message': "This is a custom message that is only attached to inputs that have the class of
-						'someClass' and the validation type of 'equals'. This will be displayed only on
-						inputs without an ID message."
-		}
-	},
-	'required' {
-		'message': "This is a custom message that replaces the normal error message for the validation
-					'required'. This only displays when there are no Class or ID messages."
 	}
-}
+});
 ```
 
 
