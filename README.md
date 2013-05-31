@@ -144,10 +144,7 @@ Prompt direction can be define using the field's **data** attribute. Here are a 
 <input value="http://" class="validate[required,custom[url]] text-input" type="text" name="url" id="url" data-prompt-position="topLeft" />
 <input value="" class="validate[required] text-input" type="text" name="req" id="req" data-prompt-position="bottomLeft" />
 <input value="too many spaces obviously" class="validate[required,custom[onlyLetterNumber]]" type="text" name="special" id="special" data-prompt-position="bottomRight" />
-<input value="" class="validate[required] text-input" type="text" name="req-inline" id="req-inline" data-prompt-position="inline" />
 ```
-
-If "inline" is applied the prompt is attached after the corresponding input field with position set to "relative". You can specify an optional target container to which the prompt should be attached by providing the id of this container in the field's **data-prompt-target** attribute.
 
 ### Prompt Position Adjustment
 
@@ -211,26 +208,6 @@ All calls to validationEngine() are chainable, so one can do the following:
 $("#formID").validationEngine().css({border : "2px solid #000"});
 ```
 
-### Suppress Validation Feature
-
-Hyperlink and Button ( <button> and input ) allow suppress the validation for special case such as multi fake submit buttons in web page.
-An id attribute for the HTML element is required.
-
-Syntax (HTML5):
-```html
-<input id="skipbutton" data-validation-engine-skip="true" type="submit" value="Refresh button"/>
-```	
-Syntax (use class attribute):
-```html
-<input id="skipbutton" class="submit validate-skip" type="button" value="Refresh button"/>
-```	
-
-### Using a DIV container instead of a FORM
-
-You can use a div acting as a container using the class *"validationEngineContainer"*. Please be aware that events like submit() won't work and you will have to call the action 'validate' to validate the form.
-
-
-
 Actions
 ---
 
@@ -244,7 +221,7 @@ $("#formID1").validationEngine('attach');
 
 ### detach
 
-Unregisters any bindings that may point to jQuery.validationEngine.
+Unregisters any bindings that may point to jQuery.validaitonEngine.
 
 ```js
 $("#formID1").validationEngine('detach');
@@ -274,7 +251,7 @@ Displays a prompt on a given element. Note that the prompt can be displayed on a
 The method takes four parameters: 
 1. the text of the prompt itself
 2. a type which defines the visual look of the prompt: 'pass' (green), 'load' (black) anything else (red)
-3. an optional position: either "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight", "inline". Defaults to *"topRight"*
+3. an optional position: either "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*
 4. an optional boolean which indicates if the prompt should display a directional arrow
 
 ```html
@@ -336,23 +313,15 @@ Name of the event triggering field validation, defaults to *blur*.
 ### scroll
 Determines if we should scroll the page to the first error, defaults to *true*.
 
-### scrollOffset
-The amount to offset the scroll in px.  Useful if there are fixed elements at the top of the page.
-
 ### binded
-If set false, does not attach blur events and only validates on the form submit.
+If set to true, it remove blur events and only validate on submit.
 
 ### promptPosition
-Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight", "inline". Defaults to *"topRight"*. Default position adjustment could also be provided.
-"topLeft" to "bottomRight" are absolutely positioned. 
-If "inline" is applied the prompt is attached after the corresponding input field with position set to "relative". By adding an optional "data-prompt-target" attribute to the field you can specify the id of an element to which the prompt should be appended alternatively. (see "Per Field Prompt Direction" for more details)
+Where should the prompt show? Possible values are "topLeft", "topRight", "bottomLeft", "centerRight", "bottomRight". Defaults to *"topRight"*.
+Default position adjustment could also be provided.
 
 ### showOneMessage
 Only display the first incorrect validation message instead of normally stacking it. It will follows the validation hierarchy you used in the input and only show the first error.
-
-### showPrompts
-If set to false, prompts never show.
-
 
 ### ajaxFormValidation
 If set to true, turns Ajax form validation logic on. Defaults to *false*.
@@ -445,10 +414,6 @@ Determines if the prompt should hide itself automatically after a set period. De
 ### autoHideDelay
 Sets the number of ms that the prompt should appear for if autoHidePrompt is set to *true*. Defaults to *10000*. 
 
-### addPromptClass
-Add a css class to the created prompt on each field (Useful for modals and stuff).
-
-
 Validators
 ---
 
@@ -501,7 +466,7 @@ Please refer to the section *Custom Regex* for a list of available regular expre
 
 ### custom[function_name]
 
-Validates the element's value to a predefined function included in the language file (compared to funcCall that can be anywhere in your application),
+Validates the element's value to a predefined function included in the language file (compared to funCall that can be anywhere in your application),
 
 ```html
 <input value="someone@nowhere.com" class="validate[required,custom[requiredInFunction]]" type="text" name="email" id="email" />
@@ -871,14 +836,9 @@ This need to be added before the initialization, one good way to handle this wou
 <script src="js/jquery.validationEngine-settings.js" type="text/javascript" charset="utf-8"></script>
 ```
 
-Using the validationEngine with modal & dialog plugins & kendo UI widgets
+Using the validationEngine with modal & dialog plugins
 ---
-Modal elements, have a tendency to take a high z-index, which in turn can interfer with the plugin. In the case of modal jQuery ui, if you want to change the z-index you can do this easily in your css.
-
-    .ui-dialog .formError
-
-
-For other cases please modify the css yourself, we will not support custom frameworks in the base code. You can have more information about implementing the engine with modal views here:
+You can have more information about implementing the engine with modal views here:
 [http://www.position-absolute.com/articles/using-the-jquery-validation-engine-with-modal-plugins/]
 
 
@@ -952,10 +912,5 @@ Authors
 ---
 
  Copyright(c) 2011 [Cedric Dugas](https://github.com/posabsolute) [http://www.position-absolute.com](http://www.position-absolute.com)
- [![endorse](http://api.coderwall.com/posabsolute/endorsecount.png)](http://coderwall.com/posabsolute)
-
- v2.0 Rewrite by [Olivier Refalo](https://github.com/orefalo) [http://www.crionics.com](http://www.crionics.com)
  
-**Official Contributors**
-
-Stefan Fochler
+ v2.0 Rewrite by [Olivier Refalo](https://github.com/orefalo) [http://www.crionics.com](http://www.crionics.com)
