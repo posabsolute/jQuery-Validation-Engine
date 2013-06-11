@@ -704,7 +704,10 @@
 				}	
 			}
 			// If the rules required is not added, an empty field is not validated
-			if(!required && !(field.val()) && field.val().length < 1) options.isError = false;
+			//the 3rd condition is added so that even empty password fields should be equal
+			//otherwise if one is filled and another left empty, the "equal" condition would fail
+			//which does not make any sense
+			if(!required && !(field.val()) && field.val().length < 1 && rules.indexOf("equals") < 0) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
