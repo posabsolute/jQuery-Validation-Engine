@@ -446,7 +446,11 @@
 					return options.onBeforeAjaxFormValidation(form, options);
 				},
 				error: function(data, transport) {
-					methods._ajaxError(data, transport);
+					if (options.onFailure) {
+						options.onFailure(data, transport);
+					} else {
+						methods._ajaxError(data, transport);
+					}
 				},
 				success: function(json) {
 					if ((dataType == "json") && (json !== true)) {
@@ -1407,7 +1411,11 @@
 					 options: options,
 					 beforeSend: function() {},
 					 error: function(data, transport) {
-						 methods._ajaxError(data, transport);
+						if (options.onFailure) {
+							options.onFailure(data, transport);
+						} else {
+							methods._ajaxError(data, transport);
+						}
 					 },
 					 success: function(json) {
 
