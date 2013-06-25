@@ -8,7 +8,7 @@
                     "regex": "none",
                     "alertText": "* Това поле е задължително",
                     "alertTextCheckboxMultiple": "* Моля, изберете от списъка",
-                    "alertTextCheckboxe": "* Трябва да отметните",
+                    "alertTextCheckboxe": "* Трябва да отметнeте",
                     "alertTextDateRange": "* И двете полета за дата са задължителни"
                 },
                 "requiredInFunction": { 
