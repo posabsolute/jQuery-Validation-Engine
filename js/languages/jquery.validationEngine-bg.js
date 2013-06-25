@@ -29,12 +29,12 @@
                 },
                 "minSize": {
                     "regex": "none",
-                    "alertText": "* минимум ",
+                    "alertText": "* Минимум ",
                     "alertText2": " символа"
                 },
                 "maxSize": {
                     "regex": "none",
-                    "alertText": "* максимум ",
+                    "alertText": "* Максимум ",
                     "alertText2": " символа"
                 },
                 "groupRequired": {
@@ -178,7 +178,7 @@
                         "alertTextLoad": "* Проверява се, моля почакайте"
                     },
                 "validate2fields": {
-                    "alertText": "* Please input HELLO"
+                    "alertText": "*Моля, въведете HELLO"
                 },
                 //tls warning:homegrown not fielded 
                 "dateFormat":{
