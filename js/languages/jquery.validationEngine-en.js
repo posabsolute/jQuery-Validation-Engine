@@ -85,6 +85,14 @@
                     "regex": /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     "alertText": "* Invalid email address"
                 },
+                "fullname": {
+                    "regex":/^([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]*)+[ ]([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]+)+$/,
+                    "alertText":"* Must be first and last name"
+                },
+                "zip": {
+                    "regex":/^\d{5}$|^\d{5}-\d{4}$/,
+                    "alertText":"* Invalid zip format"
+                },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
                     "alertText": "* Not a valid integer"
