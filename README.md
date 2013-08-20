@@ -415,6 +415,12 @@ Determines if the prompt should hide itself automatically after a set period. De
 ### autoHideDelay
 Sets the number of ms that the prompt should appear for if autoHidePrompt is set to *true*. Defaults to *10000*. 
 
+### showArrow
+Show the arrow in the validation popup. Defaults to *true*
+
+### showArrowOnRadioAndCheckbox
+Show the arrow in the validation popup when validating checkboxes and radio buttons. Defaults to *false*
+
 Validators
 ---
 
