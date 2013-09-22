@@ -132,11 +132,6 @@
 				var form = element.closest('form, .validationEngineContainer'),
 					options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults,
 					valid = methods._validateField(element, options);
-
-				if (valid && options.onFieldSuccess)
-					options.onFieldSuccess();
-				else if (options.onFieldFailure && options.InvalidFields.length > 0) {
-					options.onFieldFailure();
 				}
 			}
 			if(options.onValidationComplete) {
@@ -159,6 +154,8 @@
 
 			var options = form.data('jqv');
 			// No option, take default one
+			if (!options)
+				options = methods._saveOptions(form, options);
 			form.find('['+options.validateAttribute+'*=validate]').not(":disabled").each(function(){
 				var field = $(this);
 				if (options.prettySelect && field.is(":hidden"))
@@ -198,6 +195,9 @@
 		hide: function() {
 			 var form = $(this).closest('form, .validationEngineContainer');
 			 var options = form.data('jqv');
+			 // No option, take default one
+			 if (!options)
+				options = methods._saveOptions(form, options);
 			 var fadeDuration = (options && options.fadeDuration) ? options.fadeDuration : 0.3;
 			 var closingtag;
 			 
@@ -234,15 +234,13 @@
 			var field = $(this);
 			var form = field.closest('form, .validationEngineContainer');
 			var options = form.data('jqv');
+			// No option, take default one
+			if (!options)
+				options = methods._saveOptions(form, options);
 			options.eventTrigger = "field";
 			// validate the current field
 			window.setTimeout(function() {
 				methods._validateField(field, options);
-				if (options.InvalidFields.length == 0 && options.onFieldSuccess) {
-					options.onFieldSuccess();
-				} else if (options.InvalidFields.length > 0 && options.onFieldFailure) {
-					options.onFieldFailure();
-				}
 			}, (event.data) ? event.data.delay : 0);
 
 		},
@@ -711,7 +709,7 @@
 			//the 3rd condition is added so that even empty password fields should be equal
 			//otherwise if one is filled and another left empty, the "equal" condition would fail
 			//which does not make any sense
-			if(!required && !(field.val()) && field.val().length < 1 && rules.indexOf("equals") < 0) options.isError = false;
+			if(!required && !(field.val()) && field.val().length < 1 && $.inArray('equals', rules) < 0) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
