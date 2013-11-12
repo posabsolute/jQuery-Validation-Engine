@@ -553,7 +553,9 @@
 				rules[i] = rules[i].replace(" ", "");
 				// Remove any parsing errors
 				if (rules[i] === '') {
-					delete rules[i];
+					// Remove the element from the array and step the counter back to account for smaller array
+					rules.splice(i,1);
+					i--;
 				}
 			}
 
@@ -582,15 +584,16 @@
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._custom);
 						break;
 					case "groupRequired":
-						// Check is its the first of group, if not, reload validation with first field
-						// AND continue normal validation on present field
+						// Check to see if we should start an iterative check on all groupRequired elements
+						// or we're in the middle of one already and should test validation on the current iterated field
 						var classGroup = "["+options.validateAttribute+"*=" +rules[i + 1] +"]";
-						var firstOfGroup = form.find(classGroup).eq(0);
-						if(firstOfGroup[0] != field[0]){
-
-							methods._validateField(firstOfGroup, options, skipAjaxValidation); 
-							options.showArrow = true;
-
+						if (!('GroupRequiredFields' in options)) {
+							options.GroupRequiredFields = form.find(classGroup);
+							for (var j = 0; j < options.GroupRequiredFields.length; j++) {
+								methods._validateField(options.GroupRequiredFields.eq(j), options, skipAjaxValidation);
+							}
+							if (options.GroupRequiredFields.length > 1) options.showArrow = true;
+							delete options.GroupRequiredFields;
 						}
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._groupRequired);
 						if(errorMsg)  required = true;
