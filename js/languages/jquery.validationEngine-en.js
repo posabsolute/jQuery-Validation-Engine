@@ -39,7 +39,8 @@
                 },
 				"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* You must fill one of the following fields",
+                    "alertTextCheckboxe": "* You must fill one of the following fields"
                 },
                 "min": {
                     "regex": "none",

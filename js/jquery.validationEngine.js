@@ -927,7 +927,7 @@
 				case "checkbox":
 					// new validation style to only check dependent field
 					if (condRequired) {
-						if (!field.attr('checked')) {
+						if (!field.is(':checked')) {
 							return options.allrules[rules[i]].alertTextCheckboxMultiple;
 						}
 						break;
