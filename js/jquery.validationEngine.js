@@ -2030,7 +2030,7 @@
 		doNotShowAllErrosOnSubmit: false,
 		// Object where you store custom messages to override the default error messages
 		custom_error_messages:{},
-		// true if you want to vind the input fields
+		// true if you want to validate the input fields on blur event
 		binded: true,
 		// set to true, when the prompt arrow needs to be displayed
 		showArrow: true,
