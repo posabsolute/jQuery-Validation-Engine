@@ -598,6 +598,7 @@
 						break;
 					case "ajax":
 						// AJAX defaults to returning it's loading message
+                        isAjaxValidator = true;
 						errorMsg = methods._ajax(field, rules, i, options);
 						if (errorMsg) {
 							promptType = "load";
@@ -711,7 +712,7 @@
 			//the 3rd condition is added so that even empty password fields should be equal
 			//otherwise if one is filled and another left empty, the "equal" condition would fail
 			//which does not make any sense
-			if(!required && !(field.val()) && field.val().length < 1 && rules.indexOf("equals") < 0) options.isError = false;
+			if(!isAjaxValidator && !required && !(field.val()) && field.val().length < 1 && rules.indexOf("equals") < 0) options.isError = false;
 
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
@@ -1471,7 +1472,7 @@
 								}
 								
 								 // If a submit form triggered this, we want to re-submit the form
-								 if (options.eventTrigger == "submit")
+								 if (this.options.eventTrigger == "submit")
 									field.closest("form").submit();
 							 }
 						 }
