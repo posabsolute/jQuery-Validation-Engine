@@ -725,7 +725,7 @@
 				} else {
 				field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:first"));
 				}
-				options.showArrow = false;
+				options.showArrow = options.showArrowOnRadioAndCheckbox;
 			}
 
 			if(field.is(":hidden") && options.prettySelect) {
@@ -1833,7 +1833,7 @@
 			switch (positionType) {
 				default:
 				case "topRight":
-					promptleftPosition +=  fieldLeft + fieldWidth - 30;
+					promptleftPosition +=  fieldLeft + fieldWidth - 27;
 					promptTopPosition +=  fieldTop;
 					break;
 
@@ -1860,7 +1860,7 @@
 					promptleftPosition = fieldLeft;
 					break;
 				case "bottomRight":
-					promptleftPosition = fieldLeft + fieldWidth - 30;
+					promptleftPosition = fieldLeft + fieldWidth - 27;
 					promptTopPosition =  fieldTop +  field.height() + 5;
 					marginTopSize = 0;
 					break;
@@ -2035,6 +2035,9 @@
 		binded: true,
 		// set to true, when the prompt arrow needs to be displayed
 		showArrow: true,
+		// set to false, determines if the prompt arrow should be displayed when validating
+		// checkboxes and radio buttons
+		showArrowOnRadioAndCheckbox: false,
 		// did one of the validation fail ? kept global to stop further ajax validations
 		isError: false,
 		// Limit how many displayed errors a field can have
