@@ -1714,12 +1714,24 @@
 		*            field
 		*/
 		 _closePrompt: function(field) {
-			 var prompt = methods._getPrompt(field);
-			 if (prompt)
-				 prompt.fadeTo("fast", 0, function() {
-					 prompt.parent('.formErrorOuter').remove();
-					 prompt.remove();
-				 });
+	                 var prompt = methods._getPrompt(field);
+             
+		     	 var form = $(field).closest('form, .validationEngineContainer');
+        		 var options = form.data('jqv');
+			 var useFade = options ? options.useFadeOnClosePrompt : true;
+			 if (prompt) {
+                 		var removePrompt = function(){
+                    			prompt.parent('.formErrorOuter').remove();
+	                    		prompt.remove();
+                 	 	}
+                 
+                 	 	if (useFade) {
+	                    		prompt.fadeTo("fast", 0, removePrompt);
+        	         	} else {
+                	     		removePrompt();
+                 		}
+			 }
+             		
 		 },
 		 closePrompt: function(field) {
 			 return methods._closePrompt(field);
