@@ -906,24 +906,6 @@
 		*/
 		_required: function(field, rules, i, options, condRequired) {
 			switch (field.prop("type")) {
-				case "text":
-				case "password":
-				case "textarea":
-				case "file":
-				case "select-one":
-				case "select-multiple":
-				default:
-					var field_val      = $.trim( field.val()                               );
-					var dv_placeholder = $.trim( field.attr("data-validation-placeholder") );
-					var placeholder    = $.trim( field.attr("placeholder")                 );
-					if (
-						   ( !field_val                                    )
-						|| ( dv_placeholder && field_val == dv_placeholder )
-						|| ( placeholder    && field_val == placeholder    )
-					) {
-						return options.allrules[rules[i]].alertText;
-					}
-					break;
 				case "radio":
 				case "checkbox":
 					// new validation style to only check dependent field
@@ -941,6 +923,24 @@
 							return options.allrules[rules[i]].alertTextCheckboxe;
 						else
 							return options.allrules[rules[i]].alertTextCheckboxMultiple;
+					}
+					break;
+				case "text":
+				case "password":
+				case "textarea":
+				case "file":
+				case "select-one":
+				case "select-multiple":
+				default:
+					var field_val      = $.trim( field.val()                               );
+					var dv_placeholder = $.trim( field.attr("data-validation-placeholder") );
+					var placeholder    = $.trim( field.attr("placeholder")                 );
+					if (
+						   ( !field_val                                    )
+						|| ( dv_placeholder && field_val == dv_placeholder )
+						|| ( placeholder    && field_val == placeholder    )
+					) {
+						return options.allrules[rules[i]].alertText;
 					}
 					break;
 			}

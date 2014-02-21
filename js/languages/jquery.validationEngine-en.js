@@ -37,9 +37,11 @@
                     "alertText": "* Maximum ",
                     "alertText2": " characters allowed"
                 },
-				"groupRequired": {
+		"groupRequired": {
                     "regex": "none",
-                    "alertText": "* You must fill one of the following fields"
+                    "alertText": "* You must fill one of the following fields",
+                    "alertTextCheckboxMultiple": "* Please select an option",
+                    "alertTextCheckboxe": "* This checkbox is required"
                 },
                 "min": {
                     "regex": "none",
