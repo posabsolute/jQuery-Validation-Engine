@@ -1,6 +1,5 @@
 
 
-
 /* Z-INDEX */
  .formError { z-index: 990; }
     .formError .formErrorContent { z-index: 991; }
@@ -133,12 +132,12 @@ body.rtl .formError .formErrorArrow {
 }
 
 .formError .formErrorArrow .line10 {
-	width: 15px;
+	width: 13px;
 	border: none;
 }
 
 .formError .formErrorArrow .line9 {
-	width: 13px;
+	width: 11px;
 	border: none;
 }
 
