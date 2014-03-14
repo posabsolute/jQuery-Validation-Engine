@@ -132,6 +132,7 @@ The following attribute's value will be loaded for the relative validation rule:
 * custom
 * ajax
 * funcCall
+* asyncFuncCall
 
 ##### data-errormessage 
 * a generic fall-back error message
@@ -498,6 +499,30 @@ The following declaration will do
 
 ```html          
 <input value="" class="validate[required,funcCall[checkHELLO]]" type="text" id="lastname" name="lastname" />
+```
+ 
+### asyncFuncCall[methodName]
+
+Validates a field using an asynchronous third party function call.  This behaves similarly to funcCall, but the external function is an asynchronous function - it does not return anything.  Instead it must call a callback with the validation result (true if success, false if failure) and an optional message to display.  This allows you to validate anything asynchronously (i.e. call ajax, call some 3rd party library, use websockets, etc.)
+
+```js
+function checkHELLO(field, rules, i, options, callback){
+  setTimeout(function(){
+    if (field.val() === "HELLO") {
+      callback(true);
+    }
+    else {
+      var msg = options.allrules.validate2fields.alertText; // this allows to use i18 for the error msgs
+      callback(false, msg);
+    }
+  },2000);
+}
+```
+
+The following declaration will do
+
+```html          
+<input value="" class="validate[required,asyncFuncCall[checkHELLO]]" type="text" id="lastname" name="lastname" />
 ```
  
 ### ajax[selector]
