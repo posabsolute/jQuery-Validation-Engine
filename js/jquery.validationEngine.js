@@ -668,6 +668,12 @@
 							required = true;
 						}
 						break;
+					case "funcCallRequired":
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._funcCallRequired);
+						if (errorMsg !== undefined) {
+							required = true;
+						}
+						break;
 
 					default:
 				}
@@ -692,6 +698,14 @@
 						default:
 							break;
 					}
+				}
+				
+				//funcCallRequired, first in rules, and has error, skip anything else
+				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
+					promptText += errorMsg + "<br/>";
+					options.isError=true;
+					field_errors++;
+					end_validation=true;
 				}
 
 				// If it has been specified that validation should end now, break
@@ -803,7 +817,7 @@
 			 // Otherwise if we are doing a function call, make the call and return the object
 			 // that is passed back.
 	 		 var rule_index = jQuery.inArray(rule, rules);
-			 if (rule === "custom" || rule === "funcCall") {
+			 if (rule === "custom" || rule === "funcCall" || rule === "funcCallRequired") {
 				 var custom_validation_type = rules[rule_index + 1];
 				 rule = rule + "[" + custom_validation_type + "]";
 				 // Delete the rule from the rules array so that it doesn't try to call the
@@ -888,6 +902,7 @@
 			 "minCheckbox": "range-underflow",
 			 "equals": "pattern-mismatch",
 			 "funcCall": "custom-error",
+			 "funcCallRequired": "custom-error",
 			 "creditCard": "pattern-mismatch",
 			 "condRequired": "value-missing"
 		 },
@@ -1040,6 +1055,9 @@
 			if (typeof(fn) == 'function')
 				return fn(field, rules, i, options);
 
+		},
+		_funcCallRequired: function(field, rules, i, options) {
+			return methods._funcCall(field,rules,i,options);
 		},
 		/**
 		* Field match
