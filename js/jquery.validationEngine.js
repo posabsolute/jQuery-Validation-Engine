@@ -1194,7 +1194,12 @@
             }
           }); 
           
-          return rule.alertTextLoad;
+          if (options.asyncInProgress[field.attr("id")]) {
+            return rule.alertTextLoad; //if async function is still in progress, show the loading prompt
+          }
+          else if (options.ajaxValidCache[field.attr("id")] === false) { //if the callback returned quickly and validation failed
+            return {status: '_error_no_prompt'}; //force our caller to fail and bail (don't change the prompt, since that was already done by the callback)
+          }         
         }
         else if (options.ajaxValidCache[field.attr("id")] === false) { //if validation previously failed, but did not change
           return {status: '_error_no_prompt'}; //force our caller to fail and bail (don't change the prompt)
