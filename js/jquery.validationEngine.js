@@ -133,7 +133,6 @@
 				var form = element.closest('form, .validationEngineContainer'),
 					options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults,
 					valid = methods._validateField(element, options);
-				}
 			}
 			if(options.onValidationComplete) {
 				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
