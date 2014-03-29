@@ -133,7 +133,6 @@
 				var form = element.closest('form, .validationEngineContainer'),
 					options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults,
 					valid = methods._validateField(element, options);
-				}
 			}
 			if(options.onValidationComplete) {
 				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
@@ -520,6 +519,9 @@
 				++$.validationEngine.fieldIdCounter;
 			}
 
+			if(field.hasClass(options.ignoreFieldsWithClass))
+				return false;
+				
            if (!options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
 				return false;
 
@@ -668,6 +670,12 @@
 							required = true;
 						}
 						break;
+					case "funcCallRequired":
+						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._funcCallRequired);
+						if (errorMsg !== undefined) {
+							required = true;
+						}
+						break;
 
 					default:
 				}
@@ -692,6 +700,14 @@
 						default:
 							break;
 					}
+				}
+				
+				//funcCallRequired, first in rules, and has error, skip anything else
+				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
+					promptText += errorMsg + "<br/>";
+					options.isError=true;
+					field_errors++;
+					end_validation=true;
 				}
 
 				// If it has been specified that validation should end now, break
@@ -803,7 +819,7 @@
 			 // Otherwise if we are doing a function call, make the call and return the object
 			 // that is passed back.
 	 		 var rule_index = jQuery.inArray(rule, rules);
-			 if (rule === "custom" || rule === "funcCall") {
+			 if (rule === "custom" || rule === "funcCall" || rule === "funcCallRequired") {
 				 var custom_validation_type = rules[rule_index + 1];
 				 rule = rule + "[" + custom_validation_type + "]";
 				 // Delete the rule from the rules array so that it doesn't try to call the
@@ -888,6 +904,7 @@
 			 "minCheckbox": "range-underflow",
 			 "equals": "pattern-mismatch",
 			 "funcCall": "custom-error",
+			 "funcCallRequired": "custom-error",
 			 "creditCard": "pattern-mismatch",
 			 "condRequired": "value-missing"
 		 },
@@ -1040,6 +1057,9 @@
 			if (typeof(fn) == 'function')
 				return fn(field, rules, i, options);
 
+		},
+		_funcCallRequired: function(field, rules, i, options) {
+			return methods._funcCall(field,rules,i,options);
 		},
 		/**
 		* Field match
@@ -2002,8 +2022,10 @@
 		focusFirstField:true,
 		// Show prompts, set to false to disable prompts
 		showPrompts: true,
-       // Should we attempt to validate non-visible input fields contained in the form? (Useful in cases of tabbed containers, e.g. jQuery-UI tabs)
-       validateNonVisibleFields: false,
+		// Should we attempt to validate non-visible input fields contained in the form? (Useful in cases of tabbed containers, e.g. jQuery-UI tabs)
+		validateNonVisibleFields: false,
+		// ignore the validation for fields with this specific class (Useful in cases of tabbed containers AND hidden fields we don't want to validate)
+		ignoreFieldsWithClass: 'ignoreMe',	   
 		// Opening box position, possible locations are: topLeft,
 		// topRight, bottomLeft, centerRight, bottomRight, inline
 		// inline gets inserted after the validated field or into an element specified in data-prompt-target
@@ -2075,5 +2097,3 @@
 	}};
 	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
 })(jQuery);
-
-
