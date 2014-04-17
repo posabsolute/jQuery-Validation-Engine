@@ -24,14 +24,6 @@
 			var form = this;
 			if (!form.data('jqv') || form.data('jqv') == null ) {
 				options = methods._saveOptions(form, options);
-				// bind all formError elements to close on click
-				$(document).on("click", ".formError", function() {
-					$(this).fadeOut(150, function() {
-						// remove prompt once invisible
-						$(this).parent('.formErrorOuter').remove();
-						$(this).remove();
-					});
-				});
 			}
 			return this;
 		 },
@@ -2090,7 +2082,11 @@
 	 // Only show one message per error prompt
 	 showOneMessage: false
 	}};
-	$(function(){$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight"});
+	$(function(){
+		$.validationEngine.defaults.promptPosition = methods.isRTL()?'topLeft':"topRight";
+		$(document).off("click",".formError")
+			.on("click",".formError", function(e) {$(this).fadeOut(150, function() {$(this).closest('.formErrorOuter').remove();});});
+	});
 })(jQuery);
 
 
