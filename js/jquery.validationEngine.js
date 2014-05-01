@@ -238,10 +238,28 @@
 			if (!options)
 				options = methods._saveOptions(form, options);
 			options.eventTrigger = "field";
-			// validate the current field
-			window.setTimeout(function() {
-				methods._validateField(field, options);
-			}, (event.data) ? event.data.delay : 0);
+
+            if (options.notEmpty == true){
+
+                if(field.val().length > 0){
+                    // validate the current field
+                    window.setTimeout(function() {
+                        methods._validateField(field, options);
+                    }, (event.data) ? event.data.delay : 0);
+
+                }
+
+            }else{
+
+                // validate the current field
+                window.setTimeout(function() {
+                    methods._validateField(field, options);
+                }, (event.data) ? event.data.delay : 0);
+
+            }
+
+
+
 
 		},
 		/**
@@ -2048,6 +2066,8 @@
 		custom_error_messages:{},
 		// true if you want to validate the input fields on blur event
 		binded: true,
+		// set to true if you want to validate the input fields on blur only if the field it's not empty
+		notEmpty: false,
 		// set to true, when the prompt arrow needs to be displayed
 		showArrow: true,
 		// set to false, determines if the prompt arrow should be displayed when validating
