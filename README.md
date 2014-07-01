@@ -354,7 +354,7 @@ jQuery("#formID2").validationEngine('attach', {
 
 This is where custom messages for IDs, Classes, or validation types are stored.
 
-Custom error messages areexclusive from one another.ID messages will be displayed instead of anything else;
+Custom error messages are exclusive from one another.ID messages will be displayed instead of anything else;
 Class messages will only be used if there is no ID message, and only the first message found associated
 with one of the classes will be used; Global Validator messages will only be used if there are no Class
 messages or ID messages.
