@@ -397,7 +397,7 @@
 						var scrollContainerPos = -parseInt(overflowDIV.offset().top);
 
 						destination += scrollContainerScroll + scrollContainerPos - 5;
-						var scrollContainer = $(options.overflownDIV + ":not(:animated)");
+						var scrollContainer = $(options.overflownDIV).filter(":not(:animated)");
 
 						scrollContainer.animate({ scrollTop: destination }, 1100, function(){
 							if(options.focusFirstField) first_err.focus();
