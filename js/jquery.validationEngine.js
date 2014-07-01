@@ -28,8 +28,7 @@
 				$(document).on("click", ".formError", function() {
 					$(this).fadeOut(150, function() {
 						// remove prompt once invisible
-						$(this).parent('.formErrorOuter').remove();
-						$(this).remove();
+						$(this).closest('.formErrorOuter').remove();
 					});
 				});
 			}
@@ -207,8 +206,7 @@
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
 			 $('.'+closingtag).fadeTo(fadeDuration, 0.3, function() {
-				 $(this).parent('.formErrorOuter').remove();
-				 $(this).remove();
+				 $(this).closest('.formErrorOuter').remove();
 			 });
 			 return this;
 		 },
@@ -221,8 +219,7 @@
 			 var options = form.data('jqv');
 			 var duration = options ? options.fadeDuration:300;
 			 $('.formError').fadeTo(duration, 300, function() {
-				 $(this).parent('.formErrorOuter').remove();
-				 $(this).remove();
+				 $(this).closest('.formErrorOuter').remove();
 			 });
 			 return this;
 		 },
@@ -1676,7 +1673,6 @@
 						"opacity": 0
 					},function(){
 						prompt.closest('.formErrorOuter').remove();
-						prompt.remove();
 					});
 				}, options.autoHideDelay);
 			}
@@ -1734,8 +1730,7 @@
 			 var prompt = methods._getPrompt(field);
 			 if (prompt)
 				 prompt.fadeTo("fast", 0, function() {
-					 prompt.parent('.formErrorOuter').remove();
-					 prompt.remove();
+					 prompt.closest('.formErrorOuter').remove();
 				 });
 		 },
 		 closePrompt: function(field) {
