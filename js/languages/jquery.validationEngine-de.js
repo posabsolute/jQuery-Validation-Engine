@@ -99,6 +99,10 @@
 	                 "regex": /^[a-zA-ZäüöÄÜÖßs\ \\\']+$/,
                      "alertText": "* Nur Buchstaben erlaubt"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-zß\u00C0-\u017F\ ]+$/i,
+                     "alertText": "* Nur Buchstaben erlaubt"
+                },
 				"onlyLetterNumber": {
 					"regex": /^[0-9a-zA-ZäüöÄÜÖßs-]+$/,
 					"alertText": "* Keine Sonderzeichen erlaubt"

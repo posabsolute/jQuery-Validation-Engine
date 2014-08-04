@@ -123,6 +123,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Pouze písmena"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Pouze písmena"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Pouze písmena a číslice"

@@ -137,6 +137,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Дозвољена само слова"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Дозвољена само слова"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Специјални знакови нису дозвољени"

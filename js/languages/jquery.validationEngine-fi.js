@@ -99,6 +99,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Ainoastaan kirjaimin"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Ainoastaan kirjaimin"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Erikoismerkit eivät ole sallittuja"

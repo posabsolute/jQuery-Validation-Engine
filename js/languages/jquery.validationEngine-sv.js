@@ -103,6 +103,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Enbart bokstäver"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Enbart bokstäver"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Inga specialtecken"

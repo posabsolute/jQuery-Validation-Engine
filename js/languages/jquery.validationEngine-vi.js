@@ -114,6 +114,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Chỉ điền chữ"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Chỉ điền chữ"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Không được chứa ký tự đặc biệt"

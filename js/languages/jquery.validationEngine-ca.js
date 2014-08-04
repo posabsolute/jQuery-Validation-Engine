@@ -103,6 +103,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Només lletres"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Només lletres"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* No es permeten caràcters especials"

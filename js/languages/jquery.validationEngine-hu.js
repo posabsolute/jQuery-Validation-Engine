@@ -114,6 +114,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Csak betűket"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Csak betűket"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Spéci karakterek nem engedélyezettek"

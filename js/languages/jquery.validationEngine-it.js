@@ -82,6 +82,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Solo lettere"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Solo lettere"
+                },
                 "validate2fields": {
                     "nname": "validate2fields",
                     "alertText": "* Occorre inserire nome e cognome"

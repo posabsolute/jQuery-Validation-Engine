@@ -127,6 +127,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Huruf saja"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Huruf saja"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Karakter khusus tidak diperbolehkan"

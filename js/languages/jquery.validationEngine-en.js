@@ -137,6 +137,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Letters only"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Letters only (accents allowed)"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* No special characters allowed"
