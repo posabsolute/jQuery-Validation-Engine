@@ -1715,7 +1715,8 @@
 				var pos = methods._calculatePosition(field, prompt, options);
 				var css = {"top": pos.callerTopPosition,
 				"left": pos.callerleftPosition,
-				"marginTop": pos.marginTopSize};
+				"marginTop": pos.marginTopSize,
+				"opacity": 0.87};
 
 				if (noAnimation)
 					prompt.css(css);
