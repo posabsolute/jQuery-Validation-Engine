@@ -114,6 +114,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* 只接受英文字母大小寫"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ \']+$/i,
+                    "alertText": "* 只接受英文字母大小寫"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* 不接受特殊字元"

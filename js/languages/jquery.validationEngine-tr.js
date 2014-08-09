@@ -106,6 +106,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Bu alanda sadece harf olmalı"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ \']+$/i,
+                    "alertText": "* Bu alanda sadece harf olmalı"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Bu alanda özel karakterler olamaz"

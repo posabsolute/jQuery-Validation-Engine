@@ -127,6 +127,10 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Só é permitido letras"
                 },
+				"onlyLetterAccentSp":{
+                    "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
+                    "alertText": "* Só letras e espaços são permitidos"
+                },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Só são permitidos letras e números"
