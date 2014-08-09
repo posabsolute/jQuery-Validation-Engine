@@ -1718,6 +1718,11 @@
 				"marginTop": pos.marginTopSize,
 				"opacity": 0.87};
 
+                prompt.css({
+                    "opacity": 0,
+                    "display": "block"
+                });
+                
 				if (noAnimation)
 					prompt.css(css);
 				else
