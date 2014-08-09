@@ -101,9 +101,10 @@
 		*
 		* @return true if the form validates, false if it fails
 		*/
-		validate: function() {
+		validate: function(userOptions) {
 			var element = $(this);
 			var valid = null;
+			var options;
 
 			if (element.is("form") || element.hasClass("validationEngineContainer")) {
 				if (element.hasClass('validating')) {
@@ -112,7 +113,10 @@
 					return false;
 				} else {
 					element.addClass('validating');
-					var options = element.data('jqv');
+					if(userOptions)
+						options = methods._saveOptions(element, userOptions);
+					else
+						options = element.data('jqv');
 					var valid = methods._validateFields(this);
 
 					// If the form doesn't validate, clear the 'validating' class before the user has a chance to submit again
@@ -536,7 +540,7 @@
 
 			if(field.hasClass(options.ignoreFieldsWithClass))
 				return false;
-				
+
            if (!options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
 				return false;
 
@@ -716,7 +720,7 @@
 							break;
 					}
 				}
-				
+
 				//funcCallRequired, first in rules, and has error, skip anything else
 				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
 					promptText += errorMsg + "<br/>";
@@ -2039,7 +2043,7 @@
 		// Should we attempt to validate non-visible input fields contained in the form? (Useful in cases of tabbed containers, e.g. jQuery-UI tabs)
 		validateNonVisibleFields: false,
 		// ignore the validation for fields with this specific class (Useful in cases of tabbed containers AND hidden fields we don't want to validate)
-		ignoreFieldsWithClass: 'ignoreMe',	   
+		ignoreFieldsWithClass: 'ignoreMe',
 		// Opening box position, possible locations are: topLeft,
 		// topRight, bottomLeft, centerRight, bottomRight, inline
 		// inline gets inserted after the validated field or into an element specified in data-prompt-target
