@@ -28,7 +28,7 @@
 				$(document).on("click", ".formError", function() {
 					$(this).fadeOut(150, function() {
 						// remove prompt once invisible
-						$(this).closest('.formErrorOuter').remove();
+						$(this).closest('.formError').remove();
 					});
 				});
 			}
@@ -209,21 +209,20 @@
 			 } else {
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
-			 $('.'+closingtag).fadeTo(fadeDuration, 0.3, function() {
-				 $(this).closest('.formErrorOuter').remove();
+			 $('.'+closingtag).fadeTo(fadeDuration, 0, function() {
+				 $(this).closest('.formError').remove();
 			 });
 			 return this;
 		 },
 		 /**
 		 * Closes all error prompts on the page
 		 */
-		 hideAll: function() {
-
+		 hideAll: function() {             
 			 var form = this;
 			 var options = form.data('jqv');
 			 var duration = options ? options.fadeDuration:300;
-			 $('.formError').fadeTo(duration, 300, function() {
-				 $(this).closest('.formErrorOuter').remove();
+			 $('.formError').fadeTo(duration, 0, function() {                 
+				 $(this).closest('.formError').remove();
 			 });
 			 return this;
 		 },
@@ -1697,7 +1696,7 @@
 					prompt.animate({
 						"opacity": 0
 					},function(){
-						prompt.closest('.formErrorOuter').remove();
+						prompt.closest('.formError').remove();
 					});
 				}, options.autoHideDelay);
 			}
@@ -1756,7 +1755,7 @@
 			 var prompt = methods._getPrompt(field);
 			 if (prompt)
 				 prompt.fadeTo("fast", 0, function() {
-					 prompt.closest('.formErrorOuter').remove();
+					 prompt.closest('.formError').remove();
 				 });
 		 },
 		 closePrompt: function(field) {
