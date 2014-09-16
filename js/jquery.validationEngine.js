@@ -1679,7 +1679,7 @@
 					field.after(prompt);
 				}
 			} else {
-				field.before(prompt);
+				prompt.appendTo(document.body);
 			}
 
 			var pos = methods._calculatePosition(field, prompt, options);
@@ -1818,8 +1818,10 @@
 
 			var promptTopPosition, promptleftPosition, marginTopSize;
 			var fieldWidth 	= field.width();
-			var fieldLeft 	= field.position().left;
-			var fieldTop 	=  field.position().top;
+			// var fieldLeft 	= field.position().left;
+			// var fieldTop 	=  field.position().top;
+			var fieldLeft 	= field.offset().left;
+			var fieldTop 	=  field.offset().top;
 			var fieldHeight 	=  field.height();
 			var promptHeight = promptElmt.height();
 
@@ -1838,6 +1840,9 @@
 			//   topRight:20, -15 means topRight position shifted by 20 pixels to right and 15 pixels to top
 			//You can use +pixels, - pixels. If no sign is provided than + is default.
 			var positionType=field.data("promptPosition") || options.promptPosition;
+
+
+
 			var shift1="";
 			var shift2="";
 			var shiftX=0;
