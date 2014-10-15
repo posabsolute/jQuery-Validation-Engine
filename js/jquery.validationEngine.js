@@ -2103,7 +2103,7 @@
 		// Delay before auto-hide
 		autoHideDelay: 10000,
 		// Fade out duration while hiding the validations
-		fadeDuration: 0.3,
+		fadeDuration: 300,
 	 // Use Prettify select library
 	 prettySelect: false,
 	 // Add css class on prompt
