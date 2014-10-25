@@ -26,7 +26,7 @@
                     "alertText": "* Maksymalna liczba znaków to ",
                     "alertText2": ""
                 },
-	     "groupRequired": {
+	            "groupRequired": {
                     "regex": "none",
                    "alertText": "* Proszę wypełnić wymienione opcje"
                 },
@@ -91,6 +91,40 @@
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
                     "alertText": "* Data musi być w postaci RRRR-MM-DD"
                 },
+                "nip":{
+                    "func": function(field, rules, i, options){
+                        var nipNumber = field.val().replace(/[\s-]/gi, '');
+                        var verificator_nip = new Array(6,5,7,2,3,4,5,6,7);
+                        if (nipNumber.length == 10) {
+                            var n=0;
+                            for (var i=0; i<9; i++) 
+                            {
+                                n += nipNumber[i] * verificator_nip[i]; 
+                            }
+                            n %= 11;
+                            if (n == nipNumber[9]) {return true;} 
+                        }
+                        return false;
+                    },
+                    "alertText": "* Nieprawidłowy numer NIP"
+                },
+                "pesel":{
+                    "func": function(field, rules, i, options){
+                        var pesel = field.val().replace(/[\s-]/gi, '');
+                        var peselArr = new Array(1,3,7,9,1,3,7,9,1,3);
+                        if(pesel.length == 11){
+                            var peselCRC=0;
+                            for (var i=0; i<10;i++){
+                                peselCRC += peselArr[i]*pesel[i];
+                            }
+                            peselCRC%=10;
+                            if(peselCRC == 0) peselCRC=10;
+                                peselCRC = 10 - peselCRC;
+                            if(pesel[10]==peselCRC) return true; else return false;                            
+                        }
+                    },
+                    "alertText": "* Nieprawidłowy numer PESEL"
+                },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* Nieprawidłowy adres IP"
@@ -137,7 +171,6 @@
                     "alertText": "* Proszę wpisać HELLO"
                 }
             };
-            
         }
     };
     $.validationEngineLanguage.newLang();
