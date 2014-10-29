@@ -236,7 +236,7 @@ For *fields*, it returns true on validate and false on errors.
 
 When using form validation with ajax, it returns *undefined* , the result is delivered asynchronously via function *options.onAjaxFormComplete*.
 
-```html
+```js
 // form validation
 alert( $("#formID1").validationEngine('validate') );
 
