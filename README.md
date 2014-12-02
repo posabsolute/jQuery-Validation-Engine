@@ -232,11 +232,11 @@ $("#formID1").validationEngine('detach');
 Validates a form or field, displays error prompts accordingly.  
 Returns *true* if the form validates, *false* if it contains errors.
 
-It is inversed for *fields*, it return false on validate and true on errors.
+For *fields*, it returns true on validate and false on errors.
 
 When using form validation with ajax, it returns *undefined* , the result is delivered asynchronously via function *options.onAjaxFormComplete*.
 
-```
+```js
 // form validation
 alert( $("#formID1").validationEngine('validate') );
 
