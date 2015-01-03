@@ -106,20 +106,37 @@
                 },
                 "date": {                    
                     //	Check if date is valid by leap year
-			"func": function (field) {
-					var pattern = new RegExp(/^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])$/);
-					var match = pattern.exec(field.val());
-					if (match == null)
-					   return false;
+					"func": function (field) {
+							var pattern = new RegExp(/^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])$/);
+							var match = pattern.exec(field.val());
+							if (match == null)
+							   return false;
 	
-					var year = match[1];
-					var month = match[2]*1;
-					var day = match[3]*1;					
-					var date = new Date(year, month - 1, day); // because months starts from 0.
+							var year = match[1];
+							var month = match[2]*1;
+							var day = match[3]*1;					
+							var date = new Date(year, month - 1, day); // because months starts from 0.
 	
-					return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
-				},                		
-			 "alertText": "* Invalid date, must be in YYYY-MM-DD format"
+							return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
+						},                		
+					 "alertText": "* Invalid date, must be in YYYY-MM-DD format"
+                },
+                "date_dmy": {                    
+                    //	Check if date is valid by leap year
+					"func": function (field) {
+							var pattern = new RegExp(/^(0?[1-9]|[12][0-9]|3[01])[\/\-\.](0?[1-9]|1[012])[\/\-\.](\d{4})$/);
+							var match = pattern.exec(field.val());
+							if (match == null)
+							   return false;
+	
+							var day = match[1]*1;					
+							var month = match[2]*1;
+							var year = match[3];
+							var date = new Date(year, month - 1, day); // because months starts from 0.
+	
+							return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
+						},                		
+					 "alertText": "* Invalid date, must be in DD-MM-YYYY format"
                 },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
