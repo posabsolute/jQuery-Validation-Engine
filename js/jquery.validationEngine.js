@@ -214,6 +214,8 @@
 
 			 if($(this).is("form") || $(this).hasClass("validationEngineContainer")) {
 				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
+			 } else if ($(this).is("select") && options.prettySelect && $(this).is(":hidden")) {
+				 closingtag = methods._getClassName(options.usePrefix + $(this).attr('id') + options.useSuffix) +"formError";
 			 } else {
 				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
 			 }
