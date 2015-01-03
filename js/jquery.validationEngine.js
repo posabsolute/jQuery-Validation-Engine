@@ -1767,6 +1767,11 @@
 		*            field
 		*/
 		 _closePrompt: function(field) {
+			 if(field.data('jqv-prompt-at') instanceof jQuery ){
+				 field = field.data('jqv-prompt-at');
+			 } else if(field.data('jqv-prompt-at')) {
+				 field = $(field.data('jqv-prompt-at'));
+			 }
 			 var prompt = methods._getPrompt(field);
 			 if (prompt)
 				 prompt.fadeTo("fast", 0, function() {
