@@ -212,10 +212,10 @@
 			 var fadeDuration = (options && options.fadeDuration) ? options.fadeDuration : 0.3;
 			 var closingtag;
 
-			 if($(this).is("form") || $(this).hasClass("validationEngineContainer")) {
-				 closingtag = "parentForm"+methods._getClassName($(this).attr("id"));
+			 if(form.is("form") || form.hasClass("validationEngineContainer")) {
+				 closingtag = "parentForm"+methods._getClassName($(form).attr("id"));
 			 } else {
-				 closingtag = methods._getClassName($(this).attr("id")) +"formError";
+				 closingtag = methods._getClassName($(form).attr("id")) +"formError";
 			 }
 			 $('.'+closingtag).fadeTo(fadeDuration, 0, function() {
 				 $(this).closest('.formError').remove();
