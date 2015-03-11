@@ -194,6 +194,10 @@
                     "alertText2": "Formato richiesto: ",
                     "alertText3": "mm/gg/aaaa oo:mm:ss AM|PM oppure ",
                     "alertText4": "aaaa-mm-gg oo:mm:ss AM|PM"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

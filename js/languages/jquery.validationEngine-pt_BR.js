@@ -152,6 +152,10 @@
                     },
                     "alertText": "CPF inválido",
                     "alertTextOK": "CPF válido"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

@@ -180,6 +180,10 @@
                     "alertText2": "Expected Format: ",
                     "alertText3": "dd/mm/yyyy hh:mm:ss AM|PM or ",
                     "alertText4": "dd/mm/yyyy HH:mm:ss "
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

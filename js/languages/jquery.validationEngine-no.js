@@ -184,6 +184,10 @@
                     "alertText2": "Forventet format: ",
                     "alertText3": "mm/dd/åååå tt:mm:ss AM|PM or ",
                     "alertText4": "åååå-mm-dd tt:mm:ss AM|PM"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

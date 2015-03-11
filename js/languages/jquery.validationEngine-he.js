@@ -133,12 +133,14 @@
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* אסורים תוים מיוחדים"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
-
         }
     };
-
     $.validationEngineLanguage.newLang();
 
 })(jQuery);

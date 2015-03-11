@@ -129,6 +129,10 @@
                 },
                 "validate2fields": {
                     "alertText": "* Por favor entrar HELLO"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

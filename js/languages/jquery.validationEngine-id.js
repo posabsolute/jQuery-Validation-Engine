@@ -185,6 +185,10 @@
                     "alertText3": "bb/hh/tttt jj:mm:dd atau ",
                     "alertText4": "tttt-bb-hh jj:mm:dd"
                 },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
+                }
             }
         }
     };

@@ -147,6 +147,10 @@
                 },
                 "validate2fields": {
                     "alertText": "* Ange text HELLO"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

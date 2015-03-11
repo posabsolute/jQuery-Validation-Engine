@@ -194,6 +194,10 @@
                     "alertText2": "Očekivani format: ",
                     "alertText3": "dd/mm/yyyy hh:mm:ss ili ",
                     "alertText4": "yyyy-mm-dd hh:mm:ss"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

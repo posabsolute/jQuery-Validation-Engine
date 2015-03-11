@@ -120,6 +120,10 @@
                 },
                 "validate2fields": {
                     "alertText": "Veuillez taper le mot HELLO"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
         }
