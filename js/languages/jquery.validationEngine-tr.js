@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -10,8 +9,8 @@
                     "alertTextCheckboxMultiple": "* Lütfen bir seçeneği işaretleyiniz",
                     "alertTextCheckboxe": "* Bu onay kutusu zorunludur"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Field must equal test"
@@ -26,7 +25,7 @@
                     "alertText": "* Bu alana en fazla ",
                     "alertText2": " karakter girebilirsiniz"
                 },
-				"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* You must fill one of the following fields"
                 },
@@ -48,7 +47,7 @@
                     "alertText": "* Lütfen ",
                     "alertText2": " tarihinden daha geri bir tarih giriniz "
 
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* En fazla ",
@@ -106,7 +105,7 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Bu alanda sadece harf olmalı"
                 },
-				"onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ \']+$/i,
                     "alertText": "* Bu alanda sadece harf olmalı"
                 },
@@ -122,7 +121,7 @@
                     "alertText": "* Bu kullanıcı adı kullanımda",
                     "alertTextLoad": "* Doğrulanıyor, lütfen bekleyiniz"
                 },
-				"ajaxUserCallPhp": {
+                "ajaxUserCallPhp": {
                     "url": "phpajax/ajaxValidateFieldUser.php",
                     // you may want to pass extra data on the ajax call
                     "extraData": "name=eric",
@@ -141,19 +140,19 @@
                     // speaks by itself
                     "alertTextLoad": "* Doğrulanıyor, lütfen bekleyiniz"
                 },
-				 "ajaxNameCallPhp": {
-	                    // remote json service location
-	                    "url": "phpajax/ajaxValidateFieldName.php",
-	                    // error
-	                    "alertText": "* Bu isim kullanımda",
-	                    // speaks by itself
-	                    "alertTextLoad": "* Doğrulanıyor, lütfen bekleyiniz"
-	                },
+                "ajaxNameCallPhp": {
+                    // remote json service location
+                    "url": "phpajax/ajaxValidateFieldName.php",
+                    // error
+                    "alertText": "* Bu isim kullanımda",
+                    // speaks by itself
+                    "alertTextLoad": "* Doğrulanıyor, lütfen bekleyiniz"
+                },
                 "validate2fields": {
                     "alertText": "* Lütfen 'HELLO' yazın"
                 }
             };
-            
+
         }
     };
     $.validationEngineLanguage.newLang();

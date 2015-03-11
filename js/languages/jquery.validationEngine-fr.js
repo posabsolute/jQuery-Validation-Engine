@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": {
                     "regex": "none",
@@ -10,18 +9,18 @@
                     "alertTextCheckboxMultiple": "* Choisir une option",
                     "alertTextCheckboxe": "* Cette option est requise"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Field must equal test"
                 },
-               "minSize": {
+                "minSize": {
                     "regex": "none",
                     "alertText": "* Minimum ",
                     "alertText2": " caractères requis"
                 },
-				"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* Vous devez remplir un des champs suivant"
                 },
@@ -30,7 +29,7 @@
                     "alertText": "* Maximum ",
                     "alertText2": " caractères requis"
                 },
-		        "min": {
+                "min": {
                     "regex": "none",
                     "alertText": "* Valeur minimum requise "
                 },
@@ -38,7 +37,7 @@
                     "regex": "none",
                     "alertText": "* Valeur maximum requise "
                 },
-		        "past": {
+                "past": {
                     "regex": "none",
                     "alertText": "* Date antérieure au "
                 },
@@ -87,7 +86,7 @@
                     "alertText": "* Date invalide, format YYYY-MM-DD requis"
                 },
                 "ipv4": {
-                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
+                    "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* Adresse IP invalide"
                 },
                 "url": {
@@ -106,7 +105,7 @@
                     "regex": /^[0-9a-zA-Z\u00C0-\u00D6\u00D9-\u00F6\u00F9-\u00FD]+$/,
                     "alertText": "* Aucun caractère spécial n'est accepté"
                 },
-				// --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
+                // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
                     "url": "ajaxValidateFieldUser",
                     "extraData": "name=eric",

@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -10,8 +9,8 @@
                     "alertTextCheckboxMultiple": "* Vælg venligst en af mulighederne",
                     "alertTextCheckboxe": "* Dette felt er påkrævet"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Indholdet af feltet skal være lig med test"
@@ -26,7 +25,7 @@
                     "alertText": "* Maksimum ",
                     "alertText2": " tegn tilladt"
                 },
-				"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* Du skal udfylde mindst et af følgende felter"
                 },
@@ -45,7 +44,7 @@
                 "future": {
                     "regex": "none",
                     "alertText": "* Datoen skal være efter "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* Antallet af tilladte valg er overskredet"
@@ -87,7 +86,7 @@
                     "alertText": "* Ugyldig dato, skal være i formatet ÅÅÅÅ-MM-DD"
                 },
                 "ipv4": {
-                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
+                    "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* Ugyldig IP adresse"
                 },
                 "url": {
@@ -102,7 +101,7 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Kun bogstaver"
                 },
-				"onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
                     "alertText": "* Kun bogstaver"
                 },
@@ -132,7 +131,7 @@
                     "alertText": "* Indsæt venligst HELLO"
                 }
             };
-            
+
         }
     };
     $.validationEngineLanguage.newLang();
