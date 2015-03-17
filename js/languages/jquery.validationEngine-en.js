@@ -37,7 +37,7 @@
                     "alertText": "* Maximum ",
                     "alertText2": " characters allowed"
                 },
-		"groupRequired": {
+				"groupRequired": {
                     "regex": "none",
                     "alertText": "* You must fill one of the following fields",
                     "alertTextCheckboxMultiple": "* Please select an option",
@@ -95,6 +95,12 @@
                     "regex":/^\d{5}$|^\d{5}-\d{4}$/,
                     "alertText":"* Invalid zip format"
                 },
+                "postcodeAU": {
+					// "regex": /^\d{4}?$/,
+					// From: http://www.etl-tools.com/regular-expressions/is-australian-post-code.html
+					"regex": /^(0[289][0-9]{2})|([1345689][0-9]{3})|(2[0-8][0-9]{2})|(290[0-9])|(291[0-4])|(7[0-4][0-9]{2})|(7[8-9][0-9]{2})$/,
+					"alertText": "* Invalid postcode"
+                },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
                     "alertText": "* Not a valid integer"
@@ -118,7 +124,7 @@
                             var date = new Date(year, month - 1, day); // because months starts from 0.
     
                             return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
-                        },                      
+                        },
                      "alertText": "* Invalid date, must be in YYYY-MM-DD format"
                 },
                 "date_dmy": {                    
@@ -135,7 +141,7 @@
                             var date = new Date(year, month - 1, day); // because months starts from 0.
     
                             return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
-                        },                      
+                        },
                      "alertText": "* Invalid date, must be in DD-MM-YYYY format"
                 },
                 "ipv4": {

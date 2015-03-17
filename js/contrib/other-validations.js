@@ -12,6 +12,13 @@
             "regex": /^([A-PR-UWYZa-pr-uwyz]([0-9]{1,2}|([A-HK-Ya-hk-y][0-9]|[A-HK-Ya-hk-y][0-9]([0-9]|[ABEHMNPRV-Yabehmnprv-y]))|[0-9][A-HJKS-UWa-hjks-uw])\ {0,1}[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}|([Gg][Ii][Rr]\ 0[Aa][Aa])|([Ss][Aa][Nn]\ {0,1}[Tt][Aa]1)|([Bb][Ff][Pp][Oo]\ {0,1}([Cc]\/[Oo]\ )?[0-9]{1,4})|(([Aa][Ss][Cc][Nn]|[Bb][Bb][Nn][Dd]|[BFSbfs][Ii][Qq][Qq]|[Pp][Cc][Rr][Nn]|[Ss][Tt][Hh][Ll]|[Tt][Dd][Cc][Uu]|[Tt][Kk][Cc][Aa])\ {0,1}1[Zz][Zz]))$/,
             "alertText": "* Invalid postcode"
         };
+        $.validationEngineLanguage.allRules["postcodeAU"] = {
+            // Australian postcodes | Accepts 1234 format zipcodes
+//             "regex": /^\d{4}?$/,
+			// From: http://www.etl-tools.com/regular-expressions/is-australian-post-code.html
+            "regex": /^(0[289][0-9]{2})|([1345689][0-9]{3})|(2[0-8][0-9]{2})|(290[0-9])|(291[0-4])|(7[0-4][0-9]{2})|(7[8-9][0-9]{2})$/,
+            "alertText": "* Invalid postcode"
+        };
         $.validationEngineLanguage.allRules["postcodeNL"] = {
             // NL zip codes |  Accepts 1234AA format zipcodes
             "regex": /^\d{4}[a-zA-Z]{2}?$/,
