@@ -55,7 +55,7 @@
 				// delegate fields
 				form.on(options.validationEventTrigger, "["+options.validateAttribute+"*=validate]:not([type=checkbox]):not([type=radio]):not(.datepicker)", methods._onFieldEvent);
 				form.on("click", "["+options.validateAttribute+"*=validate][type=checkbox],["+options.validateAttribute+"*=validate][type=radio]", methods._onFieldEvent);
-				form.on(options.validationEventTrigger,"["+options.validateAttribute+"*=validate][class*=datepicker]", {"delay": 300}, methods._onFieldEvent);
+				form.on(options.validationEventTrigger, "["+options.validateAttribute+"*=validate][class*=datepicker]", {"delay": 300}, methods._onFieldEvent);
 			}
 			if (options.autoPositionUpdate) {
 				$(window).bind("resize", {
@@ -81,7 +81,7 @@
 			// unbind fields
 			form.off(options.validationEventTrigger, "["+options.validateAttribute+"*=validate]:not([type=checkbox]):not([type=radio]):not(.datepicker)", methods._onFieldEvent);
 			form.off("click", "["+options.validateAttribute+"*=validate][type=checkbox],["+options.validateAttribute+"*=validate][type=radio]", methods._onFieldEvent);
-			form.off(options.validationEventTrigger,"["+options.validateAttribute+"*=validate][class*=datepicker]", methods._onFieldEvent);
+			form.off(options.validationEventTrigger, "["+options.validateAttribute+"*=validate][class*=datepicker]", methods._onFieldEvent);
 
 			// unbind form.submit
 			form.off("submit", methods._onSubmitEvent);
@@ -550,7 +550,11 @@
 			if(field.hasClass(options.ignoreFieldsWithClass))
 				return false;
 
-           if (!options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
+			if (!options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
+				return false;
+
+			
+			if (field.hasClass('datepicker') && field.data('datepicker') && field.data('datepicker').picker.is(':visible') )
 				return false;
 
 			var rulesParsing = field.attr(options.validateAttribute);
