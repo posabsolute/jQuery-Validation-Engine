@@ -17,6 +17,7 @@
 			jQuery("#formID").validationEngine('attach', {
         onValidationComplete: function(form, status){
           alert('is the form valid? '+ status);
+          return status;
         }
       });
 		});

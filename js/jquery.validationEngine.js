@@ -146,6 +146,20 @@
 		                return !valid;
 			}
 			if(options.onValidationComplete) {
+				if (methods._checkAsyncInProgress(options)) {  
+					//if synchronous validation passed, prevent validation complete callback from being called if there are any asynchronous function calls that are still in progress (it will get called when they all complete)
+					if (valid) {
+						//console.log("async validation in progress");
+						options.eventTrigger = 'validate'; //flag the event as a call from validate
+						methods._saveOptions(element, options);
+						return false; //prevent validation callback - we have to wait for async calls to finish
+					}
+
+					//console.log("sync validation failed, so don't care about async");
+					options.eventTrigger = "none"; //validation of synchronous fields failed, so we dont care about the async validation, so just let it finish without triggering any events
+					methods._saveOptions(form, options);			
+				}
+
 				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
 				return !!options.onValidationComplete(form, valid);
 			}
@@ -292,6 +306,15 @@
 				}
 			}
 
+			
+			//check if this is a resubmit after successful async validation
+			if (options.eventTrigger == 'asyncResubmit') {
+					options.eventTrigger = "validate"; //clear resubmission event trigger
+					methods._saveOptions(form, options);
+					//console.log("on async resubmit event");
+					return true;
+			}
+			
 			options.eventTrigger = "submit";
 
 			// validate each field
@@ -304,9 +327,16 @@
 				return false;
 			}
       
-      //prevent form submission if there are any asynchronous function calls that are in progress (when they all complete, form will get re-submitted)
-      if (methods._checkAsyncInProgress(options)) {     
-        return false; 
+      if (methods._checkAsyncInProgress(options)) {
+				//if synchronous validation passed, prevent form submission if there are any asynchronous function calls that are in progress (we'll handle completion events later when they complete)
+				if (r) {
+					//console.log("async validation in progress");
+					return false; //prevent form submission - we have to wait for async calls to finish
+				}
+
+				//console.log("sync validation failed, so don't care about async");
+				options.eventTrigger = "none"; //validation of synchronous fields failed, so we dont care about the async validation, so just let it finish without triggering any events
+				methods._saveOptions(form, options);
       }
 
 			if(options.onValidationComplete) {
@@ -571,6 +601,7 @@
 			var promptType = "";
 			var required = false;
 			var limitErrors = false;
+			var isInfo = false;
 			options.isError = false;
 			options.showArrow = true;
 
@@ -604,6 +635,8 @@
 
 
 				var errorMsg = undefined;
+				var isErrorMsgJustInfo = false;
+				
 				switch (rules[i]) {
 
 					case "required":
@@ -735,6 +768,12 @@
 						case "_error_no_prompt":
 							return true;
 							break;
+						// we just want to display an info message, but it's not an error
+						case "_info":
+							errorMsg = errorMsg.message;
+							isErrorMsgJustInfo = true;
+							isInfo = true;
+							break;
 						// Anything else we continue on
 						default:
 							break;
@@ -757,8 +796,11 @@
 				// If we have a string, that means that we have an error, so add it to the error message.
 				if (typeof errorMsg == 'string') {
 					promptText += errorMsg + "<br/>";
-					options.isError = true;
-					field_errors++;
+					
+					if (!isErrorMsgJustInfo) {
+						options.isError = true;
+						field_errors++;
+					}
 				}
 			}
 			// If the rules required is not added, an empty field is not validated
@@ -785,7 +827,7 @@
 				field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 			}
 
-			if (options.isError && options.showPrompts){
+			if ((options.isError || isInfo) && options.showPrompts){
 				methods._showPrompt(field, promptText, promptType, false, options);
 			}else{
 				if (!isAjaxValidator) methods._closePrompt(field);
@@ -1181,21 +1223,31 @@
             options.asyncInProgress[field.attr("id")] = false;
             methods._ajaxSuccess(field, status, msg, options, rule); //this gets called from the external function's callback, so we'll do the same thing that ajax does when it completes
             
-            if ((options.eventTrigger == 'submit') && !methods._checkAsyncInProgress(options)) { //if a form submission triggered this and there are no other asynchronous functions in progress
-              if (methods._checkAjaxStatus(options)) { //if all asynchronous (including ajax) validations passed
-                field.closest("form").submit(); //resubmit the form
-              }
-              else {
-                //trigger callback events if necessary for displaying errors
-                if (options.onValidationComplete) {
-                  options.onValidationComplete(field.closest("form"), false);
-                }
-              }
-            }
+						if (((options.eventTrigger == 'submit') || (options.eventTrigger == 'validate')) && !methods._checkAsyncInProgress(options)) { //if a form submission or validate call triggered this and there are no other asynchronous functions in progress
+							var isValid = methods._checkAjaxStatus(options); //get final status of all asynchronous (including ajax) validations
+							var submit = isValid && (options.eventTrigger == 'submit');		
+							//console.log("async validated, trigger = " + options.eventTrigger);
+							
+							//trigger callback events if necessary and get the completion result
+							if (options.onValidationComplete) {
+								// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
+								submit = !!options.onValidationComplete(field.closest("form"), isValid) && submit;
+							}
+													
+							if (submit) {
+								var form = field.closest("form");
+								
+								if (form) {
+									options.eventTrigger = 'asyncResubmit'; //flag the event as an resubmit after successful async validation
+									methods._saveOptions(form, options);
+									form.submit(); //resubmit the form
+								}
+							}
+						}
           }); 
           
           if (options.asyncInProgress[field.attr("id")]) {
-            return rule.alertTextLoad; //if async function is still in progress, show the loading prompt
+            return {status: '_info', message: rule.alertTextLoad}; //if async function is still in progress, show the loading prompt
           }
           else if (options.ajaxValidCache[field.attr("id")] === false) { //if the callback returned quickly and validation failed
             return {status: '_error_no_prompt'}; //force our caller to fail and bail (don't change the prompt, since that was already done by the callback)
