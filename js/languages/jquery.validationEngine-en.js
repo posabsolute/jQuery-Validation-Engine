@@ -121,7 +121,8 @@
                             var year = match[1];
                             var month = match[2]*1;
                             var day = match[3]*1;                   
-                            var date = new Date(year, month - 1, day); // because months starts from 0.
+                            //var date = new Date(year, month - 1, day); // because months starts from 0.
+							var date = new Date(Date.UTC(year, month - 1, day)); // because months starts from 0.
     
                             return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
                         },
@@ -138,8 +139,9 @@
                             var day = match[1]*1;                   
                             var month = match[2]*1;
                             var year = match[3];
-                            var date = new Date(year, month - 1, day); // because months starts from 0.
-    
+                            //var date = new Date(year, month - 1, day); // because months starts from 0.
+							var date = new Date(Date.UTC(year, month - 1, day)); // because months starts from 0.
+
                             return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
                         },
                      "alertText": "* Invalid date, must be in DD-MM-YYYY format"
