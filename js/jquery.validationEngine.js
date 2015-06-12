@@ -728,6 +728,10 @@
 					}
 				}
 
+				if (typeof errorMsg == 'string' && options.onBeforePromptType){
+					options.onBeforePromptType(field);
+				}
+				
 				//funcCallRequired, first in rules, and has error, skip anything else
 				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
 					promptText += errorMsg + "<br/>";
