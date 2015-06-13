@@ -548,7 +548,7 @@
 			if(field.hasClass(options.ignoreFieldsWithClass))
 				return false;
 
-           if (!options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
+           if (field.closest('.noValidate').length > 0 || !options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
 				return false;
 
 			var rulesParsing = field.attr(options.validateAttribute);
@@ -2110,6 +2110,7 @@
 		onFieldFailure: false,
 		onSuccess: false,
 		onFailure: false,
+		onBeforePromptType: false,
 		validateAttribute: "class",
 		addSuccessCssClassToField: "",
 		addFailureCssClassToField: "",
