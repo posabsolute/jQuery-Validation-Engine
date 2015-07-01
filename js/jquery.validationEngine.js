@@ -577,7 +577,7 @@
 			var form = $(field.closest("form, .validationEngineContainer"));
 			// Fix for adding spaces in the rules
 			for (var i = 0; i < rules.length; i++) {
-				rules[i] = rules[i].replace(" ", "");
+				rules[i] = rules[i].toString().replace(" ", "");//.toString to worked on IE8
 				// Remove any parsing errors
 				if (rules[i] === '') {
 					delete rules[i];
