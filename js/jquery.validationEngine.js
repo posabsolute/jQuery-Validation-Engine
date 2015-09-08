@@ -731,7 +731,7 @@
 				//funcCallRequired, first in rules, and has error, skip anything else
 				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
 					if(promptText != '') {
-						promptText += "<br/>"
+						promptText += "<br/>";
 					}
 					promptText += errorMsg;
 					options.isError=true;
@@ -747,7 +747,7 @@
 				// If we have a string, that means that we have an error, so add it to the error message.
 				if (typeof errorMsg == 'string') {
 					if(promptText != '') {
-						promptText += "<br/>"
+						promptText += "<br/>";
 					}
 					promptText += errorMsg;
 					options.isError = true;
