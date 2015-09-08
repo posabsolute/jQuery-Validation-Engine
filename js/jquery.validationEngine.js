@@ -730,7 +730,10 @@
 
 				//funcCallRequired, first in rules, and has error, skip anything else
 				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
-					promptText += errorMsg + "<br/>";
+					if(promptText != '') {
+						promptText += "<br/>"
+					}
+					promptText += errorMsg;
 					options.isError=true;
 					field_errors++;
 					end_validation=true;
@@ -743,7 +746,10 @@
 
 				// If we have a string, that means that we have an error, so add it to the error message.
 				if (typeof errorMsg == 'string') {
-					promptText += errorMsg + "<br/>";
+					if(promptText != '') {
+						promptText += "<br/>"
+					}
+					promptText += errorMsg;
 					options.isError = true;
 					field_errors++;
 				}
