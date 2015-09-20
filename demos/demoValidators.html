@@ -31,6 +31,29 @@
 				return options.allrules.validate2fields.alertText;
 			}
 		}
+    
+		/**
+		*
+		* @param {jqObject} the field where the validation applies
+		* @param {Array[String]} validation rules for this field
+		* @param {int} rule index
+		* @param {Map} form options
+    * @returns nothing - call the callback with the result
+		* function must call the callback with the following parameters:
+    *      @param {boolean} status - true (success) or false (failure)
+    *      @param {string} msg - optional message to display
+		*/   
+		function asyncCheckHELLO(field, rules, i, options, callback){
+      setTimeout(function(){
+        if (field.val() === "HELLO") {
+          callback(true);
+        }
+        else {
+          var msg = options.allrules.validate2fields.alertText; // this allows to use i18 for the error msgs
+          callback(false, msg);
+        }
+      },2000);
+		}
 	</script>
 </head>
 <body>
@@ -136,7 +159,19 @@
 				validate[required,funcCall[checkHELLO]]
 			</label>
 		</fieldset>
-			
+
+		<fieldset>
+			<legend>
+				Asynchronous Function
+			</legend>
+			<label>
+				<span>Write 'HELLO' : </span>
+				<input value="" class="validate[required,asyncFuncCall[asyncCheckHELLO]] text-input" type="text" id="lastname2" name="lastname2" />
+				<br/>
+				validate[required,asyncFuncCall[asyncCheckHELLO]]
+			</label>
+		</fieldset>
+    
 		<fieldset>
 			<legend>
 				Conditional required

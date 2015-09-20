@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>JQuery Validation Engine</title>
+	<link rel="stylesheet" href="../css/validationEngine.jquery.css" type="text/css"/>
+	<link rel="stylesheet" href="../css/template.css" type="text/css"/>
+	<script src="../js/jquery-1.8.2.min.js" type="text/javascript">
+	</script>
+	<script src="../js/languages/jquery.validationEngine-en.js" type="text/javascript" charset="utf-8">
+	</script>
+	<script src="../js/jquery.validationEngine.js" type="text/javascript" charset="utf-8">
+	</script>
+	<script>
+		jQuery(document).ready(function(){
+			// binds form submission and fields to the validation engine
+			jQuery("#formID").validationEngine('attach', {
+        onValidationComplete: function(form, status){
+          alert('is the form valid? '+ status);
+          return status;
+        }
+      });
+		});
+
+		/**
+		*
+		* @param {jqObject} the field where the validation applies
+		* @param {Array[String]} validation rules for this field
+		* @param {int} rule index
+		* @param {Map} form options
+    * @returns nothing - call the callback with the result
+		* function must call the callback with the following parameters:
+    *      @param {boolean} status - true (success) or false (failure)
+    *      @param {string} msg - optional message to display
+		*/   
+		function asyncCheckHELLO(field, rules, i, options, callback){
+      setTimeout(function(){
+        if (field.val() === "HELLO") {
+          callback(true);
+        }
+        else {
+          var msg = options.allrules.validate2fields.alertText; // this allows to use i18 for the error msgs
+          callback(false, msg);
+        }
+      },2000);
+		}
+	</script>
+</head>
+<body>
+	<p>
+		<a href="#" onclick="jQuery('#formID').validationEngine('validate');">Evaluate form</a>
+	</p>
+	<p>
+		Test using an asynchronous function
+		<br/>
+	</p>
+	<div id="test" class="test" style="width:150px;">This is a div element</div>
+	<form id="formID" class="formular" method="post">			
+		<fieldset>
+			<legend>
+				Asynchronous Function
+			</legend>
+			<label>
+				<span>Write 'HELLO' : </span>
+				<input value="" class="validate[required,asyncFuncCall[asyncCheckHELLO]] text-input" type="text" id="firstname" name="firstname" />
+				validate[required,asyncFuncCall[asyncCheckHELLO]]
+				<br/>
+				<br/>
+			</label>
+			<label>
+				<span>Write 'HELLO' : </span>
+				<input value="" class="validate[required,asyncFuncCall[asyncCheckHELLO]] text-input" type="text" id="lastname" name="lastname" />
+				validate[required,asyncFuncCall[asyncCheckHELLO]]
+				<br/>
+				<br/>
+			</label>
+		</fieldset>			
+		<input class="submit" type="submit" value="Validate &amp; Send the form!"/><hr/>
+	</form>
+</body>
+</html>

@@ -146,6 +146,20 @@
 		                return !valid;
 			}
 			if(options.onValidationComplete) {
+				if (methods._checkAsyncInProgress(options)) {  
+					//if synchronous validation passed, prevent validation complete callback from being called if there are any asynchronous function calls that are still in progress (it will get called when they all complete)
+					if (valid) {
+						//console.log("async validation in progress");
+						options.eventTrigger = 'validate'; //flag the event as a call from validate
+						methods._saveOptions(element, options);
+						return false; //prevent validation callback - we have to wait for async calls to finish
+					}
+
+					//console.log("sync validation failed, so don't care about async");
+					options.eventTrigger = "none"; //validation of synchronous fields failed, so we dont care about the async validation, so just let it finish without triggering any events
+					methods._saveOptions(form, options);			
+				}
+
 				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
 				return !!options.onValidationComplete(form, valid);
 			}
@@ -292,6 +306,15 @@
 				}
 			}
 
+			
+			//check if this is a resubmit after successful async validation
+			if (options.eventTrigger == 'asyncResubmit') {
+					options.eventTrigger = "validate"; //clear resubmission event trigger
+					methods._saveOptions(form, options);
+					//console.log("on async resubmit event");
+					return true;
+			}
+			
 			options.eventTrigger = "submit";
 
 			// validate each field
@@ -303,6 +326,18 @@
 				// cancel form auto-submission - process with async call onAjaxFormComplete
 				return false;
 			}
+      
+      if (methods._checkAsyncInProgress(options)) {
+				//if synchronous validation passed, prevent form submission if there are any asynchronous function calls that are in progress (we'll handle completion events later when they complete)
+				if (r) {
+					//console.log("async validation in progress");
+					return false; //prevent form submission - we have to wait for async calls to finish
+				}
+
+				//console.log("sync validation failed, so don't care about async");
+				options.eventTrigger = "none"; //validation of synchronous fields failed, so we dont care about the async validation, so just let it finish without triggering any events
+				methods._saveOptions(form, options);
+      }
 
 			if(options.onValidationComplete) {
 				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
@@ -441,7 +476,7 @@
 				} else if(options.focusFirstField)
 					first_err.focus();
 				return false;
-			}
+			}      
 			return true;
 		},
 		/**
@@ -566,6 +601,7 @@
 			var promptType = "";
 			var required = false;
 			var limitErrors = false;
+			var isInfo = false;
 			options.isError = false;
 			options.showArrow = true;
 
@@ -599,6 +635,8 @@
 
 
 				var errorMsg = undefined;
+				var isErrorMsgJustInfo = false;
+				
 				switch (rules[i]) {
 
 					case "required":
@@ -687,6 +725,14 @@
 					case "funcCall":
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._funcCall);
 						break;
+					case "asyncFuncCall":
+						// asynchronous function defaults to returning it's loading message - same as ajax
+						errorMsg = methods._asyncFuncCall(field, rules, i, options);
+						if (errorMsg) {
+							promptType = "load";
+						}
+            isAjaxValidator = true; //async function is similar to ajax - the result's not ready yet - so we don't want to handle it yet
+						break;
 					case "creditCard":
 						errorMsg = methods._getErrorMessage(form, field, rules[i], rules, i, options, methods._creditCard);
 						break;
@@ -722,6 +768,12 @@
 						case "_error_no_prompt":
 							return true;
 							break;
+						// we just want to display an info message, but it's not an error
+						case "_info":
+							errorMsg = errorMsg.message;
+							isErrorMsgJustInfo = true;
+							isInfo = true;
+							break;
 						// Anything else we continue on
 						default:
 							break;
@@ -744,8 +796,11 @@
 				// If we have a string, that means that we have an error, so add it to the error message.
 				if (typeof errorMsg == 'string') {
 					promptText += errorMsg + "<br/>";
-					options.isError = true;
-					field_errors++;
+					
+					if (!isErrorMsgJustInfo) {
+						options.isError = true;
+						field_errors++;
+					}
 				}
 			}
 			// If the rules required is not added, an empty field is not validated
@@ -772,7 +827,7 @@
 				field = form.find("#" + options.usePrefix + methods._jqSelector(field.attr('id')) + options.useSuffix);
 			}
 
-			if (options.isError && options.showPrompts){
+			if ((options.isError || isInfo) && options.showPrompts){
 				methods._showPrompt(field, promptText, promptType, false, options);
 			}else{
 				if (!isAjaxValidator) methods._closePrompt(field);
@@ -780,28 +835,40 @@
 
 			if (!isAjaxValidator) {
 				field.trigger("jqv.field.result", [field, options.isError, promptText]);
-			}
 
-			/* Record error */
-			var errindex = $.inArray(field[0], options.InvalidFields);
-			if (errindex == -1) {
-				if (options.isError)
-				options.InvalidFields.push(field[0]);
-			} else if (!options.isError) {
-				options.InvalidFields.splice(errindex, 1);
-			}
-
-			methods._handleStatusCssClasses(field, options);
-
-			/* run callback function for each field */
-			if (options.isError && options.onFieldFailure)
-				options.onFieldFailure(field);
-
-			if (!options.isError && options.onFieldSuccess)
-				options.onFieldSuccess(field);
-
+        methods._handleValidationResult(field, options);
+      }
+      
 			return options.isError;
 		},
+		/**
+		* Handling css classes and callbacks of fields indicating result of validation
+		*
+		* @param {jqObject}
+		*            field
+		* @param {Array[String]}
+		*            field's validation rules
+		* @private
+		*/
+    _handleValidationResult: function(field, options) {
+      /* Record error */
+      var errindex = $.inArray(field[0], options.InvalidFields);
+      if (errindex == -1) {
+        if (options.isError)
+        options.InvalidFields.push(field[0]);
+      } else if (!options.isError) {
+        options.InvalidFields.splice(errindex, 1);
+      }
+
+      methods._handleStatusCssClasses(field, options);
+
+      /* run callback function for each field */
+      if (options.isError && options.onFieldFailure)
+        options.onFieldFailure(field);
+
+      if (!options.isError && options.onFieldSuccess)
+        options.onFieldSuccess(field);
+    },
 		/**
 		* Handling css classes of fields indicating result of validation
 		*
@@ -930,6 +997,7 @@
 			 "minCheckbox": "range-underflow",
 			 "equals": "pattern-mismatch",
 			 "funcCall": "custom-error",
+			 "asyncFuncCall": "custom-error",
 			 "funcCallRequired": "custom-error",
 			 "creditCard": "pattern-mismatch",
 			 "condRequired": "value-missing"
@@ -1086,6 +1154,109 @@
 		},
 		_funcCallRequired: function(field, rules, i, options) {
 			return methods._funcCall(field,rules,i,options);
+		},
+		/**
+		* Return true if there are any asynchronous function calls in progress
+		* @param {Object} options
+		* @return true if any asynchronous function is in progress, false if not
+		*/
+		_checkAsyncInProgress: function(options) {
+			var status = false;
+			$.each(options.asyncInProgress, function(key, value) {
+				if (value) {
+					status = true;
+					// break the each
+					return false;
+				}
+			});
+			return status;
+		},
+		/**
+		* Validate custom asynchronous function outside of the engine scope
+		* @param {jqObject} field
+		* @param {Array[String]} rules
+		* @param {int} i rules index
+		* @param {Map}
+		*            user options
+		* @return just some "load" text - same as ajax
+		*   This function is similar to funcCall where it calls a custom external function - however, it does not return
+    *   a result right away.  Instead it passes a callback to the external function, which must
+    *   call it with the following parameters:
+    *      @param {boolean} status - true (success) or false (failure)
+    *      @param {string} msg - optional message to display		
+    */
+		_asyncFuncCall: function(field, rules, i, options) {
+			var functionName = rules[i + 1];
+			var fn;
+      var rule = {
+        alertText: 'Field is invalid',
+        alertTextOk: null,
+        alertTextLoad: 'Validating...'
+      };
+      
+      $.extend(rule, options.allrules[functionName]);    
+          
+			if(functionName.indexOf('.') >-1)
+			{
+				var namespaces = functionName.split('.');
+				var scope = window;
+				while(namespaces.length)
+				{
+					scope = scope[namespaces.shift()];
+				}
+				fn = scope;
+			}
+			else
+				fn = window[functionName] || options.customFunctions[functionName];
+        
+			if (typeof(fn) == 'function') {
+        // If a field change event triggered this we want to clear the cache for this ID
+        if ((options.eventTrigger == "field") || !options.binded) {
+          delete(options.ajaxValidCache[field.attr("id")]);
+        }
+        
+        // If there is an error or if the the field is already validated, do not re-execute the function
+        if (!options.isError && (options.ajaxValidCache[field.attr("id")] === undefined)) {
+          options.asyncInProgress[field.attr("id")] = true;
+
+          fn(field, rules, i, options, function(status, msg) {
+            options.asyncInProgress[field.attr("id")] = false;
+            methods._ajaxSuccess(field, status, msg, options, rule); //this gets called from the external function's callback, so we'll do the same thing that ajax does when it completes
+            
+						if (((options.eventTrigger == 'submit') || (options.eventTrigger == 'validate')) && !methods._checkAsyncInProgress(options)) { //if a form submission or validate call triggered this and there are no other asynchronous functions in progress
+							var isValid = methods._checkAjaxStatus(options); //get final status of all asynchronous (including ajax) validations
+							var submit = isValid && (options.eventTrigger == 'submit');		
+							//console.log("async validated, trigger = " + options.eventTrigger);
+							
+							//trigger callback events if necessary and get the completion result
+							if (options.onValidationComplete) {
+								// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
+								submit = !!options.onValidationComplete(field.closest("form"), isValid) && submit;
+							}
+													
+							if (submit) {
+								var form = field.closest("form");
+								
+								if (form) {
+									options.eventTrigger = 'asyncResubmit'; //flag the event as an resubmit after successful async validation
+									methods._saveOptions(form, options);
+									form.submit(); //resubmit the form
+								}
+							}
+						}
+          }); 
+          
+          if (options.asyncInProgress[field.attr("id")]) {
+            return {status: '_info', message: rule.alertTextLoad}; //if async function is still in progress, show the loading prompt
+          }
+          else if (options.ajaxValidCache[field.attr("id")] === false) { //if the callback returned quickly and validation failed
+            return {status: '_error_no_prompt'}; //force our caller to fail and bail (don't change the prompt, since that was already done by the callback)
+          }         
+        }
+        else if (options.ajaxValidCache[field.attr("id")] === false) { //if validation previously failed, but did not change
+          return {status: '_error_no_prompt'}; //force our caller to fail and bail (don't change the prompt)
+        }
+      }
 		},
 		/**
 		* Field match
@@ -1463,70 +1634,85 @@
 						}
 					 },
 					 success: function(json) {
-
-						 // asynchronously called on success, data is the json answer from the server
-						 var errorFieldId = json[0];
-						 //var errorField = $($("#" + errorFieldId)[0]);
-						 var errorField = $("#"+ errorFieldId).eq(0);
-
-						 // make sure we found the element
-						 if (errorField.length == 1) {
-							 var status = json[1];
-							 // read the optional msg from the server
-							 var msg = json[2];
-							 if (!status) {
-								 // Houston we got a problem - display an red prompt
-								 options.ajaxValidCache[errorFieldId] = false;
-								 options.isError = true;
-
-								 // resolve the msg prompt
-								 if(msg) {
-									 if (options.allrules[msg]) {
-										 var txt = options.allrules[msg].alertText;
-										 if (txt) {
-											msg = txt;
-							}
-									 }
-								 }
-								 else
-									msg = rule.alertText;
-
-								 if (options.showPrompts) methods._showPrompt(errorField, msg, "", true, options);
-							 } else {
-								 options.ajaxValidCache[errorFieldId] = true;
-
-								 // resolves the msg prompt
-								 if(msg) {
-									 if (options.allrules[msg]) {
-										 var txt = options.allrules[msg].alertTextOk;
-										 if (txt) {
-											msg = txt;
-							}
-									 }
-								 }
-								 else
-								 msg = rule.alertTextOk;
-
-								 if (options.showPrompts) {
-									 // see if we should display a green prompt
-									 if (msg)
-										methods._showPrompt(errorField, msg, "pass", true, options);
-									 else
-										methods._closePrompt(errorField);
-								}
-
-								 // If a submit form triggered this, we want to re-submit the form
-								 if (options.eventTrigger == "submit")
-									field.closest("form").submit();
-							 }
-						 }
-						 errorField.trigger("jqv.field.result", [errorField, options.isError, msg]);
+              // asynchronously called on success, data is the json answer from the server
+              var errorFieldId = json[0];
+              var status = json[1];
+              var msg = json[2];
+              //var errorField = $($("#" + errorFieldId)[0]);
+              var errorField = $("#"+ errorFieldId).eq(0);
+              
+              methods._ajaxSuccess(errorField, status, msg, options, rule);
+              
+              // If ajax was successful and a submit form triggered this and there are no asynchronous functions in progress, we want to re-submit the form
+              if ((options.eventTrigger == "submit") && methods._checkAjaxFieldStatus(errorFieldId, options) && !methods._checkAsyncInProgress(options)) {
+                errorField.closest("form").submit();
+              }
 					 }
 				 });
 
 				 return rule.alertTextLoad;
 			 }
 		 },
+     
+    /**
+		* Common method to handle ajax success
+		*
+		* @param {string} errorFieldId
+		* @param {boolean} status
+		* @param {string} msg
+		* @param {object} options
+		*/
+    _ajaxSuccess: function(errorField, status, msg, options, rule){
+      var errorFieldId = errorField.attr("id");
+
+      // make sure we found the element
+      if (errorField.length == 1) {
+        if (!status) {
+          // Houston we got a problem - display an red prompt
+          options.ajaxValidCache[errorFieldId] = false;
+          options.isError = true;
+
+          // resolve the msg prompt
+          if(msg) {
+            if (options.allrules[msg]) {
+              var txt = options.allrules[msg].alertText;
+              if (txt) {
+                msg = txt;
+              }
+            }
+          }
+          else
+            msg = rule.alertText;
+
+          if (options.showPrompts) methods._showPrompt(errorField, msg, "", true, options);
+        } else {
+          options.ajaxValidCache[errorFieldId] = true;
+
+          // resolves the msg prompt
+          if(msg) {
+            if (options.allrules[msg]) {
+              var txt = options.allrules[msg].alertTextOk;
+              if (txt) {
+                msg = txt;
+              }
+            }
+          }
+          else
+            msg = rule.alertTextOk;
+          
+          if (options.showPrompts) {
+            // see if we should display a green prompt
+            if (msg)
+              methods._showPrompt(errorField, msg, "pass", true, options);
+            else
+              methods._closePrompt(errorField);
+          }
+        }
+        methods._handleValidationResult(errorField, options);
+      }
+      errorField.trigger("jqv.field.result", [errorField, options.isError, msg]);
+    },
+    
 		/**
 		* Common method to handle ajax errors
 		*
@@ -2098,6 +2284,10 @@
 		// Caches field validation status, typically only bad status are created.
 		// the array is used during ajax form validation to detect issues early and prevent an expensive submit
 		ajaxValidCache: {},
+    
+    // keeps track of asyncronous function calls that are pending to prevent form submission before they complete
+    asyncInProgress: {},
+    
 		// Auto update prompt position after window resize
 		autoPositionUpdate: false,
 
