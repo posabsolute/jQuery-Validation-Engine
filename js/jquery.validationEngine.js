@@ -1690,14 +1690,16 @@
 			}
 
 			var pos = methods._calculatePosition(field, prompt, options);
+			// Support RTL layouts by @yasser_lotfy ( Yasser Lotfy )
+			var isRTL = $('body').hasClass('rtl');
 			prompt.css({
 				'position': positionType === 'inline' ? 'relative' : 'absolute',
 				"top": pos.callerTopPosition,
-				"left": pos.callerleftPosition,
+				"left": isRTL ? "initial" : pos.callerleftPosition,
+				"right": isRTL ? pos.callerleftPosition :  "initial",
 				"marginTop": pos.marginTopSize,
 				"opacity": 0
 			}).data("callerField", field);
-
 
 			if (options.autoHidePrompt) {
 				setTimeout(function(){
@@ -1742,8 +1744,11 @@
 				prompt.find(".formErrorContent").html(promptText);
 
 				var pos = methods._calculatePosition(field, prompt, options);
+				// Support RTL layouts by @yasser_lotfy ( Yasser Lotfy )
+				var isRTL = $('body').hasClass('rtl');
 				var css = {"top": pos.callerTopPosition,
-				"left": pos.callerleftPosition,
+				"left": isRTL ? "initial" : pos.callerleftPosition,
+				"right": isRTL ? pos.callerleftPosition :  "initial",
 				"marginTop": pos.marginTopSize,
 				"opacity": 0.87};
 
