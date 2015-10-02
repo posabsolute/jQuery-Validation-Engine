@@ -1,6 +1,11 @@
 jQuery.validationEngine v2.6.2
 =====
 
+Looking for official contributors
+---
+This project has now been going on for more than 7 years, right now I only maintain the project through pull request contributions. However, I would love to have help improving the code quality and maintain an acceptable level of open issues.
+
+
 Summary
 ---
 
