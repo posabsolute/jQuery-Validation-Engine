@@ -1696,13 +1696,26 @@
 			}
 
 			var pos = methods._calculatePosition(field, prompt, options);
-			prompt.css({
-				'position': positionType === 'inline' ? 'relative' : 'absolute',
-				"top": pos.callerTopPosition,
-				"left": pos.callerleftPosition,
-				"marginTop": pos.marginTopSize,
-				"opacity": 0
-			}).data("callerField", field);
+			// Support RTL layouts by @yasser_lotfy ( Yasser Lotfy )
+			if ($('body').hasClass('rtl')) {
+				prompt.css({
+					'position': positionType === 'inline' ? 'relative' : 'absolute',
+					"top": pos.callerTopPosition,
+					"left": "initial",
+					"right": pos.callerleftPosition,
+					"marginTop": pos.marginTopSize,
+					"opacity": 0
+				}).data("callerField", field);
+		    	} else {
+				prompt.css({
+					'position': positionType === 'inline' ? 'relative' : 'absolute',
+					"top": pos.callerTopPosition,
+					"left": pos.callerleftPosition,
+					"right": "initial",
+					"marginTop": pos.marginTopSize,
+					"opacity": 0
+				}).data("callerField", field);
+		    	}
 
 
 			if (options.autoHidePrompt) {
@@ -1748,10 +1761,20 @@
 				prompt.find(".formErrorContent").html(promptText);
 
 				var pos = methods._calculatePosition(field, prompt, options);
-				var css = {"top": pos.callerTopPosition,
-				"left": pos.callerleftPosition,
-				"marginTop": pos.marginTopSize,
-				"opacity": 0.87};
+				// Support RTL layouts by @yasser_lotfy ( Yasser Lotfy )
+				if ($('body').hasClass('rtl')) {
+					var css = {"top": pos.callerTopPosition,
+					"left": "initial",
+					"right": pos.callerleftPosition,
+					"marginTop": pos.marginTopSize,
+					"opacity": 0.87};
+				} else {
+					var css = {"top": pos.callerTopPosition,
+					"left": pos.callerleftPosition,
+					"right": "initial",
+					"marginTop": pos.marginTopSize,
+					"opacity": 0.87};
+				}
 
                 prompt.css({
                     "opacity": 0,
