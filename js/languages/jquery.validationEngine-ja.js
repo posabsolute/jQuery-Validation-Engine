@@ -1,15 +1,15 @@
-;/*****************************************************************
+;
+/*****************************************************************
  * Japanese language file for jquery.validationEngine.js (ver2.0)
  *
  * Transrator: tomotomo ( Tomoyuki SUGITA )
  * http://tomotomoSnippet.blogspot.com/
  * Licenced under the MIT Licence
  *******************************************************************/
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -17,8 +17,8 @@
                     "alertTextCheckboxMultiple": "* 選択してください",
                     "alertTextCheckboxe": "* チェックボックスをチェックしてください"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Field must equal test"
@@ -28,7 +28,7 @@
                     "alertText": "* ",
                     "alertText2": "文字以上にしてください"
                 },
-				"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* You must fill one of the following fields"
                 },
@@ -56,7 +56,7 @@
                     "regex": "none",
                     "alertText": "* ",
                     "alertText2": " より最近の日付にしてください"
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* チェックしすぎです"
@@ -98,7 +98,7 @@
                     "alertText": "* 日付は半角で YYYY-MM-DD の形式で入力してください"
                 },
                 "ipv4": {
-                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
+                    "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* IPアドレスが正しくありません"
                 },
                 "url": {
@@ -137,13 +137,14 @@
                 },
                 "validate2fields": {
                     "alertText": "* 『HELLO』と入力してください"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
-            
+
         }
     };
     $.validationEngineLanguage.newLang();
 })(jQuery);
-
-
-    

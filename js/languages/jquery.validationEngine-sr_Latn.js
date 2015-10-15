@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -11,8 +10,8 @@
                     "alertTextCheckboxe": "* Ovo polje za potvrdu je obavezno",
                     "alertTextDateRange": "* Oba polja za raspon datuma su obavezna"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Polje mora sadržati test"
@@ -37,7 +36,7 @@
                     "alertText": "* Najviše ",
                     "alertText2": " znakova dozvoljeno"
                 },
-		"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* Morate popuniti jedno od sledećih polja",
                     "alertTextCheckboxMultiple": "* Molimo izaberite opciju",
@@ -58,7 +57,7 @@
                 "future": {
                     "regex": "none",
                     "alertText": "* Datum posle "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* Najviše ",
@@ -88,12 +87,12 @@
                     "alertText": "* Neispravna email adresa"
                 },
                 "fullname": {
-                    "regex":/^([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]*)+[ ]([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]+)+$/,
-                    "alertText":"* Mora biti ime i prezime"
+                    "regex": /^([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]*)+[ ]([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]+)+$/,
+                    "alertText": "* Mora biti ime i prezime"
                 },
                 "zip": {
-                    "regex":/^\d{5,6}$/,
-                    "alertText":"* Neispravan poštanski broj"
+                    "regex": /^\d{5,6}$/,
+                    "alertText": "* Neispravan poštanski broj"
                 },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
@@ -104,22 +103,22 @@
                     "regex": /^[\-\+]?((([0-9]{1,3})([,][0-9]{3})*)|([0-9]+))?([\.]([0-9]+))?$/,
                     "alertText": "* Decimalni broj nije ispravan"
                 },
-                "date": {                    
-                    //	Check if date is valid by leap year
-			"func": function (field) {
-					var pattern = new RegExp(/^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])$/);
-					var match = pattern.exec(field.val());
-					if (match == null)
-					   return false;
-	
-					var year = match[1];
-					var month = match[2]*1;
-					var day = match[3]*1;					
-					var date = new Date(year, month - 1, day); // because months starts from 0.
-	
-					return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
-				},                		
-			 "alertText": "* Neispravan datum, datum mora biti u YYYY-MM-DD formatu"
+                "date": {
+                    //  Check if date is valid by leap year
+                    "func": function(field) {
+                        var pattern = new RegExp(/^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])$/);
+                        var match = pattern.exec(field.val());
+                        if (match == null)
+                            return false;
+
+                        var year = match[1];
+                        var month = match[2] * 1;
+                        var day = match[3] * 1;
+                        var date = new Date(year, month - 1, day); // because months starts from 0.
+
+                        return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
+                    },
+                    "alertText": "* Neispravan datum, datum mora biti u YYYY-MM-DD formatu"
                 },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
@@ -137,7 +136,7 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Dozvoljena samo slova"
                 },
-				"onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
                     "alertText": "* Dozvoljena samo slova"
                 },
@@ -153,7 +152,7 @@
                     "alertText": "* Ovo korisničko ime je već zauzeto",
                     "alertTextLoad": "* Provera podataka, molimo sačekajte"
                 },
-				"ajaxUserCallPhp": {
+                "ajaxUserCallPhp": {
                     "url": "phpajax/ajaxValidateFieldUser.php",
                     // you may want to pass extra data on the ajax call
                     "extraData": "name=eric",
@@ -172,35 +171,39 @@
                     // speaks by itself
                     "alertTextLoad": "* Provera podataka, molimo sačekajte"
                 },
-				 "ajaxNameCallPhp": {
-	                    // remote json service location
-	                    "url": "phpajax/ajaxValidateFieldName.php",
-	                    // error
-	                    "alertText": "* Ovo korisničko ime je dostupno",
-	                    // speaks by itself
-	                    "alertTextLoad": "* Provera podataka, molimo sačekajte"
-	                },
+                "ajaxNameCallPhp": {
+                    // remote json service location
+                    "url": "phpajax/ajaxValidateFieldName.php",
+                    // error
+                    "alertText": "* Ovo korisničko ime je dostupno",
+                    // speaks by itself
+                    "alertTextLoad": "* Provera podataka, molimo sačekajte"
+                },
                 "validate2fields": {
                     "alertText": "* Molimo unesite HELLO"
                 },
-	            //tls warning:homegrown not fielded 
-                "dateFormat":{
+                //tls warning:homegrown not fielded 
+                "dateFormat": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/,
                     "alertText": "* Neispravan datum"
                 },
                 //tls warning:homegrown not fielded 
-				"dateTimeFormat": {
-	                "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(0?[1-5]|[0-6][0-9]){1}:(1[012]|0?[1-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?[1-9]|[12][0-9]|3[01]){1}\/((1[012]|0?[1-9]){1}\/\d{2,4}\s+(0?[1-5]|[0-6][0-9]){1}:(1[012]|0?[1-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+)$/,
+                "dateTimeFormat": {
+                    "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])\s+(0?[1-5]|[0-6][0-9]){1}:(1[012]|0?[1-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?[1-9]|[12][0-9]|3[01]){1}\/((1[012]|0?[1-9]){1}\/\d{2,4}\s+(0?[1-5]|[0-6][0-9]){1}:(1[012]|0?[1-9]){1}:(0?[0-6]|[0-6][0-9]){1}\s+)$/,
                     "alertText": "* Neispravan datum ili format datuma",
                     "alertText2": "Očekivani format: ",
-                    "alertText3": "dd/mm/yyyy hh:mm:ss ili ", 
+                    "alertText3": "dd/mm/yyyy hh:mm:ss ili ",
                     "alertText4": "yyyy-mm-dd hh:mm:ss"
-	            }
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
+                }
             };
-            
+
         }
     };
 
     $.validationEngineLanguage.newLang();
-    
+
 })(jQuery);

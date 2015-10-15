@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -12,7 +11,7 @@
                     "alertTextDateRange": "* Sono richiesti entrambi gli intervalli temporali"
                 },
                 "requiredInFunction": {
-                    "func": function(field, rules, i, options){
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Il campo deve avere valore 'test'"
@@ -88,12 +87,12 @@
                     "alertText": "* Indirizzo non corretto"
                 },
                 "fullname": {
-                    "regex":/^([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]*)+[ ]([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]+)+$/,
-                    "alertText":"* Nome e cognome richiesti"
+                    "regex": /^([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]*)+[ ]([a-zA-Z]+[\'\,\.\-]?[a-zA-Z ]+)+$/,
+                    "alertText": "* Nome e cognome richiesti"
                 },
                 "zip": {
-                    "regex":/^\d{5}$|^\d{5}-\d{4}$/,
-                    "alertText":"* Formato zip non valido"
+                    "regex": /^\d{5}$|^\d{5}-\d{4}$/,
+                    "alertText": "* Formato zip non valido"
                 },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
@@ -105,16 +104,16 @@
                     "alertText": "* Richiesto un numero decimale"
                 },
                 "date": {
-                    //	Check if date is valid by leap year
-                    "func": function (field) {
+                    //  Check if date is valid by leap year
+                    "func": function(field) {
                         var pattern = new RegExp(/^(\d{4})[\/\-\.](0?[1-9]|1[012])[\/\-\.](0?[1-9]|[12][0-9]|3[01])$/);
                         var match = pattern.exec(field.val());
                         if (match == null)
                             return false;
 
                         var year = match[1];
-                        var month = match[2]*1;
-                        var day = match[3]*1;
+                        var month = match[2] * 1;
+                        var day = match[3] * 1;
                         var date = new Date(year, month - 1, day); // because months starts from 0.
 
                         return (date.getFullYear() == year && date.getMonth() == (month - 1) && date.getDate() == day);
@@ -137,7 +136,7 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Solo lettere"
                 },
-                "onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
                     "alertText": "* Solo lettere (è possibile inserire lettere accentate)"
                 },
@@ -184,7 +183,7 @@
                     "alertText": "* Prego inserire 'HELLO'"
                 },
                 //tls warning:homegrown not fielded
-                "dateFormat":{
+                "dateFormat": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$|^(?:(?:(?:0?[13578]|1[02])(\/|-)31)|(?:(?:0?[1,3-9]|1[0-2])(\/|-)(?:29|30)))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(?:(?:0?[1-9]|1[0-2])(\/|-)(?:0?[1-9]|1\d|2[0-8]))(\/|-)(?:[1-9]\d\d\d|\d[1-9]\d\d|\d\d[1-9]\d|\d\d\d[1-9])$|^(0?2(\/|-)29)(\/|-)(?:(?:0[48]00|[13579][26]00|[2468][048]00)|(?:\d\d)?(?:0[48]|[2468][048]|[13579][26]))$/,
                     "alertText": "* Data non valida"
                 },
@@ -195,6 +194,10 @@
                     "alertText2": "Formato richiesto: ",
                     "alertText3": "mm/gg/aaaa oo:mm:ss AM|PM oppure ",
                     "alertText4": "aaaa-mm-gg oo:mm:ss AM|PM"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
 

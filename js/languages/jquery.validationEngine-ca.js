@@ -1,9 +1,7 @@
-﻿
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+﻿(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -11,8 +9,8 @@
                     "alertTextCheckboxMultiple": "* Si us plau seleccioni una opció",
                     "alertTextCheckboxe": "* Aquest checkbox és obligatori"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* El contingut del camp ha de ser igual a test"
@@ -22,7 +20,7 @@
                     "alertText": "* Mínimo de ",
                     "alertText2": " caràcters autoritzats"
                 },
-				"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* Deu omplir almenys un dels següents camps"
                 },
@@ -31,7 +29,7 @@
                     "alertText": "* Màxim de ",
                     "alertText2": " caràcters autoritzats"
                 },
-		        "min": {
+                "min": {
                     "regex": "none",
                     "alertText": "* El valor mínim és "
                 },
@@ -39,14 +37,14 @@
                     "regex": "none",
                     "alertText": "* El valor màxim és "
                 },
-		        "past": {
+                "past": {
                     "regex": "none",
                     "alertText": "* Data anterior a "
                 },
                 "future": {
                     "regex": "none",
                     "alertText": "* Data posterior a "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* S'ha excedit número d'opcions permeses"
@@ -88,7 +86,7 @@
                     "alertText": "* Data invàlida, si us play uilitzi el format DD/MM/AAAA"
                 },
                 "ipv4": {
-                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
+                    "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* Adreça IP invàlida"
                 },
                 "url": {
@@ -99,11 +97,11 @@
                     "regex": /^[0-9\ ]+$/,
                     "alertText": "* Només números"
                 },
-			    "onlyLetterSp": {
+                "onlyLetterSp": {
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Només lletres"
                 },
-				"onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
                     "alertText": "* Només lletres"
                 },
@@ -111,31 +109,34 @@
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* No es permeten caràcters especials"
                 },
-				// --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
+                // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
                     "url": "ajaxValidateFieldUser",
-					// you may want to pass extra data on the ajax call
+                    // you may want to pass extra data on the ajax call
                     "extraData": "name=eric",
                     "alertTextLoad": "* Carregant, esperi si us plau",
                     "alertText": "* Aquest nom d'usuari ja es troba en ús"
                 },
                 "ajaxNameCall": {
-					// remote json service location
+                    // remote json service location
                     "url": "ajaxValidateFieldName",
-					// error
+                    // error
                     "alertText": "* Aquest nom d'usuari ja es troba en ús",
-					// if you provide an "alertTextOk", it will show as a green prompt when the field validates
+                    // if you provide an "alertTextOk", it will show as a green prompt when the field validates
                     "alertTextOk": "* Aquest nom est à disponible",
-					// speaks by itself
+                    // speaks by itself
                     "alertTextLoad": "* Carregant, esperi si us plau"
                 },
                 "validate2fields": {
                     "alertText": "* Si us plau, introduir HELLO"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
-            
+
         }
     };
     $.validationEngineLanguage.newLang();
 })(jQuery);
-

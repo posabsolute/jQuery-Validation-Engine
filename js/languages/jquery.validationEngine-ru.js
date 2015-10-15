@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-	};
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -10,8 +9,8 @@
                     "alertTextCheckboxMultiple": "* Вы должны выбрать вариант",
                     "alertTextCheckboxe": "* Необходимо отметить"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Значением поля должно быть test"
@@ -26,7 +25,7 @@
                     "alertText": "* Максимум ",
                     "alertText2": " символа(ов)"
                 },
-		"groupRequired": {
+                "groupRequired": {
                     "regex": "none",
                     "alertText": "* Вы должны заполнить одно из следующих полей"
                 },
@@ -45,7 +44,7 @@
                 "future": {
                     "regex": "none",
                     "alertText": "* Дата от "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* Нельзя выбрать столько вариантов"
@@ -87,7 +86,7 @@
                     "alertText": "* Неправильная дата (должно быть в ДД.MM.ГГГГ формате)"
                 },
                 "ipv4": {
-                	"regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
+                    "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
                     "alertText": "* Неправильный IP-адрес"
                 },
                 "url": {
@@ -126,11 +125,14 @@
                 },
                 "validate2fields": {
                     "alertText": "* Пожалуйста, введите HELLO"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
-            
+
         }
     };
     $.validationEngineLanguage.newLang();
 })(jQuery);
-

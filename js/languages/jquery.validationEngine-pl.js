@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -10,8 +9,8 @@
                     "alertTextCheckboxMultiple": "* Proszę wybrać opcję",
                     "alertTextCheckboxe": "* Pole wymagane"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Field must equal test"
@@ -26,9 +25,9 @@
                     "alertText": "* Maksymalna liczba znaków to ",
                     "alertText2": ""
                 },
-	            "groupRequired": {
+                "groupRequired": {
                     "regex": "none",
-                   "alertText": "* Proszę wypełnić wymienione opcje"
+                    "alertText": "* Proszę wypełnić wymienione opcje"
                 },
                 "min": {
                     "regex": "none",
@@ -45,7 +44,7 @@
                 "future": {
                     "regex": "none",
                     "alertText": "* Data musi być późniejsza niż "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* Przekroczona maksymalna liczba opcji"
@@ -91,36 +90,38 @@
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
                     "alertText": "* Data musi być w postaci RRRR-MM-DD"
                 },
-                "nip":{
-                    "func": function(field, rules, i, options){
+                "nip": {
+                    "func": function(field, rules, i, options) {
                         var nipNumber = field.val().replace(/[\s-]/gi, '');
-                        var verificator_nip = new Array(6,5,7,2,3,4,5,6,7);
+                        var verificator_nip = new Array(6, 5, 7, 2, 3, 4, 5, 6, 7);
                         if (nipNumber.length == 10) {
-                            var n=0;
-                            for (var i=0; i<9; i++) 
-                            {
-                                n += nipNumber[i] * verificator_nip[i]; 
+                            var n = 0;
+                            for (var i = 0; i < 9; i++) {
+                                n += nipNumber[i] * verificator_nip[i];
                             }
                             n %= 11;
-                            if (n == nipNumber[9]) {return true;} 
+                            if (n == nipNumber[9]) {
+                                return true;
+                            }
                         }
                         return false;
                     },
                     "alertText": "* Nieprawidłowy numer NIP"
                 },
-                "pesel":{
-                    "func": function(field, rules, i, options){
+                "pesel": {
+                    "func": function(field, rules, i, options) {
                         var pesel = field.val().replace(/[\s-]/gi, '');
-                        var peselArr = new Array(1,3,7,9,1,3,7,9,1,3);
-                        if(pesel.length == 11){
-                            var peselCRC=0;
-                            for (var i=0; i<10;i++){
-                                peselCRC += peselArr[i]*pesel[i];
+                        var peselArr = new Array(1, 3, 7, 9, 1, 3, 7, 9, 1, 3);
+                        if (pesel.length == 11) {
+                            var peselCRC = 0;
+                            for (var i = 0; i < 10; i++) {
+                                peselCRC += peselArr[i] * pesel[i];
                             }
-                            peselCRC%=10;
-                            if(peselCRC == 0) peselCRC=10;
-                                peselCRC = 10 - peselCRC;
-                            if(pesel[10]==peselCRC) return true; else return false;                            
+                            peselCRC %= 10;
+                            if (peselCRC == 0) peselCRC = 10;
+                            peselCRC = 10 - peselCRC;
+                            if (pesel[10] == peselCRC) return true;
+                            else return false;
                         }
                     },
                     "alertText": "* Nieprawidłowy numer PESEL"
@@ -141,7 +142,7 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Tylko litery"
                 },
-				"onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
                     "alertText": "* Tylko litery"
                 },
@@ -169,6 +170,10 @@
                 },
                 "validate2fields": {
                     "alertText": "* Proszę wpisać HELLO"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
         }

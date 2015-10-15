@@ -1,8 +1,7 @@
-(function($){
-    $.fn.validationEngineLanguage = function(){
-    };
+(function($) {
+    $.fn.validationEngineLanguage = function() {};
     $.validationEngineLanguage = {
-        newLang: function(){
+        newLang: function() {
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
@@ -10,8 +9,8 @@
                     "alertTextCheckboxMultiple": "* Yksi valikoima, kiitos",
                     "alertTextCheckboxe": "* Tarkistusmerkki on pakollinen"
                 },
-                "requiredInFunction": { 
-                    "func": function(field, rules, i, options){
+                "requiredInFunction": {
+                    "func": function(field, rules, i, options) {
                         return (field.val() == "test") ? true : false;
                     },
                     "alertText": "* Field must equal test"
@@ -41,7 +40,7 @@
                 "future": {
                     "regex": "none",
                     "alertText": "* Päivämäärä jälkeen "
-                },	
+                },
                 "maxCheckbox": {
                     "regex": "none",
                     "alertText": "* Enintään ",
@@ -99,16 +98,20 @@
                     "regex": /^[a-zA-Z\ \']+$/,
                     "alertText": "* Ainoastaan kirjaimin"
                 },
-				"onlyLetterAccentSp":{
+                "onlyLetterAccentSp": {
                     "regex": /^[a-z\u00C0-\u017F\ ]+$/i,
                     "alertText": "* Ainoastaan kirjaimin"
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
                     "alertText": "* Erikoismerkit eivät ole sallittuja"
+                },
+                "hexcolor": {
+                    "regex": /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+                    "alertText": "* Invalid color"
                 }
             };
-            
+
         }
     };
     $.validationEngineLanguage.newLang();
