@@ -133,17 +133,21 @@
 				element.removeClass('validating');
 			} else {
 				// field validation
-		                var form = element.closest('form, .validationEngineContainer');
-		                options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults;
-		                valid = methods._validateField(element, options);
-		
-		                if (valid && options.onFieldSuccess)
-		                    options.onFieldSuccess();
-		                else if (options.onFieldFailure && options.InvalidFields.length > 0) {
-		                    options.onFieldFailure();
-		                }
-		
-		                return !valid;
+                var form = element.closest('form, .validationEngineContainer');
+				if(userOptions) {
+					options = methods._mergeWithFormOptions(form, userOptions);
+				} else {
+	                options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults;
+				}
+                valid = methods._validateField(element, options);
+
+                if (valid && options.onFieldSuccess)
+                    options.onFieldSuccess();
+                else if (options.onFieldFailure && options.InvalidFields.length > 0) {
+                    options.onFieldFailure();
+                }
+
+                return !valid;
 			}
 			if(options.onValidationComplete) {
 				// !! ensures that an undefined return is interpreted as return false but allows a onValidationComplete() to possibly return true and have form continue processing
@@ -1984,7 +1988,20 @@
 			 form.data('jqv', userOptions);
 			 return userOptions;
 		 },
-
+		/**
+		 * Merge the user options for field validation with the form validaton options or otherwise with the defaults
+		 *
+		 * @param {jqObject}
+		 *            form - the form where the user option should be saved
+		 * @param {Map}
+		 *            options - the user options
+		 * @return the user options (extended from the form options)
+		 */
+		 _mergeWithFormOptions: function(form, userOptions) {
+			 var options = form.data('jqv') ? form.data('jqv') : $.validationEngine.defaults;
+			 options = $.extend(true,{},options,userOptions);
+			 return options;
+		 },
 		 /**
 		 * Removes forbidden characters from class name
 		 * @param {String} className
