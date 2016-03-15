@@ -143,7 +143,7 @@
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
-                    "alertText": "alertText": "* ไม่สามารถใช้อักษรพิเศษ"
+                    "alertText": "* ไม่สามารถใช้อักษรพิเศษ"
                 },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
