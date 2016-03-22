@@ -8,7 +8,7 @@
                     "regex": "none",
                     "alertText": "* Campo obrigatório",
                     "alertTextCheckboxMultiple": "* Selecione uma opção",
-					"alertTextCheckboxe": "* Selecione uma ou mais opções",
+		    "alertTextCheckboxe": "* Assinale a caixa de seleção",
                     "alertTextDateRange": "* Ambos os campos de datas são obrigatórios"
                 },
                 "requiredInFunction": { 
