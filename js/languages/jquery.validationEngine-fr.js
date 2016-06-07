@@ -99,11 +99,11 @@
                     "alertText": "* Seuls les chiffres sont acceptés"
                 },
                 "onlyLetterSp": {
-                    "regex": /^[a-zA-Z\u00C0-\u00D6\u00D9-\u00F6\u00F9-\u00FD\ \']+$/,
+                    "regex": /^[a-zA-Z\u0152\u0153\u0178\u00C0-\u00D6\u00D9-\u00F6\u00F9-\u00FD\u00FF\ \']+$/,
                     "alertText": "* Seules les lettres sont acceptées"
                 },
                 "onlyLetterNumber": {
-                    "regex": /^[0-9a-zA-Z\u00C0-\u00D6\u00D9-\u00F6\u00F9-\u00FD]+$/,
+                    "regex": /^[0-9a-zA-Z\u0152\u0153\u0178\u00C0-\u00D6\u00D9-\u00F6\u00F9-\u00FD\u00FF]+$/,
                     "alertText": "* Aucun caractère spécial n'est accepté"
                 },
 				// --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
