@@ -6,9 +6,9 @@
             $.validationEngineLanguage.allRules = {
                 "required": { // Add your regex rules here, you can take telephone as an example
                     "regex": "none",
-                    "alertText": "* 此欄位不可空白",
-                    "alertTextCheckboxMultiple": "* 請選擇一個項目",
-                    "alertTextCheckboxe": "* 您必需勾選此欄位",
+                    "alertText": "* 必須填寫",
+                    "alertTextCheckboxMultiple": "* 請選擇",
+                    "alertTextCheckboxe": "* 請剔選方格",
                     "alertTextDateRange": "* 日期範圍欄位都不可空白"
                 },
                 "requiredInFunction": { 
@@ -29,13 +29,13 @@
                 },
                 "minSize": {
                     "regex": "none",
-                    "alertText": "* 最少 ",
-                    "alertText2": " 個字元"
+                    "alertText": "* 請輸入 ",
+                    "alertText2": " 字以上"
                 },
                 "maxSize": {
                     "regex": "none",
-                    "alertText": "* 最多 ",
-                    "alertText2": " 個字元"
+                    "alertText": "* 最多可輸入 ",
+                    "alertText2": " 字"
                 },
 				"groupRequired": {
                     "regex": "none",
@@ -43,76 +43,80 @@
                 },
                 "min": {
                     "regex": "none",
-                    "alertText": "* 最小值為 "
+                    "alertText": "* 請輸入不小於 ",
+                    "alertText2": "* 的數值"
                 },
                 "max": {
                     "regex": "none",
-                    "alertText": "* 最大值為 "
+                    "alertText": "* 請輸入不大於 ",
+                    "alertText2": "* 的數值"
                 },
                 "past": {
                     "regex": "none",
-                    "alertText": "* 日期必需早於 "
+                    "alertText": "* 請輸入 ",
+                    "alertText2": "* 或之前的日期",
                 },
                 "future": {
                     "regex": "none",
-                    "alertText": "* 日期必需晚於 "
+                    "alertText": "* 請輸入",
+                    "alertText2": "* 以後的日期"
                 },	
                 "maxCheckbox": {
                     "regex": "none",
-                    "alertText": "* 最多選取 ",
-                    "alertText2": " 個項目"
+                    "alertText": "* ",
+                    "alertText2": " 剔選項目過多"
                 },
                 "minCheckbox": {
                     "regex": "none",
-                    "alertText": "* 請選取 ",
-                    "alertText2": " 個項目"
+                    "alertText": "* 請剔選 ",
+                    "alertText2": " 個以上"
                 },
                 "equals": {
                     "regex": "none",
-                    "alertText": "* 欄位內容不相符"
+                    "alertText": "* 輸入的數值不一致"
                 },
                 "creditCard": {
                     "regex": "none",
-                    "alertText": "* 无效的信用卡号码"
+                    "alertText": "* 信用卡號碼無效"
                 },
                 "phone": {
                     // credit: jquery.h5validate.js / orefalo
                     "regex": /^([\+][0-9]{1,3}([ \.\-])?)?([\(][0-9]{1,6}[\)])?([0-9 \.\-]{1,32})(([A-Za-z \:]{1,11})?[0-9]{1,4}?)$/,
-                    "alertText": "* 無效的電話號碼"
+                    "alertText": "* 電話號碼輸入不正確"
                 },
                 "email": {
                     // Shamelessly lifted from Scott Gonzalez via the Bassistance Validation plugin http://projects.scottsplayground.com/email_address_validation/
                     "regex": /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i,
-                    "alertText": "* Invalid email address"
+                    "alertText": "* 電子郵件地址無效"
                 },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
-                    "alertText": "* 不是有效的整數"
+                    "alertText": "* 請以半形文字輸入整數"
                 },
                 "number": {
                     // Number, including positive, negative, and floating decimal. credit: orefalo
                     "regex": /^[\-\+]?((([0-9]{1,3})([,][0-9]{3})*)|([0-9]+))?([\.]([0-9]+))?$/,
-                    "alertText": "* 無效的數字"
+                    "alertText": "* 請以半形文字輸入數值"
                 },
                 "date": {
                     "regex": /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/,
-                    "alertText": "* 無效的日期，格式必需為 YYYY-MM-DD"
+                    "alertText": "* 請以YYYY-MM-DD格式及半形文字輸入日期"
                 },
                 "ipv4": {
                     "regex": /^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/,
-                    "alertText": "* 無效的 IP 位址"
+                    "alertText": "* IP位址無效"
                 },
                 "url": {
                     "regex": /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i,
-                    "alertText": "* Invalid URL"
+                    "alertText": "* 網站連結無效"
                 },
                 "onlyNumberSp": {
                     "regex": /^[0-9\ ]+$/,
-                    "alertText": "* 只能填數字"
+                    "alertText": "* 請以半形數字輸入"
                 },
                 "onlyLetterSp": {
                     "regex": /^[a-zA-Z\ \']+$/,
-                    "alertText": "* 只接受英文字母大小寫"
+                    "alertText": "* 請輸入半形字母"
                 },
 				"onlyLetterAccentSp":{
                     "regex": /^[a-z\u00C0-\u017F\ \']+$/i,
@@ -120,7 +124,7 @@
                 },
                 "onlyLetterNumber": {
                     "regex": /^[0-9a-zA-Z]+$/,
-                    "alertText": "* 不接受特殊字元"
+                    "alertText": "* 請輸入半形數字或英文"
                 },
                 // --- CUSTOM RULES -- Those are specific to the demos, they can be removed or changed to your likings
                 "ajaxUserCall": {
