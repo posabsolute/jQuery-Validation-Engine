@@ -567,7 +567,7 @@
 			var required = false;
 			var limitErrors = false;
 			options.isError = false;
-			options.showArrow = true;
+			options.showArrow = options.showArrow ==true;
 
 			// If the programmer wants to limit the amount of error messages per field,
 			if (options.maxErrorsPerField > 0) {
