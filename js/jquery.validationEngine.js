@@ -136,13 +136,13 @@
 		                var form = element.closest('form, .validationEngineContainer');
 		                options = (form.data('jqv')) ? form.data('jqv') : $.validationEngine.defaults;
 		                valid = methods._validateField(element, options);
-		
+
 		                if (valid && options.onFieldSuccess)
 		                    options.onFieldSuccess();
 		                else if (options.onFieldFailure && options.InvalidFields.length > 0) {
 		                    options.onFieldFailure();
 		                }
-		
+
 		                return !valid;
 			}
 			if(options.onValidationComplete) {
@@ -225,11 +225,11 @@
 		 /**
 		 * Closes all error prompts on the page
 		 */
-		 hideAll: function() {             
+		 hideAll: function() {
 			 var form = this;
 			 var options = form.data('jqv');
 			 var duration = options ? options.fadeDuration:300;
-			 $('.formError').fadeTo(duration, 0, function() {                 
+			 $('.formError').fadeTo(duration, 0, function() {
 				 $(this).closest('.formError').remove();
 			 });
 			 return this;
@@ -765,7 +765,7 @@
 			var fieldType = field.prop("type");
 			var positionType=field.data("promptPosition") || options.promptPosition;
 
-			if ((fieldType == "radio" || fieldType == "checkbox") && form.find("input[name='" + fieldName + "']").size() > 1) {
+			if ((fieldType == "radio" || fieldType == "checkbox") && form.find("input[name='" + fieldName + "']").length > 1) {
 				if(positionType === 'inline') {
 					field = $(form.find("input[name='" + fieldName + "'][type!=hidden]:last"));
 				} else {
@@ -965,8 +965,8 @@
 					// old validation style
 					var form = field.closest("form, .validationEngineContainer");
 					var name = field.attr("name");
-					if (form.find("input[name='" + name + "']:checked").size() == 0) {
-						if (form.find("input[name='" + name + "']:visible").size() == 1)
+					if (form.find("input[name='" + name + "']:checked").length == 0) {
+						if (form.find("input[name='" + name + "']:visible").length == 1)
 							return options.allrules[rules[i]].alertTextCheckboxe;
 						else
 							return options.allrules[rules[i]].alertTextCheckboxMultiple;
@@ -1338,7 +1338,7 @@
 
 			var nbCheck = rules[i + 1];
 			var groupname = field.attr("name");
-			var groupSize = form.find("input[name='" + groupname + "']:checked").size();
+			var groupSize = form.find("input[name='" + groupname + "']:checked").length;
 			if (groupSize > nbCheck) {
 				options.showArrow = false;
 				if (options.allrules.maxCheckbox.alertText2)
@@ -1360,7 +1360,7 @@
 
 			var nbCheck = rules[i + 1];
 			var groupname = field.attr("name");
-			var groupSize = form.find("input[name='" + groupname + "']:checked").size();
+			var groupSize = form.find("input[name='" + groupname + "']:checked").length;
 			if (groupSize < nbCheck) {
 				options.showArrow = false;
 				return options.allrules.minCheckbox.alertText + " " + nbCheck + " " + options.allrules.minCheckbox.alertText2;
@@ -1780,7 +1780,7 @@
                     "opacity": 0,
                     "display": "block"
                 });
-                
+
 				if (noAnimation)
 					prompt.css(css);
 				else
