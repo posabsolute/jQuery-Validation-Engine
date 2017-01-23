@@ -1522,7 +1522,7 @@
 								}
 
 								 // If a submit form triggered this, we want to re-submit the form
-								 if (options.eventTrigger == "submit")
+								 if (this.options.eventTrigger == "submit")
 									field.closest("form").submit();
 							 }
 						 }
