@@ -763,7 +763,7 @@
 			// Hack for radio/checkbox group button, the validation go into the
 			// first radio/checkbox of the group
 			var fieldType = field.prop("type");
-			var positionType=field.data("promptPosition") || options.promptPosition;
+			var positionType=field.data("prompt-position") || options.promptPosition;
 
 			if ((fieldType == "radio" || fieldType == "checkbox") && form.find("input[name='" + fieldName + "']").length > 1) {
 				if(positionType === 'inline') {
@@ -1634,7 +1634,7 @@
 			var promptContent = $('<div>').addClass("formErrorContent").html(promptText).appendTo(prompt);
 
 			// determine position type
-			var positionType=field.data("promptPosition") || options.promptPosition;
+			var positionType=field.data("prompt-position") || options.promptPosition;
 
 			// create the css arrow pointing at the field
 			// note that there is no triangle on max-checkbox and radio
@@ -1878,7 +1878,7 @@
 			//   bottomLeft:+20 means bottomLeft position shifted by 20 pixels right horizontally
 			//   topRight:20, -15 means topRight position shifted by 20 pixels to right and 15 pixels to top
 			//You can use +pixels, - pixels. If no sign is provided than + is default.
-			var positionType=field.data("promptPosition") || options.promptPosition;
+			var positionType=field.data("prompt-position") || options.promptPosition;
 			var shift1="";
 			var shift2="";
 			var shiftX=0;
