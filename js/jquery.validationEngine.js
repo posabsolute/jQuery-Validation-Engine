@@ -1980,6 +1980,7 @@
 			 $.validationEngine.defaults.allrules = allRules;
 
 			 var userOptions = $.extend(true,{},$.validationEngine.defaults,options);
+			 userOptions.allrules = allRules;
 
 			 form.data('jqv', userOptions);
 			 return userOptions;
