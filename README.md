@@ -439,7 +439,7 @@ Speaks for itself, fails if the element has no value. This validator can apply t
 <input value="" class="validate[required]" type="text" name="email" id="email" />
 <input class="validate[required]" type="checkbox" id="agree" name="agree"/>
 
-<select name="sport" id="sport" class="validate[required]" id="sport">
+<select name="sport" class="validate[required]" id="sport">
    <option value="">Choose a sport</option>
    <option value="option1">Tennis</option>
    <option value="option2">Football</option>
