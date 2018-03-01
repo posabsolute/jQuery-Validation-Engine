@@ -21,8 +21,8 @@ Bundled with many locales, the error prompts can be translated into the language
 
 Documentation :
 ---
-###[Nicer documention](http://posabsolute.github.com/jQuery-Validation-Engine/)
-###[Release Notes](http://posabsolute.github.com/jQuery-Validation-Engine/releases.html)
+### [Nicer documention](http://posabsolute.github.com/jQuery-Validation-Engine/)
+### [Release Notes](http://posabsolute.github.com/jQuery-Validation-Engine/releases.html)
  
 
 Demo :
