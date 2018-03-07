@@ -83,7 +83,7 @@
                 "email": {
                     // Shamelessly lifted from Scott Gonzalez via the Bassistance Validation plugin http://projects.scottsplayground.com/email_address_validation/
                     "regex": /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                    "alertText": "* Vigane emaili aadres"
+                    "alertText": "* Vigane e-posti aadress"
                 },
                 "integer": {
                     "regex": /^[\-\+]?\d+$/,
