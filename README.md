@@ -878,10 +878,10 @@ Contribution
 ---
 Contributions are always welcome, please follow these steps to submit your changes:
 
-1. Install git from [http://git-scm.com/]()
-2. Create a github account on [https://github.com]()
-3. Set up your git ssh key using these instructions [http://help.github.com/set-up-git-redirect]()
-4. Open the jQuery Validation Engine project home page on github on [https://github.com/posabsolute/jQuery-Validation-Engine]()
+1. Install git from [http://git-scm.com/](http://git-scm.com/)
+2. Create a github account on [https://github.com](https://github.com)
+3. Set up your git ssh key using these instructions [http://help.github.com/set-up-git-redirect](http://help.github.com/set-up-git-redirect)
+4. Open the jQuery Validation Engine project home page on github on [https://github.com/posabsolute/jQuery-Validation-Engine](https://github.com/posabsolute/jQuery-Validation-Engine)
 5. Click the "Fork" button, this will get you to a new page: your own copy of the code.
 6. Copy the SSH URL at the top of the page and clone the repository on your local machine
 
