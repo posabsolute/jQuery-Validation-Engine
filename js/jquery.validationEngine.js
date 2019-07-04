@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 2.6.2, jQuery plugin
+ * Inline Form Validation Engine 3.0.0, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
@@ -17,9 +17,9 @@
 	var methods = {
 
 		/**
-		* Kind of the constructor, called before any action
-		* @param {Map} user options
-		*/
+		 * Kind of the constructor, called before any action
+		 * @param options
+		 */
 		init: function(options) {
 			var form = this;
 			if (!form.data('jqv') || form.data('jqv') == null ) {

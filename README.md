@@ -22,7 +22,7 @@ Bundled with many locales, the error prompts can be translated into the language
 Documentation :
 ---
 ### [Nicer documention](http://posabsolute.github.com/jQuery-Validation-Engine/)
-### [Release Notes](http://posabsolute.github.com/jQuery-Validation-Engine/releases.html)
+### [Release Notes](https://github.com/posabsolute/jQuery-Validation-Engine/releases)
  
 
 Demo :
@@ -35,6 +35,12 @@ Installation
 ---
 
 ### What's in the archive?
+
+Download
+[tar.gz 3.0.0](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v3.0.0.tar.gz)
+or
+[zip 3.0.0](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v3.0.0.zip)
+
 
 The archive holds, of course, the core library along with translations in different languages.
 It also comes with a set of demo pages and a simple ajax server (built in Java and php).
@@ -61,7 +67,7 @@ Usage
 First include jQuery on your page
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/
 javascript"></script>
 ```
     
