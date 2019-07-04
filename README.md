@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.6.2
+jQuery.validationEngine v3.0.0 (under development)
 =====
 
 Looking for official contributors
