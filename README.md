@@ -658,7 +658,7 @@ You can see a tutorial that makes the use of php here: [http://www.position-abso
 ### Field ajax validation
 
 
-####Protocol
+#### Protocol
 
 The client sends the fieldId and the fieldValue as a GET request to the server url.
 
@@ -676,7 +676,7 @@ Server responds with an array: [fieldid, status, errorMsg].
 ### Form ajax validation
 
 
-####Protocol
+#### Protocol
 
 The client sends the form fields and values as a GET request to the form.action url.
 
@@ -692,13 +692,13 @@ Server responds with an *array of arrays*: [fieldid, status, errorMsg].
 
 Note that normally errors (status=false) are returned from the server. However you may also decide to return an entry with a status=true in which case the errorMsg will show as a green prompt.
 
-####Validation URL
+#### Validation URL
 By default the engine use the form action to validate the form, you can however set a default url using:
 
 **ajaxFormValidationURL
 
 
-####Callbacks
+#### Callbacks
 
 Since the form validation is asynchronously delegated to the form action, we provide two callback methods:
 
