@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.6.5
+jQuery.validationEngine v3.0.0
 =====
 
 Looking for official contributors
@@ -37,9 +37,11 @@ Installation
 ### What's in the archive?
 
 Download
-[tar.gz 2.6.5](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v2.6.5.tar.gz)
+
+[tar.gz 3.0.0](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v3.0.0.tar.gz)
 or
-[zip 2.6.5](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v2.6.5.zip)
+[zip 3.0.0](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v3.0.0.zip)
+
 
 The archive holds, of course, the core library along with translations in different languages.
 It also comes with a set of demo pages and a simple ajax server (built in Java and php).
@@ -66,7 +68,7 @@ Usage
 First include jQuery on your page
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js" type="text/
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/
 javascript"></script>
 ```
     

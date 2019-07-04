@@ -1,5 +1,5 @@
 /*****************************************************************
- * Arabic language file for jquery.validationEngine.js (ver2.6.x)
+ * Arabic language file for jquery.validationEngine.js (ver3.0.x)
  *
  * Transrator: @yasser_lotfy ( Yasser Lotfy )
  * http://be.net/YasserLotfy
