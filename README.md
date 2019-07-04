@@ -1,4 +1,4 @@
-jQuery.validationEngine v3.0.0 (under development)
+jQuery.validationEngine v3.0.0
 =====
 
 Looking for official contributors
@@ -37,6 +37,7 @@ Installation
 ### What's in the archive?
 
 Download
+
 [tar.gz 3.0.0](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v3.0.0.tar.gz)
 or
 [zip 3.0.0](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v3.0.0.zip)
