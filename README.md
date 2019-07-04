@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.6.2
+jQuery.validationEngine v2.6.5
 =====
 
 Looking for official contributors
@@ -22,7 +22,7 @@ Bundled with many locales, the error prompts can be translated into the language
 Documentation :
 ---
 ### [Nicer documention](http://posabsolute.github.com/jQuery-Validation-Engine/)
-### [Release Notes](http://posabsolute.github.com/jQuery-Validation-Engine/releases.html)
+### [Release Notes](https://github.com/posabsolute/jQuery-Validation-Engine/releases)
  
 
 Demo :
@@ -35,6 +35,11 @@ Installation
 ---
 
 ### What's in the archive?
+
+Download
+[tar.gz 2.6.5](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v2.6.5.tar.gz)
+or
+[zip 2.6.5](https://github.com/posabsolute/jQuery-Validation-Engine/archive/v2.6.5.zip)
 
 The archive holds, of course, the core library along with translations in different languages.
 It also comes with a set of demo pages and a simple ajax server (built in Java and php).
