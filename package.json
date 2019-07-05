@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/namila/jQuery-Validation-Engine.git"
+    "url": "git+https://github.com/posabsolute/jQuery-Validation-Engine.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/namila/jQuery-Validation-Engine/issues"
+    "url": "https://github.com/posabsolute/jQuery-Validation-Engine/issues"
   },
-  "homepage": "https://github.com/namila/jQuery-Validation-Engine#readme"
+  "homepage": "https://github.com/posabsolute/jQuery-Validation-Engine#readme"
 }
