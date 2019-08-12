@@ -758,9 +758,9 @@ Floating points with an optional sign. ie. -143.22 or .77 but also +234,23
 
 Integers with an optional sign. ie. -635 +2201 738
 
-### ipv4
+### ipv4 and ipv6
 
-An IP address (v4) ie. 127.0.0.1
+An IP address (v4) ie. 127.0.0.1 or v6 2001:0db8:85a3:08d3:1319:8a2e:0370:7344
 
 ### onlyNumberSp
 
