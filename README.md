@@ -45,15 +45,6 @@ It also comes with a set of demo pages and a simple ajax server (built in Java a
 3. Pick the locale of the choice and include it in your page: jquery.validationEngine-XX.js
 4. **Read this manual** and understand the API
 
-
-### Running the Demos
-
-Most demos are fully functional by simply opening their respective HTML file. However, the Ajax demos require the use of Java6 to launch a lightweight http server.
-
-1. Run the script `runDemo.bat` (Windows) or `runDemo.sh` (Unix) from the folder
-2. Open a browser and point it at [http://localhost:9173](http://localhost:9173)
-
-
 Usage
 ---
 
