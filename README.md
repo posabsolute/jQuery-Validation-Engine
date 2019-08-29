@@ -1,4 +1,4 @@
-jQuery.validationEngine v2.6.1
+jQuery.validationEngine v3.1.0
 =====
 
 Summary
