@@ -6,7 +6,7 @@
     "css/validationEngine.jquery.css"
   ],
   "dependencies": {
-    "jquery": ">=1.6"
+    "jquery": ">=1.7"
   },
   "keywords": [
     "form",
