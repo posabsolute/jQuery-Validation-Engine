@@ -25,12 +25,6 @@ Documentation :
 ### [Release Notes](https://github.com/posabsolute/jQuery-Validation-Engine/releases)
  
 
-Demo :
----
-### http://www.position-relative.net/creation/formValidator/
-
-    
-
 Installation
 ---
 
