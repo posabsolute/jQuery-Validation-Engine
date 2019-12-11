@@ -1,5 +1,5 @@
 /*
- * Inline Form Validation Engine 3.0.0, jQuery plugin
+ * Inline Form Validation Engine 3.1.1, jQuery plugin
  *
  * Copyright(c) 2010, Cedric Dugas
  * http://www.position-absolute.com
