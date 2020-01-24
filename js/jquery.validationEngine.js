@@ -202,9 +202,12 @@
 		},
 		/**
 		* Closes form error prompts, CAN be invidual
+		* Fixed issue (hide) hiding all error prompts?!
+		* (https://github.com/posabsolute/jQuery-Validation-Engine/issues/966)
 		*/
 		hide: function() {
 			 var form = $(this).closest('form, .validationEngineContainer');
+			 var field = $(this).attr("id");
 			 var options = form.data('jqv');
 			 // No option, take default one
 			 if (!options)
@@ -213,12 +216,12 @@
 			 var closingtag;
 
 			 if(form.is("form") || form.hasClass("validationEngineContainer")) {
-				 closingtag = "parentForm"+methods._getClassName($(form).attr("id"));
+				 closingtag = methods._getClassName(field) +"formError";
 			 } else {
-				 closingtag = methods._getClassName($(form).attr("id")) +"formError";
+				 closingtag = "parentForm"+methods._getClassName(field);
 			 }
 			 $('.'+closingtag).fadeTo(fadeDuration, 0, function() {
-				 $(this).closest('.formError').remove();
+				 $('.'+closingtag).remove();
 			 });
 			 return this;
 		 },
