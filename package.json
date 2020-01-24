@@ -1,0 +1,25 @@
+{
+  "name": "jquery-validation-engine",
+  "version": "1.0.0",
+  "description": "jQuery.validationEngine v2.6.2 =====",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies":{
+    "jquery": ">=1.6"  
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/posabsolute/jQuery-Validation-Engine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/posabsolute/jQuery-Validation-Engine/issues"
+  },
+  "homepage": "https://github.com/posabsolute/jQuery-Validation-Engine#readme"
+}
