@@ -1503,6 +1503,7 @@
 								 if (options.showPrompts) methods._showPrompt(errorField, msg, "", true, options);
 							 } else {
 								 options.ajaxValidCache[errorFieldId] = true;
+								 options.isError = false;
 
 								 // resolves the msg prompt
 								 if(msg) {
