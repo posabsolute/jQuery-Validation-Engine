@@ -990,7 +990,15 @@
 						|| ( dv_placeholder && field_val == dv_placeholder )
 						|| ( placeholder    && field_val == placeholder    )
 					) {
-						return options.allrules[rules[i]].alertText;
+						//return options.allrules[rules[i]].alertText;
+						//Adding functionalities to add place holder text instead of a static text
+						//'* This filed is required' will be 'First Name is required'
+						//where html control's placeholder value is 'First Name*'
+						var txt = options.allrules[rules[i]].alertText;
+                        			if (placeholder && placeholder.trim() != "") {
+                            				txt = txt.replace("This field", placeholder.replace("*", ""));
+                        				}
+                        			return txt;
 					}
 					break;
 			}
