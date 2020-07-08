@@ -551,7 +551,7 @@
 			if(field.hasClass(options.ignoreFieldsWithClass))
 				return false;
 
-           if (!options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
+           if (field.closest('.noValidate').length > 0 || !options.validateNonVisibleFields && (field.is(":hidden") && !options.prettySelect || field.parent().is(":hidden")))
 				return false;
 
 			var rulesParsing = field.attr(options.validateAttribute);
@@ -731,6 +731,10 @@
 					}
 				}
 
+				if (typeof errorMsg == 'string' && options.onBeforePromptType){
+					options.onBeforePromptType(field);
+				}
+				
 				//funcCallRequired, first in rules, and has error, skip anything else
 				if( i==0 && str.indexOf('funcCallRequired')==0 && errorMsg !== undefined ){
 					if(promptText != '') {
@@ -2138,6 +2142,7 @@
 		onFieldFailure: false,
 		onSuccess: false,
 		onFailure: false,
+		onBeforePromptType: false,
 		validateAttribute: "class",
 		addSuccessCssClassToField: "",
 		addFailureCssClassToField: "",
